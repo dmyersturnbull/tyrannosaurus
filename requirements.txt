@@ -1,0 +1,5 @@
+click                  >=7.1,<8.0
+pur                    >=5.3,<6.0
+pipreqs                >=0.4,<1.0
+hypothesis[test]       >=5.8,<6.0
+pytest[test]           >=5.4,<6.0

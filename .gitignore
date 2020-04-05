@@ -1,0 +1,29 @@
+# General
+.*
+~*
+*~
+*#
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info
+pip-wheel-metadata
+env/
+build/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+docs/_build
+
+# Keep these:
+!/.gitignore
+!/.travis.yml
+!/.readthedocs.yml
