@@ -7,7 +7,7 @@ PyPi](https://badge.fury.io/py/tyrannosaurus.svg)](https://pypi.org/project/tyra
 versions](https://img.shields.io/pypi/pyversions/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
 [![Documentation
 status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/tyrannosaurus/)
-[![Travis](https://travis-ci.org/kokellab/tyrannosaurus.svg?branch=master)](https://travis-ci.org/kokellab/tyrannosaurus)
+[![Travis](https://travis-ci.org/dmyersturnbull/tyrannosaurus.svg?branch=master)](https://travis-ci.org/kokellab/tyrannosaurus)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 1. Generate Python projects set up with modern tools, including [Tox](https://github.com/tox-dev/tox), PyPi, and Anaconda.
