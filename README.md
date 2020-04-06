@@ -7,7 +7,7 @@ PyPi](https://badge.fury.io/py/tyrannosaurus.svg)](https://pypi.org/project/tyra
 versions](https://img.shields.io/pypi/pyversions/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
 [![Documentation
 status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/tyrannosaurus/)
-[![Travis](https://travis-ci.org/dmyersturnbull/tyrannosaurus.svg?branch=master)](https://travis-ci.org/kokellab/tyrannosaurus)
+[![Travis](https://travis-ci.org/dmyersturnbull/tyrannosaurus.svg?branch=master)](https://travis-ci.org/dmyersturnbull/tyrannosaurus)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 1. Generate Python projects set up with modern tools, including [Tox](https://github.com/tox-dev/tox), PyPi, and Anaconda.
@@ -108,7 +108,7 @@ Please note that lock files for pipenv and poetry are not affected by design.
 
 ### building, extending, and contributing
 
-[New issues](https://github.com/kokellab/tyrannosaurus/issues) and pull requests are welcome.
+[New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
 
 Tyrannosaurus is bootstrapped—built using itself.
 If you fork it, you can modify its files and install your fork to modify its default project structure.
