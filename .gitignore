@@ -27,3 +27,5 @@ docs/_build
 !/.gitignore
 !/.travis.yml
 !/.readthedocs.yml
+!/.tyrannosaurus
+
