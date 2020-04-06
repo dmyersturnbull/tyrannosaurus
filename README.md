@@ -14,17 +14,16 @@ status](https://readthedocs.org/projects/tyrannosauruspy/badge/?version=latest&s
 2. Update dependencies listed in any format, and find conflicts.
 
 I wrote this after making 18 Git commits trying to configure readthedocs and PyPi.
-This avoids those struggles for 99% of Python projects.
+This avoids that struggle for 99% of projects.
 
 Install with `pip install tyrannosaurus`.
 Create a project with `tyrannosaurus init` for a structure like this one, modify it as you see fit, and use `tyrannosaurus reqs`, `tyrannosaurus bump`,  and/or `tyrannosaurus find` to manage dependencies.
-These commands will keep any requirements.txt, setup.py, and anaconda files in sync, telling you about conflicting, cyclic, and duplicate dependencies.
+These commands will keep any requirements.txt, setup.py, and anaconda files in sync. And they'll tell you about conflicting, cyclic, and duplicate dependencies.
 
 
 ⚠ Not finished yet! The scripts are scattered everywhere. This should be ready in late April.
 
 ### creating a new project
-Just run:
 
 ```
 tyrannosaurus init mynewproject
@@ -50,13 +49,12 @@ tyrannosaurus reqs
 ```
 No pun intended, of course.
 
-You can also update the versions to the most recent available on PyPi and any Anaconda channels specified in an environment.yml:
+You can also update the versions to the most recent available on PyPi and your Anaconda channels:
+It will report inconsistencies between Anaconda channel versions and versions on PyPi.
 
 ```
 tyrannosaurus bump
 ```
-
-It will report inconsistencies between Anaconda channel versions and versions on PyPi.
 
 Finally, you can use [pipreqs](https://github.com/bndr/pipreqs) to find dependencies from your imports:
 
@@ -98,9 +96,9 @@ More information is in the docs.
 Tyrannosaurus is your average mesozoic-era dinosaur, compatible with Python 3.4+. 
 However, you can modify any project it generates as you see fit.
 
-It also knows it's not very intelligent, so it will back up your files first.
+It's not very intelligent, so it will back up your files first.
 For example, it will make a `.requirements.txt.bak-2020-04-05T152203.1151492`.
-You can tell it to clean up with the global `--clean` flag.
+You can tell it to clean up older versions with the global `--clean` flag.
 
 
 ### building, extending, and contributing
@@ -113,7 +111,6 @@ If you fork it, you can modify its files and install your fork to modify its def
 To modify the default `README.md`, modifying this one won't work.
 The same is true for some other files that are also used to describe tyrannosaurus itself.
 Files under `docs/` and `tyrannosaurus/` are not included in new projects.
-
 To work around this, you can add or modify files under `tyrannosaurus/resources/auto/`.
 These files will be copied to new projects.
 In text files, `${{project}}` will be replaced with the project name.
