@@ -1,0 +1,11 @@
+[tool.poetry]
+name = "tyrannosaurus"
+version = "0.0.1"
+description = ""
+authors = ["Douglas Myers-Turnbull"]
+
+[tool.poetry.dependencies]
+python = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.7"

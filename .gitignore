@@ -1,31 +1,50 @@
+# Also see https://github.com/github/gitignore/blob/master/Python.gitignore
+# This is simpler and easier to understand
 # General
 .*
 ~*
 *~
 *#
 Thumbs.db
+*.bak
+*.swp
+tmp/
 
 # Python
 __pycache__/
+__pypackages__/
 *.py[cod]
 *$py.class
-*.so
 *.egg-info
 pip-wheel-metadata
-env/
+share/python-wheels/
 build/
 dist/
-downloads/
 eggs/
-lib/
-lib64/
-parts/
 sdist/
 docs/_build
+cython_debug/
+# these are redundant but definitely unwanted
+.tox/
+.pytest_cache
+.ipynb_checkpoints
+
+# other languages -- just the obvious cases
+*.o
+hs_err_pid*
+*.class
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+deps/deps.jl
 
 # Keep these:
 !/.gitignore
 !/.travis.yml
+!/.circleci/config.yml
+!/.coveragerc
+!/.appveyor.yml
+!/.flake8
 !/.readthedocs.yml
 !/.tyrannosaurus
-
+!/.pre-commit-config.yaml

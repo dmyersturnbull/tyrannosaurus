@@ -59,7 +59,7 @@ class ProjectInfo:
 		'Natural Language :: English',
 		'License :: OSI Approved :: '+classifier_osi_license,
 		'Programming Language :: Python :: 3 :: Only',
-		*['Programming Language :: Python :: 3.'.format(v) for v in range(int(str(min_py_version).split('.')[1]), int(str(max_py_version).split('.')[1])+1)],
+		*['Programming Language :: Python :: 3.'+str(v) for v in range(int(str(min_py_version).split('.')[1]), int(str(max_py_version).split('.')[1])+1)],
 		*['Topic :: Software Development :: '+c for c in classifier_topics],
 		*['Intended Audience :: '+c for c in classifier_audiences],
 		'Operating System :: OS Independent',

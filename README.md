@@ -1,13 +1,13 @@
 # Tyrannosaurus
 
-[![Build status](https://img.shields.io/pypi/status/tyrannosauruspy)](https://pypi.org/project/tyrannosauruspy/)
+[![Build status](https://img.shields.io/pypi/status/tyrannosaurus)](https://pypi.org/project/tyrannosaurus/)
 [![Latest version on
-PyPi](https://badge.fury.io/py/tyrannosauruspy.svg)](https://pypi.org/project/tyrannosauruspy/)
+PyPi](https://badge.fury.io/py/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
 [![Supported Python
-versions](https://img.shields.io/pypi/pyversions/tyrannosauruspy.svg)](https://pypi.org/project/tyrannosauruspy/)
+versions](https://img.shields.io/pypi/pyversions/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
 [![Documentation
-status](https://readthedocs.org/projects/tyrannosauruspy/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/tyrannosauruspy/)
-[![Travis](https://travis-ci.org/kokellab/tyrannosauruspy.svg?branch=master)](https://travis-ci.org/kokellab/tyrannosauruspy)
+status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/tyrannosaurus/)
+[![Travis](https://travis-ci.org/kokellab/tyrannosaurus.svg?branch=master)](https://travis-ci.org/kokellab/tyrannosaurus)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 1. Generate Python projects set up with modern tools, including [Tox](https://github.com/tox-dev/tox), PyPi, and Anaconda.
@@ -18,8 +18,12 @@ This avoids that struggle for 99% of projects.
 
 Install with `pip install tyrannosaurus`.
 Create a project with `tyrannosaurus init` for a structure like this one, modify it as you see fit, and use `tyrannosaurus reqs`, `tyrannosaurus bump`,  and/or `tyrannosaurus find` to manage dependencies.
-These commands will keep any requirements.txt, setup.py, and anaconda files in sync. And they'll tell you about conflicting, cyclic, and duplicate dependencies.
+These commands will keep any requirements.txt, setup.py, Pipfile, Poetry dependencies, conda recipes, and Anaconda environment files in sync. And they'll tell you about conflicting, cyclic, and duplicate dependencies.
 
+**Non-goal:**
+This little project does not introduce a new abstraction for dependency management.
+It only makes it easier to start new projects and sync or migrate between formats.
+[Anaconda](https://anaconda.org/), [conda-forge](https://conda-forge.org/), [pipenv](https://github.com/pypa/pipenv), and [poetry](https://github.com/python-poetry/poetry) are great places to look.
 
 ⚠ Not finished yet! The scripts are scattered everywhere. This should be ready in late April.
 
@@ -40,7 +44,7 @@ You can choose another license with `tyrannosaurus init mynewproject --license "
 ### managing dependencies
 
 Tyrannosaurus's best feature is managing and translating dependencies.
-It keeps your dependencies consistent between requirements.txt, conda build files, anaconda environment files, and setup.py files.
+It keeps your dependencies consistent between requirements.txt, conda recipes, Anaconda environment files, Pipfiles (pipenv), and setup.py files.
 If there is a merge conflict, it will keep the highest version.
 Just run:
 
@@ -100,10 +104,11 @@ It's not very intelligent, so it will back up your files first.
 For example, it will make a `.requirements.txt.bak-2020-04-05T152203.1151492`.
 You can tell it to clean up older versions with the global `--clean` flag.
 
+Please note that lock files for pipenv and poetry are not affected by design.
 
 ### building, extending, and contributing
 
-[New issues](https://github.com/kokellab/tyrannosauruspy/issues) and pull requests are welcome.
+[New issues](https://github.com/kokellab/tyrannosaurus/issues) and pull requests are welcome.
 
 Tyrannosaurus is bootstrapped—built using itself.
 If you fork it, you can modify its files and install your fork to modify its default project structure.
@@ -120,7 +125,11 @@ In text files, `${{project}}` will be replaced with the project name.
 
 Tyrannosaurus was developed by Douglas Myers-Turnbull and is licensed under the [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
-Related projects, which tyrannosaurus uses:
+Related projects, some of which tyrannosaurus uses:
+- [anaconda](https://anaconda.org/)
+- [conda-forge](https://conda-forge.org/)
+- [pipenv](https://github.com/pypa/pipenv)
+- [poetry](https://github.com/python-poetry/poetry), which is excellent
 - [pipreqs](https://github.com/bndr/pipreqs), which finds imports
 - [pur](https://github.com/alanhamlett/pip-update-requirements), which searches pypi
 - [pipdeptree](https://github.com/naiquevin/pipdeptree), which builds a dependency tree
@@ -128,6 +137,7 @@ Related projects, which tyrannosaurus uses:
 - [pip-check](https://github.com/bartTC/pip-check/), which formats `pip list` output
 - [pip-chill](https://github.com/rbanffy/pip-chill), which lists top-level dependencies
 - the [pip check](https://pip.pypa.io/en/stable/reference/pip_check) command, which doesn't do what you might hope
+- [python-semantic-release](https://github.com/relekang/python-semantic-release), which is not used
 
 ```
                                               .++++++++++++.  
