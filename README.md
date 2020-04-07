@@ -19,17 +19,21 @@ status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&sty
 - Resolve dependencies. See Poetry or Anaconda for this!
 - Introduce a new path to list dependencies.
 
-##### how to use it:
+##### How to use it:
 
 1. Install with `pip install tyrannosaurus`.
 2. Create a project with `tyrannosaurus new`. Modify as you see fit.
 4. Use `tyrannosaurus reqs` to synchronize your dependencies and project info (version number, description).
 5. Optionally, run `tyrannosaurus reqs --latest`. This interfaces with Poetry and Conda-Forge to find package updates.
 
+##### Conflict identification:
+
 Poetry and Conda (and pipenv) are full dependency managers capable of identifying and resolving conflicts.
 Tyrannosaurus is just smart enough to tell you when versions from Conda and PyPi cannot match.
 
-⚠ Not finished yet! The scripts are scattered everywhere. This should be ready in late April.
+##### ⚠ Status:
+
+Not finished yet! The scripts are scattered everywhere. This should be ready in late April.
 
 ### creating a new project
 
@@ -45,9 +49,12 @@ You can modify your project freely after, and tyrannosaurus will still understan
 Of course, `new` also has some command-line options. Run `tyrannosaurus new --help` to see them.
 You can choose another license with `tyrannosaurus init mynewproject --license "MIT"`.
 
-### managing dependencies
+### Managing dependencies
 
 Tyrannosaurus's best feature is managing and translating dependencies.
+
+##### Synchronizing dependencies:
+
 It keeps your dependencies consistent between requirements.txt, conda recipes, Anaconda environment files, Pipfiles (pipenv), and setup.py files.
 If there is a merge conflict, it will keep the highest version.
 Just run:
@@ -56,8 +63,17 @@ Just run:
 tyrannosaurus reqs
 ```
 No pun intended, of course.
+
+##### Finding new versions on repositories
+
 You can also update the versions to the most recent available on PyPi and your Anaconda channels:
 It will report inconsistencies between Anaconda channel versions and versions on PyPi.
+
+```
+tyrannosaurus reqs --latest
+```
+
+##### Preferred version ranges:
 
 By default, tyrannosaurus will use choose version ranges corresponding to the latest major version
 The rationale is that compatibility with any minor version is guaranteed but compatibility with a new major version is not.
@@ -65,9 +81,7 @@ For example, if `5.8.2` is the latest, it will choose `>=5.8,<6.0`.
 A good package manager will choose `5.8.2` over `5.8` if it can, but would of course reject `4.0` and `6.0` 
 This behavior can be configured (see below).
 
-```
-tyrannosaurus reqs --latest
-```
+##### Finding dependencies with pipreqs:
 
 You can also use [pipreqs](https://github.com/bndr/pipreqs) to find dependencies from your imports.
 This will find packages for your imports, assume the latest versions, verify, and add them to your lists.
@@ -76,9 +90,12 @@ This will find packages for your imports, assume the latest versions, verify, an
 tyrannosaurus reqs --find
 ```
 
+##### Handling dependency conflicts:
+
 All of these commands will tell you about dependency conflicts through Anaconda and/or Poetry, unless neither are installed.
 If you only want to find conflicts and mismatches between your lists, call `tyrannosaurus check`.
 
+##### Getting help:
 You can always run `tyrannosaurus help` for usage help.
 For reference, here are the commands:
 - `tyrannosaurus new`
@@ -87,7 +104,7 @@ For reference, here are the commands:
 - `tyrannosaurus check`
 - `tyrannosaurus help`
 
-### optional dependencies
+##### Listing optional dependencies:
 
 You can distinguish between requirements and optional dependencies.
 For example, your requirements.txt might look like this:
@@ -102,7 +119,7 @@ Unfortunately, `environment.yml` files don't support optional dependencies.
 We get around this using comments starting with `# @`. See the docs for more info.
 
 
-### configuring
+### Configuring
 
 Occasionally you may need to modify tyrannosaurus's behavior.
 For example, you may want it to leave your `requirements.txt` untouched or modify a file called `all-requirements.txt`.
@@ -111,7 +128,7 @@ To do this, add a `.tyrannosaurus` file in your root.
 More information is in the docs.
 
 
-### compatibility and problems
+### Compatibility and problems
 
 Tyrannosaurus is your average mesozoic-era dinosaur, compatible with Python 3.4+. 
 However, you can modify any project it generates as you see fit.
@@ -121,8 +138,9 @@ For example, it will make a `.requirements.txt.bak-2020-04-05T152203.1151492`.
 You can tell it to clean up older versions with `tyrannosaurus clean`.
 
 Please note that lock files for pipenv and poetry are not affected by design.
+Use these tools to manage them.
 
-### building, extending, and contributing
+### Building, extending, and contributing
 
 [New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
 
