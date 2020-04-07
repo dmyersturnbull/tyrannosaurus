@@ -43,5 +43,5 @@ setup(
 	include_package_data=True,
 	classifiers=X.classifiers,
 	keywords=X.keywords,
-	entry_points={'console_scripts': ['tyrannosaurus = tyrannosaurus.tyrannosaurus:main']}
+	entry_points={'console_scripts': ['tyrannosaurus = tyrannosaurus.main:main']}
 )

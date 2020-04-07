@@ -25,7 +25,7 @@ class ProjectInfo:
 	min_py_version = 3.7
 	max_py_version = 3.9
 	# descriptions and authors
-	description = 'A collection of Python snippets for the Kokel Lab'
+	description = 'Generate ready-to-go Python projects and manage their dependencies'
 	authors = ["Douglas Myers-Turnbull"]
 	contributors = ["the Keiser Lab @ UCSF", "UCSF"]
 	maintainers = ["Douglas Myers-Turnbull"]
@@ -45,7 +45,7 @@ class ProjectInfo:
 	contact = url
 	version = release.split('-')[0] if '-' in release else release
 	readme = readme_file.read_text(encoding='utf8')
-	readme_format = 'text/markdown'
+	readme_format = 'text/markdown' if readme_file.suffix=='.md' else ('text/x-rst' if readme_file.suffix=='.rst' else 'text/plain')
 	project_urls = {
 		'organization': 'https://github.com/{}'.format(organization),
 		'package': "https://pypi.org/project/{}".format(name),
