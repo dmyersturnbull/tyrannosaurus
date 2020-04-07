@@ -10,14 +10,16 @@ status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&sty
 [![Travis](https://travis-ci.org/dmyersturnbull/tyrannosaurus.svg?branch=master)](https://travis-ci.org/dmyersturnbull/tyrannosaurus)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-What it does:
+##### What it does:
 - Generates Python projects configured for modern build tools and ready to upload to readthedocs, PyPi, and [Conda-Forge](https://conda-forge.org/).
 - Synchronizes dependencies in setup.py, requirements files, conda builds, pipenvs, and [poetry](https://python-poetry.org/) configs.
 - Lets your package's users build with the tools they prefer.
 
-What it doesn't do:
+##### What it doesn't do:
 - Resolve dependencies. See Poetry or Anaconda for this!
-- Introduce any new path to list dependencies.
+- Introduce a new path to list dependencies.
+
+##### how to use it:
 
 1. Install with `pip install tyrannosaurus`.
 2. Create a project with `tyrannosaurus new`. Modify as you see fit.
