@@ -12,7 +12,7 @@ status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&sty
 
 ##### What it does:
 - Generates Python projects configured for modern build tools and ready to upload to readthedocs, PyPi, and [Conda-Forge](https://conda-forge.org/).
-- Synchronizes dependencies in setup.py, requirements files, conda builds, pipenvs, and [poetry](https://python-poetry.org/) configs.
+- Synchronizes dependencies in setup.py, setup.cfg, requirements files, conda recipes, conda envs, pipenvs, and [poetry](https://python-poetry.org/) configs.
 - Lets your package's users build with the tools they prefer.
 
 ##### What it doesn't do:
@@ -94,6 +94,9 @@ tyrannosaurus reqs --find
 
 All of these commands will tell you about dependency conflicts through Anaconda and/or Poetry, unless neither are installed.
 If you only want to find conflicts and mismatches between your lists, call `tyrannosaurus check`.
+This will also use `setup.py check` to verify that the `setup.py` is valid.
+And of course, it will complain if it detects errors with other files.
+
 
 ##### Getting help:
 You can always run `tyrannosaurus help` for usage help.
@@ -117,7 +120,6 @@ pytest[test]           >=5.4,<6.0
 In `setup.py`, these are listed in `extras_require`.
 Unfortunately, `environment.yml` files don't support optional dependencies.
 We get around this using comments starting with `# @`. See the docs for more info.
-
 
 ### Configuring
 
@@ -162,9 +164,15 @@ Tyrannosaurus was developed by Douglas Myers-Turnbull and is licensed under the 
 I wrote it after making 18 Git commits trying to configure readthedocs and PyPi.
 This avoids that struggle for 99% of projects.
 
+Pipenv and poetry evolved independently and after conda.
+For some relevant discussion, see [this issue on poetry](https://github.com/python-poetry/poetry/issues/190).
+Also see [this umbrella issue](https://github.com/kiwi0fruit/misc/issues/4).
+
 Related projects, some of which tyrannosaurus uses:
 - [anaconda](https://anaconda.org/)
 - [conda-forge](https://conda-forge.org/)
+- [conda-pack](https://conda.github.io/conda-pack/)
+- [cpip](https://github.com/eigentechnologies/cpip), a wrapper around conda-pack
 - [pipenv](https://github.com/pypa/pipenv)
 - [poetry](https://github.com/python-poetry/poetry), which is excellent
 - [pipreqs](https://github.com/bndr/pipreqs), which finds imports

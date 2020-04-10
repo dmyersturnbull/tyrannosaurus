@@ -6,7 +6,7 @@ requires = ["setuptools>=46.1", "wheel>=0.34"]
 envlist = 'py37,py38'
 
 [testenv]
-skipdist=True
+skipdist = true
 deps = ["pytest", "hypothesis", "wheel"]
 commands = ["pytest", "python setup.py sdist bdist_wheel"]
 
@@ -21,3 +21,10 @@ python = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.7"
+
+[flake8]
+max-line-length = 88
+
+[tool.black]
+line-length = 88
+target-version = ['py37', 'py38']
