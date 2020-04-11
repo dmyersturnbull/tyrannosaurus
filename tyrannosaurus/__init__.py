@@ -1,6 +1,7 @@
 from datetime import date
 from pathlib import Path
 from dataclasses import dataclass
+from typing import Generator, Optional, Tuple as Tup
 
 @dataclass
 class ConsoleScript:
@@ -9,13 +10,27 @@ class ConsoleScript:
 	function: str
 
 
-_statuses = {v.lower(): "{} - {}".format(i+1, v) for i, v in enumerate(['Planning', 'Pre-Alpha', 'Alpha', 'Beta', 'Production/Stable', 'Mature', 'Inactive'])}
+_statuses = {
+	v.lower(): "{} - {}".format(i+1, v)
+	for i, v in enumerate(['Planning', 'Pre-Alpha', 'Alpha', 'Beta', 'Production/Stable', 'Mature', 'Inactive'])
+}
 
-def guess_format(s):
-	return {
+_known_formats = {
 		'.md': 'text/markdown',
-		'.rst': 'text/x-rst'
-	}.get(Path(s).suffix, 'text/plain')
+		'.rst': 'text/x-rst',
+		'.txt': 'text/plain',
+		'': 'text/plain'
+	}
+def guess_format(s):
+	return _known_formats.get(Path(s).suffix)
+
+def find_file(stubs):
+	for stub in stubs:
+		for suffix, fmt in _known_formats.items():
+			p = Path(str(stub)+suffix)
+			if p.exists():
+				return p, fmt
+	return None, None
 
 class ProjectInfo:
 	"""Information needed by setup.py and/or docs/conf.py."""
@@ -40,9 +55,7 @@ class ProjectInfo:
 	contributors = ["the Keiser Lab @ UCSF", "UCSF"]
 	maintainers = ["Douglas Myers-Turnbull"]
 	# paths
-	resource_paths = [Path('resources')]
-	readme_path = Path('resources', 'README.md')
-	changelog_path = Path('resources', 'CHANGES.md')
+	resource_path = Path('resources')
 	# license
 	license = 'Apache 2.0'
 	classifier_osi_license = 'Apache Software License'
@@ -55,11 +68,6 @@ class ProjectInfo:
 	console_scripts = [ConsoleScript('tyrannosaurus', 'tyrannosaurus.main', 'main')]
 	# -------------------------------------
 	# ----------- check these -------------
-	readme_format = guess_format(readme_path)
-	changelog_format = guess_format(changelog_path)
-	package_data = {'': []}
-	for r in resource_paths:
-		package_data[''].extend([str(r/'*'), str(r/'**/*')])
 	credits = list({*authors, *contributors, *maintainers})
 	copyright = "Copyright {}–{}".format(project_start_date.year, current_release_date.year)
 	url = 'https://github.com/{}/{}'.format(organization, name)
@@ -91,6 +99,23 @@ class ProjectInfo:
 		*['Framework :: {}' + c for c in classifier_frameworks],
 		'Operating System :: OS Independent',
 	]
+	@classmethod
+	def list_doc_files(cls, under=resource_path) -> Generator[Tup[Path, str], None, None]:
+		for f in Path(under).iterdir():
+			if f.is_file():
+				path, fmt = find_file(f.name)
+				if path is not None:
+					yield path, fmt
+	@classmethod
+	def read_readme(cls, under: Path = resource_path) -> Tup[Optional[str], Optional[str]]:
+		path, fmt = find_file([under/'README'])
+		if path is None: return None, None
+		return path.read_text(encoding='utf8'), fmt
+	@classmethod
+	def read_changelog(cls, under=resource_path) -> Tup[Optional[str], Optional[str]]:
+		path, fmt = find_file([under/'CHANGES', under/'CHANGELOG'])
+		if path is None: return None, None
+		return path.read_text(encoding='utf8'), fmt
 	# -------------------------------------
 
 __version__ = ProjectInfo.version

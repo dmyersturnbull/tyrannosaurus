@@ -1,18 +1,17 @@
 # Tyrannosaurus
 
 [![Build status](https://img.shields.io/pypi/status/tyrannosaurus)](https://pypi.org/project/tyrannosaurus/)
-[![Latest version on
-PyPi](https://badge.fury.io/py/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
-[![Supported Python
-versions](https://img.shields.io/pypi/pyversions/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
-[![Documentation
-status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/tyrannosaurus/)
+[![Latest version on PyPi](https://badge.fury.io/py/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
+[![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/tyrannosaurus/)
 [![Travis](https://travis-ci.org/dmyersturnbull/tyrannosaurus.svg?branch=master)](https://travis-ci.org/dmyersturnbull/tyrannosaurus)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Coverage Status](https://coveralls.io/repos/github/dmyersturnbull/tyrannosaurus/badge.svg?branch=master)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=master)
 
 ##### What it does:
 - Generates Python projects configured for modern build tools and ready to upload to readthedocs, PyPi, and [Conda-Forge](https://conda-forge.org/).
 - Synchronizes dependencies in setup.py, setup.cfg, requirements files, conda recipes, conda envs, pipenvs, and [poetry](https://python-poetry.org/) configs.
+- Synchronizes setuptools/PyPi and Conda information about your package, including description, version, license, etc.
 - Lets your package's users build with the tools they prefer.
 
 ##### What it doesn't do:
@@ -155,6 +154,11 @@ Files under `docs/` and `tyrannosaurus/` are not included in new projects.
 To work around this, you can add or modify files under `tyrannosaurus/resources/auto/`.
 These files will be copied to new projects.
 In text files, `${{project}}` will be replaced with the project name.
+
+
+Conda build:
+1. `pip install m2-patch`
+2. `conda skeleton pypi tyrannosaurus`
 
 
 ### meta info
