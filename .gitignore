@@ -46,5 +46,8 @@ deps/deps.jl
 !/.appveyor.yml
 !/.flake8
 !/.readthedocs.yml
+!/.coverage
+!/.dockerignore
+!/.editorconfig
 !/.tyrannosaurus
 !/.pre-commit-config.yaml

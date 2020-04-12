@@ -11,7 +11,7 @@
 ##### What it does:
 - Generates Python projects configured for modern build tools and ready to upload to readthedocs, PyPi, and [Conda-Forge](https://conda-forge.org/).
 - Synchronizes dependencies in setup.py, setup.cfg, requirements files, conda recipes, conda envs, pipenvs, and [poetry](https://python-poetry.org/) configs.
-- Synchronizes setuptools/PyPi and Conda information about your package, including description, version, license, etc.
+- Synchronizes poetry, pipenv, setuptools, and Conda information about your package, including description, version, license, etc.
 - Lets your package's users build with the tools they prefer.
 
 ##### What it doesn't do:
@@ -77,7 +77,7 @@ tyrannosaurus reqs --latest
 By default, tyrannosaurus will use choose version ranges corresponding to the latest major version
 The rationale is that compatibility with any minor version is guaranteed but compatibility with a new major version is not.
 For example, if `5.8.2` is the latest, it will choose `>=5.8,<6.0`.
-A good package manager will choose `5.8.2` over `5.8` if it can, but would of course reject `4.0` and `6.0` 
+A good package manager will choose `5.8.2` over `5.8` if it can, but would of course reject `4.0` and `6.0`
 This behavior can be configured (see below).
 
 ##### Finding dependencies with pipreqs:
@@ -96,14 +96,56 @@ If you only want to find conflicts and mismatches between your lists, call `tyra
 This will also use `setup.py check` to verify that the `setup.py` is valid.
 And of course, it will complain if it detects errors with other files.
 
+##### The initial project structure
+
+When you run `tyrannosaurus new`, you'll get a project structure that looks a lot like Tyrannosaurus' own.
+Just delete any config files you don't want.
+
+The initial structure was designed to keep configurable metadata in `metadata.py`.
+The major advantage is that code can get this information without resorting to any trickery.
+For example, you can print an up-to-date usage string with:
+
+```python
+from tyrannosaurus.metadata import Info
+print(
+    "{} version {} <{}>, copyright {}."
+    .format(Info.name, Info.version, Info.url, Info.copyright)
+)
+```
+
+The `setup.py` simply references these and shouldn't need to be changed.
+(You _can_ delete `metadata.py`, but you'll need to remove references in `setup.py`—unless you also remove that file.)
+
+You should not load external packages in either `metadata.py` or `setup.py`, since they won't necessarily be installed.
+Also note that tyrannosaurus actually executes `metadata.py`, so it shouldn't have side effects.
+If you rename `metadata.py`, just mention that it in `.tyrannosaurus`.
+
+The most important metadata items are `name`, `description`, `release`, `version`, `license`, and `url`,
+though several others are referenced in `setup.py`.
+Tyrannosaurus will also pull the data from `pyproject.toml`, but not from `setup.py`.
+(The reason is that it wants to avoid executing `setup.py`.)
+
+Tyrannosaurus stores the previous values under `.tyrannosaurus-cache`
+to detect changes. You may choose to check this into version control.
+The default `.gitignore` has it whitelisted.
+If it doesn't have this cache (for example, if you just cloned the repository),
+tyrannosaurus will simply list differences for you to change, and build its cache.
+
+You'll also notice that the default `setup.py` reads your `requirements.txt`.
+This just saves some lines.
+If you remove those lines with simple `install_requires` and `extras_requires` definitions,
+then `tyrannosaurus reqs` will happily synchronize them and add manually defined entries.
 
 ##### Getting help:
 You can always run `tyrannosaurus help` for usage help.
 For reference, here are the commands:
-- `tyrannosaurus new`
-- `tyrannosaurus reqs`
-- `tyrannosaurus find`
-- `tyrannosaurus check`
+- `tyrannosaurus new` (create a new project skeleton)
+- `tyrannosaurus reqs` (sync dependencies and project info)
+- `tyrannosaurus find` (find imports and sync them plus project info)
+- `tyrannosaurus check` (only emit information)
+- `tyrannosaurus sync-info` (only sync project info)
+- `tyrannosaurus build-cache` (just build or update the cache)
+- `tyrannosaurus clear-cache` (just delete the cache)
 - `tyrannosaurus help`
 
 ##### Listing optional dependencies:
@@ -120,6 +162,104 @@ In `setup.py`, these are listed in `extras_require`.
 Unfortunately, `environment.yml` files don't support optional dependencies.
 We get around this using comments starting with `# @`. See the docs for more info.
 
+##### Test and dev dependencies:
+
+A few dependency categories are treated specially:
+- _dev_, used by poetry and tox
+- _test_, used by setuptools and poetry
+- _python_, specifically python versions, required by setuptools, poetry, tox, pipenv, and conda
+
+The syncing works the way you might expect.
+For example, if you have this in your `pyproject.toml`:
+
+```toml
+[build-system]
+requires = ["setuptools>=46,<47", "wheel>=0.34,<1.0"]
+```
+
+These are considered `dev` dependencies and will be translated in `requirements.txt` to:
+
+```
+setuptools[dev]   >=46,<47
+wheel[dev]        >=0.34,<1.0
+```
+
+And into a poetry section of `pyproject.toml` as:
+
+
+```toml
+[tool.poetry.dev-dependencies]
+setuptools        = ^46
+wheel             = ^0.34
+```
+
+And into Pipenv's `Pipfile` as:
+
+```yaml
+[dev-packages]
+setuptools      = ">=46,<47"
+wheel           = ">=0.34,<1.0"
+```
+
+And into an Anaconda `environment.yml` as:
+
+```yaml
+  # @ ::dev
+  - setuptools   >=46,<47
+  - wheel        >=0.34,<1.0
+```
+
+And into an Anaconda recipe `meta.yaml` as:
+
+```
+requirements:
+  build:
+    - setuptools   >=46,<47
+    - wheel        >=0.34,<1.0
+```
+
+Note that `setuptools` is probably *not* a dependency to build with conda.
+You can configure that behavior in `.tyrannosaurus`.
+
+Also note that Anaconda recipes can be generated from PyPi packages using `conda-build`,
+but the `build` section won't be translated (from what I've seen).
+
+
+##### Pipenv and poetry lock files:
+
+Finally, note that lock files for pipenv (`Pipfile.lock`) and poetry (`poetry.lock`) are not affected.
+This is by design! Use those tools to manage them.
+
+
+### Things to do
+
+This section may be helpful if you're new to the Python build infrastructure.
+Some config files are for tools that need some extra setup.
+
+First, make sure to push to a Git repository.
+I also recommend installing and using [poetry](https://github.com/python-poetry/poetry).
+Make sure to commit your `poetry.lock` file.
+
+Register on PyPi, the PyPi test repository, and readthedocs and set up builds on either Travis or CircleCI, and perhaps register on [coveralls](https://coveralls.io).
+These last three tools are commercial but are currently free for open source projects and/or academic use.
+
+Other tools of interest are set up to run in [Tox](https://github.com/tox-dev/tox)
+in the default project skeleton (listed in `pyproject.toml`).
+These include [black](https://github.com/psf/black), [isort](https://github.com/timothycrosley/isort),
+[mypy](http://mypy-lang.org/), and [coveragepy](https://github.com/nedbat/coveragepy).
+
+Consider using [PyPi's test repository](https://test.pypi.org) before uploading to the main one.
+Note that you still can't delete it or update it with the same version number.
+Here's the command:
+
+```
+python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+```
+
+
+Finally, you may want to upload to conda-forge or generate a Docker image.
+
+
 ### Configuring
 
 Occasionally you may need to modify tyrannosaurus's behavior.
@@ -131,15 +271,15 @@ More information is in the docs.
 
 ### Compatibility and problems
 
-Tyrannosaurus is your average mesozoic-era dinosaur, compatible with Python 3.4+. 
+Tyrannosaurus is your average mesozoic-era dinosaur, compatible with Python 3.4+.
 However, you can modify any project it generates as you see fit.
 
-It's not very intelligent, so it will back up your files first.
-For example, it will make a `.requirements.txt.bak-2020-04-05T152203.1151492`.
-You can tell it to clean up older versions with `tyrannosaurus clean`.
+Note that UTF-8 is assumed in all files.
+Using other encodings may cause issues.
 
-Please note that lock files for pipenv and poetry are not affected by design.
-Use these tools to manage them.
+It's not very intelligent, so it will back up your files first.
+For example, it will make a `.tyrannosaurus-cache/requirements.txt.bak-2020-04-05T152203.1151492`.
+You can tell it to clean up older versions with `tyrannosaurus clean`.
 
 ### Building, extending, and contributing
 
@@ -168,9 +308,10 @@ Tyrannosaurus was developed by Douglas Myers-Turnbull and is licensed under the 
 I wrote it after making 18 Git commits trying to configure readthedocs and PyPi.
 This avoids that struggle for 99% of projects.
 
-Pipenv and poetry evolved independently and after conda.
-For some relevant discussion, see [this issue on poetry](https://github.com/python-poetry/poetry/issues/190).
-Also see [this umbrella issue](https://github.com/kiwi0fruit/misc/issues/4).
+Pipenv and poetry evolved independently after conda.
+For relevant discussion, see:
+- [this issue on poetry](https://github.com/python-poetry/poetry/issues/190)
+-  [this umbrella issue](https://github.com/kiwi0fruit/misc/issues/4).
 
 Related projects, some of which tyrannosaurus uses:
 - [anaconda](https://anaconda.org/)
@@ -189,25 +330,25 @@ Related projects, some of which tyrannosaurus uses:
 - [python-semantic-release](https://github.com/relekang/python-semantic-release), which is not used
 
 ```
-                                              .++++++++++++.  
+                                              .++++++++++++.
                                            .++HHHHHHH^^HHH+.
                                           .HHHHHHHHHH++-+-++.
                                          .HHHHHHHHHHH:t~~~~~
-                                        .+HHHHHHHHHHjjjjjjjj. 
-                                       .+NNNNNNNNN/++/:--.. 
-                              ........+NNNNNNNNNN.            
-                          .++++BBBBBBBBBBBBBBB.             
- .tttttttt:..           .++BBBBBBBBBBBBBBBBBBB.             
-+tt+.      ``         .+BBBBBBBBBBBBBBBBBBBBB+++cccc.        
-ttt.               .-++BBBBBBBBBBBBBBBBBBBBBB++.ccc.    
-+ttt++++:::::++++++BBBBBBBBBBBBBBBBBBBBBBB+..++.            
-.+TTTTTTTTTTTTTBBBBBBBBBBBBBBBBBBBBBBBBB+.    .ccc.          
-  .++TTTTTTTTTTBBBBBBBBBBBBBBBBBBBBBBBB+.      .cc.          
-    ..:++++++++++++++++++BBBBBB++++BBBB.                     
-           .......      -LLLLL+. -LLLLL.                     
-                        -LLLL+.   -LLLL+.                    
-                        +LLL+       +LLL+                       
-                        +LL+         +ff+                       
-                        +ff++         +++:                 
-                        ++++:                              
+                                        .+HHHHHHHHHHjjjjjjjj.
+                                       .+NNNNNNNNN/++/:--..
+                              ........+NNNNNNNNNN.
+                          .++++BBBBBBBBBBBBBBB.
+ .tttttttt:..           .++BBBBBBBBBBBBBBBBBBB.
++tt+.      ``         .+BBBBBBBBBBBBBBBBBBBBB+++cccc.
+ttt.               .-++BBBBBBBBBBBBBBBBBBBBBB++.ccc.
++ttt++++:::::++++++BBBBBBBBBBBBBBBBBBBBBBB+..++.
+.+TTTTTTTTTTTTTBBBBBBBBBBBBBBBBBBBBBBBBB+.    .ccc.
+  .++TTTTTTTTTTBBBBBBBBBBBBBBBBBBBBBBBB+.      .cc.
+    ..:++++++++++++++++++BBBBBB++++BBBB.
+           .......      -LLLLL+. -LLLLL.
+                        -LLLL+.   -LLLL+.
+                        +LLL+       +LLL+
+                        +LL+         +ff+
+                        +ff++         +++:
+                        ++++:
 ```

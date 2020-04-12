@@ -10,7 +10,7 @@ sys.path.insert(0, str(root))
 print(sys.path)
 extensions = ['sphinx.ext.autodoc', 'autoapi.sphinx', 'sphinx.ext.napoleon', 'sphinx.ext.viewcode']
 autoapi_type = 'python'
-autoapi_dirs = [str(root/'dscience')]
+autoapi_dirs = [str(root/'tyrannosaurus')]
 
 # -- Project information -----------------------------------------------------
 from tyrannosaurus import ProjectInfo as X

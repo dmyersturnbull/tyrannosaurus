@@ -1,0 +1,5 @@
+./tests
+./docs
+./pipenv
+./.git
+./.github

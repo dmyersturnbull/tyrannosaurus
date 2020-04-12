@@ -5,12 +5,13 @@ import re
 from pathlib import Path
 from _collections import defaultdict
 from setuptools import setup, find_packages
-from tyrannosaurus import ProjectInfo as X
+# noinspection PyProtectedMember
+from .tyrannosaurus.metadata import Utils, Info as X
 
 # copy doc files (.rst, .md, .txt, no-suffix) to resources dir
 root = Path(__file__).parent
 readme, readme_format = X.read_readme()
-for f, _ in X.list_doc_files(root):
+for f, _ in Utils.list_doc_files(root):
 	Path(X.name, X.resource_path, f.name).write_text(f.read_text(encoding='utf8'), encoding='utf8')
 
 # this is of course one of the issues that tyrannosaurus solves!
@@ -29,7 +30,7 @@ for reqs in [v for v in extras_require.values()]:
 setup(
 	name=X.name,
 	version=X.version,
-	download_url = X.download_url,
+	download_url=X.download_url,
 	description=X.description,
 	long_description=readme,
 	long_description_content_type=readme_format,
