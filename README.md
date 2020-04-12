@@ -8,33 +8,33 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Coverage Status](https://coveralls.io/repos/github/dmyersturnbull/tyrannosaurus/badge.svg?branch=master)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=master)
 
-##### What it does:
+#### What it does:
 - Generates Python projects configured for modern build tools and ready to upload to readthedocs, PyPi, and [Conda-Forge](https://conda-forge.org/).
 - Synchronizes dependencies in setup.py, setup.cfg, requirements files, conda recipes, conda envs, pipenvs, and [poetry](https://python-poetry.org/) configs.
 - Synchronizes poetry, pipenv, setuptools, and Conda information about your package, including description, version, license, etc.
 - Lets your package’s users build with the tools they prefer.
 
-##### What it doesn’t do:
+#### What it doesn’t do:
 - Resolve dependencies. See Poetry or Anaconda for this!
 - Introduce a new path to list dependencies.
 
-##### How to use it:
+#### How to use it:
 
 1. Install with `pip install tyrannosaurus`.
 2. Create a project with `tyrannosaurus new`. Modify as you see fit.
 4. Use `tyrannosaurus reqs` to synchronize your dependencies and project info (version number, description).
 5. Optionally, run `tyrannosaurus reqs --latest`. This interfaces with Poetry and Conda-Forge to find package updates.
 
-##### Conflict identification:
+#### Conflict identification:
 
 Poetry and Conda (and pipenv) are full dependency managers capable of identifying and resolving conflicts.
 Tyrannosaurus is just smart enough to tell you when versions from Conda and PyPi cannot match.
 
-##### ⚠ Status:
+#### ⚠ Status:
 
 Not finished yet! The scripts are scattered everywhere. This should be ready in late April.
 
-### creating a new project
+## Creating a new project
 
 ```
 tyrannosaurus new mynewproject
@@ -48,11 +48,11 @@ You can modify your project freely after, and tyrannosaurus will still understan
 Of course, `new` also has some command-line options. Run `tyrannosaurus new --help` to see them.
 You can choose another license with `tyrannosaurus init mynewproject --license "MIT"`.
 
-### Managing dependencies
+## Managing dependencies
 
 Tyrannosaurus’s best feature is managing and translating dependencies.
 
-##### Synchronizing dependencies:
+#### Synchronizing dependencies:
 
 It keeps your dependencies consistent between requirements.txt, conda recipes, Anaconda environment files, Pipfiles (pipenv), and setup.py files.
 If there is a merge conflict, it will keep the highest version.
@@ -63,7 +63,7 @@ tyrannosaurus reqs
 ```
 No pun intended, of course.
 
-##### Finding new versions on repositories
+#### Finding new versions on repositories
 
 You can also update the versions to the most recent available on PyPi and your Anaconda channels:
 It will report inconsistencies between Anaconda channel versions and versions on PyPi.
@@ -72,7 +72,7 @@ It will report inconsistencies between Anaconda channel versions and versions on
 tyrannosaurus reqs --latest
 ```
 
-##### Preferred version ranges:
+#### Preferred version ranges:
 
 By default, tyrannosaurus will use choose version ranges corresponding to the latest major version
 The rationale is that compatibility with any minor version is guaranteed but compatibility with a new major version is not.
@@ -81,7 +81,7 @@ A good package manager will choose `5.8.2` over `5.8` if it can, but would of co
 This behavior can be configured (see below).
 Note that this is the normal behavior of Poetry.
 
-##### Finding dependencies from imports:
+#### Finding dependencies from imports:
 
 You can also use [pipreqs](https://github.com/bndr/pipreqs) to find dependencies from your imports.
 This will find packages for your imports, assume the latest versions, verify, and add them to your lists.
@@ -90,7 +90,7 @@ This will find packages for your imports, assume the latest versions, verify, an
 tyrannosaurus reqs --find
 ```
 
-##### Handling dependency conflicts:
+#### Handling dependency conflicts:
 
 All of these commands will tell you about dependency conflicts through Anaconda and/or Poetry, unless neither are installed.
 If you only want to find conflicts and mismatches between your lists, call `tyrannosaurus check`.
@@ -98,7 +98,7 @@ This will also use `setup.py check` to verify that the `setup.py` is valid.
 And of course, it will complain if it detects errors with other files.
 
 
-### The project skeleton
+## The project skeleton
 
 When you run `tyrannosaurus new`, you’ll get a project structure that looks a lot like Tyrannosaurus’ own.
 Just delete any config files you don’t want.
@@ -141,7 +141,7 @@ then `tyrannosaurus reqs` will happily synchronize them and add manually defined
 
 ### More about dependency translation
 
-##### Optional dependencies:
+#### Optional dependencies:
 
 You can distinguish between requirements and optional dependencies.
 For example, your requirements.txt might look like this:
@@ -155,7 +155,7 @@ In `setup.py`, these are listed in `extras_require`.
 Unfortunately, `environment.yml` files don’t support optional dependencies.
 We get around this using comments starting with `# @`. See the docs for more info.
 
-##### Python versions, and test and dev dependencies:
+#### Python versions, and test and dev dependencies:
 
 A few dependency categories are treated specially:
 - _dev_, used by poetry and tox
@@ -213,14 +213,13 @@ requirements:
 
 Note that `setuptools` is probably *not* a dependency to build with conda.
 You can configure that behavior in `.tyrannosaurus`.
-
 Also note that Anaconda recipes can be generated from PyPi packages using `conda-build`,
 but the `build` section won’t be translated (from what I’ve seen).
 
 
-##### Pipenv and poetry lock files:
+#### Pipenv and poetry lock files:
 
-Finally, note that lock files for pipenv (`Pipfile.lock`) and poetry (`poetry.lock`) are not affected.
+Lock files for pipenv (`Pipfile.lock`) and poetry (`poetry.lock`) are not affected.
 This is by design! Use those tools to manage them.
 
 
@@ -241,11 +240,9 @@ For reference, here are the commands:
 
 This section may be helpful if you’re new to the Python build infrastructure.
 Some config files are for tools that need some extra setup.
-
 First, make sure to push to a Git repository.
 I also recommend installing and using [poetry](https://github.com/python-poetry/poetry).
 Make sure to commit your `poetry.lock` file.
-
 Register on PyPi, the PyPi test repository, and readthedocs and set up builds on either Travis or CircleCI, and perhaps register on [coveralls](https://coveralls.io).
 These last three tools are commercial but are currently free for open source projects and/or academic use.
 
@@ -256,14 +253,14 @@ These include [black](https://github.com/psf/black), [isort](https://github.com/
 
 Consider using [PyPi’s test repository](https://test.pypi.org) before uploading to the main one.
 Note that you still can’t delete it or update it with the same version number.
-Here’s the command:
+Finally, you may want to upload to conda-forge or generate a Docker image.
+Here’s the command for PyPi test upload:
 
 ```
 python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 ```
 
 
-Finally, you may want to upload to conda-forge or generate a Docker image.
 
 
 ### Configuring
@@ -277,14 +274,12 @@ More information is in the docs.
 
 ### Compatibility and problems
 
-Tyrannosaurus is your average mesozoic-era dinosaur, compatible with Python 3.4+.
-However, you can modify any project it generates as you see fit.
-
-Note that UTF-8 is assumed in all files.
-Using other encodings may cause issues.
+Tyrannosaurus is your average mesozoic-era dinosaur, compatible with Python 3.6+.
+However, you can modify any project it generates to expand the compatibility as you see fit.
+UTF-8 is assumed in all files, and other encodings may cause issues.
 
 It’s not very intelligent, so it will back up your files first.
-For example, it will make a `.tyrannosaurus-cache/requirements.txt.bak-2020-04-05T152203.1151492`.
+For example, it will make a `.tyrannosaurus-cache/requirements.txt-2020-04-05T152203.1151492`.
 You can tell it to clean up older versions with `tyrannosaurus clean`.
 
 ### Building, extending, and contributing
@@ -293,7 +288,6 @@ You can tell it to clean up older versions with `tyrannosaurus clean`.
 
 Tyrannosaurus is bootstrapped—built using itself.
 If you fork it, you can modify its files and install your fork to modify its default project structure.
-
 To modify the default `README.md`, modifying this one won’t work.
 The same is true for some other files that are also used to describe tyrannosaurus itself.
 Files under `docs/` and `tyrannosaurus/` are not included in new projects.
@@ -310,8 +304,7 @@ Conda build:
 ### meta info
 
 Tyrannosaurus was developed by Douglas Myers-Turnbull and is licensed under the [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
-
-I wrote it after making 18 Git commits trying to configure readthedocs and PyPi.
+He wrote it after making 18 Git commits trying to configure readthedocs and PyPi.
 This avoids that struggle for 99% of projects.
 
 Pipenv and poetry evolved independently after conda.
