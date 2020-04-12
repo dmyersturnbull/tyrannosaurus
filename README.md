@@ -12,9 +12,9 @@
 - Generates Python projects configured for modern build tools and ready to upload to readthedocs, PyPi, and [Conda-Forge](https://conda-forge.org/).
 - Synchronizes dependencies in setup.py, setup.cfg, requirements files, conda recipes, conda envs, pipenvs, and [poetry](https://python-poetry.org/) configs.
 - Synchronizes poetry, pipenv, setuptools, and Conda information about your package, including description, version, license, etc.
-- Lets your package's users build with the tools they prefer.
+- Lets your package’s users build with the tools they prefer.
 
-##### What it doesn't do:
+##### What it doesn’t do:
 - Resolve dependencies. See Poetry or Anaconda for this!
 - Introduce a new path to list dependencies.
 
@@ -42,7 +42,7 @@ tyrannosaurus new mynewproject
 
 Your new project is ready for PyPi, Sphinx, Sphinx API docs, readthedocs, Git, Tox, Travis, CircleCI, and conda-forge.
 The Tox config will generate PyPi-ready source and wheel builds, and even a conda package for you!
-Your project's version is specified only once, in `yourpackage/__init__.py`.
+Your project’s version is specified only once, in `yourpackage/__init__.py`.
 
 You can modify your project freely after, and tyrannosaurus will still understand it.
 Of course, `new` also has some command-line options. Run `tyrannosaurus new --help` to see them.
@@ -50,7 +50,7 @@ You can choose another license with `tyrannosaurus init mynewproject --license "
 
 ### Managing dependencies
 
-Tyrannosaurus's best feature is managing and translating dependencies.
+Tyrannosaurus’s best feature is managing and translating dependencies.
 
 ##### Synchronizing dependencies:
 
@@ -79,8 +79,9 @@ The rationale is that compatibility with any minor version is guaranteed but com
 For example, if `5.8.2` is the latest, it will choose `>=5.8,<6.0`.
 A good package manager will choose `5.8.2` over `5.8` if it can, but would of course reject `4.0` and `6.0`
 This behavior can be configured (see below).
+Note that this is the normal behavior of Poetry.
 
-##### Finding dependencies with pipreqs:
+##### Finding dependencies from imports:
 
 You can also use [pipreqs](https://github.com/bndr/pipreqs) to find dependencies from your imports.
 This will find packages for your imports, assume the latest versions, verify, and add them to your lists.
@@ -96,10 +97,11 @@ If you only want to find conflicts and mismatches between your lists, call `tyra
 This will also use `setup.py check` to verify that the `setup.py` is valid.
 And of course, it will complain if it detects errors with other files.
 
-##### The initial project structure
 
-When you run `tyrannosaurus new`, you'll get a project structure that looks a lot like Tyrannosaurus' own.
-Just delete any config files you don't want.
+### The project skeleton
+
+When you run `tyrannosaurus new`, you’ll get a project structure that looks a lot like Tyrannosaurus’ own.
+Just delete any config files you don’t want.
 
 The initial structure was designed to keep configurable metadata in `metadata.py`.
 The major advantage is that code can get this information without resorting to any trickery.
@@ -113,11 +115,11 @@ print(
 )
 ```
 
-The `setup.py` simply references these and shouldn't need to be changed.
-(You _can_ delete `metadata.py`, but you'll need to remove references in `setup.py`—unless you also remove that file.)
+The `setup.py` simply references these and shouldn’t need to be changed.
+(You _can_ delete `metadata.py`, but you’ll need to remove references in `setup.py`—unless you also remove that file.)
 
-You should not load external packages in either `metadata.py` or `setup.py`, since they won't necessarily be installed.
-Also note that tyrannosaurus actually executes `metadata.py`, so it shouldn't have side effects.
+You should not load external packages in either `metadata.py` or `setup.py`, since they won’t necessarily be installed.
+Also note that tyrannosaurus actually executes `metadata.py`, so it shouldn’t have side effects.
 If you rename `metadata.py`, just mention that it in `.tyrannosaurus`.
 
 The most important metadata items are `name`, `description`, `release`, `version`, `license`, and `url`,
@@ -128,27 +130,18 @@ Tyrannosaurus will also pull the data from `pyproject.toml`, but not from `setup
 Tyrannosaurus stores the previous values under `.tyrannosaurus-cache`
 to detect changes. You may choose to check this into version control.
 The default `.gitignore` has it whitelisted.
-If it doesn't have this cache (for example, if you just cloned the repository),
+If it doesn’t have this cache (for example, if you just cloned the repository),
 tyrannosaurus will simply list differences for you to change, and build its cache.
 
-You'll also notice that the default `setup.py` reads your `requirements.txt`.
+You’ll also notice that the default `setup.py` reads your `requirements.txt`.
 This just saves some lines.
 If you remove those lines with simple `install_requires` and `extras_requires` definitions,
 then `tyrannosaurus reqs` will happily synchronize them and add manually defined entries.
 
-##### Getting help:
-You can always run `tyrannosaurus help` for usage help.
-For reference, here are the commands:
-- `tyrannosaurus new` (create a new project skeleton)
-- `tyrannosaurus reqs` (sync dependencies and project info)
-- `tyrannosaurus find` (find imports and sync them plus project info)
-- `tyrannosaurus check` (only emit information)
-- `tyrannosaurus sync-info` (only sync project info)
-- `tyrannosaurus build-cache` (just build or update the cache)
-- `tyrannosaurus clear-cache` (just delete the cache)
-- `tyrannosaurus help`
 
-##### Listing optional dependencies:
+### More about dependency translation
+
+##### Optional dependencies:
 
 You can distinguish between requirements and optional dependencies.
 For example, your requirements.txt might look like this:
@@ -159,10 +152,10 @@ pytest[test]           >=5.4,<6.0
 ```
 
 In `setup.py`, these are listed in `extras_require`.
-Unfortunately, `environment.yml` files don't support optional dependencies.
+Unfortunately, `environment.yml` files don’t support optional dependencies.
 We get around this using comments starting with `# @`. See the docs for more info.
 
-##### Test and dev dependencies:
+##### Python versions, and test and dev dependencies:
 
 A few dependency categories are treated specially:
 - _dev_, used by poetry and tox
@@ -193,7 +186,7 @@ setuptools        = ^46
 wheel             = ^0.34
 ```
 
-And into Pipenv's `Pipfile` as:
+And into Pipenv’s `Pipfile` as:
 
 ```yaml
 [dev-packages]
@@ -222,7 +215,7 @@ Note that `setuptools` is probably *not* a dependency to build with conda.
 You can configure that behavior in `.tyrannosaurus`.
 
 Also note that Anaconda recipes can be generated from PyPi packages using `conda-build`,
-but the `build` section won't be translated (from what I've seen).
+but the `build` section won’t be translated (from what I’ve seen).
 
 
 ##### Pipenv and poetry lock files:
@@ -231,9 +224,22 @@ Finally, note that lock files for pipenv (`Pipfile.lock`) and poetry (`poetry.lo
 This is by design! Use those tools to manage them.
 
 
+### Getting help:
+You can always run `tyrannosaurus help` for usage help.
+For reference, here are the commands:
+- `tyrannosaurus new` (create a new project skeleton)
+- `tyrannosaurus reqs` (sync dependencies and project info)
+- `tyrannosaurus find` (find imports and sync them plus project info)
+- `tyrannosaurus check` (only emit information)
+- `tyrannosaurus sync-info` (only sync project info)
+- `tyrannosaurus build-cache` (just build or update the cache)
+- `tyrannosaurus clear-cache` (just delete the cache)
+- `tyrannosaurus help`
+
+
 ### Things to do
 
-This section may be helpful if you're new to the Python build infrastructure.
+This section may be helpful if you’re new to the Python build infrastructure.
 Some config files are for tools that need some extra setup.
 
 First, make sure to push to a Git repository.
@@ -248,9 +254,9 @@ in the default project skeleton (listed in `pyproject.toml`).
 These include [black](https://github.com/psf/black), [isort](https://github.com/timothycrosley/isort),
 [mypy](http://mypy-lang.org/), and [coveragepy](https://github.com/nedbat/coveragepy).
 
-Consider using [PyPi's test repository](https://test.pypi.org) before uploading to the main one.
-Note that you still can't delete it or update it with the same version number.
-Here's the command:
+Consider using [PyPi’s test repository](https://test.pypi.org) before uploading to the main one.
+Note that you still can’t delete it or update it with the same version number.
+Here’s the command:
 
 ```
 python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
@@ -262,7 +268,7 @@ Finally, you may want to upload to conda-forge or generate a Docker image.
 
 ### Configuring
 
-Occasionally you may need to modify tyrannosaurus's behavior.
+Occasionally you may need to modify tyrannosaurus’s behavior.
 For example, you may want it to leave your `requirements.txt` untouched or modify a file called `all-requirements.txt`.
 Or, maybe you want to change the way it chooses version ranges.
 To do this, add a `.tyrannosaurus` file in your root.
@@ -277,7 +283,7 @@ However, you can modify any project it generates as you see fit.
 Note that UTF-8 is assumed in all files.
 Using other encodings may cause issues.
 
-It's not very intelligent, so it will back up your files first.
+It’s not very intelligent, so it will back up your files first.
 For example, it will make a `.tyrannosaurus-cache/requirements.txt.bak-2020-04-05T152203.1151492`.
 You can tell it to clean up older versions with `tyrannosaurus clean`.
 
@@ -288,7 +294,7 @@ You can tell it to clean up older versions with `tyrannosaurus clean`.
 Tyrannosaurus is bootstrapped—built using itself.
 If you fork it, you can modify its files and install your fork to modify its default project structure.
 
-To modify the default `README.md`, modifying this one won't work.
+To modify the default `README.md`, modifying this one won’t work.
 The same is true for some other files that are also used to describe tyrannosaurus itself.
 Files under `docs/` and `tyrannosaurus/` are not included in new projects.
 To work around this, you can add or modify files under `tyrannosaurus/resources/auto/`.
@@ -326,7 +332,7 @@ Related projects, some of which tyrannosaurus uses:
 - [pip-conflict-checker](https://github.com/ambitioninc/pip-conflict-checker), which is unmaintained
 - [pip-check](https://github.com/bartTC/pip-check/), which formats `pip list` output
 - [pip-chill](https://github.com/rbanffy/pip-chill), which lists top-level dependencies
-- the [pip check](https://pip.pypa.io/en/stable/reference/pip_check) command, which doesn't do what you might hope
+- the [pip check](https://pip.pypa.io/en/stable/reference/pip_check) command, which doesn’t do what you might hope
 - [python-semantic-release](https://github.com/relekang/python-semantic-release), which is not used
 
 ```
