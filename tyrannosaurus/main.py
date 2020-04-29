@@ -1,12 +1,11 @@
 import logging
+
 import click
-from tyrannosaurus.metadata import ProjectInfo
-from tyrannosaurus.generator import *
-from tyrannosaurus.services import *
-logger = logging.getLogger('tyrannosaurus')
+
+logger = logging.getLogger("tyrannosaurus")
+
 
 class Tyrannosaurus:
-
     @click.command()
     def reqs(self):
         pass
@@ -29,9 +28,10 @@ class Tyrannosaurus:
 
     @click.command()
     def info(self):
-        print("{}, version {} (released {})".format(ProjectInfo.name, ProjectInfo.release, ProjectInfo.current_release_date))
+        pass
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     pass
 
-__all__ = ['Tyrannosaurus']
+__all__ = ["Tyrannosaurus"]

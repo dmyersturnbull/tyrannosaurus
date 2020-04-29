@@ -1,29 +1,99 @@
+
 [metadata]
-description-file = 'README.md'
+description-file = "README.md"
 
 [build-system]
-requires = ["setuptools>=46.0", "wheel>=0.34"]
+requires = ["poetry>=1.0", "coverage[toml]"]
+build-backend = "poetry.masonry.api"
 
-[tox]
-envlist = 'py37,py38'
 
-[testenv]
-whitelist_externals = ['poetry']
-skipdist = true
-deps = ["pytest", "hypothesis", "wheel"]
-commands = ["pytest", "python setup.py sdist bdist_wheel"]
+#########################################################################################
+# Poetry metadata
+#########################################################################################
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.0.1"
-description = ""
+version = "0.0.4"
+description = "Generate ready-to-go Python projects."
+include = ["README.md", "LICENSE.txt", "CHANGES.md"]
 authors = ["Douglas Myers-Turnbull"]
+maintainers = ["Douglas Myers-Turnbull"]
+license = "Apache-2.0"
+readme = "README.md"
+keywords = ["dependencies", "requirements", "install_requires", "extras_require"]
+homepage = "https://github.com/dmyersturnbull/tyrannosaurus"
+repository = "https://github.com/dmyersturnbull/tyrannosaurus"
+documentation = "https://tyrannosaurus.readthedocs.io"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Natural Language :: English",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: Only",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Intended Audience : Developers",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Code Generators"
+]
+
+[tool.poetry.urls]
+build = "https://travis-ci.org/dmyersturnbull/tyrannosaurus"
+issues = "https://github.com/dmyersturnbull/tyrannosaurus/issues"
+source = "https://github.com/dmyersturnbull/tyrannosaurus"
+
+
+#########################################################################################
+# Poetry build & dependencies
+#########################################################################################
+
+[tool.poetry.scripts]
+run = "tyrannosaurus.main:main"
 
 [tool.poetry.dependencies]
-python = "*"
+python        = "^3.7"
+click         = "^7.1"
+docker = {optional = true, version = "^4.2"}
+
+[tool.poetry.extras]
+extra   = ["docker"]
+all     = ["docker"]
 
 [tool.poetry.dev-dependencies]
-pytest = "^3.7"
+pytest = "^5.4"
+coverage = "^5.1"
+pylint = "^2.5"
+flake8 = "^3.7"
+isort = "^4.3"
+mypy = "^0.750.0"
+pre-commit = "^2.3"
+black = "=19.10b0"
+poetry2conda = "^0.1.0"
+
+
+#########################################################################################
+# DepHell
+#########################################################################################
+
+[tool.dephell.main]
+from = {format = "poetry", path = "pyproject.toml"}
+to = {format = "setuppy", path = "setup.py"}
+versioning = "semver"
+
+[tool.dephell.lock]
+from = {format = "poetry", path = "pyproject.toml"}
+to = {format = "poetrylock", path = "poetry.lock"}
+
+[tool.poetry2conda]
+# TODO conda-forge
+name = "tyrannosaurus"
+
+#########################################################################################
+# Style checking
+#########################################################################################
 
 [mypy]
 check_untyped_defs = true
@@ -31,12 +101,7 @@ strict_optional = true
 
 [tool.black]
 line-length = 100
-target-version = ['py37', 'py38']
-
-[flake8]
-max-line-length = 100
-doctests = true
-exclude =  ['.git', '__pycache__', 'build/', 'dist/']
+target-version = ["py36", "py37", "py38"]
 
 [pycodestyle]
 max-line-length = 100
@@ -44,7 +109,7 @@ statistics = true
 
 [pydocstyle]
 # 212 and 213 contradict; 203 and 204 contradict; D302 is not relevant in Py3
-ignore = ['D203', 'D212', 'D302']
+ignore = ["D203", "D212", "D302"]
 
 [tool.isort]
 line_length = 100
