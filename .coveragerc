@@ -1,6 +1,6 @@
 [run]
 source = tyrannosaurus
 omit =
-  */e3fp/test/*
+  */test/*
   */setup.py
   */docs/*

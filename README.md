@@ -223,7 +223,7 @@ Lock files for pipenv (`Pipfile.lock`) and poetry (`poetry.lock`) are not affect
 This is by design! Use those tools to manage them.
 
 
-### Getting help:
+### Getting help
 You can always run `tyrannosaurus help` for usage help.
 For reference, here are the commands:
 - `tyrannosaurus new` (create a new project skeleton)
