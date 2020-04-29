@@ -11,61 +11,61 @@ from tyrannosaurus.model import *
 
 
 class ServiceError(Error, IOError):
-	def __init__(self, service: ServiceName, msg: str, e: Exception):
-		super().__init__("Service {} failed: {}".format(service, msg), e)
-		self.service, self.msg = service, msg
+    def __init__(self, service: ServiceName, msg: str, e: Exception):
+        super().__init__("Service {} failed: {}".format(service, msg), e)
+        self.service, self.msg = service, msg
 
 
 class Service(metaclass=abc.ABCMeta):
 
-	@property
-	def name(self) -> ServiceName:
-		raise NotImplementedError()
+    @property
+    def name(self) -> ServiceName:
+        raise NotImplementedError()
 
-	@property
-	def known_paths(self) -> Sequence[Path]:
-		raise NotImplementedError()
+    @property
+    def known_paths(self) -> Sequence[Path]:
+        raise NotImplementedError()
 
-	def find_latest(self, package: str):
-		raise NotImplementedError()
+    def find_latest(self, package: str):
+        raise NotImplementedError()
 
-	def has_compatible_version(self, package: str, requirements: VersionRange):
-		raise NotImplementedError()
+    def has_compatible_version(self, package: str, requirements: VersionRange):
+        raise NotImplementedError()
 
-	def read(self, text: str) -> DependencyList:
-		raise NotImplementedError()
+    def read(self, text: str) -> DependencyList:
+        raise NotImplementedError()
 
-	def write(self, deps: DependencyList) -> str:
-		raise NotImplementedError()
+    def write(self, deps: DependencyList) -> str:
+        raise NotImplementedError()
 
-	def modify_file(self, path: Path, deps: DependencyList) -> None:
-		raise NotImplementedError()
+    def modify_file(self, path: Path, deps: DependencyList) -> None:
+        raise NotImplementedError()
 
 class SetuptoolsService(Service):
-	pass
+    pass
 
 class CondaEnvService(Service):
-	pass
+    pass
 
 class CondaRecipeService(Service):
-	pass
+    pass
 
 class RequirementsService(Service):
-	pass
+    pass
 
 class PipfileService(Service):
-	pass
+    pass
 
 class PiplockService(Service):
-	pass
+    pass
 
 class PoetryService(Service):
-	pass
+    pass
 
 class PoetryLock(Service):
-	pass
+    pass
 
 class ServiceManager:
 
-	def bump(self, source: ServiceName, target: ServiceName):
-		pass
+    def bump(self, source: ServiceName, target: ServiceName):
+        pass
