@@ -1,11 +1,14 @@
+[metadata]
+description-file = 'README.md'
+
 [build-system]
-requires = ["setuptools>=46.1", "wheel>=0.34"]
+requires = ["setuptools>=46.0", "wheel>=0.34"]
 
 [tox]
 envlist = 'py37,py38'
 
 [testenv]
-whitelist_externals = poetry
+whitelist_externals = ['poetry']
 skipdist = true
 deps = ["pytest", "hypothesis", "wheel"]
 commands = ["pytest", "python setup.py sdist bdist_wheel"]
@@ -22,12 +25,26 @@ python = "*"
 [tool.poetry.dev-dependencies]
 pytest = "^3.7"
 
-[flake8]
-max-line-length = 120
+[mypy]
+check_untyped_defs = true
+strict_optional = true
 
 [tool.black]
-line-length = 120
+line-length = 100
 target-version = ['py37', 'py38']
 
+[flake8]
+max-line-length = 100
+doctests = true
+exclude =  ['.git', '__pycache__', 'build/', 'dist/']
+
+[pycodestyle]
+max-line-length = 100
+statistics = true
+
+[pydocstyle]
+# 212 and 213 contradict; 203 and 204 contradict; D302 is not relevant in Py3
+ignore = ['D203', 'D212', 'D302']
+
 [tool.isort]
-line_length = 120
+line_length = 100
