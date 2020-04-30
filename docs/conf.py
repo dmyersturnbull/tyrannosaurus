@@ -14,10 +14,10 @@ autoapi_dirs = [str(root / "tyrannosaurus")]
 
 # -- Project information -----------------------------------------------------
 project = "tyrannosaurus"
-copyright = "Douglas Myers-Turnbull, 2020"
+copyright = "Douglas Myers-Turnbull (2020)"
 author = "Douglas Myers-Turnbull"
-version = "0.0.4"
-release = "0.0.4"
+version = "0.0.5"
+release = "0.0.5"
 language = "en"
 
 # -- General configuration ---------------------------------------------------

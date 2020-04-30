@@ -1,9 +1,6 @@
-__version__ = "0.0.4"
-__status__ = "Development"
-__authors__ = ["Douglas Myers-Turnbull"]
-__credits__ = ["Douglas Myers-Turnbull"]
-__maintainer__ = "Douglas Myers-Turnbull"
-__copyright__ = "Copyright 2020"
-__license__ = "Apache-2.0"
-__date__ = "2020-04-29"
-__contact__ = "Douglas Myers-Turnbull"
+# importlib.metadata is compat with Python 3.8 only
+from importlib_metadata import metadata as __load
+
+metadata = __load("tyrannosaurus")
+__license__ = metadata["license"]
+__version__ = metadata["version"]

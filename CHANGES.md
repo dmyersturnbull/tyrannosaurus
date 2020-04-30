@@ -1,2 +1,2 @@
-# A changelog
+# Changelog
 
