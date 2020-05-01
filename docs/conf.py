@@ -19,7 +19,6 @@ from tyrannosaurus import __author__, __copyright__, __title__, __version__
 extensions = ["autoapi.extension", "sphinx.ext.napoleon", "sphinx_rtd_theme"]
 autoapi_type = "python"
 autoapi_dirs = [str(root / __title__)]
-autoapi_generate_api_docs = True
 master_doc = "index"
 
 # -- Project information -----------------------------------------------------

@@ -41,13 +41,15 @@ Build and test
     If you really don’t want to use Poetry,
     modify ``tox.ini`` and remove references to Poetry and ``tyrannosaurus sync``.
 
-The ``tox.ini`` runs a sequence of commands to build, lint, synchronize, clean,
+The ``tox.ini`` runs a sequence of commands to build, synchronize, clean,
 and test your project; create a new ``poetry.lock``; and generate HTML docs.
 Take a look at the ``testenv`` section to see the commands.
 Basically, you can just run:
 
 .. code-block:: text
 
+    poetry run black .
+    poetry run isort --recursive .
     tox
 
 .. tip::
