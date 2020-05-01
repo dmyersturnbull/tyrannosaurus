@@ -1,25 +1,36 @@
-# Config file for Sphinx
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+"""
+Sphinx config file for Tyrannosaurus.
+
+Uses several extensions to get API docs and sourcecode.
+https://www.sphinx-doc.org/en/master/usage/configuration.html
+"""
 
 # -- Docs setup --------------------------------------------------------------
 # Sphinx recommends adding modules for autodoc this way:
+# fmt: off
 import sys
 from pathlib import Path
 
 root = Path(__file__).parent.parent.absolute()
 sys.path.insert(0, str(root))
-extensions = ["sphinx.ext.autodoc", "autoapi.sphinx", "sphinx.ext.napoleon", "sphinx.ext.viewcode"]
+from tyrannosaurus import __author__, __copyright__, __title__, __version__
+# fmt:on
+
+extensions = ["autoapi.extension", "sphinx.ext.napoleon", "sphinx_rtd_theme"]
 autoapi_type = "python"
-autoapi_dirs = [str(root / "tyrannosaurus")]
+autoapi_dirs = [str(root / __title__)]
+autoapi_generate_api_docs = True
+master_doc = "index"
 
 # -- Project information -----------------------------------------------------
-project = "tyrannosaurus"
-copyright = "Douglas Myers-Turnbull (2020)"
-author = "Douglas Myers-Turnbull"
-version = "0.0.5"
-release = "0.0.5"
-language = "en"
+
+project = __title__
+copyright = __copyright__
+author = __author__
+version = __version__
+release = __version__
+language = None
 
 # -- General configuration ---------------------------------------------------
 exclude_patterns = ["_build", "Thumbs.db", ".*", "~*", "*~", "*#"]
-html_theme = "alabaster"
+html_theme = "sphinx_rtd_theme"

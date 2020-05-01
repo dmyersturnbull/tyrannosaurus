@@ -1,5 +1,5 @@
 {% set name = "tyrannosaurus" %}
-{% set version = "0.0.1" %}
+{% set version = "0.0.2" %}
 
 package:
   name: "{{ name|lower }}"
@@ -16,14 +16,12 @@ build:
 requirements:
   host:
     - click            >=7.1,<8.0
-    - pipreqs          >=0.4,<1.0
     - hypothesis       >=5.8,<6.0
     - pytest           >=5.4,<6.0
     - pip
     - python
   run:
     - click            >=7.1,<8.0
-    - pipreqs          >=0.4,<1.0
     - hypothesis       >=5.8,<6.0
     - pytest           >=5.4,<6.0
     - python
@@ -37,7 +35,7 @@ about:
   license: Apache Software
   license_family: APACHE
   license_file: LICENSE.txt
-  summary: "Generate modern Python projects and synchronize between build tools."
+  summary: "Generate ready-to-go Python projects."
   doc_url: https://readthedocs.org/projects/tyrannosaurus/
   dev_url: https://github.com/dmyersturnbull/tyrannosaurus
 

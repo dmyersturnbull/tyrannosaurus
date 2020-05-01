@@ -14,17 +14,8 @@ Just clone it and modify or run `tyrannosaurus new`.
 
 Provides `tyrannosaurus sync` to copy metadata from your `pyproject.toml` other config files,
 including `tox.ini`, `.flake8`, `docs/conf.py`, `docs/requirements.txt`, `LICENSE.txt`, and `recipes/.../meta.yaml`.
-You can configure this in `pyproject.toml`:
-
-```toml
-[tool.tyrannosaurus.targets]
-tox     = true
-docs    = true
-recipe  = true
-flake8  = false
-hooks   = false
-license = false
-```
+You can configure this in a `tool.tyrannosaurus` section of `pyproject.toml`.
+For an example, see [tyrannosaurus's own pyproject.toml](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/pyproject.toml) file.
 
 The information copied includes version, description, dependencies, and preferred line length.
 Always generates backups under `.tyrannosaurus` before modifying.

@@ -5,12 +5,29 @@ description-file = "README.md"
 requires = ["poetry>=1.0", "coverage[toml]"]
 build-backend = "poetry.masonry.api"
 
+
+#########################################################################################
+# Tyrannosaurus
+#########################################################################################
+
+[tool.tyrannosaurus.options]
+align = true
+
+[tool.tyrannosaurus.sources]
+status     = "'Development'"
+date       = "${today}"
+copyright  = "'Copyright ${today.year}'"
+version    = "tool.poetry.version"
+release    = "tool.poetry.version"
+pyversions = "tool.poetry.python"
+devdeps    = "tool.poetry.dev-dependencies"
+linelength = "tool.black.line-length"
+
 [tool.tyrannosaurus.targets]
-tox    = true
-docs   = true
-recipe = true
-flake8 = false
-hooks  = false
+tox          = true
+hooks        = false
+license      = false
+contributors = false
 
 
 #########################################################################################
@@ -60,27 +77,37 @@ source = "https://github.com/dmyersturnbull/tyrannosaurus"
 tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
-python        = "^3.7"
-click         = "^7.1"
-toml          = "^0.10"
-docker = {optional = true, version = "^4.2"}
-
-[tool.poetry.extras]
-extra   = ["docker"]
-all     = ["docker"]
+python                   = "^3.7"
+click                    = "^7.1"
+toml                     = "^0.10"
+importlib-metadata       = "^1.6"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.4"
-pylint = "^2.5"
-flake8 = "^3.7"
-isort = "^4.3"
-mypy = "^0.750.0"
-autoapi = "^2.0"
-pre-commit = "^2.3"
-black = "=19.10b0"
-#poetry2conda = "^0.1.0"
-importlib-metadata = "^1.6"
-coverage = {extras = ["toml"], version = "^5.1"}
+pre-commit               = "^2.3"
+pytest                   = "^5.4"
+coverage                 = {extras = ["toml"], version = "^5.1"}
+pytest-cov               = "^2.8"
+sphinx                   = "^3.0"
+sphinx-autodoc-typehints = "^1.10"
+autoapi                  = "^2.0"
+mypy                     = "^0.750"
+pytype                   = {version = "^2020.1.8", python = "3.7"}
+flake8                   = "^3.7"
+flake8-docstrings        = "^1.5"
+black                    = "=19.10b0"
+isort                    = "^4.3"
+#poetry2conda            = "^0.1.0"
+#pylint                  = "^2.5"
+docker                   = {optional = true, version = "^4.2"}
+
+[tool.poetry.extras]
+dev     = [
+        "pre-commit", "pytest", "coverage",
+        "sphinx", "sphinx-autodoc-typehits", "autoapi",
+        "mypy", "pytype",
+        "flake8", "flake8-docstrings",
+        "black", "isort"
+]
 
 
 #########################################################################################
