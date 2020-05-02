@@ -13,9 +13,8 @@ from pathlib import Path, PurePath
 from subprocess import check_call
 from typing import Any, Mapping, Union
 
-import toml
-
-import click
+import tomlkit
+import typer
 
 logger = logging.getLogger(__package__)
 
@@ -36,7 +35,7 @@ class Toml:
         Returns:
             A new Toml.
         """
-        return Toml(toml.loads(Path(path).read_text(encoding="utf8")))
+        return Toml(tomlkit.loads(Path(path).read_text(encoding="utf8")))
 
     def __init__(self, x: Mapping[str, Any]) -> None:
         """
@@ -64,14 +63,13 @@ class Toml:
         return at
 
 
-@click.group()
+@typer.group()
 def cli() -> None:
     """Main function for CLI."""
     pass
 
 
 @cli.command()
-@click.argument("name")
 def new(name: str) -> None:
     """
     Creates a new project.
@@ -79,14 +77,11 @@ def new(name: str) -> None:
         name: The name of the project, which will also be used as the path to create.
     """
     check_call("git clone https://github.com/dmyersturnbull/tyrannosaurus.git " + name)
-    click.echo("Done!")
+    typer.echo("Done!")
 
 
 @cli.command()
-@click.argument(
-    "path", type=click.Path, exists=True, readable=True, writable=True, file_ok=False, dir_ok=True
-)
-def sync(path: str) -> None:
+def sync(path: Path) -> None:
     """
     Syncs project metadata between configured files.
     Args:
@@ -99,11 +94,7 @@ def sync(path: str) -> None:
 
 
 @cli.command()
-@click.argument(
-    "path", type=click.Path, exists=True, readable=True, writable=True, file_ok=False, dir_ok=True
-)
-@click.option("--aggressive", type=bool)
-def clean(path: str, aggressive: bool) -> None:
+def clean(path: Path, aggressive: bool) -> None:
     """
     Deletes temporary and unwanted files and directories.
     Args:
@@ -139,8 +130,8 @@ def clean(path: str, aggressive: bool) -> None:
                 if pattern.fullmatch(p.name):
                     shutil.rmtree(p)
                     break
-    click.echo("Done.")
+    typer.echo("Done.")
 
 
 if __name__ == "__main__":
-    cli()
+    typer.run(cli)

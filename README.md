@@ -13,7 +13,7 @@ Just clone it and modify or run `tyrannosaurus new`.
 ⚠ Status: Under development
 
 Provides `tyrannosaurus sync` to copy metadata from your `pyproject.toml` other config files,
-including `tox.ini`, `.flake8`, `docs/conf.py`, `docs/requirements.txt`, `LICENSE.txt`, and `recipes/.../meta.yaml`.
+including `tox.ini`, `.flake8`, `docs/requirements.txt`, `LICENSE.txt`, and `recipes/.../meta.yaml`.
 You can configure this in a `tool.tyrannosaurus` section of `pyproject.toml`.
 For an example, see [tyrannosaurus's own pyproject.toml](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/pyproject.toml) file.
 
@@ -29,6 +29,12 @@ Projects are configured for:
 
 [Poetry](https://github.com/python-poetry/poetry) is fantastic and highly recommended.
 Also see [DepHell](https://github.com/dephell/dephell) and [conda-forge](https://conda-forge.org/).
+
+Suggested standards:
+- [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
+- [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) recommendations.
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
 
 ### Building, extending, and contributing
 
