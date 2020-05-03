@@ -116,7 +116,7 @@ isort                    = "^4.3"
 docker                   = {optional = true, version = "^4.2"}
 
 [tool.poetry.extras]
-docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "importlib_metadata"]
+docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi"]
 dev     = [
         "pre-commit", "pytest", "coverage",
         "sphinx", "sphinx-autodoc-typehits", "autoapi",
