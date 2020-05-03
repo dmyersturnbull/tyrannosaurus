@@ -8,7 +8,7 @@ from __future__ import annotations
 import logging
 import re
 import shutil
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path, PurePath
 from subprocess import check_call
 from typing import Any, Mapping, Union
@@ -17,56 +17,44 @@ import tomlkit
 import typer
 
 logger = logging.getLogger(__package__)
+today = date.today()
 
 
-class Toml:
-    """
-    A thin wrapper around toml to make getting values easier.
-    Example:
-        ``version = Toml.read('myfile.toml')['tool.poetry.version']``
-    """
+class _Toml:
+    """A thin wrapper around toml to make getting values easier."""
 
     @classmethod
-    def read(cls, path: Union[PurePath, str]) -> Toml:
-        """
-        Reads a UTF-8 TOML file and returns a new ``Toml``.
-        Args:
-            path: A path-like pointer to the file.
-        Returns:
-            A new Toml.
-        """
-        return Toml(tomlkit.loads(Path(path).read_text(encoding="utf8")))
+    def read(cls, path: Union[PurePath, str]) -> _Toml:
+        return _Toml(tomlkit.loads(Path(path).read_text(encoding="utf8")))
 
     def __init__(self, x: Mapping[str, Any]) -> None:
-        """
-        Constructor.
-        Args:
-            x: Data from ``toml.reads``.
-        """
         self.x = x
 
     def __getitem__(self, items: str):
-        """
-        Gets an item from the toml.
-        Example:
-            ``data['tool.poetry']``
-        Args:
-            items: A period-separated string of nested items in the dict.
-        Returns:
-            The value, which could be a list, set, dict, date, datetime, int, float, or str.
-        Raises:
-            KeyError: If the item doesn't exist.
-        """
         at = self.x
         for item in items.split("."):
             at = at[item]
         return at
 
 
-@typer.group()
-def cli() -> None:
-    """Main function for CLI."""
-    pass
+class _Source:
+    @classmethod
+    def parse(cls, s: str, toml: _Toml) -> str:
+        if s.startswith("'") and s.endswith("'"):
+            return (
+                s.replace("${today}", str(today))
+                .replace("${today.year}", str(today.year))
+                .replace("${today.month}", str(today.month))
+                .replace("${today.day}", str(today.day))
+            )
+        else:
+            value = toml[s]
+            if not isinstance(value, (str, int, float, date, datetime)):
+                raise ValueError("Key {} does not refer to a string, int, etc.".format(s))
+            return str(value)
+
+
+cli = typer.Typer()
 
 
 @cli.command()
@@ -87,8 +75,11 @@ def sync(path: Path) -> None:
     Args:
         path: Path of the project root.
     """
-    today = str(date.today())
-    data = Toml.read(Path(path) / "pyproject.toml")
+    data = _Toml.read(Path(path) / "pyproject.toml")
+    options = {k for k, v in data["tool.tyrannosaurus.options"].items() if v}
+    sources = {
+        k: _Source.parse(v, data) for k, v in data["tool.tyrannosaurus.sources"].items() if v
+    }
     targets = {k for k, v in data["tool.tyrannosaurus.targets"].items() if v}
     print("Did nothing.")
 
@@ -134,4 +125,4 @@ def clean(path: Path, aggressive: bool) -> None:
 
 
 if __name__ == "__main__":
-    typer.run(cli)
+    cli()
