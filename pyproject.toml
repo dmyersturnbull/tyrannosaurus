@@ -108,19 +108,19 @@ sphinx                   = "^3.0"
 sphinx-autoapi           = "^1.3"
 sphinx-rtd-theme         = "^0.4.3"
 mypy                     = "^0.750"
-pytype                   = {version = "^2020.1.8", python = "3.7"}
 flake8                   = "^3.7"
 flake8-docstrings        = "^1.5"
 black                    = "=19.10b0"
 isort                    = "^4.3"
-docker                   = {optional = true, version = "^4.2"}
+sphinx-autodoc-typehints = "^1.10"
+
 
 [tool.poetry.extras]
-docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "tomlkit"]
+docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi"]
 dev     = [
         "pre-commit", "pytest", "coverage",
-        "sphinx", "sphinx-autodoc-typehits", "autoapi",
-        "mypy", "pytype",
+        "sphinx", "sphinx-autodoc-typehints", "sphinx-autoapi",
+        "mypy",
         "flake8", "flake8-docstrings",
         "black", "isort"
 ]
