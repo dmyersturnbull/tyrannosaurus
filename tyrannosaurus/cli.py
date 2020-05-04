@@ -92,6 +92,7 @@ def clean(path: Path, aggressive: bool) -> None:
         path: Path of the project root.
         aggressive: Delete additional files, including .swp, .ipython_checkpoints, and dist.
     """
+    # also add non-most-recent versions from "dist", "sdist"
     trash_names = {
         ".egg-info",
         ".pytest_cache",
@@ -114,7 +115,7 @@ def clean(path: Path, aggressive: bool) -> None:
     for p in Path(path).glob("**/*"):
         if p.name in trash_names:
             shutil.rmtree(p)
-        elif p.parent == p.parent.name == "docs" and p.name == "html":
+        elif p.parent == p.parent.name == "docs" and p.name in ["html", "build"]:
             shutil.rmtree(p)
         else:
             for pattern in trash_patterns:

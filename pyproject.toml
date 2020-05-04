@@ -14,18 +14,20 @@ build-backend = "poetry.masonry.api"
 align = true
 
 [tool.tyrannosaurus.sources]
-status     = "'Development'"
-date       = "${today}"
-copyright  = "'Copyright ${today.year}'"
-version    = "tool.poetry.version"
-release    = "tool.poetry.version"
-pyversions = "tool.poetry.python"
-devdeps    = "tool.poetry.dev-dependencies"
-linelength = "tool.black.line-length"
+status             = "'Development'"
+date               = "${today}"
+copyright          = "'Copyright ${today.year}'"
+version            = "tool.poetry.version"
+release            = "tool.poetry.version"
+pyversions         = "tool.poetry.python"
+devdeps            = "tool.poetry.dev-dependencies"
+linelength         = "tool.black.line-length"
+githubmaintainers  = "'dmyersturnbull'"
 
 [tool.tyrannosaurus.targets]
 tox          = true
 docs         = true
+recipe       = true
 license      = false
 contributors = false
 
@@ -113,6 +115,7 @@ flake8-docstrings        = "^1.5"
 black                    = "=19.10b0"
 isort                    = "^4.3"
 sphinx-autodoc-typehints = "^1.10"
+grayskull                = "^0.4"
 
 
 [tool.poetry.extras]
@@ -122,7 +125,8 @@ dev     = [
         "sphinx", "sphinx-autodoc-typehints", "sphinx-autoapi",
         "mypy",
         "flake8", "flake8-docstrings",
-        "black", "isort"
+        "black", "isort",
+        "grayskull"
 ]
 
 
