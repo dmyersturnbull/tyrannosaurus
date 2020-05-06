@@ -79,6 +79,7 @@ Here are some potentially useful standards:
 - [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) recommendations.
 - [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+- According to taste, only Git rebase (never merge)
 
 
 ### Building, extending, and contributing
