@@ -1,44 +1,38 @@
 {% set name = "tyrannosaurus" %}
-{% set version = "0.0.2" %}
+{% set version = "0.1.0" %}
 
 package:
-  name: "{{ name|lower }}"
-  version: "{{ version }}"
-
+    name: '{{ name|lower }}'
+    version: '{{ version }}'
 source:
-  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: todo
-
+    url: >-
+        https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{
+        version }}.tar.gz
+    sha256: todo
 build:
-  number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
-
+    number: 0
+    script: '{{ PYTHON }} -m pip install . -vv'
 requirements:
-  host:
-    - click            >=7.1,<8.0
-    - hypothesis       >=5.8,<6.0
-    - pytest           >=5.4,<6.0
-    - pip
-    - python
-  run:
-    - click            >=7.1,<8.0
-    - hypothesis       >=5.8,<6.0
-    - pytest           >=5.4,<6.0
-    - python
-
+    host:
+        - 'click            >=7.1,<8.0'
+        - 'hypothesis       >=5.8,<6.0'
+        - 'pytest           >=5.4,<6.0'
+        - pip              >=20
+        - 'python           >=3.6,<=3.8'
+    run:
+        - 'click            >=7.1,<8.0'
+        - 'python           >=3.6,<=3.8'
 test:
-  imports:
-    - tyrannosaurus
-
+    imports:
+        - tyrannosaurus
 about:
-  home: "https://github.com/dmyersturnbull/tyrannosaurus"
-  license: Apache Software
-  license_family: APACHE
-  license_file: LICENSE.txt
-  summary: "Generate ready-to-go Python projects."
-  doc_url: https://readthedocs.org/projects/tyrannosaurus/
-  dev_url: https://github.com/dmyersturnbull/tyrannosaurus
-
+    home: 'https://github.com/dmyersturnbull/tyrannosaurus'
+    license: Apache Software
+    license_family: APACHE
+    license_file: LICENSE.txt
+    summary: Opinionated 2020 Python template and metadata synchronizer.
+    doc_url: 'https://readthedocs.org/projects/tyrannosaurus/'
+    dev_url: 'https://github.com/dmyersturnbull/tyrannosaurus'
 extra:
-  recipe-maintainers:
-    - dmyersturnbull
+    recipe-maintainers:
+        - dmyersturnbull

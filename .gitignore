@@ -1,6 +1,7 @@
 # Also see https://github.com/github/gitignore/blob/master/Python.gitignore
 # This is simpler and easier to understand
-# General
+
+# General hidden or unwanted
 .*
 ~*
 *~
@@ -10,7 +11,20 @@ Thumbs.db
 *.swp
 tmp/
 
-# Python
+# Log files and binary files
+*.log
+*.zip
+*.tar.gz
+*.gz
+*.tar
+*.z7
+*.exe
+*.msi
+*.pkg
+*.dll
+*.so
+
+# Python temp and build files
 docs/html/
 __pycache__/
 __pypackages__/
@@ -25,12 +39,13 @@ eggs/
 sdist/
 docs/_build
 cython_debug/
-# these are redundant but definitely unwanted
+
+# Hidden files that are definitely unwanted (redundant)
 .tox/
 .pytest_cache
 .ipynb_checkpoints
 
-# other languages -- just the obvious cases
+# Files from other languages
 *.o
 hs_err_pid*
 *.class
@@ -39,13 +54,16 @@ hs_err_pid*
 *.jl.mem
 deps/deps.jl
 
-# Keep these:
+# Keep these config files
 !/.gitignore
 !/.travis.yml
 !/.circleci/config.yml
+!/.github
 !/.appveyor.yml
 !/.flake8
 !/.readthedocs.yml
 !/.dockerignore
 !/.editorconfig
 !/.pre-commit-config.yaml
+!/.yarn
+!.yarnrc.yml

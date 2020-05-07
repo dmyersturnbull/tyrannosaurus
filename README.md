@@ -4,21 +4,50 @@
 [![Latest version on PyPi](https://badge.fury.io/py/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
 [![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/tyrannosaurus/)
+![Build & test](https://github.com/dmyersturnbull/tyrannosaurus/workflows/Build%20&%20test/badge.svg)
 [![Travis](https://travis-ci.org/dmyersturnbull/tyrannosaurus.svg?branch=master)](https://travis-ci.org/dmyersturnbull/tyrannosaurus)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 An opinionated 2020 Python template.
-Just clone it and modify or run `tyrannosaurus new`.
+Just clone and modify.
 
-⚠ Status: Under development. The template works, but the command-line tool doesn't.
+⚠ Status: Under development. The template works, but the command-line tool doesn’t.
+
+Alternatively, run `pip install tyrannosaurus && tyrannosaurus new projectname`,
+which will insert your project’s name.
+
+- _Every time you commit_, your code will be linted.
+- _Every time you push or make a pull request_,
+  your code will be built, tested, and checked.
+  Project metadata will be appropriately synced,
+  security checks will be run, style will be checked, documentation will be generated,
+  and docker images, sdists, and wheels will be built.
+- _Every time you release on Github_, your code will be published to PyPi.
+  Just add a `PYPI_TOKEN` to your Github secrets.
+
+Also comes with nice Github labels, a changelog template,
+Conda recipe generation, and various other integrations.
+
+To run on a local machine, install [Poetry](https://github.com/python-poetry/poetry)
+and [Tox](https://tox.readthedocs.io/en/latest/) (`pip install tox`).
+Then just type `tox`.
+_If you’re not familiar with Poetry:_
+It’s pretty easy to use.
+You’ll want to edit the `pyproject.toml` on a new project to edit
+the metadata and dependencies.
+You don’t need to touch the `all`
+
+
+### List of integrations
 
 [Poetry](https://github.com/python-poetry/poetry) is fantastic and assumed.
 New projects are configured for:
 - Build: [Poetry](https://github.com/python-poetry/poetry), Tox, Conda, [DepHell](https://github.com/dephell/dephell), wheels, sdist
-- Test: Travis, Tox, pytest, Coverage
+- Test: Tox, pytest, Coverage, Bandit
 - Style: Black, Flake8, MyPy, pycodestyle, pydocstyle
 - Hooks: [EditorConfig](https://editorconfig.org/), pre-commit-hooks
 - Documentation: ReadTheDocs, Sphinx, sphinx-autoapi
+- CI: Travis, Github actions
 - Publish: Twine, Docker, Conda-Forge (with [grayskull](https://github.com/marcelotrevisani/grayskull))
 
 
@@ -56,13 +85,13 @@ Here are some useful commands:
 - `grayskull ${yourprojectname} --maintainers $(git config user.email) --output recipes/` to generate a Conda recipe
 - `tyrannosaurus sync` to sync metadata and nothing else
 - `tyrannosaurus clean --aggressive` to remove lots of temp files
+- `docker build .` to build a docker image
 
 ### Other things to set up
 - More pre-commit-config options, such as `check-yaml`
 - GPG keys with git: `git config --global user.signingkey`
 - GPG keys with Twine: use `twine -s`
 - A certificate with [Certbot](https://certbot.eff.org/) if you need one
-- Github labels, such as [Tyrannosaurus's labels](https://github.com/dmyersturnbull/tyrannosaurus/labels)
 
 ### Uploading to Conda-Forge
 

@@ -65,7 +65,7 @@ def new(name: str) -> None:
         name: The name of the project, which will also be used as the path to create.
     """
     check_call("git clone https://github.com/dmyersturnbull/tyrannosaurus.git " + name)
-    typer.echo("Done!")
+    typer.echo("Cloned but did little else!")
 
 
 @cli.command()
@@ -110,7 +110,7 @@ def clean(path: Path, aggressive: bool) -> None:
     }
     # "docs/_build", "docs/_html",
     if aggressive:
-        trash_names.update({".tox", "dist", "sdist", "build", ".ipynb_checkpoints"})
+        trash_names.update({".tox", "dist", "sdist", "build", ".ipynb_checkpoints", "poetry.lock"})
         trash_patterns.update({re.compile(r"\*\.swp")})
     for p in Path(path).glob("**/*"):
         if p.name in trash_names:

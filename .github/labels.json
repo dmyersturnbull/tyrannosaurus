@@ -1,0 +1,162 @@
+[
+    {
+        "name": "a notice ♢",
+        "description": "Bulletin; notice me!",
+        "color": "#ffffff"
+    },
+    {
+        "name": "breaking ⚙",
+        "description": "This requires a breaking change.",
+        "color": "#000000"
+    },
+    {
+        "name": "difficulty: easy",
+        "description": "< 30 min",
+        "color": "#bbddbb"
+    },
+    {
+        "name": "difficulty: hard",
+        "description": "difficulty: hard",
+        "color": "#009900"
+    },
+    {
+        "name": "difficulty: milestone ⚑",
+        "description": "⚑ A milestone referencing other issues",
+        "color": "#00ff00"
+    },
+    {
+        "name": "difficulty: severe",
+        "description": "difficulty: severe",
+        "color": "#006600"
+    },
+    {
+        "name": "difficulty: typical",
+        "description": "30 min – 4 hours",
+        "color": "#66bb66"
+    },
+    {
+        "name": "kind: bug",
+        "description": "Something isn’t working",
+        "color": "#ee5500"
+    },
+    {
+        "name": "kind: cleanup",
+        "description": "Simplify or improve code",
+        "color": "#84b6eb"
+    },
+    {
+        "name": "kind: documentation",
+        "description": "A feature needs better documentation",
+        "color": "#006b75"
+    },
+    {
+        "name": "kind: enhancement",
+        "description": "Improve functionality",
+        "color": "#2060cc"
+    },
+    {
+        "name": "kind: infrastructure",
+        "description": "Modify dependencies, installation, tools, etc.",
+        "color": "#333788"
+    },
+    {
+        "name": "kind: new feature",
+        "description": "Create something new",
+        "color": "#0000ff"
+    },
+    {
+        "name": "kind: performance",
+        "description": "Improve speed or resource usage",
+        "color": "#bbbbdd"
+    },
+    {
+        "name": "kind: question",
+        "description": "Further information is requested",
+        "color": "#66317c"
+    },
+    {
+        "name": "kind: security 🔒",
+        "description": "Vulnerability to fix",
+        "color": "#ffbb00"
+    },
+    {
+        "name": "kind: tests",
+        "description": "Write or improve tests",
+        "color": "#d08000"
+    },
+    {
+        "name": "priority: critical ⚠",
+        "description": "⚠ Must be done NOW",
+        "color": "#ff0000"
+    },
+    {
+        "name": "priority: important",
+        "description": "Should be done soon",
+        "color": "#cc0000"
+    },
+    {
+        "name": "priority: minor",
+        "description": "Should do, but not important",
+        "color": "#ddaa99"
+    },
+    {
+        "name": "priority: pickmeup",
+        "description": "Too minor to bother",
+        "color": "#f0e9e9"
+    },
+    {
+        "name": "priority: wontfix",
+        "description": "Should not be fixed",
+        "color": "#fff9f9"
+    },
+    {
+        "name": "status: decision",
+        "description": "Whether to fix / how to fix",
+        "color": "#33aaaa"
+    },
+    {
+        "name": "status: duplicate",
+        "description": "This issue or pull request already exists",
+        "color": "#cfd3d7"
+    },
+    {
+        "name": "status: fixed ✓",
+        "description": "100% done",
+        "color": "#ddffee"
+    },
+    {
+        "name": "status: help needed ◉",
+        "description": "◉  More contributors need to be assigned",
+        "color": "#55cccc"
+    },
+    {
+        "name": "status: in progress 🡆",
+        "description": "Assigned and in progress",
+        "color": "#aacfbb"
+    },
+    {
+        "name": "status: info required ❔",
+        "description": "Can’t be fixed until questions are answered",
+        "color": "#77ccbb"
+    },
+    {
+        "name": "status: invalid",
+        "description": "Not a real issue",
+        "color": "#e6e6e6"
+    },
+    {
+        "name": "status: unresolvable",
+        "description": "Can’t be fixed: The required info doesn't exist.",
+        "color": "#111111"
+    },
+    {
+        "name": "status: in upstream",
+        "description": "Can’t fix until a dependency is fixed",
+        "color": "#fefeee"
+    },
+    {
+        "name": "sticky note ☆",
+        "description": "☆ Important for reference even after it’s closed",
+        "color": "#ffee00"
+    }
+]

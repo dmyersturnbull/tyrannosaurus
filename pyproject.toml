@@ -7,6 +7,67 @@ build-backend = "poetry.masonry.api"
 
 
 #########################################################################################
+# Poetry metadata
+#########################################################################################
+
+[tool.poetry]
+name = "tyrannosaurus"
+version = "0.1.0"
+description = "Opinionated 2020 Python template and metadata synchronizer."
+include = [
+    ".github",
+    ".circleci",
+    "docs",
+    "recipes",
+    "tests",
+    "README.md",
+    "LICENSE.txt",
+    "CHANGELOG.md",
+    ".appveyor.yml",
+    ".coverage",
+    ".coveralls.yml",
+    ".dockerignore",
+    ".editorconfig",
+    ".gitignore",
+    ".pre-commit-config.yaml",
+    ".travis.yml",
+    "pyproject.toml",
+    "readthedocs.yml",
+    "Dockerfile",
+    "tox.ini",
+]
+authors = ["Douglas Myers-Turnbull"]
+maintainers = ["Douglas Myers-Turnbull"]
+license = "Apache-2.0"
+readme = "README.md"
+keywords = ["python", "template", "pyproject-toml", "python-poetry", "conda-build"]
+homepage = "https://github.com/dmyersturnbull/tyrannosaurus"
+repository = "https://github.com/dmyersturnbull/tyrannosaurus"
+documentation = "https://tyrannosaurus.readthedocs.io"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Natural Language :: English",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+	"Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+	"Framework :: tox",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Code Generators"
+]
+
+[tool.poetry.urls]
+build = "https://travis-ci.org/dmyersturnbull/tyrannosaurus"
+issues = "https://github.com/dmyersturnbull/tyrannosaurus/issues"
+source = "https://github.com/dmyersturnbull/tyrannosaurus"
+
+
+#########################################################################################
 # Tyrannosaurus
 #########################################################################################
 
@@ -30,62 +91,6 @@ docs         = true
 recipe       = true
 license      = false
 contributors = false
-
-
-#########################################################################################
-# Poetry metadata
-#########################################################################################
-
-[tool.poetry]
-name = "tyrannosaurus"
-version = "0.0.3"
-description = "Generate ready-to-go Python projects."
-include = [
-    "README.md",
-    "LICENSE.txt",
-    "CHANGES.md",
-    ".appveyor.yml",
-    ".dockerignore",
-    ".editorconfig",
-    ".gitignore",
-    ".pre-commit-config.yaml",
-    ".travis.yml",
-    "pyproject.toml",
-    "readthedocs.yml",
-    "tox.ini",
-    "docs",
-    "recipes",
-    "tests"
-]
-authors = ["Douglas Myers-Turnbull"]
-maintainers = ["Douglas Myers-Turnbull"]
-license = "Apache-2.0"
-readme = "README.md"
-keywords = ["dependencies", "requirements", "install_requires", "extras_require"]
-homepage = "https://github.com/dmyersturnbull/tyrannosaurus"
-repository = "https://github.com/dmyersturnbull/tyrannosaurus"
-documentation = "https://tyrannosaurus.readthedocs.io"
-classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
-    "Natural Language :: English",
-    "License :: OSI Approved :: Apache Software License",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-	"Intended Audience :: Developers",
-    "Operating System :: OS Independent",
-    "Environment :: Console",
-	"Framework :: tox",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: Build Tools",
-    "Topic :: Software Development :: Code Generators"
-]
-
-[tool.poetry.urls]
-build = "https://travis-ci.org/dmyersturnbull/tyrannosaurus"
-issues = "https://github.com/dmyersturnbull/tyrannosaurus/issues"
-source = "https://github.com/dmyersturnbull/tyrannosaurus"
 
 
 #########################################################################################
@@ -116,17 +121,22 @@ black                    = "=19.10b0"
 isort                    = "^4.3"
 sphinx-autodoc-typehints = "^1.10"
 grayskull                = "^0.4"
+xdoctest                 = "^0.12"
+hypothesis               = "^5.10"
+flake8-bandit            = "^2.1"
+flake8-bugbear           = "^20.1"
 
 
 [tool.poetry.extras]
 docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi"]
 dev     = [
-        "pre-commit", "pytest", "coverage",
+        "pre-commit", "pytest", "coverage", "xdoctest", "hypothesis",
         "sphinx", "sphinx-autodoc-typehints", "sphinx-autoapi",
         "mypy",
         "flake8", "flake8-docstrings",
         "black", "isort",
-        "grayskull"
+        "grayskull",
+        "flake8-bandit", "flake8-bugbear"
 ]
 
 

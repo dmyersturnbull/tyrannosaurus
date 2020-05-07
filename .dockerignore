@@ -1,5 +1,11 @@
 ./tests
 ./docs
-./pipenv
-./.git
 ./.github
+./.dist
+./.circleci
+./.travis.yml
+./.appveyor.yml
+./.coverage
+./.coveralls.yml
+./.dockerignore
+./readthedocs.yml

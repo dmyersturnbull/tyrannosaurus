@@ -5,12 +5,13 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) recommendations.
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
-## [0.1.0] - unreleased
+## [0.1.0] - 2020-05-05
 
-This will be the first usable version.
+### Added
+- Github actions
 
 
-## [0.0.3] - unreleased
+## [0.0.3] - 2020-05-05
 
 ### Fixed
 - Failing docs build.

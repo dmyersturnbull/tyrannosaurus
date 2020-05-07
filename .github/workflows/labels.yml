@@ -1,0 +1,18 @@
+'on':
+    push:
+        branches:
+            - master
+name: Generate labels
+jobs:
+    labels:
+        name: DefaultLabelsActions
+        runs-on: ubuntu-latest
+        steps:
+            -
+                name: Checkout
+                uses: actions/checkout@v2
+            -
+                name: Create labels
+                uses: lannonbr/issue-label-manager-action@2.0.0
+                env:
+                    GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
