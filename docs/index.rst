@@ -99,7 +99,7 @@ For reference, here are some steps to consider after creating a new repository:
 - Set up automated code review (ex `codeclimate <https://codeclimate.com/>`_)
 - Review `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_,
   `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_),
-  and `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_)
+   and `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_)
 
 
 
