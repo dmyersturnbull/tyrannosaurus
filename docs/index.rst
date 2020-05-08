@@ -19,8 +19,8 @@ To install, run: ``pip install tyrannosaurus``
 .. warning::
 
     Tyrannosaurus is in an alpha build.
-    Currently, it works great as a template repository,
-    but the command-line interface itself is doesn’t do much.
+    The template works great.
+    Commands mostly work, but `sync` does little.
 
 
 Create a new project
@@ -110,7 +110,7 @@ This describes how to generate a Conda recipe and
 [upload it to `Conda-Forge <https://conda-forge.org/#add_recipe>`_.
 Your desired version must already be published on PyPi.
 
-1. Run ``tyrannosaurus recipe``
+1. Run ``tyrannosaurus recipe``, which will run grayskull.
 2. Check over your new recipe in ``recipes/projectname/meta.yaml``.
 3. Fork from  `staged-recipes <https://github.com/conda-forge/staged-recipes>`_.
 4. Copy your recipe from ``recipes/projectname/meta.yaml`` into the repo (keeping the path).
@@ -121,29 +121,20 @@ Your desired version must already be published on PyPi.
     On Windows, you may need to run ````conda install m2-patch```` first.
 
 
-.. note::
-
-    The command ``tyrannosaurus recipe`` uses is:
-
-    .. code-block:: text
-
-        grayskull ${yourprojectname} --maintainers ${maintainers} --output recipes/
-
-
 
 List of integrations
 --------------------
 
 New projects are configured for:
 
-- Build: [Poetry](https://github.com/python-poetry/poetry), Tox, Conda,
-  [DepHell](https://github.com/dephell/dephell), wheels, sdist
+- Build: `Poetry <https://github.com/python-poetry/poetry>`_, Tox, Conda,
+  `DepHell <https://github.com/dephell/dephell>`_, wheels, sdist
 - Test: Tox, pytest, Coverage, Bandit
 - Style: Black, Flake8, MyPy, pycodestyle, pydocstyle
-- Hooks: [EditorConfig](https://editorconfig.org/), pre-commit-hooks
+- Hooks: `EditorConfig <https://editorconfig.org>`_, pre-commit-hooks
 - Documentation: ReadTheDocs, Sphinx, sphinx-autoapi
 - CI: Travis, Github actions
-- Publish: Twine, Docker, Conda-Forge (with [grayskull](https://github.com/marcelotrevisani/grayskull))
+- Publish: Twine, Docker, Conda-Forge (with `grayskull <https://github.com/marcelotrevisani/grayskull>`_)
 
 
 List of sync targets

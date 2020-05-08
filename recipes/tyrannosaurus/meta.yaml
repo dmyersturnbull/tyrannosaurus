@@ -1,38 +1,47 @@
 {% set name = "tyrannosaurus" %}
 {% set version = "0.1.0" %}
 
+
 package:
-    name: '{{ name|lower }}'
-    version: '{{ version }}'
+  name: {{ name|lower }}
+  version: {{ version }}
+
 source:
-    url: >-
-        https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{
-        version }}.tar.gz
-    sha256: todo
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 148010497b39abf595b3dfc53ed9bbddacb750197d6d88cd0c99a68915ba38e9
+
 build:
-    number: 0
-    script: '{{ PYTHON }} -m pip install . -vv'
+  number: 0
+  noarch: python
+  entry_points:
+    - tyrannosaurus = tyrannosaurus.cli:cli
+  script: {{ PYTHON }} -m pip install . -vv
+
 requirements:
-    host:
-        - 'click            >=7.1,<8.0'
-        - 'hypothesis       >=5.8,<6.0'
-        - 'pytest           >=5.4,<6.0'
-        - pip              >=20
-        - 'python           >=3.6,<=3.8'
-    run:
-        - 'click            >=7.1,<8.0'
-        - 'python           >=3.6,<=3.8'
+  host:
+    - pip
+    - python >=3.6,<4.0
+  run:
+    - importlib-metadata >=1.6,<2.0
+    - python >=3.6,<4.0
+    - tomlkit >=0.6.0,<0.7.0
+    - typer >=0.2.1,<0.3.0
+
 test:
-    imports:
-        - tyrannosaurus
+  imports:
+    - tyrannosaurus
+  commands:
+    - pip check
+    - tyrannosaurus --help
+  requires:
+    - pip
+
 about:
-    home: 'https://github.com/dmyersturnbull/tyrannosaurus'
-    license: Apache Software
-    license_family: APACHE
-    license_file: LICENSE.txt
-    summary: Opinionated 2020 Python template and metadata synchronizer.
-    doc_url: 'https://readthedocs.org/projects/tyrannosaurus/'
-    dev_url: 'https://github.com/dmyersturnbull/tyrannosaurus'
+  home: https://pypi.org/project/tyrannosaurus/
+  summary: Opinionated 2020 Python template and metadata synchronizer.
+  license: Apache-2.0
+  license_file: LICENSE.txt
+
 extra:
-    recipe-maintainers:
-        - dmyersturnbull
+  recipe-maintainers:
+    - dmyersturnbull

@@ -12,7 +12,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.1.0"
+version = "0.2.0"
 description = "Opinionated 2020 Python template and metadata synchronizer."
 include = [
     ".github",
@@ -25,7 +25,6 @@ include = [
     "CHANGELOG.md",
     ".appveyor.yml",
     ".coverage",
-    ".coveralls.yml",
     ".dockerignore",
     ".editorconfig",
     ".gitignore",
@@ -49,9 +48,9 @@ classifiers = [
     "Natural Language :: English",
     "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
 	"Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Environment :: Console",
@@ -78,14 +77,18 @@ align = true
 # use a literal value ('') or refer to a pyproject setting
 # ${today} is the date you run it at, and ${now} is the datetime
 status             = "'Development'"
-date               = "${today}"
+date               = "'${today}'"
 copyright          = "'Copyright ${today.year}'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
-pyversions         = "tool.poetry.python"
+pyversions         = "tool.poetry.dependencies"
 devdeps            = "tool.poetry.dev-dependencies"
 linelength         = "tool.black.line-length"
-githubmaintainers  = "'dmyersturnbull'"
+# comma-separated
+maintainers        = "'dmyersturnbull'"
+
+[tool.tyrannosuarus.paths]
+recipe             = "'recipes/${name}/meta.yml'"
 
 [tool.tyrannosaurus.targets]
 # these are file and directory names, without filename extensions
@@ -110,7 +113,7 @@ changelog    = false
 tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
-python                   = "^3.7"
+python                   = ">=3.7, <4"
 tomlkit                  = "^0.6.0"
 importlib-metadata       = "^1.6"
 typer                    = "^0.2.1"
@@ -137,7 +140,9 @@ flake8-bugbear           = "^20.1"
 
 
 [tool.poetry.extras]
+# manually listed
 docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi"]
+# auto-filled from dev-deps
 dev     = [
         "pre-commit", "pytest", "coverage", "xdoctest", "hypothesis",
         "sphinx", "sphinx-autodoc-typehints", "sphinx-autoapi",

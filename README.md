@@ -3,8 +3,8 @@
 [![Build status](https://img.shields.io/pypi/status/tyrannosaurus)](https://pypi.org/project/tyrannosaurus/)
 [![Latest version on PyPi](https://badge.fury.io/py/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
-[![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/tyrannosaurus/)
-![Build & test](https://github.com/dmyersturnbull/tyrannosaurus/workflows/Build%20&%20test/badge.svg)
+[![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&style=flat-square)](https://readthedocs.org/projects/tyrannosaurus/stable)
+[![Build & test](https://github.com/dmyersturnbull/tyrannosaurus/workflows/Build%20&%20test/badge.svg)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
 [![Travis](https://travis-ci.org/dmyersturnbull/tyrannosaurus.svg?branch=master)](https://travis-ci.org/dmyersturnbull/tyrannosaurus)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -23,7 +23,8 @@ Install with `pip install tyrannosaurus`.
 - _When you release on Github_, your code will be published on PyPi.
   Just add `PYPI_TOKEN` as a Github repo secret.
 
-⚠ Status: Under development. The template works, but the command-line tool doesn’t.
+⚠ Status: Under development. The template works great.
+   Commands mostly work, but `sync` does little.
 
 Also comes with nice Github labels, a changelog template,
 Conda recipe generation, and various other integrations.
@@ -36,6 +37,12 @@ Then just type `tox` to build artifacts and run tests.
 
 For more information, [see the docs](https://tyrannosaurus.readthedocs.io/en/stable/).
 
+To make a new project, run:
+
+```bash
+pip install tyrannosaurus
+tyrannosaurus new projectname --license apache
+```
 
 ### Building, extending, and contributing
 
@@ -44,7 +51,7 @@ Tyrannosaurus is licensed under the [Apache License, version 2.0](https://www.ap
 
 
 
-```
+```text
                                               .++++++++++++.
                                            .++HHHHHHH^^HHH+.
                                           .HHHHHHHHHH++-+-++.

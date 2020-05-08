@@ -9,7 +9,6 @@ from pathlib import Path
 
 import tomlkit
 
-
 root = Path(__file__).parent.parent.absolute()
 toml = tomlkit.loads((root / "pyproject.toml").read_text(encoding="utf8"))
 
