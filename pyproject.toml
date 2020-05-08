@@ -75,6 +75,8 @@ source = "https://github.com/dmyersturnbull/tyrannosaurus"
 align = true
 
 [tool.tyrannosaurus.sources]
+# use a literal value ('') or refer to a pyproject setting
+# ${today} is the date you run it at, and ${now} is the datetime
 status             = "'Development'"
 date               = "${today}"
 copyright          = "'Copyright ${today.year}'"
@@ -86,12 +88,19 @@ linelength         = "tool.black.line-length"
 githubmaintainers  = "'dmyersturnbull'"
 
 [tool.tyrannosaurus.targets]
+# these are file and directory names, without filename extensions
+pyproject    = true
+init         = true
 tox          = true
 docs         = true
-recipe       = true
+recipes      = true
 license      = false
-contributors = false
-
+authors      = false
+github       = false
+travis       = false
+dockerfile   = false
+readme       = false
+changelog    = false
 
 #########################################################################################
 # Poetry build & dependencies

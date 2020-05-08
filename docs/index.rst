@@ -4,83 +4,183 @@ Tyrannosaurus
 .. toctree::
     :maxdepth: 1
 
-To install, run:
+Tyrannosaurus is an opinionated 2020 Python template.
+Use it to generate ready-to-go Python projects
+with easy testing and Github actions for testing and publishing.
+Lints on commit, tests on commit, and deploys to PyPi when you make a release on Github.
 
-.. code-block:: text
+You can either use the command-line interface,
+or just clone from the `Github source <https://github.com/dmyersturnbull/tyrannosaurus>`_.
+The command-line variant will generate slightly better code
+by filling in your project name and options.
+To install, run: ``pip install tyrannosaurus``
 
-    pip install tyrannosaurus
 
-..warning::
+.. warning::
 
-    Tyrannosaurus is very new and will undergo changes.
+    Tyrannosaurus is in an alpha build.
+    Currently, it works great as a template repository,
+    but the command-line interface itself is doesn’t do much.
 
 
 Create a new project
 --------------------
 
-First, run:
+You can use Tyrannosaurus to create a new project.
+Run: ``tyrannosaurus new myproject``.
+It will clone the most recent version and fill in information.
 
-.. code-block:: text
+Then modify your project as needed,
+especially by setting your metadata and dependencies in ``pyproject.toml``.
+You may also want to modify the ``.github/labels.json`` file.
+When you commit, your Github labels will be replaced with these.
+(To disable that, just delete ``.github/workflows/labels.yml``.)
 
-    tyrannosaurus new myproject
+To get the Github publish action working, you need to:
 
-Then modify your project as needed.
-Almost all of the configurable entities are in ``pyproject.toml``.
-A copyright string is listed in ``myproject/__init__.py``.
-Finally, you may want to modify ``tox.ini``.
+1. Make an account on pypi.org if you don’t have one.
+2. Make a new single-repo token on PyPi.
+3. In your Github secrets page, add ``PYPI_TOKEN``.
 
 
 Build and test
 --------------------
 
-.. note::
+This section assumes you will be using `Poetry <https://python-poetry.org/>`_
+and `Tox <https://tox.readthedocs.io/>`_.
+If you don’t have Poetry, you should `install it <https://python-poetry.org/docs/#installation>`_.
+To will be installed as a dependency when you run ``poetry install``.
 
-    This section assumes you will be using `Poetry <https://python-poetry.org/>`_
-    and `Tox <https://tox.readthedocs.io/>`_.
-    If you don’t have Poetry, you should `install it <https://python-poetry.org/docs/#installation>`_.
-    If you really don’t want to use Poetry,
-    modify ``tox.ini`` and remove references to Poetry and ``tyrannosaurus sync``.
-
+After that, you can always run ``tox`` to build and run tests.
 The ``tox.ini`` runs a sequence of commands to build, synchronize, clean,
 and test your project; create a new ``poetry.lock``; and generate HTML docs.
 Take a look at the ``testenv`` section to see the commands.
-Basically, you can just run:
-
-.. code-block:: text
-
-    poetry run black .
-    poetry run isort --recursive .
-    tox
+The Github workflows ``build.yml`` and ``publish.yml`` install Poetry and run Tox,
+so whatever you add to ``tox.ini`` will be done in Github.
 
 .. tip::
     You can bump major or minor versions of your dependencies using ``poetry update``.
-    To publish your project on `PyPi <https://pypi.org/>`_, run ``poetry publish``.
 
 
 Tyrannosaurus sync
 --------------------
 
-Running ``tox`` calls ``tyrannosaurus sync``.
-This command copies some project metadata from ``pyproject.toml`` to other files
-and between sections.
-These are the required Python versions, development requirements,
-and line length.
+Running Tox calls ``tyrannosaurus sync``.
+This command copies some project metadata from pyproject.toml to other files and between sections.
+These are the required Python versions, development requirements, and line length.
 It will also warn you if other information seems inconsistent, such as
 a license file not matching.
 
-You can configure this behavior in the ``tool.tyrannosaurus`` section
-of ``pyproject.toml``.
+You can configure this behavior in pyproject.toml
+under ``[tool.tyrannosaurus.sources]`` and ``[tool.tyrannosaurus.targets]``.
+``targets`` specifies what files and directories to update.
+Filename extensions and some directory names are omitted.
+The information to update will be decided from the filenames.
+For example, ``init`` will include the copyright statement from ``tool.tyrannosaurus.sources.copyright``.
+The sources can be either literal values surrounded in single quotes,
+or the names of other settings in pyproject.toml.
+You can use ``${today}`` to refer to the current date and ``${datetime}`` for the datetime.
+``datetime`` will be in the format ``2020-05-07 20:21``.
+You can access individual fields as expected, such as ``${datetime.hour}}`` for ``'20'``.
+
+.. note::
+
+    Tyrannosaurus always generates backups before modifying.
+    These are saved in ``.tyrannosaurus`` but are cleared on the next Tox build.
+
+
+
+To-do list
+--------------------
+
+For reference, here are some steps to consider after creating a new repository:
+
+- Configure Git to use your GPG keys: ``git config --global user.signingkey``
+- Set up automated code review (ex `codeclimate <https://codeclimate.com/>`_)
+- Review `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_,
+  `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_),
+  and `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_)
 
 
 
 Anaconda recipes
 --------------------
 
-After publishing to PyPi, you can build an Anaconda recipe using:
+This describes how to generate a Conda recipe and
+[upload it to `Conda-Forge <https://conda-forge.org/#add_recipe>`_.
+Your desired version must already be published on PyPi.
 
-.. code-block:: text
+1. Run ``tyrannosaurus recipe``
+2. Check over your new recipe in ``recipes/projectname/meta.yaml``.
+3. Fork from  `staged-recipes <https://github.com/conda-forge/staged-recipes>`_.
+4. Copy your recipe from ``recipes/projectname/meta.yaml`` into the repo (keeping the path).
+5. Make a pull request. If everything goes well, it will be on Conda-Forge soon!
 
-    conda skeleton pypi myproject
+.. tip::
 
-On Windows, you may need to run ``conda install m2-patch`` first.
-Your recipe file (``meta.yaml``) may still need some manual tweaking.
+    On Windows, you may need to run ````conda install m2-patch```` first.
+
+
+.. note::
+
+    The command ``tyrannosaurus recipe`` uses is:
+
+    .. code-block:: text
+
+        grayskull ${yourprojectname} --maintainers ${maintainers} --output recipes/
+
+
+
+List of integrations
+--------------------
+
+New projects are configured for:
+
+- Build: [Poetry](https://github.com/python-poetry/poetry), Tox, Conda,
+  [DepHell](https://github.com/dephell/dephell), wheels, sdist
+- Test: Tox, pytest, Coverage, Bandit
+- Style: Black, Flake8, MyPy, pycodestyle, pydocstyle
+- Hooks: [EditorConfig](https://editorconfig.org/), pre-commit-hooks
+- Documentation: ReadTheDocs, Sphinx, sphinx-autoapi
+- CI: Travis, Github actions
+- Publish: Twine, Docker, Conda-Forge (with [grayskull](https://github.com/marcelotrevisani/grayskull))
+
+
+List of sync targets
+--------------------
+
+Here are most of the available synchronization targets:
+
+- Copyright, status, and date in ``__init__.py``
+- Development dependencies between ``tool.poetry.dev-dependencies``, ``tool.poetry.extras``, and ``tox.ini``
+- An ``all`` optional dependency list with all optional non-dev packages
+- Dependencies for building docs in ``docs/conf.py`` and ``docs/requirements.txt``
+- Code line length between ``isort``, ``black``, and ``pycodestyle``
+- Python version in ``pyproject.toml``, ``tox.ini``, ``.travis.yml``, ``black``, and ``readthedocs.yml``
+- Copyright in ``docs/conf.py``
+- Poetry version in ``Dockerfile``
+- Authors and year listed in the license file
+- Dev versions in ``.pre-commit-config.yaml``
+- ``--maintainers`` arg for Grayskull in ``tox.ini``
+- ``doc_url``, ``dev_url``, and ``license_file`` in ``meta.yaml``
+- Most recent version in ``CHANGELOG.md`` assuming [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+
+
+Reference of commands
+---------------------
+
+These commands might be useful:
+
+- ``pre-commit install`` to configure pre-commit hooks
+- ``tox`` to sync metadata, build, install, build docs, and test
+- ``poetry bump`` to bump dependency versions (major or minor)
+- ``tyrannosaurus recipe`` to generate a Conda recipe (see below)
+
+And these commands are run automatically via either Tox or a Github action:
+
+- ``tyrannosaurus sync`` to sync metadata and nothing else
+- ``tyrannosaurus clean --aggressive`` to remove lots of temp files
+- ``poetry install`` to install and nothing more
+- ``poetry build`` to build wheels and sdists
+- ``poetry publish`` to upload to PyPi
+- ``docker build .`` to build a docker image

@@ -16,99 +16,24 @@ Just clone and modify.
 Alternatively, run `pip install tyrannosaurus && tyrannosaurus new projectname`,
 which will insert your project’s name.
 
-- _Every time you commit_, your code will be linted.
-- _Every time you push or make a pull request_,
+- _When you commit_, your code will be linted.
+- _When you push or make a pull request_,
   your code will be built, tested, and checked.
   Project metadata will be appropriately synced,
   security checks will be run, style will be checked, documentation will be generated,
   and docker images, sdists, and wheels will be built.
-- _Every time you release on Github_, your code will be published to PyPi.
-  Just add a `PYPI_TOKEN` to your Github secrets.
+- _When you release on Github_, your code will be published to PyPi.
+  Just add a `PYPI_TOKEN` to your Github repo secrets.
 
 Also comes with nice Github labels, a changelog template,
 Conda recipe generation, and various other integrations.
+Tyrannosaurus itself is included as a dependency to copy metadata between config files,
+such as the project version, description, copyright, and build and doc requirements.
 
 To run on a local machine, install [Poetry](https://github.com/python-poetry/poetry)
 and [Tox](https://tox.readthedocs.io/en/latest/) (`pip install tox`).
 Then just type `tox`.
-_If you’re not familiar with Poetry:_
-It’s pretty easy to use.
-You’ll want to edit the `pyproject.toml` on a new project to edit
-the metadata and dependencies.
-You don’t need to touch the `all`
-
-
-### List of integrations
-
-[Poetry](https://github.com/python-poetry/poetry) is fantastic and assumed.
-New projects are configured for:
-- Build: [Poetry](https://github.com/python-poetry/poetry), Tox, Conda, [DepHell](https://github.com/dephell/dephell), wheels, sdist
-- Test: Tox, pytest, Coverage, Bandit
-- Style: Black, Flake8, MyPy, pycodestyle, pydocstyle
-- Hooks: [EditorConfig](https://editorconfig.org/), pre-commit-hooks
-- Documentation: ReadTheDocs, Sphinx, sphinx-autoapi
-- CI: Travis, Github actions
-- Publish: Twine, Docker, Conda-Forge (with [grayskull](https://github.com/marcelotrevisani/grayskull))
-
-
-### Synchronize repeated metadata
-
-Provides `tyrannosaurus sync` to copy metadata from your `pyproject.toml` other config files.
-The information copied includes version, description, dependencies, maintainers, and style settings.
-You can configure these under `[tool.tyrannosaurus.sources]` and `[tool.tyrannosaurus.targets]`.
-Always generates backups before modifying.
-
-Here are most of the available synchronization targets:
-- Copyright, status, and date in `__init__.py`
-- Development dependencies between `tool.poetry.dev-dependencies`, `tool.poetry.extras`, and `tox.ini`
-- An `all` optional dependency list with all optional non-dev packages
-- Dependencies for building docs in `docs/conf.py`
-- Code line length between `isort`, `black`, and `pycodestyle`
-- Python version in `pyproject.toml`, `tox.ini`, `.travis.yml`, `black`, and `readthedocs.yml`
-- Copyright in `docs/conf.py`
-- Poetry version in `Dockerfile`
-- Authors and year listed in the license file
-- Dev versions in `.pre-commit-config.yaml`
-- `--maintainers` arg for Grayskull in `tox.ini`
-- `doc_url`, `dev_url`, and `license_file` in `meta.yaml`
-- Most recent version in `CHANGELOG.md` assuming [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-
-### Reference of commands
-
-Here are some useful commands:
-- `pre-commit install` to configure pre-commit hooks
-- `tox` to sync metadata, build, install, build docs, and test
-- `poetry install` to install and nothing more
-- `poetry build` to build wheels and sdists and nothing more
-- `poetry bump` to bump dependency versions (major or minor)
-- `poetry publish` to upload to PyPi
-- `grayskull ${yourprojectname} --maintainers $(git config user.email) --output recipes/` to generate a Conda recipe
-- `tyrannosaurus sync` to sync metadata and nothing else
-- `tyrannosaurus clean --aggressive` to remove lots of temp files
-- `docker build .` to build a docker image
-
-### Other things to set up
-- More pre-commit-config options, such as `check-yaml`
-- GPG keys with git: `git config --global user.signingkey`
-- GPG keys with Twine: use `twine -s`
-- A certificate with [Certbot](https://certbot.eff.org/) if you need one
-
-### Uploading to Conda-Forge
-
-To [upload a package to Conda-Forge](https://conda-forge.org/#add_recipe):
-1. Publish to PyPi, then run `grayskull` as above and then `tyrannosaurus sync`.
-2. Check over your new recipe in `recipes/projectname/meta.yaml`.
-3. Fork from [staged-recipes](https://github.com/conda-forge/staged-recipes).
-4. Copy your recipe from `recipes/projectname/meta.yaml` into the forked repo (keeping the directories).
-5. Make a pull request. If everything goes well, it will be on Conda-Forge soon!
-
-### Suggested standards to observe
-
-Here are some potentially useful standards:
-- [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
-- [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) recommendations.
-- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
-- According to taste, only Git rebase (never merge)
+For more information, check the [documentation](https://tyrannosaurus.readthedocs.io/en/latest/).
 
 
 ### Building, extending, and contributing
