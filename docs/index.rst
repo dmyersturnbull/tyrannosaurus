@@ -19,8 +19,7 @@ To install, run: ``pip install tyrannosaurus``
 .. warning::
 
     Tyrannosaurus is in an alpha build.
-    The template works great.
-    Commands mostly work, but `sync` does little.
+    Generally works pretty well, but the `sync` command does less than advertised.
 
 
 Create a new project
@@ -29,12 +28,25 @@ Create a new project
 You can use Tyrannosaurus to create a new project.
 Run: ``tyrannosaurus new myproject``.
 It will clone the most recent version and fill in information.
+It will guess the authors and Github username from your git config.
+But you can pass those in with ``--authors`` (comma-separated) and ``--user`` (single item).
+You can also choose a different license using ``--license``.
+Choices are Apache 2, CC0, CC-BY, CC-BY-NC, GPL 3, LGPL, and MIT.
+See ``tyrannosaurus new --help`` for more info.
 
-Then modify your project as needed,
+After, modify your project as needed,
 especially by setting your metadata and dependencies in ``pyproject.toml``.
-You may also want to modify the ``.github/labels.json`` file.
+You may consider adding ``tyrannosaurus clean``, ``tyrannosaurus sync``,
+and/or ``tyrannosaurus env`` to your tox config.
+Finally, you may want to modify the ``.github/labels.json`` file.
 When you commit, your Github labels will be replaced with these.
-(To disable that, just delete ``.github/workflows/labels.yml``.)
+
+.. caution::
+
+    Will replace your Github labels each time you commit.
+    Either edit the ``.github/labels.json`` file or disable by deleting
+    ``.github/workflows/labels.yml``.
+
 
 To get the Github publish action working, you need to:
 
@@ -102,6 +114,12 @@ For reference, here are some steps to consider after creating a new repository:
    and `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_)
 
 
+Anaconda environment file
+-------------------------
+
+You can generate an environment yml file using: ``tyrannosaurus env``.
+It will check for packages on Conda-Forge and move packages not found to the ``pip:`` section.
+
 
 Anaconda recipes
 --------------------
@@ -118,8 +136,17 @@ Your desired version must already be published on PyPi.
 
 .. tip::
 
-    On Windows, you may need to run ````conda install m2-patch```` first.
+    On Windows, you may need to run ``conda install m2-patch`` first.
 
+
+What’s wrong with pip or anaconda?
+--------------------
+
+Quite a lot, actually. A ``setup.py``` can contain arbitrary code, which
+is a security risk, and metadata can’t be extracted without installing.
+Pip also doesn’t check for dependency conflicts.
+Anaconda does resolve dependencies, but some packages are not on Anaconda,
+and some are not kept up-to-date. It can also make for a more complex build process.
 
 
 List of integrations
@@ -143,7 +170,7 @@ List of sync targets
 Here are most of the available synchronization targets:
 
 - Copyright, status, and date in ``__init__.py``
-- Development dependencies between ``tool.poetry.dev-dependencies``, ``tool.poetry.extras``, and ``tox.ini``
+- Dev dependencies between ``tool.poetry.dev-dependencies``, ``tool.poetry.extras``, and ``tox.ini``
 - An ``all`` optional dependency list with all optional non-dev packages
 - Dependencies for building docs in ``docs/conf.py`` and ``docs/requirements.txt``
 - Code line length between ``isort``, ``black``, and ``pycodestyle``
@@ -154,7 +181,7 @@ Here are most of the available synchronization targets:
 - Dev versions in ``.pre-commit-config.yaml``
 - ``--maintainers`` arg for Grayskull in ``tox.ini``
 - ``doc_url``, ``dev_url``, and ``license_file`` in ``meta.yaml``
-- Most recent version in ``CHANGELOG.md`` assuming [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+- Most recent version in ``CHANGELOG.md`` assuming `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_
 
 
 Reference of commands

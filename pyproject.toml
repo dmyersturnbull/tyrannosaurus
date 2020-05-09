@@ -12,7 +12,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.2.0"
+version = "0.3.0"
 description = "Opinionated 2020 Python template and metadata synchronizer."
 include = [
     ".github",
@@ -116,7 +116,8 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 python                   = ">=3.7, <4"
 tomlkit                  = "^0.6.0"
 importlib-metadata       = "^1.6"
-typer                    = "^0.2.1"
+typer                    = "^0.2"
+requests                 = "^2.23"
 
 [tool.poetry.dev-dependencies]
 pre-commit               = "^2.3"

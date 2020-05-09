@@ -153,16 +153,16 @@ class _Context:
         return str(self.data["tool.poetry.version"])
 
     @property
-    def deps(self) -> Sequence[str]:
-        return list(self.data["tool.poetry.dependencies"])
+    def deps(self) -> Mapping[str, str]:
+        return self.data["tool.poetry.dependencies"]
 
     @property
-    def dev_deps(self) -> Sequence[str]:
-        return list(self.data["tool.poetry.dev-dependencies"])
+    def dev_deps(self) -> Mapping[str, str]:
+        return self.data["tool.poetry.dev-dependencies"]
 
     @property
-    def extras(self) -> Sequence[str]:
-        return list(self.data["tool.poetry.extras"])
+    def extras(self) -> Mapping[str, str]:
+        return self.data["tool.poetry.extras"]
 
     def destroy_tmp(self) -> None:
         if not self.dry_run:

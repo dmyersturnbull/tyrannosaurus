@@ -6,49 +6,27 @@ from __future__ import annotations
 
 import logging
 import os
-import enum
 import shutil
 from pathlib import Path
 from subprocess import check_call
-from typing import Optional, Union, Sequence, Mapping
+from typing import Optional, Union, Sequence
 from typing import Tuple as Tup
 
 import typer
 from grayskull.base.factory import GrayskullFactory
 
 from tyrannosaurus.context import _LiteralParser, _Context
-from tyrannosaurus.helpers import _SyncHelper, _TrashList
+from tyrannosaurus.helpers import (
+    _SyncHelper,
+    _TrashList,
+    _License,
+    _Env,
+    _InitTomlHelper,
+    _EnvHelper,
+)
 
 logger = logging.getLogger(__package__)
 cli = typer.Typer()
-
-
-class _License(enum.Enum):
-    apache2 = "apache2"
-    cc0 = "cc0"
-    ccby = "cc-by"
-    ccbync = "cc-by-nc"
-    gpl3 = "gpl3"
-    lgpl3 = "lgpl3"
-    mit = "mit"
-
-    def full_name(self) -> str:
-        return dict(apache2="Apache-2.0", mit="MIT",).get(self.name, "")
-
-
-def _set_lines(lines: Sequence[str], prefixes: Mapping[str, Union[int, str]]):
-    new_lines = []
-    set_val = set()
-    for line in lines:
-        new_line = line
-        for key, value in prefixes.items():
-            if isinstance(value, str):
-                value = '"' + value + '"'
-            if line.startswith(key + " = ") and key not in set_val:
-                new_line = key + " = " + value
-                set_val.add(key)
-        new_lines.append(new_line)
-    return new_lines
 
 
 def _new(
@@ -72,27 +50,7 @@ def _new(
     check_call(["rm", "-rf", str(path / ".git")])
     # fix toml settings
     lines = toml_path.read_text(encoding="utf8").splitlines()
-    new_lines = _set_lines(
-        lines,
-        dict(
-            name=name,
-            version="0.1.0",
-            description="A new project",
-            authors=str(authors),
-            maintainers=str(authors),
-            license=license_name.full_name(),
-            keywords=str(["a new", "python project"]),
-            homepage="https://github.com/{}/{}".format(username, name),
-            repository="https://github.com/{}/{}".format(username, name),
-            documentation="https://{}.readthedocs.io".format(name),
-            build="https://github.com/{}/{}/actions".format(username, name),
-            issues="https://github.com/{}/{}/issues".format(username, name),
-            source="https://github.com/{}/{}".format(username, name),
-        ),
-    )
-    # this one is fore tool.tyrannosaurus.sources
-    # this is a hack
-    new_lines = _set_lines(new_lines, dict(maintainers=username))
+    new_lines = _InitTomlHelper(name, authors, license_name, username).fix(lines)
     toml_path.write_text("\n".join(new_lines), encoding="utf8")
     # copy license
     license_file = path / "tyrannosaurus" / "resources" / ("license_" + license_name.name + ".txt")
@@ -134,11 +92,8 @@ def new(
         user: Github repository user or org name
         authors: List of author names, comma-separated
     """
-    if user is None:
-        user = os.environ.get("USERNAME")
-    if authors is None:
-        authors = os.environ.get("USERNAME")
-    _new(name, license, user, authors.split(","))
+    env = _Env(user=user, authors=authors)
+    _new(name, license, env.user, env.authors)
     typer.echo("Done! Created a new repository under {}".format(name))
     typer.echo("Make sure to modify your pyproject.toml and README.md.")
     typer.echo("Also consider adding 'tyrannosaurus sync' in tox.ini.")
@@ -180,6 +135,31 @@ def _recipe(path: Path, dry_run: bool) -> Path:
     helper.fix_recipe()
     logger.debug("Fixed recipe at {}".format(output_path))
     return output_path
+
+
+@cli.command()
+def env(
+    name: str = "environment", dev: bool = False, extras: bool = False, dry_run: bool = False
+) -> None:
+    """
+    Generates an Anaconda environment file.
+    Args:
+        name: The name of the environment
+        dev: Include development/build dependencies
+        extras: Include optional dependencies
+        dry_run: If set, does not touch the filesystem; only logs.
+    """
+    context = _Context(os.getcwd(), dry_run=dry_run)
+    path = Path(name + ".yml")
+    if path.exists():
+        context.back_up(path)
+    deps = dict(context.deps)
+    if dev:
+        deps.update(context.dev_deps)
+    typer.echo("Writing environment with {} dependencies to {} ...".format(len(deps), path))
+    lines = _EnvHelper().process(name, deps, extras)
+    path.write_text("\n".join(lines), encoding="utf8")
+    typer.echo("Wrote environment {}".format(path))
 
 
 @cli.command()
