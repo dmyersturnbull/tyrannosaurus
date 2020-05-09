@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 import shutil
 from pathlib import Path
 from subprocess import check_call
@@ -23,6 +24,7 @@ from tyrannosaurus.helpers import (
     _Env,
     _InitTomlHelper,
     _EnvHelper,
+    _fast_scandir,
 )
 
 logger = logging.getLogger(__package__)
@@ -50,7 +52,8 @@ def _new(
     check_call(["rm", "-rf", str(path / ".git")])
     # fix toml settings
     lines = toml_path.read_text(encoding="utf8").splitlines()
-    new_lines = _InitTomlHelper(name, authors, license_name, username).fix(lines)
+    env = _Env(user=username, authors=authors)
+    new_lines = _InitTomlHelper(name, env.authors, license_name, env.user).fix(lines)
     toml_path.write_text("\n".join(new_lines), encoding="utf8")
     # copy license
     license_file = path / "tyrannosaurus" / "resources" / ("license_" + license_name.name + ".txt")
@@ -95,8 +98,9 @@ def new(
     env = _Env(user=user, authors=authors)
     _new(name, license, env.user, env.authors)
     typer.echo("Done! Created a new repository under {}".format(name))
-    typer.echo("Make sure to modify your pyproject.toml and README.md.")
-    typer.echo("Also consider adding 'tyrannosaurus sync' in tox.ini.")
+    typer.echo(
+        "See https://tyrannosaurus.readthedocs.io/en/latest/guide.html#to-do-list-for-new-projects"
+    )
 
 
 def _sync(path: Path, dry_run: bool) -> Sequence[str]:
@@ -120,6 +124,45 @@ def sync(dry_run: bool = False) -> None:
     typer.echo("Done. Synced to {} targets: {}.".format(len(targets), ", ".join(targets)))
 
 
+def _get_deps(name: str, dev: bool, extras: bool, dry_run: bool) -> Sequence[str]:
+    context = _Context(os.getcwd(), dry_run=dry_run)
+    path = Path(name + ".yml")
+    if path.exists():
+        context.back_up(path)
+    deps = dict(context.deps)
+    if dev:
+        deps.update(context.dev_deps)
+    return deps
+
+
+def _env(name: str, dev: bool, extras: bool, dry_run: bool) -> Sequence[str]:
+    path = Path(name + ".yml")
+    deps = _get_deps(name, dev, extras, dry_run)
+    lines = _EnvHelper().process(name, deps, extras)
+    path.write_text("\n".join(lines), encoding="utf8")
+    return lines
+
+
+@cli.command()
+def env(
+    name: str = "environment", dev: bool = False, extras: bool = False, dry_run: bool = False
+) -> None:
+    """
+    Generates an Anaconda environment file.
+    Args:
+        name: The name of the environment
+        dev: Include development/build dependencies
+        extras: Include optional dependencies
+        dry_run: If set, does not touch the filesystem; only logs.
+    """
+    path = Path(name + ".yml")
+    deps = _get_deps(name, dev, extras, dry_run)
+    typer.echo("Writing environment with {} dependencies to {} ...".format(len(deps), path))
+    lines = _EnvHelper().process(name, deps, extras)
+    path.write_text("\n".join(lines), encoding="utf8")
+    typer.echo("Wrote environment {}".format(path))
+
+
 def _recipe(path: Path, dry_run: bool) -> Path:
     context = _Context(path, dry_run=dry_run)
     output_path = context.path / "recipes"
@@ -138,31 +181,6 @@ def _recipe(path: Path, dry_run: bool) -> Path:
 
 
 @cli.command()
-def env(
-    name: str = "environment", dev: bool = False, extras: bool = False, dry_run: bool = False
-) -> None:
-    """
-    Generates an Anaconda environment file.
-    Args:
-        name: The name of the environment
-        dev: Include development/build dependencies
-        extras: Include optional dependencies
-        dry_run: If set, does not touch the filesystem; only logs.
-    """
-    context = _Context(os.getcwd(), dry_run=dry_run)
-    path = Path(name + ".yml")
-    if path.exists():
-        context.back_up(path)
-    deps = dict(context.deps)
-    if dev:
-        deps.update(context.dev_deps)
-    typer.echo("Writing environment with {} dependencies to {} ...".format(len(deps), path))
-    lines = _EnvHelper().process(name, deps, extras)
-    path.write_text("\n".join(lines), encoding="utf8")
-    typer.echo("Wrote environment {}".format(path))
-
-
-@cli.command()
 def recipe(dry_run: bool = False) -> None:
     """
     Generates a Conda recipe using grayskull.
@@ -174,75 +192,70 @@ def recipe(dry_run: bool = False) -> None:
     typer.echo("Generated a new recipe at {}".format(output_path))
 
 
-def fast_scandir(topdir, trash):
-    subdirs = [Path(f.path) for f in os.scandir(topdir) if Path(f).is_dir()]
-    for dirname in list(subdirs):
-        if (
-            dirname.is_dir()
-            and dirname.name
-            not in {".tox", ".pytest_cache", ".git", ".idea", "docs", "__pycache__"}
-            and dirname.name not in {str(s) for s in trash.get_list()}
-        ):
-            subdirs.extend(fast_scandir(dirname, trash))
-    return subdirs
-
-
 def _clean(
-    path: Path, aggressive: bool, hard_delete: bool, dry_run: bool
+    path: Path, dists: bool, aggressive: bool, hard_delete: bool, dry_run: bool
 ) -> Sequence[Tup[Path, Optional[Path]]]:
     context = _Context(path, dry_run=dry_run)
-    trash = _TrashList(aggressive)
+    logger.info("Clearing .tyrannosaurus")
     trashed = []
+    destroyed = context.destroy_tmp()
+    if destroyed:
+        trashed.append(context.tmp_path)
+    trash = _TrashList(dists, aggressive)
     # we're going to do these in order to save time overall
     for p in trash.get_list():
         tup = context.trash(p, hard_delete)
-        trashed.append(tup)
-    for p in fast_scandir(path, trash):
+        if tup[0] is not None:
+            trashed.append(tup)
+    for p in _fast_scandir(path, trash):
         if trash.should_delete(p):
             tup = context.trash(p, hard_delete)
-            trashed.append(tup)
+            if tup[0] is not None:
+                trashed.append(tup)
     return trashed
 
 
 @cli.command()
-def clean(aggressive: bool = False, hard_delete: bool = False, dry_run: bool = False) -> None:
+def clean(
+    dists: bool = False, aggressive: bool = False, hard_delete: bool = False, dry_run: bool = False
+) -> None:
     """
     Deletes the contents of ``.tyrannosaurus``, then moves temporary and unwanted
     files and directories to a tree under ``.tyrannosaurus``.
     Args:
+        dists: Remove dists
         aggressive: Delete additional files, including .swp, .ipython_checkpoints, and dist.
         hard_delete: If true, call shutil.rmtree instead.
         dry_run: If set, does not touch the filesystem; only logs.
     """
-    trashed = _clean(Path(os.getcwd()), aggressive, hard_delete, dry_run)
+    trashed = _clean(Path(os.getcwd()), dists, aggressive, hard_delete, dry_run)
     typer.echo("Trashed {} paths.".format(len(trashed)))
 
 
-def _reqs() -> Sequence[str]:
+def _info() -> Sequence[str]:
     from tyrannosaurus import metadata, __version__, __date__
 
-    rex = []
-    on = False
-    for line in str(metadata["description"]).splitlines():
-        if ".++++++++++++." in line:
-            on = True
-        if line.strip() == "```":
-            on = False
-        if on:
-            rex.append(line)
-    return ["Tyrannosaurus version {} ({})".format(__version__, __date__), *rex]
+    return ["Tyrannosaurus version {} ({})".format(__version__, __date__)]
 
 
 @cli.command()
-def reqs() -> None:
+def info() -> None:
     """
     Prints Tyrannosaurus info.
     """
-    for line in _reqs():
+    for line in _info():
         typer.echo(line)
+
+
+class Commands:
+    new = _new
+    sync = _sync
+    recipe = _recipe
+    info = _info
+    clean = _clean
 
 
 if __name__ == "__main__":
     cli()
 
-__all__ = ["new", "sync", "recipe", "reqs"]
+__all__ = [Commands]

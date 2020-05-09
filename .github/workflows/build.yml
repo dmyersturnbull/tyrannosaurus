@@ -1,5 +1,5 @@
 name: Build & test
-'on':
+on:
     push:
         branches:
             - master

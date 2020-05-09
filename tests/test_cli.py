@@ -10,7 +10,7 @@ from tyrannosaurus import __date__, __version__
 from tyrannosaurus.context import _Context
 
 # noinspection PyProtectedMember
-from tyrannosaurus.cli import _clean, _new, _recipe, _reqs, _sync
+from tyrannosaurus.cli import _clean, _new, _recipe, _info, _sync
 
 
 class TestCli:
@@ -20,13 +20,6 @@ class TestCli:
         context = _Context("tmptyr", dry_run=True)
         assert context.project == "tmptyr"
         shutil.rmtree("tmptyr")
-
-    def test_reqs(self):
-        reqs = _reqs()
-        assert len(reqs) > 0
-        assert reqs[0] == "Tyrannosaurus version {} ({})".format(__version__, __date__)
-        assert ".++++++++++++." in [r.strip() for r in reqs]
-        assert "```" not in [r.strip() for r in reqs]
 
     def test_clean(self):
         root = Path(__file__).parent.parent

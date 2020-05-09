@@ -1,8 +1,11 @@
 name: Publish
-'on':
+on:
     release:
         types:
-            - created
+            - published
+    repository_dispatch:
+        types:
+            - release-made
 jobs:
     deploy:
         runs-on: ubuntu-latest
@@ -14,7 +17,7 @@ jobs:
                 name: Set up Python
                 uses: actions/setup-python@v2
                 with:
-                    python-version: '3.7'
+                    python-version: '3.8'
             -
                 name: Install build dependencies
                 run: |
@@ -25,6 +28,21 @@ jobs:
                 run: |
                     tox
             -
+                name: Build with Poetry
+                run: |
+                    poetry build
+            -
+                name: Build the Docker image
+                run: |
+                    docker build .
+            -
+                name: Upload the artifacts
+                uses: skx/github-action-publish-binaries@master
+                with:
+                    args: 'dist/*'
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            -
                 name: Publish on PyPi
                 run: |
-                    poetry publish --build -vv --username __token__ --password ${{ secrets.PYPI_TOKEN }}
+                    poetry publish -vv --username __token__ --password ${{ secrets.PYPI_TOKEN }}

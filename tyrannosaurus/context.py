@@ -164,10 +164,12 @@ class _Context:
     def extras(self) -> Mapping[str, str]:
         return self.data["tool.poetry.extras"]
 
-    def destroy_tmp(self) -> None:
+    def destroy_tmp(self) -> bool:
         if not self.dry_run:
             if self.tmp_path.exists():
                 shutil.rmtree(str(self.tmp_path))
+                return True
+        return False
 
     def back_up(self, path: Union[Path, str]) -> None:
         path = Path(path)
@@ -178,10 +180,12 @@ class _Context:
             shutil.copyfile(str(path), str(bak))
             logger.debug("Generated backup of {} to {}".format(path, bak))
 
-    def trash(self, path: Union[Path, str], hard_delete: bool) -> Tup[Path, Optional[Path]]:
+    def trash(
+        self, path: Union[Path, str], hard_delete: bool
+    ) -> Tup[Optional[Path], Optional[Path]]:
         path = Path(path)
         if not path.exists():
-            return path, None
+            return None, None
         self.check_path(path)
         if hard_delete:
             if not self.dry_run:

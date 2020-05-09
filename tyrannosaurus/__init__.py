@@ -10,7 +10,7 @@ from importlib_metadata import metadata as __load
 metadata = __load(Path(__file__).parent.name)
 __status__ = "Development"
 __copyright__ = "Copyright 2020"
-__date__ = "2020-05-08"
+__date__ = "2020-05-09"
 __uri__ = metadata["home-page"]
 __title__ = metadata["name"]
 __summary__ = metadata["summary"]

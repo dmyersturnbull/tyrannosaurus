@@ -4,6 +4,28 @@ Adheres to the [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) recommendations.
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## Unreleased
+
+New version.
+
+
+## [0.4.0] - 2020-05-09
+
+### Added
+- Tyrannosaurus commands to tox
+- Upload sdist and wheel to release
+- Workflow to release on tag
+
+### Changed
+- Python version for building to 3.8
+- Renamed `reqs` to `info`
+
+### Removed
+- `check-added-large-files`, which is too slow
+
+### Fixed
+- A bug getting the `git config` when called with `new`
+
 
 ## [0.3.0] - 2020-05-08
 
@@ -46,8 +68,10 @@ Completely different project with a different purpose.
 
 ### Removed
 - `metadata.py`. Use `__init__.py` instead.
+- Various nonsense code
 
 
 ## [0.0.1] - 2020-04-02
 
+### Added
 Nonsense code and docs that were never used.
