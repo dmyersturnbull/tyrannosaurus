@@ -9,7 +9,7 @@ import logging
 import os
 import re
 from pathlib import Path
-from subprocess import check_output
+from subprocess import check_output, SubprocessError
 from typing import Optional, Union, Sequence, Mapping
 
 import requests
@@ -68,7 +68,6 @@ class _SyncHelper:
 class _TrashList:
     def __init__(self, dists: bool, aggressive: bool):
         self.trash_patterns = {
-            ".egg-info",
             ".pytest_cache",
             "__pycache__",
             "cython_debug",
@@ -76,6 +75,7 @@ class _TrashList:
             "__pypackages__",
             "docs/_html",
             "docs/_build",
+            re.compile(r".*\.egg-info"),
             re.compile(r".*\.py[cod]"),
             re.compile(r".*\$py\.class"),
             re.compile(r".*\.egg-info"),
@@ -145,7 +145,11 @@ class _Env:
             self.user = self.user.split("@")[0]
 
     def _git(self, key: str) -> str:
-        result = check_output(["git", "config", key], encoding="utf8")
+        try:
+            result = check_output(["git", "config", key], encoding="utf8")
+        except SubprocessError:
+            logger.error("Failed calling git")
+            return "<<{}>>".format(key)
         if result is None:
             logger.error("Could not get git config item {}".format(key))
         return "<<{}>>".format(key)

@@ -114,6 +114,7 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
 python                   = ">=3.7, <4"
+grayskull                = "^0.4"
 tomlkit                  = "^0.6.0"
 importlib-metadata       = "^1.6"
 typer                    = "^0.2"
@@ -133,7 +134,6 @@ flake8-docstrings        = "^1.5"
 black                    = "=19.10b0"
 isort                    = "^4.3"
 sphinx-autodoc-typehints = "^1.10"
-grayskull                = "^0.4"
 xdoctest                 = "^0.12"
 hypothesis               = "^5.10"
 flake8-bandit            = "^2.1"
@@ -150,7 +150,6 @@ dev     = [
         "mypy",
         "flake8", "flake8-docstrings",
         "black", "isort",
-        "grayskull",
         "flake8-bandit", "flake8-bugbear"
 ]
 

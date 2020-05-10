@@ -6,7 +6,7 @@ from tyrannosaurus.helpers import _Env
 
 class TestHelpers:
     def test_env(self):
-        env = _Env()
+        env = _Env(None, None)
         # assert env.user is not None
         # assert env.authors is not None
 

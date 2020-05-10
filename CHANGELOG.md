@@ -24,6 +24,7 @@ New version.
 - `check-added-large-files`, which is too slow
 
 ### Fixed
+- The test workflow wasn't testing
 - A bug getting the `git config` when called with `new`
 
 

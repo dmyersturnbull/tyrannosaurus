@@ -23,11 +23,9 @@ class TestCli:
 
     def test_clean(self):
         root = Path(__file__).parent.parent
-        trashed = _clean(root, False, False, True)
+        trashed = _clean(root, False, False, False, True)
         st = {k.name for k, v in trashed}
         # TODO this requires them to exist
-        assert "eggs" in st
-        assert "tyrannosaurus.egg-info" in st
         assert "tyrannosaurus" not in st
         assert "docs" not in st
         assert "recipes" not in st
@@ -36,7 +34,7 @@ class TestCli:
 
     def test_clean_aggressive(self):
         root = Path(__file__).parent.parent
-        trashed = _clean(root, True, False, True)
+        trashed = _clean(root, True, True, False, True)
         st = {k.name for k, v in trashed}
         assert ".tox" in st
 
