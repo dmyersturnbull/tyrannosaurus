@@ -9,6 +9,13 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 New version.
 
 
+## [0.4.x] - 2020-05-09
+
+### Fixed
+- Incorrect processing of pip requirements in `env`
+- Missing `path` argument to `env`
+
+
 ## [0.4.0] - 2020-05-09
 
 ### Added

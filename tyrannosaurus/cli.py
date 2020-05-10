@@ -50,6 +50,8 @@ def _new(
     # os.chmod(str(path/'.git'), stat.S_IWRITE)
     # shutil.rmtree(str(path/'.git'))
     check_call(["rm", "-rf", str(path / ".git")])
+    shutil.rmtree(str(path / "docs"))
+    shutil.rmtree(str(path / "recipes"))
     # fix toml settings
     lines = toml_path.read_text(encoding="utf8").splitlines()
     env = _Env(user=username, authors=authors)
@@ -74,7 +76,7 @@ def _new(
             dest.write_text(text, encoding="utf8")
     # rename some files
     Path(path / name).mkdir()
-    Path(context.path / "recipes" / name).mkdir()
+    Path(context.path / "recipes" / name).mkdir(parents=True)
     (path / "tyrannosaurus" / "__init__.py").rename(Path(path / name / "__init__.py"))
     shutil.rmtree(str(path / "tyrannosaurus"))
 
@@ -135,8 +137,7 @@ def _get_deps(name: str, dev: bool, extras: bool, dry_run: bool) -> Sequence[str
     return deps
 
 
-def _env(name: str, dev: bool, extras: bool, dry_run: bool) -> Sequence[str]:
-    path = Path(name + ".yml")
+def _env(path: Path, name: str, dev: bool, extras: bool, dry_run: bool) -> Sequence[str]:
     deps = _get_deps(name, dev, extras, dry_run)
     lines = _EnvHelper().process(name, deps, extras)
     path.write_text("\n".join(lines), encoding="utf8")
@@ -145,17 +146,24 @@ def _env(name: str, dev: bool, extras: bool, dry_run: bool) -> Sequence[str]:
 
 @cli.command()
 def env(
-    name: str = "environment", dev: bool = False, extras: bool = False, dry_run: bool = False
+    path: Path = "environment.yml",
+    name: Optional[str] = None,
+    dev: bool = False,
+    extras: bool = False,
+    dry_run: bool = False,
 ) -> None:
     """
     Generates an Anaconda environment file.
     Args:
-        name: The name of the environment
+        path: Write tot his path
+        name: The name of the environment; defaults to the project name
         dev: Include development/build dependencies
         extras: Include optional dependencies
         dry_run: If set, does not touch the filesystem; only logs.
     """
-    path = Path(name + ".yml")
+    context = _Context(os.getcwd(), dry_run=dry_run)
+    if name is None:
+        name = context.project
     deps = _get_deps(name, dev, extras, dry_run)
     typer.echo("Writing environment with {} dependencies to {} ...".format(len(deps), path))
     lines = _EnvHelper().process(name, deps, extras)
