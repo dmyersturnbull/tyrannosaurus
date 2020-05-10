@@ -12,7 +12,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.4.0"
+version = "0.4.1"
 description = "Opinionated Python template and metadata synchronizer for 2020."
 include = [
     ".github",
