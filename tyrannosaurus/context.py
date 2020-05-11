@@ -120,14 +120,17 @@ class _LiteralParser:
 
 class _Source:
     @classmethod
-    def parse(cls, s: str, toml: _Toml) -> str:
+    def parse(cls, s: str, toml: _Toml) -> Union[str, Sequence]:
         project = toml["tool.poetry.name"]
         version = toml["tool.poetry.version"]
-        if s.startswith("'") and s.endswith("'"):
+        if isinstance(s, str) and s.startswith("'") and s.endswith("'"):
             return _LiteralParser(project, version, None, None).parse(s).strip("'")
-        else:
+        elif isinstance(s, str):
             value = toml[s]
             return str(value)
+        else:
+            # TODO not great
+            return list(s)
 
 
 class _Context:

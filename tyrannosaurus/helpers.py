@@ -117,27 +117,32 @@ class _InitTomlHelper:
         self.username = username
 
     def fix(self, lines: Sequence[str]):
-        new_lines = self._set_lines(
-            lines,
-            dict(
-                name=self.name,
-                version="0.1.0",
-                description="A new project",
-                authors=self.authors,
-                maintainers=self.authors,
-                license=self.license_name.full_name(),
-                keywords=str(["a new", "python project"]),
-                homepage="https://github.com/{}/{}".format(self.username, self.name),
-                repository="https://github.com/{}/{}".format(self.username, self.name),
-                documentation="https://{}.readthedocs.io".format(self.name),
-                build="https://github.com/{}/{}/actions".format(self.username, self.name),
-                issues="https://github.com/{}/{}/issues".format(self.username, self.name),
-                source="https://github.com/{}/{}".format(self.username, self.name),
-            ),
+        author_line = "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
+        fixes = dict(
+            name=self.name,
+            version="0.1.0",
+            description="A new project",
+            authors=self.authors,
+            maintainers=self.authors,
+            license=self.license_name.full_name(),
+            keywords=str(["a new", "python project"]),
+            homepage="https://github.com/{}/{}".format(self.username, self.name),
+            repository="https://github.com/{}/{}".format(self.username, self.name),
+            documentation="https://{}.readthedocs.io".format(self.name),
+            build="https://github.com/{}/{}/actions".format(self.username, self.name),
+            issues="https://github.com/{}/{}/issues".format(self.username, self.name),
+            source="https://github.com/{}/{}".format(self.username, self.name),
         )
+        """
+        fixes[author_line] = "\n".join(
+            ['    "{} <github:...,orcid:...>"'.format(author) for author in self.authors]
+        )
+        """
+        new_lines = self._set_lines(lines, fixes)
         # this one is fore tool.tyrannosaurus.sources
         # this is a hack
         new_lines = self._set_lines(new_lines, dict(maintainers=self.username))
+        new_lines = [line for line in new_lines if "Douglas Myers-Turnbull" not in line]
         return new_lines
 
     def _set_lines(self, lines: Sequence[str], prefixes: Mapping[str, Union[int, str]]):

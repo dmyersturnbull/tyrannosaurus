@@ -4,12 +4,15 @@ Adheres to the [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) recommendations.
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
-## [0.5.0] - unreleased
+## [0.5.0] - 2020-05-11
 
 ### Added
 - `CITATION.cff` and `codemeta.json`
 - `CONTRIBUTING.md` and issue and pull request templates
-- stub for `update` command
+- Unfinished `update` command
+
+### Changed
+- The way authors, maintainers, and contributors are listed
 
 ### Fixed
 - Split `cli.py` into multiple files

@@ -12,7 +12,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.5.0a0"
+version = "0.5.0"
 description = "Opinionated Python template and metadata synchronizer for 2020."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
@@ -69,26 +69,41 @@ release            = "tool.poetry.version"
 pyversions         = "tool.poetry.dependencies"
 devdeps            = "tool.poetry.dev-dependencies"
 linelength         = "tool.black.line-length"
-# comma-separated
-maintainers        = "'dmyersturnbull'"
+# can be literal lists or pyproject setting references
+# make sure to include your github username
+# use this syntax: "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
+authors = [
+    "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
+]
+maintainers = "tool.tyrannosaurus.sources.authors"
+contributors = [
+
+]
 
 [tool.tyrannosuarus.paths]
 recipe             = "'recipes/${name}/meta.yml'"
+environment        = "'environment.yml'"
 
 [tool.tyrannosaurus.targets]
 # these are file and directory names, without filename extensions
+# they will only be synced if they exist; never created
+# to get a recipe and anaconda env, run 'tyrannosaurus recipe' and 'tyrannosaurus env'
 pyproject    = true
 init         = true
 tox          = true
 docs         = true
 recipes      = true
-license      = false
-authors      = false
-github       = false
-travis       = false
-dockerfile   = false
-readme       = false
-changelog    = false
+license      = true
+authors      = true
+github       = true
+travis       = true
+dockerfile   = true
+readme       = true
+changelog    = true
+citation     = true
+codemeta     = true
+environment  = false
+
 
 #########################################################################################
 # Poetry build & dependencies

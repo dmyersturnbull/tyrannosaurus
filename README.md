@@ -27,21 +27,22 @@ Install with `pip install tyrannosaurus`.
 ⚠ Status: Alpha. Generally works pretty well, but
    the `sync` command does less than advertised.
 
-##### Other integrations:
+##### Integrations:
 
 Also comes with nice Github labels, issue templates, a changelog template,
-Conda recipe and environment generation, and other integrations.
-Tyrannosaurus itself is included as a dependency to copy metadata between config files,
-such as the project version, description, copyright, and build and doc requirements.
+Travis support, Conda recipe and environment generation, and other integrations.
+Tyrannosaurus itself is included as a dependency.
+It will clean up unwanted files and sync metadata from `pyproject.toml` to other files,
+such as Anaconda recipes and environment files, license headers, doc and tox requirements, and author/contributor lists.
+Target files can be disabled in `[tool.tyrannosaurus.targets]`.
+
 
 ##### To run:
 
 To run locally, install [Poetry](https://github.com/python-poetry/poetry)
 and [Tox](https://tox.readthedocs.io/en/latest/) (`pip install tox`).
 Then just type `tox` to build artifacts and run tests.
-Sync metadata using `tyrannosaurus sync`.
-Generate a Conda recipe with `tyrannosaurus recipe`,
-and an Anaconda environment file with `tyrannosaurus env`.
+To create an initial Anaconda recipe or environment file, run `tyrannosaurus recipe` or `tyrannosaurus env`.
 
 [See the docs](https://tyrannosaurus.readthedocs.io/en/stable/) for more information.
 
