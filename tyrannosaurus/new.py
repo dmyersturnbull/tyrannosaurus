@@ -33,15 +33,12 @@ class New:
     def create(self, path: Path) -> None:
         name = self.name
         self._checkout(path)
+        logger.info("Got git checkout. Fixing...")
         context = _Context(path)
         path = context.path
         toml_path = path / "pyproject.toml"
         parser = _LiteralParser(name, "0.1.0", self.username, self.authors)
         # remove tyrannosaurus-specific files
-        # TODO permissionerror
-        # os.chmod(str(path/'.git'), stat.S_IWRITE)
-        # shutil.rmtree(str(path/'.git'))
-        check_call(["rm", "-rf", str(path / ".git")])
         shutil.rmtree(str(path / "docs"))
         shutil.rmtree(str(path / "recipes"))
         # fix toml settings
@@ -87,7 +84,8 @@ class New:
         check_call(
             ["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", str(path)]
         )
-        logger.info("Got git checkout. Fixing...")
+        # we hit a permissionerror otherwise
+        check_call(["rm", "-rf", str(path / ".git")])
 
 
 __all__ = ["New"]

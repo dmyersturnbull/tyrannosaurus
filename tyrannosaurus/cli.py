@@ -119,12 +119,13 @@ def clean(
     dists: bool = False, aggressive: bool = False, hard_delete: bool = False, dry_run: bool = False
 ) -> None:
     """
-    Deletes the contents of ``.tyrannosaurus``, then moves temporary and unwanted
-    files and directories to a tree under ``.tyrannosaurus``.
+    Removes unwanted files.
+    Deletes the contents of ``.tyrannosaurus``.
+    Then trashes temporary and unwanted files and directories to a tree under ``.tyrannosaurus``.
     Args:
         dists: Remove dists
         aggressive: Delete additional files, including .swp, .ipython_checkpoints, and dist.
-        hard_delete: If true, call shutil.rmtree instead.
+        hard_delete: If true, call shutil.rmtree instead of moving to .tyrannosaurus
         dry_run: If set, does not touch the filesystem; only logs.
     """
     trashed = Clean(dists, aggressive, hard_delete, dry_run).clean(Path(os.getcwd()))

@@ -32,7 +32,8 @@ class _Toml:
         self.x = x
 
     def __getitem__(self, items: str):
-        assert isinstance(items, str), "Failed with '{}'".format(items)
+        if not isinstance(items, str):
+            raise AssertionError("Failed with '{}'".format(items))
         if "." not in items:
             return self.x[items]
         at = self.x
@@ -43,7 +44,8 @@ class _Toml:
         return at
 
     def __contains__(self, items):
-        assert isinstance(items, str), "Failed with '{}'".format(items)
+        if not isinstance(items, str):
+            raise AssertionError("Failed with '{}'".format(items))
         if "." not in items:
             return items in self.x
         at = self.x
@@ -129,9 +131,7 @@ class _Source:
 
 
 class _Context:
-    def __init__(
-        self, path: Union[Path, str] = Path(os.getcwd()), data=None, dry_run: bool = False
-    ):
+    def __init__(self, path: Union[Path, str], data=None, dry_run: bool = False):
         self.path = Path(path).resolve()
         if data is None:
             data = _Toml.read(Path(self.path) / "pyproject.toml")
