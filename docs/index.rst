@@ -51,3 +51,4 @@ New projects are configured for:
 - Documentation: ReadTheDocs, Sphinx, sphinx-autoapi
 - CI: Travis, Github actions
 - Publish: Twine, Docker, Conda-Forge (with `grayskull <https://github.com/marcelotrevisani/grayskull>`_)
+- Reference: `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_, `Github issue templates <https://help.github.com/en/github/building-a-strong-community/setting-guidelines-for-repository-contributors>`_, `Citation File Format <https://github.com/citation-file-format/citation-file-format>`_, `codemeta.json <https://codemeta.github.io/>`_

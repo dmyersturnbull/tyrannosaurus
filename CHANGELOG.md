@@ -4,9 +4,15 @@ Adheres to the [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) recommendations.
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
-## Unreleased
+## [0.5.0] - unreleased
 
-New version.
+### Added
+- `CITATION.cff` and `codemeta.json`
+- `CONTRIBUTING.md` and issue and pull request templates
+- stub for `update` command
+
+### Fixed
+- Split `cli.py` into multiple files
 
 
 ## [0.4.x] - 2020-05-09
@@ -31,7 +37,7 @@ New version.
 - `check-added-large-files`, which is too slow
 
 ### Fixed
-- The test workflow wasn't testing
+- The test workflow wasn’t testing
 - A bug getting the `git config` when called with `new`
 
 

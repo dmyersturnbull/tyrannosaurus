@@ -6,79 +6,20 @@ from __future__ import annotations
 
 import logging
 import os
-import re
-import shutil
 from pathlib import Path
-from subprocess import check_call
-from typing import Optional, Union, Sequence
-from typing import Tuple as Tup
+from typing import Optional
 
 import typer
-from grayskull.base.factory import GrayskullFactory
 
-from tyrannosaurus.context import _LiteralParser, _Context
-from tyrannosaurus.helpers import (
-    _SyncHelper,
-    _TrashList,
-    _License,
-    _Env,
-    _InitTomlHelper,
-    _EnvHelper,
-    _fast_scandir,
-)
+from tyrannosaurus.context import _Context
+from tyrannosaurus.helpers import _License, _Env
+from tyrannosaurus.clean import Clean
+from tyrannosaurus.new import New
+from tyrannosaurus.sync import Sync
+from tyrannosaurus.conda import Recipe, CondaEnv
 
 logger = logging.getLogger(__package__)
 cli = typer.Typer()
-
-
-def _new(
-    name: str, license_name: Union[str, _License], username: str, authors: Sequence[str]
-) -> None:
-    if isinstance(license_name, str):
-        license_name = _License[license_name.lower()]
-    if Path(name).exists():
-        raise FileExistsError("Path {} already exists".format(name))
-    logger.info("Running git clone...")
-    check_call(["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", name])
-    logger.info("Got git checkout. Fixing...")
-    context = _Context(Path(os.getcwd()) / name)
-    path = context.path
-    toml_path = path / "pyproject.toml"
-    parser = _LiteralParser(name, "0.1.0", username, authors)
-    # remove tyrannosaurus-specific files
-    # TODO permissionerror
-    # os.chmod(str(path/'.git'), stat.S_IWRITE)
-    # shutil.rmtree(str(path/'.git'))
-    check_call(["rm", "-rf", str(path / ".git")])
-    shutil.rmtree(str(path / "docs"))
-    shutil.rmtree(str(path / "recipes"))
-    # fix toml settings
-    lines = toml_path.read_text(encoding="utf8").splitlines()
-    env = _Env(user=username, authors=authors)
-    new_lines = _InitTomlHelper(name, env.authors, license_name, env.user).fix(lines)
-    toml_path.write_text("\n".join(new_lines), encoding="utf8")
-    # copy license
-    license_file = path / "tyrannosaurus" / "resources" / ("license_" + license_name.name + ".txt")
-    if license_file.exists():
-        text = parser.parse(license_file.read_text(encoding="utf8"))
-        Path(path / "LICENSE.txt").write_text(text, encoding="utf8")
-    # copy resources, overwriting
-    for source in (path / "tyrannosaurus" / "resources").iterdir():
-        if not Path(source).is_file():
-            continue
-        resource = Path(source).name
-        if not resource.startswith("license_"):
-            dest = path / Path(*str(resource).split("$"))
-            if dest.name.startswith("-"):
-                dest = Path(*reversed(dest.parents), "." + dest.name[1:])
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            text = parser.parse(source.read_text(encoding="utf8"))
-            dest.write_text(text, encoding="utf8")
-    # rename some files
-    Path(path / name).mkdir()
-    Path(context.path / "recipes" / name).mkdir(parents=True)
-    (path / "tyrannosaurus" / "__init__.py").rename(Path(path / name / "__init__.py"))
-    shutil.rmtree(str(path / "tyrannosaurus"))
 
 
 @cli.command()
@@ -97,20 +38,13 @@ def new(
         user: Github repository user or org name
         authors: List of author names, comma-separated
     """
-    env = _Env(user=user, authors=authors)
-    _new(name, license, env.user, env.authors)
+    e = _Env(user=user, authors=authors)
+    path = Path(name)
+    New(name, license_name=license, username=e.user, authors=e.authors).create(path)
     typer.echo("Done! Created a new repository under {}".format(name))
     typer.echo(
         "See https://tyrannosaurus.readthedocs.io/en/latest/guide.html#to-do-list-for-new-projects"
     )
-
-
-def _sync(path: Path, dry_run: bool) -> Sequence[str]:
-    context = _Context(path, dry_run=dry_run)
-    helper = _SyncHelper(context, dry_run)
-    helper.fix_init()
-    helper.fix_recipe()
-    return [str(s) for s in context.targets]
 
 
 @cli.command()
@@ -120,28 +54,11 @@ def sync(dry_run: bool = False) -> None:
     Args:
         dry_run: If set, does not touch the filesystem; only logs.
     """
+    context = _Context(Path(os.getcwd()), dry_run=dry_run)
     typer.echo("Syncing metadata...")
     typer.echo("Currently, only targets 'init' and 'recipe' are implemented.")
-    targets = _sync(Path(os.getcwd()), dry_run)
+    targets = Sync(context, dry_run=dry_run).sync(Path(os.getcwd()))
     typer.echo("Done. Synced to {} targets: {}.".format(len(targets), ", ".join(targets)))
-
-
-def _get_deps(name: str, dev: bool, extras: bool, dry_run: bool) -> Sequence[str]:
-    context = _Context(os.getcwd(), dry_run=dry_run)
-    path = Path(name + ".yml")
-    if path.exists():
-        context.back_up(path)
-    deps = dict(context.deps)
-    if dev:
-        deps.update(context.dev_deps)
-    return deps
-
-
-def _env(path: Path, name: str, dev: bool, extras: bool, dry_run: bool) -> Sequence[str]:
-    deps = _get_deps(name, dev, extras, dry_run)
-    lines = _EnvHelper().process(name, deps, extras)
-    path.write_text("\n".join(lines), encoding="utf8")
-    return lines
 
 
 @cli.command()
@@ -161,31 +78,12 @@ def env(
         extras: Include optional dependencies
         dry_run: If set, does not touch the filesystem; only logs.
     """
-    context = _Context(os.getcwd(), dry_run=dry_run)
+    typer.echo("Writing environment file...")
+    context = _Context(Path(os.getcwd()), dry_run=dry_run)
     if name is None:
         name = context.project
-    deps = _get_deps(name, dev, extras, dry_run)
-    typer.echo("Writing environment with {} dependencies to {} ...".format(len(deps), path))
-    lines = _EnvHelper().process(name, deps, extras)
-    path.write_text("\n".join(lines), encoding="utf8")
+    CondaEnv(name, dev=dev, extras=extras, dry_run=dry_run).create(context, path)
     typer.echo("Wrote environment {}".format(path))
-
-
-def _recipe(path: Path, dry_run: bool) -> Path:
-    context = _Context(path, dry_run=dry_run)
-    output_path = context.path / "recipes"
-    if output_path.exists():
-        context.trash(output_path, False)
-    if (output_path / context.project).exists():
-        (output_path / context.project).rmdir()
-    (output_path / context.project).mkdir(parents=True)
-    skull = GrayskullFactory.create_recipe("pypi", context.poetry("name"), "")
-    skull.generate_recipe(str(output_path), mantainers=context.source("maintainers").split(","))
-    logger.debug("Generated a new recipe at {}".format(output_path))
-    helper = _SyncHelper(context, dry_run)
-    helper.fix_recipe()
-    logger.debug("Fixed recipe at {}".format(output_path))
-    return output_path
 
 
 @cli.command()
@@ -195,32 +93,25 @@ def recipe(dry_run: bool = False) -> None:
     Args:
         dry_run: If set, does not touch the filesystem; only logs.
     """
-    # grayskull pypi ${yourprojectname} --maintainers ${maintainers} --output recipes/
-    output_path = _recipe(Path(os.getcwd()), dry_run)
+    context = _Context(Path(os.getcwd()), dry_run=dry_run)
+    output_path = context.path / "recipes"
+    output_path = Recipe(dry_run=dry_run).create(context, output_path)
     typer.echo("Generated a new recipe at {}".format(output_path))
 
 
-def _clean(
-    path: Path, dists: bool, aggressive: bool, hard_delete: bool, dry_run: bool
-) -> Sequence[Tup[Path, Optional[Path]]]:
-    context = _Context(path, dry_run=dry_run)
-    logger.info("Clearing .tyrannosaurus")
-    trashed = []
-    destroyed = context.destroy_tmp()
-    if destroyed:
-        trashed.append(context.tmp_path)
-    trash = _TrashList(dists, aggressive)
-    # we're going to do these in order to save time overall
-    for p in trash.get_list():
-        tup = context.trash(p, hard_delete)
-        if tup[0] is not None:
-            trashed.append(tup)
-    for p in _fast_scandir(path, trash):
-        if trash.should_delete(p):
-            tup = context.trash(p, hard_delete)
-            if tup[0] is not None:
-                trashed.append(tup)
-    return trashed
+"""
+@cli.command()
+def update(dry_run: bool = False) -> None:
+    updates, dev_updates = Update(dry_run=dry_run).update(Path(os.getcwd()))
+    typer.echo("Main updates:")
+    for pkg, (old, up) in updates.items():
+        typer.echo("    {}:  {} --> {}".format(pkg, old, up))
+    typer.echo("Dev updates:")
+    for pkg, (old, up) in dev_updates.items():
+        typer.echo("    {}:  {} --> {}".format(pkg, old, up))
+    if not dry_run:
+        logger.error("Auto-fixing is not supported yet!")
+"""
 
 
 @cli.command()
@@ -236,14 +127,8 @@ def clean(
         hard_delete: If true, call shutil.rmtree instead.
         dry_run: If set, does not touch the filesystem; only logs.
     """
-    trashed = _clean(Path(os.getcwd()), dists, aggressive, hard_delete, dry_run)
+    trashed = Clean(dists, aggressive, hard_delete, dry_run).clean(Path(os.getcwd()))
     typer.echo("Trashed {} paths.".format(len(trashed)))
-
-
-def _info() -> Sequence[str]:
-    from tyrannosaurus import metadata, __version__, __date__
-
-    return ["Tyrannosaurus version {} ({})".format(__version__, __date__)]
 
 
 @cli.command()
@@ -251,19 +136,21 @@ def info() -> None:
     """
     Prints Tyrannosaurus info.
     """
-    for line in _info():
-        typer.echo(line)
+    from tyrannosaurus import __version__, __date__
+
+    typer.echo("Tyrannosaurus version {} ({})".format(__version__, __date__))
 
 
 class Commands:
-    new = _new
-    sync = _sync
-    recipe = _recipe
-    info = _info
-    clean = _clean
+    new = new
+    sync = sync
+    recipe = recipe
+    clean = clean
+    info = info
 
 
 if __name__ == "__main__":
     cli()
+
 
 __all__ = [Commands]

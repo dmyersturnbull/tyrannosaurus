@@ -29,8 +29,8 @@ Install with `pip install tyrannosaurus`.
 
 ##### Other integrations:
 
-Also comes with nice Github labels, a changelog template,
-Conda recipe generation, and various other integrations.
+Also comes with nice Github labels, issue templates, a changelog template,
+Conda recipe and environment generation, and other integrations.
 Tyrannosaurus itself is included as a dependency to copy metadata between config files,
 such as the project version, description, copyright, and build and doc requirements.
 
@@ -45,12 +45,10 @@ and an Anaconda environment file with `tyrannosaurus env`.
 
 [See the docs](https://tyrannosaurus.readthedocs.io/en/stable/) for more information.
 
-
-### Building, extending, and contributing
+##### Contributing:
 
 [New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
-Tyrannosaurus is licensed under the [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
-
+Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/CONTRIBUTING.md).
 
 
 ```text

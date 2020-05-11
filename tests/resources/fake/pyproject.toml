@@ -11,32 +11,19 @@ build-backend = "poetry.masonry.api"
 #########################################################################################
 
 [tool.poetry]
-name = "tyrannosaurus"
-version = "0.5.0a0"
-description = "Opinionated Python template and metadata synchronizer for 2020."
-authors = ["Douglas Myers-Turnbull"]
-maintainers = ["Douglas Myers-Turnbull"]
+name = "fake"
+version = "0.0.1"
+description = "A mock project."
+authors = ["Fake Person"]
+maintainers = ["Fake Person"]
 license = "Apache-2.0"
 readme = "README.md"
 keywords = ["python", "template", "pyproject-toml", "python-poetry", "conda-build"]
-homepage = "https://github.com/dmyersturnbull/tyrannosaurus"
-repository = "https://github.com/dmyersturnbull/tyrannosaurus"
-documentation = "https://tyrannosaurus.readthedocs.io"
+homepage = "https://github.com/fakeorg/fake"
+repository = "https://github.com/fakeorg/fake"
+documentation = "https://fake.readthedocs.io"
 classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Natural Language :: English",
-    "License :: OSI Approved :: Apache Software License",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-	"Intended Audience :: Developers",
-    "Operating System :: OS Independent",
-    "Environment :: Console",
-	"Framework :: tox",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: Build Tools",
-    "Topic :: Software Development :: Code Generators"
+    "Development Status :: 3 - Alpha"
 ]
 include = [
     "README.md",
@@ -45,14 +32,14 @@ include = [
 ]
 
 [tool.poetry.urls]
-ci = "https://github.com/dmyersturnbull/tyrannosaurus/actions"
-issues = "https://github.com/dmyersturnbull/tyrannosaurus/issues"
-source = "https://github.com/dmyersturnbull/tyrannosaurus"
-download = "https://pypi.org/project/tyrannosaurus/"
+ci = "https://github.com/fakeorg/fake/actions"
+issues = "https://github.com/fakeorg/fake/issues"
+source = "https://github.com/fakeorg/fake"
+download = "https://pypi.org/project/fake/"
 
 
 #########################################################################################
-# Tyrannosaurus
+# fake
 #########################################################################################
 
 [tool.tyrannosaurus.options]
@@ -70,7 +57,7 @@ pyversions         = "tool.poetry.dependencies"
 devdeps            = "tool.poetry.dev-dependencies"
 linelength         = "tool.black.line-length"
 # comma-separated
-maintainers        = "'dmyersturnbull'"
+maintainers        = "'fakeorg'"
 
 [tool.tyrannosuarus.paths]
 recipe             = "'recipes/${name}/meta.yml'"
@@ -93,9 +80,6 @@ changelog    = false
 #########################################################################################
 # Poetry build & dependencies
 #########################################################################################
-
-[tool.poetry.scripts]
-tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
 python                   = ">=3.7, <4"
@@ -140,28 +124,14 @@ dev     = [
 
 
 #########################################################################################
-# DepHell
-#########################################################################################
-
-[tool.dephell.main]
-from = {format = "poetry", path = "pyproject.toml"}
-to = {format = "setuppy", path = "setup.py"}
-versioning = "semver"
-
-[tool.dephell.lock]
-from = {format = "poetry", path = "pyproject.toml"}
-to = {format = "poetrylock", path = "poetry.lock"}
-
-
-#########################################################################################
 # Style checking
 #########################################################################################
 
 [tool.coverage.paths]
-source = ["tyrannosaurus"]
+source = ["fake"]
 
 [tool.coverage.run]
-source = ["tyrannosaurus"]
+source = ["fake"]
 
 [tool.coverage.report]
 show_missing = true

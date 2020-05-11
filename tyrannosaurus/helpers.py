@@ -9,60 +9,14 @@ import logging
 import os
 import re
 from pathlib import Path
+import subprocess
 from subprocess import check_output, SubprocessError
-from typing import Optional, Union, Sequence, Mapping
+from typing import Optional, Union, Sequence, Mapping, Tuple as Tup
 
 import requests
 import typer
 
-from tyrannosaurus.context import _Context
-
 logger = logging.getLogger(__package__)
-cli = typer.Typer()
-
-
-class _SyncHelper:
-    def __init__(self, context: _Context, dry_run: bool):
-        self.context = context
-        self.dry_run = dry_run
-
-    def has(self, key: str):
-        return self.context.has_target(key)
-
-    def replace_substrs(self, path: Path, replace: Mapping[str, str]) -> None:
-        self.context.back_up(path)
-        new_lines = []
-        for line in path.read_text(encoding="utf8").splitlines():
-            for k, v in replace.items():
-                if line.startswith(k):
-                    new_lines.append(v)
-                    break
-            else:
-                new_lines.append(line)
-        new_lines = "\n".join(new_lines)
-        if not self.dry_run:
-            path.write_text(new_lines, encoding="utf8")
-        logger.debug("Wrote to {}".format(path))
-
-    def fix_init(self) -> None:
-        if self.has("init"):
-            self.replace_substrs(
-                self.context.path / self.context.project / "__init__.py",
-                {
-                    "__status__ = ": '__status__ = "{}"'.format(self.context.source("status")),
-                    "__copyright__ = ": '__copyright__ = "{}"'.format(
-                        self.context.source("copyright")
-                    ),
-                    "__date__ = ": '__date__ = "{}"'.format(self.context.source("date")),
-                },
-            )
-
-    def fix_recipe(self) -> None:
-        if self.has("recipe"):
-            self.replace_substrs(
-                self.context.path_source("recipe"),
-                {"{% set version = ": '{% set version = "' + str(self.context.version) + '" %}',},
-            )
 
 
 class _TrashList:
@@ -201,10 +155,55 @@ class _InitTomlHelper:
         return new_lines
 
 
+class _PyPiHelper:
+    def __init__(self, timeout_sec: int = 10):
+        self.timeout_sec = timeout_sec
+
+    def new_versions(self, pkg_versions: Mapping[str, str]) -> Mapping[str, Tup[str, str]]:
+        updated = {}
+        for pkg, version in pkg_versions.items():
+            try:
+                new = self.get_version(pkg)
+            except ValueError:
+                logger.error("Did not find package {}".format(pkg), exc_info=True)
+            else:
+                if new != version:
+                    updated[pkg] = version, new
+        return updated
+
+    def get_version(self, name: str):
+        pat = re.compile(r"^[^(]+\(from versions: ([^)]+)+\).*$")
+        # TODO this hangs when run in pytest
+        proc = subprocess.Popen(
+            ["pip", "install", name + "=="],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            encoding="utf8",
+        )
+        stdout, stderr = proc.communicate(timeout=self.timeout_sec)
+        # result = subprocess.run(
+        #    ["pip", "install", name + "=="],
+        #    capture_output=True,
+        #    encoding="utf8"
+        # )
+        text = pat.fullmatch(stderr).group(1).strip()
+        if text == "none":
+            raise ValueError("Failed to find package {}".format(name))
+        return text.split(" ")[-1]
+
+
 class _CondaForgeHelper:
     def has_pkg(self, name: str):
         # unfortunately, Anaconda returns 200 even if the page doesn't exist
-        r = requests.get("https://anaconda.org/conda-forge/{}".format(name))
+        # TODO needed verify=False to get it working on CI
+        try:
+            r = requests.get("http://anaconda.org/conda-forge/{}".format(name), verify=False)
+        except OSError:
+            logger.error(
+                "Failed fetching from anaconda.org. Assuming {} is in Conda-Forge.".format(name),
+                exc_info=True,
+            )
+            return True
         return "login?next" not in r.url
 
 
@@ -272,10 +271,10 @@ def _fast_scandir(topdir, trash):
 
 __all__ = [
     "_TrashList",
-    "_SyncHelper",
     "_Env",
     "_License",
     "_InitTomlHelper",
+    "_PyPiHelper",
     "_CondaForgeHelper",
     "_EnvHelper",
     "_fast_scandir",

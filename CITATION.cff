@@ -1,0 +1,16 @@
+cff-version: 1.1.0
+message: Software reference
+title: Tyrannosaurus
+version: 0.5.0a0
+abstract: Opinionated Python template and metadata synchronizer for 2020.
+authors:
+    -
+        family-names: Myers-Turnbull
+        given-names: Douglas
+keywords:
+    - python
+    - template
+    - pyproject-toml
+    - python-poetry
+    - conda-build
+date-released: 2020-05-10T20:06:00.000Z

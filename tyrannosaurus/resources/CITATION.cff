@@ -1,0 +1,12 @@
+cff-version: 1.1.0
+message: Software reference
+title: ${Project}
+version: 0.1.0
+abstract: ${description}
+authors:
+    -
+        family-names: ${author.last#1}
+        given-names: ${author.first#1}
+keywords:
+    - << a keyword >>
+date-released: ${today.zulu}

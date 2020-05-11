@@ -18,6 +18,7 @@ Here are most of the available synchronization targets:
 - Copyright in ``docs/conf.py``
 - Poetry version in ``Dockerfile``
 - Authors and year listed in the license file
+- Metadata in ``CITATION.cff`` and ``codemeta.json``
 - Dev versions in ``.pre-commit-config.yaml``
 - ``--maintainers`` arg for Grayskull in ``tox.ini``
 - ``doc_url``, ``dev_url``, and ``license_file`` in ``meta.yaml``

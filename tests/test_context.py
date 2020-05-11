@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 # noinspection PyProtectedMember
-from tyrannosaurus.context import _Context, _Source, _Toml, _TomlBuilder, timestamp
+from tyrannosaurus.context import _Context, _Source, _TomlBuilder, timestamp
 
 
 class TestContext:

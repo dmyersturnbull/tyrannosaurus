@@ -28,6 +28,7 @@ Consider following them after running ``tyrannosaurus new``.
 9. On your Github repo ⮞ Settings ⮞ Webhooks ⮞ your docker hook ⮞ Edit, check ``Releases``.
 10. Create a release on Github to publish to PyPi and Dockerhub.
 11. Review `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_, `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_, and `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_.
+12. Consider `getting a DOI <https://guides.github.com/activities/citable-code/>`_.
 
 You can add ``tyrannosaurus sync`` and ``tyrannosaurus clean`` to tox.ini if desired.
 You may also want to add new integrations, like `codeclimate <https://codeclimate.com/>`_ or `codacy <https://www.codacy.com/>`_.

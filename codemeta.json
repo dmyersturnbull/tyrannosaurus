@@ -1,0 +1,41 @@
+{
+    "@context":"https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type":"SoftwareSourceCode",
+    "identifier":"tyrannosaurus",
+    "name":"Tyrannosaurus",
+    "description":"Opinionated Python template and metadata synchronizer for 2020.",
+    "codeRepository":"https://github.com/dmyersturnbull/tyrannosaurus",
+    "issueTracker":"https://github.com/dmyersturnbull/tyrannosaurus/issues",
+    "license":"https://www.apache.org/licenses/LICENSE-2.0",
+    "version":"2.0",
+    "author":[
+        {
+            "@type":"Person",
+            "givenName":"Douglas",
+            "familyName":"Myers-Turnbull",
+            "@id":"https://orcid.org/0000-0003-3610-4808"
+        }
+    ],
+    "contributor":[
+
+    ],
+    "maintainer":{
+        "@type":"Person",
+        "givenName":"Douglas",
+        "familyName":"Myers-Turnbull",
+        "@id":"https://orcid.org/0000-0003-3610-4808"
+    },
+    "contIntegration":"https://github.com/dmyersturnbull/tyrannosaurus/actions",
+    "developmentStatus":"active",
+    "downloadUrl":"https://pypi.org/project/tyrannosaurus/",
+    "keywords":[
+        "python",
+        "template",
+        "pyproject-toml",
+        "python-poetry",
+        "conda-build"
+    ],
+    "dateCreated":"2020-05-10",
+    "datePublished":"2020-05-10",
+    "programmingLanguage":"Python"
+}

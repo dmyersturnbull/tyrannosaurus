@@ -1,0 +1,35 @@
+{
+    "@context":"https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type":"SoftwareSourceCode",
+    "identifier":"${project}",
+    "name":"${Project}",
+    "description":"${description}",
+    "codeRepository":"https://github.com/${user}/${project}",
+    "issueTracker":"https://github.com/${user}/${project}/issues",
+    "license":"${license.url}",
+    "version":"2.0",
+    "author":[
+        {
+            "@type":"Person",
+            "givenName":"${author.first#1}",
+            "familyName":"${author.last#1}",
+            "@id":"https://orcid.org/<<author.orcid#1>>"
+        }
+    ],
+    "contributor":[
+
+    ],
+    "maintainer":{
+        "@type":"Person",
+        "givenName":"${user.first}",
+        "familyName":"${user.last}",
+        "@id":"https://orcid.org/${user.orcid}"
+    },
+    "contIntegration":"https://github.com/${user}/${project}/actions",
+    "developmentStatus":"active",
+    "downloadUrl":"https://pypi.org/project/${project}/",
+    "keywords":[ ],
+    "dateCreated":"${today}",
+    "datePublished":"${today}",
+    "programmingLanguage":"Python"
+}

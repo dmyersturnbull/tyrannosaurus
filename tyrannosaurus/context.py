@@ -209,7 +209,7 @@ class _Context:
 
     def check_path(self, path: Union[Path, str]) -> None:
         path = Path(path)
-        if path == self.path:
+        if path.resolve() == self.path.resolve():
             raise ValueError("Cannot touch {}".format(path))
         if not path.exists():
             raise FileNotFoundError("Path {} does not exist".format(path))
