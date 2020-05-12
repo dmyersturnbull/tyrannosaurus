@@ -1,14 +1,15 @@
 import pytest
 
 # noinspection PyProtectedMember
-from tyrannosaurus.helpers import _Env, _PyPiHelper
+from tyrannosaurus.helpers import _Env
 
 
 class TestHelpers:
     def test_env(self):
         env = _Env(None, None)
-        # assert env.user is not None
-        # assert env.authors is not None
+        # TODO run in test mode
+        # assert '<<' not in env.user
+        # assert len(env.authors) == 1 and '<<' not in env.authors[0]
 
     """
     def test_pypi(self):

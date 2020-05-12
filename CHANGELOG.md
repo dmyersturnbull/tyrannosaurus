@@ -4,6 +4,18 @@ Adheres to the [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) recommendations.
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+
+## [0.6.0] - unreleased
+
+
+## [0.5.x] - 2020-05-12
+
+### Fixed
+- `poetry.lock was not deleted
+- some files, including `__init__.py`, were
+- git config was not used
+- removed `.coverage` sqllite file
+
 ## [0.5.0] - 2020-05-11
 
 ### Added

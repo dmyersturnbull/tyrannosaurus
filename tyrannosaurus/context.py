@@ -109,6 +109,7 @@ class _LiteralParser:
             .replace("${now.minute}", str(now.minute))
             .replace("${now.second}", str(now.second))
             .replace("${project}", self.project)
+            .replace("${Project}", self.project.title())
             .replace("${version}", self.version)
         )
         if self.user is not None:

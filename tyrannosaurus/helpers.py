@@ -87,26 +87,20 @@ class _License(enum.Enum):
 
 class _Env:
     def __init__(self, authors: Optional[Sequence[str]], user: Optional[str]):
-        if authors is None:
-            self.authors = self._git("user.name").split(",")
-        else:
-            self.authors = authors
-        if user is None:
-            self.user = self._git("user.email")
-        else:
-            self.user = user
-        if "@" in self.user:
-            self.user = self.user.split("@")[0]
+        self.authors = self._git("user.name", "author").split(",") if authors is None else authors
+        self.user = self._git("user.email", "user").split("@")[0] if user is None else user
 
-    def _git(self, key: str) -> str:
+    def _git(self, key: str, name: str) -> str:
         try:
-            result = check_output(["git", "config", key], encoding="utf8")
+            result = check_output(["git", "config", key], encoding="utf8").strip()
         except SubprocessError:
             logger.error("Failed calling git")
-            return "<<{}>>".format(key)
-        if result is None:
+            return "<<{}>>".format(name)
+        if len(result) > 0:
+            return result
+        else:
             logger.error("Could not get git config item {}".format(key))
-        return "<<{}>>".format(key)
+            return "<<{}>>".format(name)
 
 
 class _InitTomlHelper:
@@ -117,7 +111,6 @@ class _InitTomlHelper:
         self.username = username
 
     def fix(self, lines: Sequence[str]):
-        author_line = "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
         fixes = dict(
             name=self.name,
             version="0.1.0",
@@ -133,11 +126,6 @@ class _InitTomlHelper:
             issues="https://github.com/{}/{}/issues".format(self.username, self.name),
             source="https://github.com/{}/{}".format(self.username, self.name),
         )
-        """
-        fixes[author_line] = "\n".join(
-            ['    "{} <github:...,orcid:...>"'.format(author) for author in self.authors]
-        )
-        """
         new_lines = self._set_lines(lines, fixes)
         # this one is fore tool.tyrannosaurus.sources
         # this is a hack
