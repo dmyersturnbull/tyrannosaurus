@@ -80,7 +80,7 @@ class New:
                 text = parser.parse(source.read_text(encoding="utf8"))
                 dest.write_text(text, encoding="utf8")
         # rename some files
-        Path(path / name).mkdir()
+        Path(path / name).mkdir(exist_ok=True)
         Path(context.path / "recipes" / name).mkdir(parents=True)
         (path / "tyrannosaurus" / "__init__.py").rename(Path(path / name / "__init__.py"))
         shutil.rmtree(str(path / "tyrannosaurus"))
