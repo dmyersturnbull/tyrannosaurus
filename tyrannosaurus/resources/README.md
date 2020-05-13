@@ -1,5 +1,6 @@
 # ${project}
 
+[![Docker](https://img.shields.io/docker/v/${user}/${project})](https://hub.docker.com/repository/docker/${user}/${project})
 [![Build status](https://img.shields.io/pypi/status/${project})](https://pypi.org/project/${project}/)
 [![Latest version on PyPi](https://badge.fury.io/py/${project}.svg)](https://pypi.org/project/${project}/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/${project}.svg)](https://pypi.org/project/${project}/)
