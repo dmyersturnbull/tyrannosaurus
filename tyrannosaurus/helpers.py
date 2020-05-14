@@ -122,7 +122,8 @@ class _InitTomlHelper:
             homepage="https://github.com/{}/{}".format(self.username, self.name),
             repository="https://github.com/{}/{}".format(self.username, self.name),
             documentation="https://{}.readthedocs.io".format(self.name),
-            build="https://github.com/{}/{}/actions".format(self.username, self.name),
+            ci="https://github.com/{}/{}/actions".format(self.username, self.name),
+            download="https://pypi.org/project/{}/".format(self.name),
             issues="https://github.com/{}/{}/issues".format(self.username, self.name),
             source="https://github.com/{}/{}".format(self.username, self.name),
         )

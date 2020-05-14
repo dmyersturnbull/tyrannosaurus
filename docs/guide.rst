@@ -31,6 +31,8 @@ Consider following them after running ``tyrannosaurus new``.
 12. Consider `getting a DOI <https://guides.github.com/activities/citable-code/>`_.
 
 You can add ``tyrannosaurus sync`` and ``tyrannosaurus clean`` to tox.ini if desired.
+If you’re not using coveralls, remove the ``coveralls`` line in tox.ini.
+Or you might instead want to add this to your Github workflow.
 You may also want to add new integrations, like `codeclimate <https://codeclimate.com/>`_ or `codacy <https://www.codacy.com/>`_.
 Consider adding `shields <https://shields.io/>`_ for them.
 
