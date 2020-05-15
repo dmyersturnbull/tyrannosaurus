@@ -1,7 +1,7 @@
 import pytest
 
-from ${project} import __copyright__
-from ${project} import cli
+from ${pkg} import __copyright__
+from ${pkg} import cli
 
 class TestCli:
 

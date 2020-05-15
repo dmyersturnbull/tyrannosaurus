@@ -93,7 +93,9 @@ class _LiteralParser:
     def __init__(
         self, project: str, version: str, user: Optional[str], authors: Optional[Sequence[str]]
     ):
-        self.project = project
+        self.project = project.lower()
+        # TODO doing this in two places
+        self.pkg = project.replace("_", "").replace("-", "").replace(".", "").lower()
         self.version = version
         self.user = user
         self.authors = authors
@@ -108,8 +110,9 @@ class _LiteralParser:
             .replace("${now.hour}", str(now.hour))
             .replace("${now.minute}", str(now.minute))
             .replace("${now.second}", str(now.second))
-            .replace("${project}", self.project)
-            .replace("${Project}", self.project.title())
+            .replace("${project}", self.project.lower())
+            .replace("${Project}", self.project[0].upper() + self.project[1:])
+            .replace("${pkg}", self.pkg)
             .replace("${version}", self.version)
         )
         if self.user is not None:
@@ -190,7 +193,15 @@ class _Context:
         path = Path(path)
         if not path.exists():
             return None, None
-        self.check_path(path)
+        try:
+            self.check_path(path)
+        except ValueError as e:
+            # this can fail while testing
+            if path.name == ".pytest_cache":
+                logger.debug("Could not deleted .pytest_cache", exc_info=True)
+                return path, None
+            else:
+                raise e
         if hard_delete:
             if not self.dry_run:
                 shutil.rmtree(path)

@@ -8,11 +8,14 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 ## [0.6.0] - unreleased
 
 
-## [0.5.x] - 2020-05-12
+## [0.5.x] - 2020-05-15
 
 ### Fixed
 - `poetry.lock was not deleted
-- some files, including `__init__.py`, were
+- some files, including `__init__.py`, were ignored
+- fixed options in `tox.ini`
+- removed some stupid items in `pyproject.toml`
+- proper handling of dashes and underscores
 - git config was not used
 - removed `.coverage` sqllite file
 
