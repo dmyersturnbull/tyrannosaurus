@@ -8,12 +8,8 @@ from typing import Union, Sequence
 
 import typer
 
-from tyrannosaurus.context import _LiteralParser, _Context
-from tyrannosaurus.helpers import (
-    _License,
-    _Env,
-    _InitTomlHelper,
-)
+from tyrannosaurus.context import _LiteralParser
+from tyrannosaurus.helpers import _License
 
 logger = logging.getLogger(__package__)
 cli = typer.Typer()
@@ -21,7 +17,14 @@ cli = typer.Typer()
 
 class New:
     def __init__(
-        self, name: str, license_name: Union[str, _License], username: str, authors: Sequence[str]
+        self,
+        name: str,
+        license_name: Union[str, _License],
+        username: str,
+        authors: Sequence[str],
+        description: str,
+        keywords: Sequence[str],
+        version: str,
     ):
         if isinstance(license_name, str):
             license_name = _License[license_name.lower()]
@@ -30,13 +33,13 @@ class New:
         self.license_name = license_name
         self.username = username
         self.authors = authors
+        self.description = description
+        self.keywords = keywords
+        self.version = version
 
     def create(self, path: Path) -> None:
         self._checkout(Path(str(path).lower()))
         logger.info("Got git checkout. Fixing...")
-        context = _Context(path)
-        path = context.path
-        toml_path = path / "pyproject.toml"
         # remove tyrannosaurus-specific files
         Path(path / "poetry.lock").unlink()
         Path(path / "recipes" / "tyrannosaurus" / "meta.yaml").unlink()
@@ -48,22 +51,16 @@ class New:
         for p in Path(path / "tests").iterdir():
             if p.is_file() and p.name != "__init__.py":
                 p.unlink()
-        # fix toml settings
-        lines = toml_path.read_text(encoding="utf8").splitlines()
-        env = _Env(user=self.username, authors=self.authors)
-        new_lines = _InitTomlHelper(
-            self.project_name,
-            self.pkg_name,
-            env.authors,
-            self.license_name,
-            env.user,
-        ).fix(lines)
-        new_lines = [line for line in new_lines if not line.startswith("grayskull")]
-        toml_path.write_text("\n".join(new_lines), encoding="utf8")
-        # reset context
-        context = _Context(path)
         # copy license
-        parser = _LiteralParser(self.project_name, "0.1.0", self.username, self.authors)
+        parser = _LiteralParser(
+            self.project_name,
+            self.username,
+            self.authors,
+            self.description,
+            self.keywords,
+            self.version,
+            self.license_name.name,
+        )
         license_file = (
             path / "tyrannosaurus" / "resources" / ("license_" + self.license_name.name + ".txt")
         )
@@ -82,6 +79,7 @@ class New:
                 resource = (
                     str(resource)
                     .replace(".py.txt", ".py")
+                    .replace(".toml.txt", ".toml")
                     .replace("$project", self.project_name)
                     .replace("$pkg", self.pkg_name)
                 )
@@ -93,7 +91,7 @@ class New:
                 dest.write_text(text, encoding="utf8")
         # rename some files
         Path(path / self.pkg_name).mkdir(exist_ok=True)
-        Path(context.path / "recipes" / self.pkg_name).mkdir(parents=True)
+        Path(path / "recipes" / self.pkg_name).mkdir(parents=True)
         (path / "tyrannosaurus" / "__init__.py").rename(Path(path / self.pkg_name / "__init__.py"))
         shutil.rmtree(str(path / "tyrannosaurus"))
 

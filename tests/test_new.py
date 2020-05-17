@@ -11,7 +11,15 @@ from tyrannosaurus.new import New
 class TestNew:
     def test_new(self):
         path = Path("resources", "tmp", "tmptyr")
-        New("tmptyr", "apache2", "user", "Author 1").create(path)
+        New(
+            "tmptyr",
+            "apache2",
+            "user",
+            ["Author 1"],
+            "A description",
+            ["some", "keywords"],
+            "0.1.0",
+        ).create(path)
         assert (path / "pyproject.toml").exists()
         context = _Context(path, dry_run=True)
         assert context.project == "tmptyr"

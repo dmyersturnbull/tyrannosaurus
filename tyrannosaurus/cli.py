@@ -43,29 +43,6 @@ class _DevNull:
         self.close()
 
 
-class Settable(enum.Enum):
-    name = "name"
-    version = "version"
-    description = "description"
-    keywords = "keywords"
-    link = "link"
-    authors = "authors"
-    maintainers = "maintainers"
-    contributors = "contributors"
-    reqs = "reqs"
-    dev_reqs = "dev_reqs"
-
-
-class Addable(enum.Enum):
-    author = "author"
-    maintainer = "maintainer"
-    contributor = "contributor"
-    keyword = "keyword"
-    link = "link"
-    req = "req"
-    dev_req = "dev_req"
-
-
 class CliState:
     def __init__(self):
         self.dry_run = False
@@ -113,6 +90,9 @@ class CliCommands:
         license: _License = typer.Option("apache2"),
         user: Optional[str] = None,
         authors: Optional[str] = None,
+        description: str = "<<A Python project>>",
+        keywords: str = "",
+        version: str = "0.1.0",
         prompt: bool = False,
     ) -> None:
         """
@@ -127,6 +107,12 @@ class CliCommands:
 
             authors: List of author names, comma-separated
 
+            description: A <100 char description for the project
+
+            keywords: A list of <= 5 keywords, comma-separated
+
+            version: A semantic version
+
             prompt: Prompt for info
         """
         if prompt:
@@ -134,13 +120,24 @@ class CliCommands:
             description = typer.prompt("description", default="A new project", type=str)
             version = typer.prompt("version", default="0.1.0", type=str)
             license = typer.prompt("license", type=_License, default=_License.apache2).lower()
-            user = typer.prompt("user [default: from 'git config']", default=None)
+            user = typer.prompt("user [default: from 'git config']", default=user)
             authors = typer.prompt(
-                "authors [default: from 'git config'], comma-separated", default=None
+                "authors [default: from 'git config'], comma-separated", default=authors
             )
+            description = typer.prompt("description", default=description)
+            keywords = typer.prompt("keywords, comma-separated", default=keywords)
         e = _Env(user=user, authors=authors)
+        keywords = keywords.split(",")
         path = Path(name)
-        New(name, license_name=license, username=e.user, authors=e.authors).create(path)
+        New(
+            name,
+            license_name=license,
+            username=e.user,
+            authors=e.authors,
+            description=description,
+            keywords=keywords,
+            version=version,
+        ).create(path)
         typer.echo("Done! Created a new repository under {}".format(name))
         typer.echo(
             "See https://tyrannosaurus.readthedocs.io/en/latest/guide.html#to-do-list-for-new-projects"
@@ -213,42 +210,6 @@ class CliCommands:
         if not state.dry_run:
             logger.error("Auto-fixing is not supported yet!")
     """
-
-    @staticmethod
-    @cli.command()
-    def set(what: Settable):
-        """
-        Sets items in the config.
-
-        Args:
-
-            what: Which metadata key to set
-        """
-        typer.echo("Does nothing yet.")
-
-    @staticmethod
-    @cli.command()
-    def add(what: Addable):
-        """
-        Adds items to the config.
-
-        Args:
-
-            what: Which metadata key to an item to
-        """
-        typer.echo("Does nothing yet.")
-
-    @staticmethod
-    @cli.command()
-    def list(what: Settable):
-        """
-        Lists items in the config.
-
-        Args:
-
-            what: Which metadata key to list
-        """
-        typer.echo("Does nothing yet.")
 
     @staticmethod
     @cli.command()

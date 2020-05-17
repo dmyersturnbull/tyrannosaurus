@@ -1,7 +1,7 @@
 # Changelog
 
-Adheres to the [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
-and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) recommendations.
+Adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and
+and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
@@ -18,6 +18,7 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - proper handling of dashes and underscores
 - git config was not used
 - removed `.coverage` sqllite file
+- simplified code by copying `pyproject.toml` to resources
 
 ## [0.5.0] - 2020-05-11
 

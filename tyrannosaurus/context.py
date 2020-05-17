@@ -91,14 +91,24 @@ class _TomlBuilder:
 
 class _LiteralParser:
     def __init__(
-        self, project: str, version: str, user: Optional[str], authors: Optional[Sequence[str]]
+        self,
+        project: str,
+        user: Optional[str],
+        authors: Optional[Sequence[str]],
+        description: str,
+        keywords: Sequence[str],
+        version: str,
+        license: str,
     ):
         self.project = project.lower()
         # TODO doing this in two places
         self.pkg = project.replace("_", "").replace("-", "").replace(".", "").lower()
-        self.version = version
         self.user = user
         self.authors = authors
+        self.description = description
+        self.keywords = keywords
+        self.version = version
+        self.license = str(license)
 
     def parse(self, s: str) -> str:
         s = (
@@ -113,7 +123,10 @@ class _LiteralParser:
             .replace("${project}", self.project.lower())
             .replace("${Project}", self.project[0].upper() + self.project[1:])
             .replace("${pkg}", self.pkg)
+            .replace("${license}", self.license)
             .replace("${version}", self.version)
+            .replace("${description}", self.description)
+            .replace("${keywords}", str(self.keywords))
         )
         if self.user is not None:
             s = s.replace("${user}", self.user)
@@ -127,8 +140,24 @@ class _Source:
     def parse(cls, s: str, toml: _Toml) -> Union[str, Sequence]:
         project = toml["tool.poetry.name"]
         version = toml["tool.poetry.version"]
+        description = toml["tool.poetry.description"]
+        authors = toml["tool.poetry.authors"]
+        keywords = toml["tool.poetry.keywords"]
+        license = toml["tool.poetry.license"]
         if isinstance(s, str) and s.startswith("'") and s.endswith("'"):
-            return _LiteralParser(project, version, None, None).parse(s).strip("'")
+            return (
+                _LiteralParser(
+                    project=project,
+                    user=None,
+                    authors=authors,
+                    description=description,
+                    keywords=keywords,
+                    version=version,
+                    license=license,
+                )
+                .parse(s)
+                .strip("'")
+            )
         elif isinstance(s, str):
             value = toml[s]
             return str(value)

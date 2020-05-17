@@ -16,6 +16,8 @@ from typing import Optional, Union, Sequence, Mapping, Tuple as Tup
 import requests
 import typer
 
+from tyrannosaurus import __version__
+
 logger = logging.getLogger(__package__)
 
 
@@ -101,63 +103,6 @@ class _Env:
         else:
             logger.error("Could not get git config item {}".format(key))
             return "<<{}>>".format(name)
-
-
-class _InitTomlHelper:
-    def __init__(
-        self,
-        project_name: str,
-        pkg_name: str,
-        authors: Sequence[str],
-        license_name,
-        username: str,
-    ):
-        self.project_name = project_name
-        self.pkg_name = pkg_name
-        self.authors = authors
-        self.license_name = license_name
-        self.username = username
-
-    def fix(self, lines: Sequence[str]):
-        fixes = dict(
-            name=self.project_name,
-            version="0.1.0",
-            description="A new project",
-            authors=self.authors,
-            maintainers=self.authors,
-            license=self.license_name.full_name(),
-            keywords=str(["a new", "python project"]),
-            homepage="https://github.com/{}/{}".format(self.username, self.project_name),
-            repository="https://github.com/{}/{}".format(self.username, self.project_name),
-            documentation="https://{}.readthedocs.io".format(self.project_name),
-            ci="https://github.com/{}/{}/actions".format(self.username, self.project_name),
-            download="https://pypi.org/project/{}/".format(self.project_name),
-            issues="https://github.com/{}/{}/issues".format(self.username, self.project_name),
-            source="https://github.com/{}/{}".format(self.username, self.project_name),
-        )
-        fixes['tyrannosaurus = "tyrannosaurus.cli:cli"'] = '{} = "{}.cli:cli"'.format(
-            self.project_name, self.pkg_name
-        )
-        new_lines = self._set_lines(lines, fixes)
-        # this one is fore tool.tyrannosaurus.sources
-        # this is a hack
-        new_lines = self._set_lines(new_lines, dict(maintainers=self.username))
-        new_lines = [line for line in new_lines if "Douglas Myers-Turnbull" not in line and 'Code Generators' not in line and 'Build Tools' not in line and 'Framework :: tox' not in line]
-        return new_lines
-
-    def _set_lines(self, lines: Sequence[str], prefixes: Mapping[str, Union[int, str]]):
-        new_lines = []
-        set_val = set()
-        for line in lines:
-            new_line = line
-            for key, value in prefixes.items():
-                if isinstance(value, str):
-                    value = '"' + value + '"'
-                if line.startswith(key + " = ") and key not in set_val:
-                    new_line = key + " = " + str(value)
-                    set_val.add(key)
-            new_lines.append(new_line)
-        return new_lines
 
 
 class _PyPiHelper:

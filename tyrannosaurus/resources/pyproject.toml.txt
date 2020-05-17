@@ -11,17 +11,19 @@ build-backend = "poetry.masonry.api"
 #########################################################################################
 
 [tool.poetry]
-name = "tyrannosaurus"
-version = "0.5.3"
-description = "Opinionated Python template and metadata synchronizer for 2020."
-authors = ["Douglas Myers-Turnbull"]
-maintainers = ["Douglas Myers-Turnbull"]
-license = "Apache-2.0"
+name = "${project}"
+version = "0.1.0"
+# TODO Set the description and keywrods here
+description = "${description}"
+keywords = ${keywords}
+authors = ${authors}
+maintainers = ${authors}
+license = "${license}"
 readme = "README.md"
-keywords = ["python", "template", "pyproject-toml", "python-poetry", "conda-build"]
-homepage = "https://github.com/dmyersturnbull/tyrannosaurus"
-repository = "https://github.com/dmyersturnbull/tyrannosaurus"
-documentation = "https://tyrannosaurus.readthedocs.io"
+homepage = "https://github.com/${user}/${project}"
+repository = "https://github.com/${user}/${project}"
+documentation = "https://${project}.readthedocs.io"
+# TODO Add topics here
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Natural Language :: English",
@@ -33,10 +35,7 @@ classifiers = [
 	"Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Environment :: Console",
-	"Framework :: tox",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: Build Tools",
-    "Topic :: Software Development :: Code Generators"
+    "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 include = [
     "README.md",
@@ -45,10 +44,61 @@ include = [
 ]
 
 [tool.poetry.urls]
-ci = "https://github.com/dmyersturnbull/tyrannosaurus/actions"
-issues = "https://github.com/dmyersturnbull/tyrannosaurus/issues"
-code = "https://github.com/dmyersturnbull/tyrannosaurus"
-download = "https://pypi.org/project/tyrannosaurus/"
+ci = "https://github.com/${user}/${project}/actions"
+issues = "https://github.com/${user}/${project}/issues"
+code = "https://github.com/${user}/${project}"
+download = "https://pypi.org/project/${project}/"
+
+
+#########################################################################################
+# Poetry build & dependencies
+#########################################################################################
+
+[tool.poetry.scripts]
+# TODO Is your code a script?
+tyrannosaurus = "${pkg}.cli:cli"
+
+[tool.poetry.dependencies]
+python                   = ">=3.7, <4"
+tomlkit                  = "^0.6.0"
+importlib-metadata       = "^1.6"
+typer                    = "^0.2"
+# TODO Add your dependencies here
+
+[tool.poetry.dev-dependencies]
+pre-commit               = "^2.3"
+pytest                   = "^5.4"
+coverage                 = {extras = ["toml"], version = "^5.1"}
+pytest-cov               = "^2.8"
+sphinx                   = "^3.0"
+sphinx-autoapi           = "^1.3"
+sphinx-rtd-theme         = "^0.4.3"
+mypy                     = "^0.750"
+flake8                   = "^3.7"
+flake8-docstrings        = "^1.5"
+black                    = "=19.10b0"
+isort                    = "^4.3"
+sphinx-autodoc-typehints = "^1.10"
+xdoctest                 = "^0.12"
+hypothesis               = "^5.10"
+flake8-bandit            = "^2.1"
+flake8-bugbear           = "^20.1"
+coveralls                = "^2.0"
+tyrannosaurus            = "^0.5"
+
+[tool.poetry.extras]
+# manually listed
+docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi"]
+# auto-filled from dev-deps
+dev     = [
+        "tyrannosaurus",
+        "pre-commit", "pytest", "coverage", "xdoctest", "hypothesis",
+        "sphinx", "sphinx-autodoc-typehints", "sphinx-autoapi",
+        "mypy",
+        "flake8", "flake8-docstrings",
+        "black", "isort",
+        "flake8-bandit", "flake8-bugbear"
+]
 
 
 #########################################################################################
@@ -59,6 +109,8 @@ download = "https://pypi.org/project/tyrannosaurus/"
 align    = true
 
 [tool.tyrannosaurus.sources]
+# use a literal value ('') or refer to a pyproject setting
+# ${today} is the date you run it at, and ${now} is the datetime
 status             = "'Development'"
 date               = "'${today}'"
 copyright          = "'Copyright ${today.year}'"
@@ -67,15 +119,21 @@ release            = "tool.poetry.version"
 pyversions         = "tool.poetry.dependencies"
 devdeps            = "tool.poetry.dev-dependencies"
 linelength         = "tool.black.line-length"
+# TODO Fill in authors, contributors, and maintainers
+# Can be literal lists or pyproject setting references
+# Use this syntax: "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
+# You should include Github usernames and Orcid IDs if they're available
+# But they're not required
 authors = [
-    "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
+    "<<Author Name>> <github:<<username>>,orcid:<<id>>>"
 ]
-maintainers = "tool.tyrannosaurus.sources.authors"
 contributors = [
 
 ]
+maintainers = "tool.tyrannosaurus.sources.authors"
+
 [tool.tyrannosuarus.paths]
-recipe             = "'recipes/${name}/meta.yml'"
+recipe             = "'recipes/${project}/meta.yml'"
 environment        = "'environment.yml'"
 
 [tool.tyrannosaurus.targets]
@@ -100,64 +158,14 @@ environment  = false
 
 
 #########################################################################################
-# Poetry build & dependencies
-#########################################################################################
-
-[tool.poetry.scripts]
-tyrannosaurus = "tyrannosaurus.cli:cli"
-
-[tool.poetry.dependencies]
-python                   = ">=3.7, <4"
-tomlkit                  = "^0.6.0"
-importlib-metadata       = "^1.6"
-typer                    = "^0.2"
-shellingham              = "^1.3"
-requests                 = "^2.23"
-grayskull                = "^0.4"
-
-[tool.poetry.dev-dependencies]
-pre-commit               = "^2.3"
-pytest                   = "^5.4"
-coverage                 = {extras = ["toml"], version = "^5.1"}
-pytest-cov               = "^2.8"
-sphinx                   = "^3.0"
-sphinx-autoapi           = "^1.3"
-sphinx-rtd-theme         = "^0.4.3"
-mypy                     = "^0.750"
-flake8                   = "^3.7"
-flake8-docstrings        = "^1.5"
-black                    = "=19.10b0"
-isort                    = "^4.3"
-sphinx-autodoc-typehints = "^1.10"
-xdoctest                 = "^0.12"
-hypothesis               = "^5.10"
-flake8-bandit            = "^2.1"
-flake8-bugbear           = "^20.1"
-coveralls                = "^2.0"
-
-[tool.poetry.extras]
-# manually listed
-docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi"]
-# auto-filled from dev-deps
-dev     = [
-        "pre-commit", "pytest", "coverage", "xdoctest", "hypothesis",
-        "sphinx", "sphinx-autodoc-typehints", "sphinx-autoapi",
-        "mypy",
-        "flake8", "flake8-docstrings",
-        "black", "isort",
-        "flake8-bandit", "flake8-bugbear"
-]
-
-
-#########################################################################################
 # Style checking
 #########################################################################################
 
 [tool.coverage.paths]
-source = ["tyrannosaurus"]
+source = ["${pkg}"]
 
 [tool.coverage.run]
-source = ["tyrannosaurus"]
+source = ["${pkg}"]
 
 [tool.coverage.report]
 show_missing = true
