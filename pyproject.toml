@@ -45,10 +45,9 @@ include = [
 ]
 
 [tool.poetry.urls]
-ci = "https://github.com/dmyersturnbull/tyrannosaurus/actions"
-issues = "https://github.com/dmyersturnbull/tyrannosaurus/issues"
-code = "https://github.com/dmyersturnbull/tyrannosaurus"
-download = "https://pypi.org/project/tyrannosaurus/"
+CI = "https://github.com/dmyersturnbull/tyrannosaurus/actions"
+Issues = "https://github.com/dmyersturnbull/tyrannosaurus/issues"
+Download = "https://pypi.org/project/tyrannosaurus/"
 
 
 #########################################################################################

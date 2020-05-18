@@ -44,10 +44,9 @@ include = [
 ]
 
 [tool.poetry.urls]
-ci = "https://github.com/${user}/${project}/actions"
-issues = "https://github.com/${user}/${project}/issues"
-code = "https://github.com/${user}/${project}"
-download = "https://pypi.org/project/${project}/"
+CI = "https://github.com/${user}/${project}/actions"
+Issues = "https://github.com/${user}/${project}/issues"
+Download = "https://pypi.org/project/${project}/"
 
 
 #########################################################################################
