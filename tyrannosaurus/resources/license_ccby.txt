@@ -1,4 +1,4 @@
-Copyright ${today.year}, ${authors}
+Copyright ${today.year}, ${authors.str}
 
 ${Project} is licensed under a Creative Commons Attribution 3.0 Unported License.
 

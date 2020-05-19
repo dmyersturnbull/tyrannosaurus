@@ -132,6 +132,7 @@ class _LiteralParser:
             s = s.replace("${user}", self.user)
         if self.authors is not None:
             s = s.replace("${authors}", str(self.authors))
+            s = s.replace("${authors.str}", ", ".join(self.authors))
         return s
 
 

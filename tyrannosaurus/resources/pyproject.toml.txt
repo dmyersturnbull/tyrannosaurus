@@ -11,7 +11,7 @@ build-backend = "poetry.masonry.api"
 #########################################################################################
 
 [tool.poetry]
-name = "${project}"
+name = "${pkg}"
 version = "0.1.0"
 # TODO Set the description and keywrods here
 description = "${description}"
@@ -46,7 +46,7 @@ include = [
 [tool.poetry.urls]
 CI = "https://github.com/${user}/${project}/actions"
 Issues = "https://github.com/${user}/${project}/issues"
-Download = "https://pypi.org/project/${project}/"
+Download = "https://pypi.org/project/${pkg}/"
 
 
 #########################################################################################
@@ -87,7 +87,7 @@ tyrannosaurus            = "^0.5"
 
 [tool.poetry.extras]
 # manually listed
-docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi"]
+docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "sphinx-autodoc-typehints"]
 # auto-filled from dev-deps
 dev     = [
         "tyrannosaurus",
