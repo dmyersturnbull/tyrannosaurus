@@ -109,6 +109,15 @@ class _LiteralParser:
         self.keywords = keywords
         self.version = version
         self.license = str(license)
+        self.license_official = dict(
+            apache2="Apache-2.0",
+            cc0="CC0-1.0",
+            ccby="CC-BY-4.0",
+            ccybync="CC-BY-NC-4.0",
+            gpl2="GPL-2.0-or-later",
+            gpl3="GPL-3.0-or-later",
+            mit="MIT",
+        ).get(str(license), "TODO:fix:" + str(license))
 
     def parse(self, s: str) -> str:
         s = (
@@ -124,6 +133,7 @@ class _LiteralParser:
             .replace("${Project}", self.project[0].upper() + self.project[1:])
             .replace("${pkg}", self.pkg)
             .replace("${license}", self.license)
+            .replace("${license.official}", self.license_official)
             .replace("${version}", self.version)
             .replace("${description}", self.description)
             .replace("${keywords}", str(self.keywords))

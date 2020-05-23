@@ -18,7 +18,8 @@ description = "${description}"
 keywords = ${keywords}
 authors = ${authors}
 maintainers = ${authors}
-license = "${license}"
+# TODO must be an identifier listed in https://spdx.org/licenses/
+license = "${license.official}"
 readme = "README.md"
 homepage = "https://github.com/${user}/${project}"
 repository = "https://github.com/${user}/${project}"

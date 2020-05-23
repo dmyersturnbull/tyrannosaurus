@@ -1,6 +1,6 @@
 # Changelog
 
-Adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and
+Adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
@@ -19,6 +19,10 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - git config was not used
 - removed `.coverage` sqllite file
 - simplified code by copying `pyproject.toml` to resources
+- bumped CC-BY and CC-BY-NC to 4.0 (3.0 was by mistake)
+- added tyrannosaurus to tox whitelist
+- updated minor dependency versions
+
 
 ## [0.5.0] - 2020-05-11
 

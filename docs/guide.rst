@@ -30,11 +30,14 @@ Consider following them after running ``tyrannosaurus new``.
 11. Review `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_, `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_, and `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_.
 12. Consider `getting a DOI <https://guides.github.com/activities/citable-code/>`_.
 
-You can add ``tyrannosaurus sync`` and ``tyrannosaurus clean`` to tox.ini if desired.
 If you’re not using coveralls, remove the ``coveralls`` line in tox.ini.
 Or you might instead want to add this to your Github workflow.
 You may also want to add new integrations, like `codeclimate <https://codeclimate.com/>`_ or `codacy <https://www.codacy.com/>`_.
 Consider adding `shields <https://shields.io/>`_ for them.
+
+.. note::
+
+    If you delete ``recipes``, you will need to remove this line from ``.pre-commit-config.yml``: ``exclude: ^recipes/.*``.
 
 
 Reference of commands
