@@ -31,7 +31,7 @@ To install, run: ``pip install tyrannosaurus``
 What’s wrong with pip or anaconda?
 ----------------------------------
 
-Quite a lot, actually. A ``setup.py``` can contain arbitrary code, which
+Quite a lot, actually. A ``setup.py`` can contain arbitrary code, which
 is a security risk, and metadata can’t be extracted without installing.
 Pip also doesn’t check for dependency conflicts.
 Anaconda does resolve dependencies, but some packages are not on Anaconda,
