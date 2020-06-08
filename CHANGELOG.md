@@ -21,7 +21,11 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - simplified code by copying `pyproject.toml` to resources
 - bumped CC-BY and CC-BY-NC to 4.0 (3.0 was by mistake)
 - added tyrannosaurus to tox whitelist
+- allowed
 - updated minor dependency versions
+
+### Removed
+- automatic installation of shell completions
 
 
 ## [0.5.0] - 2020-05-11

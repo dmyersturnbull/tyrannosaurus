@@ -1,8 +1,8 @@
 ---
-name: "🐛 Bug"
-about: Bug report
+name: "🐢 Performance"
+about: Performance issue
 title: ''
-labels: 'kind: bug'
+labels: 'kind: performance'
 assignees: ''
 ---
 

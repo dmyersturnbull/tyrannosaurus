@@ -61,21 +61,6 @@ class CliState:
         """
         self.dry_run = dry_run
         self.verbose = verbose
-        self.install_completion()
-
-    def install_completion(self):
-        # skip powershell so we don't get non-suppressable errors
-        for shell in ["bash", "zsh", "fish"]:
-            self._install_completion(shell)
-
-    def _install_completion(self, shell: str):
-        try:
-            with contextlib.redirect_stdout(_DevNull):
-                with contextlib.redirect_stderr(_DevNull):
-                    completion.install(shell)
-            logger.debug("Attempted to install completion for {}".format(shell))
-        except Exception as e:
-            logger.debug(str(e), exc_info=True)
 
 
 state = CliState()

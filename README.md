@@ -12,7 +12,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5e3b38c9b9c418461dc3/maintainability)](https://codeclimate.com/github/dmyersturnbull/tyrannosaurus/maintainability)
 [![Coverage](https://coveralls.io/repos/github/dmyersturnbull/tyrannosaurus/badge.svg?branch=master)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=master)
 
-An opinionated Python template for 2020.
+An opinionated, forwards-looking Python template for 2020.
 No setup.py, requirements.txt, or eggs.
 
 I wrote this after making nearly 50 commits to configure
@@ -28,6 +28,9 @@ Install with `pip install tyrannosaurus`.
 - _When you release on Github_, your code will be published on PyPi.
   Just add `PYPI_TOKEN` as a Github repo secret.
 
+If you’re curious why older infrastructure (setup.py, etc) is so problematic,
+see [this post](https://dmyersturnbull.github.io/#-the-python-build-landscape) about that.
+
 ⚠ Status: Alpha. Generally works pretty well, but
    the `sync` command does less than advertised.
 
@@ -41,14 +44,14 @@ such as Anaconda recipes and environment files, license headers, doc and tox req
 Target files can be disabled in `[tool.tyrannosaurus.targets]`.
 
 
-##### To run:
+##### To build your own code:
 
 To run locally, install [Poetry](https://github.com/python-poetry/poetry)
 and [Tox](https://tox.readthedocs.io/en/latest/) (`pip install tox`).
 Then just type `tox` to build artifacts and run tests.
 To create an initial Anaconda recipe or environment file, run `tyrannosaurus recipe` or `tyrannosaurus env`.
 
-[See the docs](https://tyrannosaurus.readthedocs.io/en/stable/) for more information.
+**[See the docs](https://tyrannosaurus.readthedocs.io/en/stable/)** for more information.
 
 ##### Contributing:
 
