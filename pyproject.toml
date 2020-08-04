@@ -59,7 +59,7 @@ align    = true
 
 [tool.tyrannosaurus.sources]
 status             = "'Development'"
-date               = "'2020-06-08'"
+date               = "'2020-07-10'"
 copyright          = "'Copyright 2020'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
@@ -107,39 +107,39 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
 python                   = ">=3.7, <4"
-tomlkit                  = "^0.6"
-importlib-metadata       = "^1.6"
-typer                    = "^0.2"
-shellingham              = "^1.3"
-requests                 = "^2.23"
+tomlkit                  = "^0.7"
+importlib-metadata       = "^1.7"
+typer                    = "^0.3"
+requests                 = "^2.24"
 grayskull                = "^0.7"
+urllib3                  = {extras = ["secure"], version = "^1.25"}
 
 [tool.poetry.dev-dependencies]
-pre-commit               = "^2.4"
-pytest                   = "^5.4"
-coverage                 = {extras = ["toml"], version = "^5.1"}
-pytest-cov               = "^2.9"
+pre-commit               = "^2.6"
+pytest                   = "^6.0"
+coverage                 = {extras = ["toml"], version = "^5.2"}
+pytest-cov               = "^2.10"
 sphinx                   = "^3.1"
-sphinx-autoapi           = "^1.3"
-sphinx-rtd-theme         = "^0.4.3"
-mypy                     = "^0.780"
+sphinx-autoapi           = "^1.4"
+sphinx-rtd-theme         = "^0.5"
+mypy                     = "^0.782"
 flake8                   = "^3.8"
 flake8-docstrings        = "^1.5"
 black                    = "=19.10b0"
-isort                    = "^4.3"
-sphinx-autodoc-typehints = "^1.10"
-xdoctest                 = "^0.12"
-hypothesis               = "^5.16"
+isort                    = "^5.2"
+sphinx-autodoc-typehints = "^1.11"
+xdoctest                 = "^0.13"
+hypothesis               = "^5.23"
 flake8-bandit            = "^2.1"
 flake8-bugbear           = "^20.1"
-coveralls                = "^2.0"
+coveralls                = "^2.1"
 
 [tool.poetry.extras]
 # manually listed
 docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi"]
 # auto-filled from dev-deps
 dev     = [
-        "pre-commit", "pytest", "coverage", "xdoctest", "hypothesis",
+        "pre-commit", "pytest", "coverage", "pytest-cov", "xdoctest", "hypothesis",
         "sphinx", "sphinx-autodoc-typehints", "sphinx-autoapi",
         "mypy",
         "flake8", "flake8-docstrings",

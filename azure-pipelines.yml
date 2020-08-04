@@ -13,16 +13,15 @@ variables:
   dockerRegistryServiceConnection: 'ae00368d-41cf-49b0-9c46-43e8bbb98ef3'
   imageRepository: 'tyrannosaurus'
   containerRegistry: 'dmyersturnbull.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
-  
+
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
   displayName: Build and push stage
-  jobs:  
+  jobs:
   - job: Build
     displayName: Build
     pool:
@@ -33,7 +32,6 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)

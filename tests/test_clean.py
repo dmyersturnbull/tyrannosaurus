@@ -5,7 +5,7 @@ import pytest
 from tyrannosaurus.clean import Clean
 
 
-class TestCli:
+class TestClean:
     def test_clean(self):
         root = Path(__file__).parent / "resources" / "fake"
         trashed = Clean(False, False, False, False).clean(root)

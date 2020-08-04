@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import logging
+import time
+import os
+import stat
 import shutil
 from pathlib import Path
-from subprocess import check_call
+from subprocess import check_call, CalledProcessError
 from typing import Union, Sequence
 
 import typer
@@ -103,8 +106,22 @@ class New:
         check_call(
             ["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", str(path)]
         )
-        # we hit a permissionerror otherwise
-        check_call(["rm", "-rf", str(path / ".git")])
+        self._murder_evil_path_for_sure(path/".git")
+
+    def _murder_evil_path_for_sure(self, evil_path: Path) -> None:
+        """
+        There are likely to be permission issues with .git directories.
+        :param evil_path: The .git directory
+        """
+        try:
+            shutil.rmtree(str(evil_path))
+        except OSError:
+            logger.debug("Could not delete .git with rmtree", exc_info=True)
+            def on_rm_error(func, path, exc_info):
+                # from: https://stackoverflow.com/questions/4829043/how-to-remove-read-only-attrib-directory-with-python-in-windows
+                os.chmod(path, stat.S_IWRITE)
+                os.unlink(path)
+            shutil.rmtree(str(evil_path), onerror=on_rm_error)
 
 
 __all__ = ["New"]

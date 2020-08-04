@@ -21,17 +21,17 @@ This avoids that struggle for 99% of projects.
 Just clone and modify or use `tyrannosaurus new`.
 Install with `pip install tyrannosaurus`.
 
-- _When you commit_, your code will be linted.
-- _When you push or make a pull request_, your code will be built and tested.
-  Metadata will be synced, security checks will be run, style will be checked,
-  documentation will be generated, and docker images, sdists, and wheels will be built.
-- _When you release on Github_, your code will be published on PyPi.
+- _When you commit_, your code is linted.
+- _When you push or make a pull request_, your code is built and tested.
+  Metadata is synced, security checks are run, style is checked,
+  documentation is generated, and docker images, sdists, and wheels are built.
+- _When you release on Github_, your code is published to PyPi and DockerHub.
   Just add `PYPI_TOKEN` as a Github repo secret.
 
-If you’re curious why older infrastructure (setup.py, etc) is so problematic,
-see [this post](https://dmyersturnbull.github.io/#-the-python-build-landscape) about that.
+If you’re curious why older infrastructure (setup.py, etc) is problematic,
+see [this post](https://dmyersturnbull.github.io/#-the-python-build-landscape).
 
-⚠ Status: Alpha. Generally works pretty well, but
+⚠ Status: Alpha. Generally works well, but
    the `sync` command does less than advertised.
 
 ##### Integrations:
@@ -57,6 +57,7 @@ To create an initial Anaconda recipe or environment file, run `tyrannosaurus rec
 
 [New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
 Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/CONTRIBUTING.md).
+Generated with tyrannosaurus: `tyrannosaurus new tyrannosaurus`
 
 
 ```text

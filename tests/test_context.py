@@ -41,7 +41,7 @@ class TestContext:
         assert source == "project"
 
     def test_context(self):
-        root = Path(__file__).parent.parent
+        root = Path(__file__).parent.parent.resolve()
         context = _Context(root)
         assert context.path == root
         assert context.has_opt("align")

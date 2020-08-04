@@ -1,5 +1,7 @@
 from pathlib import Path
 import shutil
+import tempfile
+from datetime import datetime
 
 import pytest
 
@@ -10,9 +12,10 @@ from tyrannosaurus.new import New
 
 class TestNew:
     def test_new(self):
-        path = Path("resources", "tmp", "tmptyr")
+        project = "tempted2temp"
+        path = Path(tempfile.gettempdir())/"tyrannosaurus-test"/datetime.now().strftime("%Y-%m-%d.%H%M%S")/project
         New(
-            "tmptyr",
+            project,
             "apache2",
             "user",
             ["Author 1"],
@@ -22,8 +25,7 @@ class TestNew:
         ).create(path)
         assert (path / "pyproject.toml").exists()
         context = _Context(path, dry_run=True)
-        assert context.project == "tmptyr"
-        shutil.rmtree(str(path))
+        assert context.project == project
 
 
 if __name__ == "__main__":

@@ -1,10 +1,11 @@
-Tyrannosaurus
-====================================
+Tyrannosaurus, a Python template for 2020
+=========================================
 
 .. toctree::
     :maxdepth: 1
 
-    usage
+    new
+    build
     guide
     synchronization
 

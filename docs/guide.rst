@@ -1,12 +1,12 @@
-User guide
-====================================
+To-do for new projects
+======================
 
 Guide for new projects.
 This may be especially helpful for users new to Python packaging.
 
 
 To-do list for new projects
-------------------------------
+---------------------------
 
 These steps are provided for reference and for new users.
 Consider following them after running ``tyrannosaurus new``.
@@ -29,6 +29,7 @@ Consider following them after running ``tyrannosaurus new``.
 10. Create a release on Github to publish to PyPi and Dockerhub.
 11. Review `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_, `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_, and `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_.
 12. Consider `getting a DOI <https://guides.github.com/activities/citable-code/>`_.
+13. Consider adding ``tyrannosaurus sync`` to your ``tox.ini``. This is disabled by default.
 
 If you’re not using coveralls, remove the ``coveralls`` line in tox.ini.
 Or you might instead want to add this to your Github workflow.
