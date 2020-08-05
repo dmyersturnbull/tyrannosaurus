@@ -38,5 +38,6 @@ jobs:
                     docker build .
             -
                 name: Run coveralls
+                # the || true is because coveralls returns a nonzero exit code on warnings, etc.
                 run: |
-                    coveralls
+                    coveralls || true

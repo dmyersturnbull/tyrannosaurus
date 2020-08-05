@@ -5,13 +5,29 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
-## [0.6.0] - unreleased
+## [0.7.0] - unreleased
+
+
+## [0.6.0] - 2020-08-05
+
+### Changed
+- Removed `poetry lock` from tox and added it to `tyrannosaurus sync`.
+- Removed tests from the release workflow.
+- Moved coveralls command from tox to the Github commit workflow.
+- Bumped versions of pre-commit and poetry.
+
+### Added
+- A `tyrannosaurus build` command that does everything.
+- JSON, YAML, and TOML checks to `tox.ini`.
+
+### Fixed
+- `tomlkit` needs to be 0.5.x (< 6) for Poetry compatibility.
 
 
 ## [0.5.x] - 2020-05-15
 
 ### Fixed
-- `poetry.lock was not deleted
+- `poetry.lock` was not deleted
 - some files, including `__init__.py`, were ignored
 - fixed options in `tox.ini`
 - removed some stupid items in `pyproject.toml`
@@ -21,8 +37,11 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - simplified code by copying `pyproject.toml` to resources
 - bumped CC-BY and CC-BY-NC to 4.0 (3.0 was by mistake)
 - added tyrannosaurus to tox whitelist
-- allowed
 - updated minor dependency versions
+- a bug affecting Windows
+
+### Changed
+- Reorganized documentation files and added a little.
 
 ### Removed
 - automatic installation of shell completions

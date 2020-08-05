@@ -12,7 +12,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.5.6"
+version = "0.6.0"
 description = "Opinionated Python template and metadata synchronizer for 2020."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
@@ -113,8 +113,8 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
 python                   = ">=3.7, <4"
-# poetry requires this outdated version right now
-tomlkit                  = "^0.5"
+# poetry requires < 0.6 right now
+tomlkit                  = ">=0.5,<1.0"
 importlib-metadata       = "^1.7"
 typer                    = "^0.3"
 requests                 = "^2.24"

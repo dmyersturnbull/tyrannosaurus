@@ -9,7 +9,7 @@ import logging
 import os
 import enum
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Sequence
 from subprocess import check_call
 
 import typer
@@ -229,48 +229,80 @@ class CliCommands:
 
     @staticmethod
     @cli.command()
-    def build(bare: bool) -> None:
+    def build(bare: bool = False, dry: bool = False) -> None:
         """
         Syncs, builds, and tests your project.
 
         If ``notox`` is NOT set, runs:
+
             - tyrannosaurus sync
+
+            - poetry lock
+
             - tox
+
             - tyrannosaurus clean
 
-        ----------------------------------------------------------------------------------------------------------------
+        z----------------------------------------z
         If the ``notox`` IS set:
         Runs the commands without tox and without creating a new virtualenv.
         This can be useful if you're using Conda and have a dependency only available through Anaconda.
-        For convenience, you can list the dependency in ``[tyrannosaurus.sources.anaconda-deps]``.
         It's also often faster.
+        This command is for convenience and isn't very customizable.
         In this case, runs:
+
             - tyrannosaurus sync
+
+            - poetry lock
+
+            - pre-commit run check-toml
+
+            - pre-commit run check-yaml
+
+            - pre-commit run check-json
+
             - poetry check
+
             - poetry build
+
             - poetry install -v
+
             - poetry run pytest --cov
+
             - poetry run flake8 tyrannosaurus
+
             - poetry run flake8 docs
+
             - poetry run flake8 --ignore=D100,D101,D102,D103,D104,S101 tests
+
             - sphinx-build -b html docs docs/html
+
             - tyrannosaurus clean
-        ----------------------------------------------------------------------------------------------------------------
+
+            - pip install .
+        z----------------------------------------z
 
         Args:
 
             bare: Do not use tox or virtualenv. See above.
 
+            dry: Just output the commands to stdout (don't run them). Useful for making a script template.
         """
-        split = CliCommands.build.__doc__.split('-'*20)
+        CliCommands.build_internal(bare=bare, dry=dry)
+
+    @staticmethod
+    def build_internal(bare: bool = False, dry: bool = False) -> Sequence[str]:
+        split = CliCommands.build.__doc__.split("-" * 40)
         cmds = [
-            line[2:].split(' ')
+            line.strip(" -")
             for line in split[1 if bare else 0].splitlines()
-            if line.startswith('- ')
+            if line.strip().startswith("- ")
         ]
-        for cmd in cmds:
-            print(cmd)
-            #check_call(cmd)
+        if not dry:
+            for cmd in cmds:
+                logger.info("Running: " + cmd)
+                check_call(cmd.split(" "))
+        return cmds
 
 
 if __name__ == "__main__":

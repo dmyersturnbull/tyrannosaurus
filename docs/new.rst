@@ -29,4 +29,3 @@ To get the Github publish action working, you need to:
 1. Make an account on pypi.org if you don’t have one.
 2. Make a new single-repo token on PyPi.
 3. In your Github secrets page, add ``PYPI_TOKEN``.
-

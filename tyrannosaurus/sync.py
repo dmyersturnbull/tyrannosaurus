@@ -22,7 +22,6 @@ class Sync:
         context = _Context(path, dry_run=self.dry_run)
         self.fix_init()
         self.fix_recipe()
-        check_call(["poetry", "lock"])
         return [str(s) for s in context.targets]
 
     def has(self, key: str):

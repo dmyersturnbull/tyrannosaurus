@@ -147,7 +147,7 @@ class _CondaForgeHelper:
         # unfortunately, Anaconda returns 200 even if the page doesn't exist
         # TODO needed verify=False to get it working on CI
         try:
-            r = requests.get("https://anaconda.org/conda-forge/{}".format(name), verify=False)
+            r = requests.get("https://anaconda.org/conda-forge/{}".format(name))
         except OSError:
             logger.error(
                 "Failed fetching from anaconda.org. Assuming {} is in Conda-Forge.".format(name),

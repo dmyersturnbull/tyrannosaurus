@@ -106,7 +106,7 @@ class New:
         check_call(
             ["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", str(path)]
         )
-        self._murder_evil_path_for_sure(path/".git")
+        self._murder_evil_path_for_sure(path / ".git")
 
     def _murder_evil_path_for_sure(self, evil_path: Path) -> None:
         """
@@ -117,10 +117,12 @@ class New:
             shutil.rmtree(str(evil_path))
         except OSError:
             logger.debug("Could not delete .git with rmtree", exc_info=True)
+
             def on_rm_error(func, path, exc_info):
                 # from: https://stackoverflow.com/questions/4829043/how-to-remove-read-only-attrib-directory-with-python-in-windows
                 os.chmod(path, stat.S_IWRITE)
                 os.unlink(path)
+
             shutil.rmtree(str(evil_path), onerror=on_rm_error)
 
 

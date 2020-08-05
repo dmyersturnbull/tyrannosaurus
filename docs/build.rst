@@ -16,4 +16,3 @@ so whatever you add to ``tox.ini`` will be done in Github.
 
 .. tip::
     You can bump major or minor versions of your dependencies using ``poetry update``.
-

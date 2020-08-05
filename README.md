@@ -23,7 +23,7 @@ Install with `pip install tyrannosaurus`.
 
 - _When you commit_, your code is linted.
 - _When you push or make a pull request_, your code is built and tested.
-  Metadata is synced, security checks are run, style is checked,
+  Security checks are run, style is checked,
   documentation is generated, and docker images, sdists, and wheels are built.
 - _When you release on Github_, your code is published to PyPi and DockerHub.
   Just add `PYPI_TOKEN` as a Github repo secret.
@@ -39,7 +39,8 @@ see [this post](https://dmyersturnbull.github.io/#-the-python-build-landscape).
 Also comes with nice Github labels, issue templates, a changelog template,
 Travis support, Conda recipe and environment generation, and other integrations.
 Tyrannosaurus itself is included as a dependency.
-It will clean up unwanted files and sync metadata from `pyproject.toml` to other files,
+Running `tyrannosaurus build` will run poetry lock, synchronize project metadata, build, run tests, install,
+and clean up. The project metadata is synchronized from `pyproject.toml` to other files,
 such as Anaconda recipes and environment files, license headers, doc and tox requirements, and author/contributor lists.
 Target files can be disabled in `[tool.tyrannosaurus.targets]`.
 

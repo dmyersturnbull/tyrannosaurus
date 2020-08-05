@@ -13,7 +13,12 @@ from tyrannosaurus.new import New
 class TestNew:
     def test_new(self):
         project = "tempted2temp"
-        path = Path(tempfile.gettempdir())/"tyrannosaurus-test"/datetime.now().strftime("%Y-%m-%d.%H%M%S")/project
+        path = (
+            Path(tempfile.gettempdir())
+            / "tyrannosaurus-test"
+            / datetime.now().strftime("%Y-%m-%d.%H%M%S")
+            / project
+        )
         New(
             project,
             "apache2",
