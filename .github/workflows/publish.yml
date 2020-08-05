@@ -24,13 +24,10 @@ jobs:
                     python -m pip install --upgrade pip
                     pip install poetry tox
             -
-                name: Install with Poetry
+                name: Build and install with Poetry
                 run: |
+                    poetry build
                     poetry install
-            -
-                name: Test with tox
-                run: |
-                    tox
             -
                 name: Build the Docker image
                 run: |

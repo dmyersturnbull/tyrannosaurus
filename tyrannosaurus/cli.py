@@ -10,6 +10,7 @@ import os
 import enum
 from pathlib import Path
 from typing import Optional
+from subprocess import check_call
 
 import typer
 from typer import completion
@@ -225,6 +226,51 @@ class CliCommands:
         from tyrannosaurus import __version__, __date__
 
         typer.echo("Tyrannosaurus version {} ({})".format(__version__, __date__))
+
+    @staticmethod
+    @cli.command()
+    def build(bare: bool) -> None:
+        """
+        Syncs, builds, and tests your project.
+
+        If ``notox`` is NOT set, runs:
+            - tyrannosaurus sync
+            - tox
+            - tyrannosaurus clean
+
+        ----------------------------------------------------------------------------------------------------------------
+        If the ``notox`` IS set:
+        Runs the commands without tox and without creating a new virtualenv.
+        This can be useful if you're using Conda and have a dependency only available through Anaconda.
+        For convenience, you can list the dependency in ``[tyrannosaurus.sources.anaconda-deps]``.
+        It's also often faster.
+        In this case, runs:
+            - tyrannosaurus sync
+            - poetry check
+            - poetry build
+            - poetry install -v
+            - poetry run pytest --cov
+            - poetry run flake8 tyrannosaurus
+            - poetry run flake8 docs
+            - poetry run flake8 --ignore=D100,D101,D102,D103,D104,S101 tests
+            - sphinx-build -b html docs docs/html
+            - tyrannosaurus clean
+        ----------------------------------------------------------------------------------------------------------------
+
+        Args:
+
+            bare: Do not use tox or virtualenv. See above.
+
+        """
+        split = CliCommands.build.__doc__.split('-'*20)
+        cmds = [
+            line[2:].split(' ')
+            for line in split[1 if bare else 0].splitlines()
+            if line.startswith('- ')
+        ]
+        for cmd in cmds:
+            print(cmd)
+            #check_call(cmd)
 
 
 if __name__ == "__main__":

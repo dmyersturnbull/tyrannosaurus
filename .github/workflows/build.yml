@@ -36,3 +36,7 @@ jobs:
                 name: Build the Docker image
                 run: |
                     docker build .
+            -
+                name: Run coveralls
+                run: |
+                    coveralls

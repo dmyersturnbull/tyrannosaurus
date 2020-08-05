@@ -6,6 +6,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 from typing import Sequence, Mapping
+from subprocess import check_call
 
 from tyrannosaurus.context import _Context
 
@@ -21,6 +22,7 @@ class Sync:
         context = _Context(path, dry_run=self.dry_run)
         self.fix_init()
         self.fix_recipe()
+        check_call(["poetry", "lock"])
         return [str(s) for s in context.targets]
 
     def has(self, key: str):

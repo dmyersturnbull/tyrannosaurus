@@ -73,6 +73,12 @@ maintainers = "tool.tyrannosaurus.sources.authors"
 contributors = [
 
 ]
+# these are dependencies that can only be installed through Conda
+# they will affect running `tyrannosaurus build`, `tyrannosaurus.sync`, `anaconda recipe`, and `tyrannosaurus env`
+# currently this is limited to conda-forge and the ^ syntax.
+anaconda-deps = [
+
+]
 [tool.tyrannosuarus.paths]
 recipe             = "'recipes/${name}/meta.yml'"
 environment        = "'environment.yml'"
@@ -107,7 +113,8 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
 python                   = ">=3.7, <4"
-tomlkit                  = "^0.7"
+# poetry requires this outdated version right now
+tomlkit                  = "^0.5"
 importlib-metadata       = "^1.7"
 typer                    = "^0.3"
 requests                 = "^2.24"
