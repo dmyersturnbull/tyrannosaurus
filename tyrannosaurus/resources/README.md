@@ -14,10 +14,10 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/<<apikey>>/maintainability)](https://codeclimate.com/github/${user}/${project}/maintainability)
 [![Coverage](https://coveralls.io/repos/github/${user}/${project}/badge.svg?branch=master)](https://coveralls.io/github/${user}/${project}?branch=master)
 
-This project the thing described by this single sentence!
+This project does the thing described by this sentence.
 
-And it’s described here.
-Please [see the docs](https://${project}.readthedocs.io/en/stable/) for more info.
+And it’s described in this paragraph.
+[See the docs](https://${project}.readthedocs.io/en/stable/) for more info.
 
 [New issues](https://github.com/${user}/${project}/issues) and pull requests are welcome.
 Please refer to the [contributing guide](https://github.com/${user}/${project}/blob/master/CONTRIBUTING.md).

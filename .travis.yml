@@ -3,7 +3,7 @@ python:
   - "3.8"
 
 install:
-  - pip install poetry tox tox-travis
+  - pip install poetry tox tox-travis pre-commit
 
 script:
   - tox
