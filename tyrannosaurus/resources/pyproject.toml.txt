@@ -60,34 +60,33 @@ tyrannosaurus = "${pkg}.cli:cli"
 
 [tool.poetry.dependencies]
 python                   = ">=3.7, <4"
-# poetry requires < 0.6 right now
-tomlkit                  = ">=0.5,<1.0"
-importlib-metadata       = "^1.7"
-typer                    = "^0.3"
-requests                 = "^2.24"
-urllib3                  = {extras = ["secure"], version = "^1.25"}
+tomlkit                  = "^0"
+importlib-metadata       = "^1"
+typer                    = "^0"
+requests                 = "^2"
+urllib3                  = {extras = ["secure"], version = "^1"}
 # TODO add your dependencies here
 
 [tool.poetry.dev-dependencies]
-pre-commit               = "^2.6"
-pytest                   = "^6.0"
-coverage                 = {extras = ["toml"], version = "^5.2"}
-pytest-cov               = "^2.10"
-sphinx                   = "^3.1"
-sphinx-autoapi           = "^1.4"
-sphinx-rtd-theme         = "^0.5"
-mypy                     = "^0.782"
-flake8                   = "^3.8"
-flake8-docstrings        = "^1.5"
+pre-commit               = "^2"
+pytest                   = "^6"
+coverage                 = {extras = ["toml"], version = "^5"}
+pytest-cov               = "^2"
+sphinx                   = "^3"
+sphinx-autoapi           = "^1"
+sphinx-rtd-theme         = "^0"
+mypy                     = "^0"
+flake8                   = "^3"
+flake8-docstrings        = "^1"
 black                    = "=19.10b0"
-isort                    = "^5.2"
-sphinx-autodoc-typehints = "^1.11"
-xdoctest                 = "^0.13"
-hypothesis               = "^5.23"
-flake8-bandit            = "^2.1"
-flake8-bugbear           = "^20.1"
-coveralls                = "^2.1"
-tyrannosaurus            = "^0.7"
+isort                    = "^5"
+sphinx-autodoc-typehints = "^1"
+xdoctest                 = "^0"
+hypothesis               = "^5"
+flake8-bandit            = "^2"
+flake8-bugbear           = "^20"
+coveralls                = "^2"
+tyrannosaurus            = "^0"
 
 [tool.poetry.extras]
 # manually listed
