@@ -8,3 +8,12 @@ python:
     install:
         -
             requirements: docs/requirements.txt
+# Using this requirements.txt is currently unavoidable
+# This is because pip does not understand poetry's dev-dependencies
+# To get pip to install the dependencies from pyproject.toml here,
+# you would need to specify them in tool.poetry.dependencies.
+# Unfortunately, this would mean they are duplicated between dependencies
+# and dev-dependencies. It would also force Poetry to resolve those
+# dependencies on install, even if they're marked with optional=true.
+# This would decrease the end-user install performance.
+# So, having an extra file is the only downside to this requirements.txt.

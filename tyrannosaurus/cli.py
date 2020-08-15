@@ -169,7 +169,7 @@ class CliCommands:
         if name is None:
             name = context.project
         CondaEnv(name, dev=dev, extras=extras, dry_run=dry_run).create(context, path)
-        typer.echo("Wrote environment {}".format(path))
+        typer.echo(f"Wrote environment {path}")
 
     @staticmethod
     @cli.command()
@@ -181,7 +181,7 @@ class CliCommands:
         context = _Context(Path(os.getcwd()), dry_run=dry_run)
         output_path = context.path / "recipes"
         output_path = Recipe(dry_run=dry_run).create(context, output_path)
-        typer.echo("Generated a new recipe at {}".format(output_path))
+        typer.echo(f"Generated a new recipe at {output_path}")
 
     """
     @cli.command()
@@ -215,7 +215,7 @@ class CliCommands:
         """
         dry_run = state.dry_run
         trashed = Clean(dists, aggressive, hard_delete, dry_run).clean(Path(os.getcwd()))
-        typer.echo("Trashed {} paths.".format(len(trashed)))
+        typer.echo(f"Trashed {len(trashed)} paths.")
 
     @staticmethod
     @cli.command()
@@ -225,7 +225,7 @@ class CliCommands:
         """
         from tyrannosaurus import __version__, __date__
 
-        typer.echo("Tyrannosaurus version {} ({})".format(__version__, __date__))
+        typer.echo(f"Tyrannosaurus version {__version__} ({__date__})")
 
     @staticmethod
     @cli.command()

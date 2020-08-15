@@ -40,18 +40,16 @@ class Sync:
         new_lines = "\n".join(new_lines)
         if not self.dry_run:
             path.write_text(new_lines, encoding="utf8")
-        logger.debug("Wrote to {}".format(path))
+        logger.debug(f"Wrote to {path}")
 
     def fix_init(self) -> None:
         if self.has("init"):
             self.replace_substrs(
                 self.context.path / self.context.project / "__init__.py",
                 {
-                    "__status__ = ": '__status__ = "{}"'.format(self.context.source("status")),
-                    "__copyright__ = ": '__copyright__ = "{}"'.format(
-                        self.context.source("copyright")
-                    ),
-                    "__date__ = ": '__date__ = "{}"'.format(self.context.source("date")),
+                    "__status__ = ": f'__status__ = "{self.context.source("status")}"',
+                    "__copyright__ = ": f'__copyright__ = "{self.context.source("copyright")}"',
+                    "__date__ = ": f'__date__ = "{self.context.source("date")}"',
                 },
             )
 

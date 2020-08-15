@@ -25,10 +25,10 @@ class Recipe:
         (output_path / context.project).mkdir(parents=True)
         skull = GrayskullFactory.create_recipe("pypi", context.poetry("name"), "")
         skull.generate_recipe(str(output_path), mantainers=context.source("maintainers").split(","))
-        logger.debug("Generated a new recipe at {}".format(output_path))
+        logger.debug(f"Generated a new recipe at {output_path}")
         helper = Sync(context, self.dry_run)
         helper.fix_recipe()
-        logger.debug("Fixed recipe at {}".format(output_path))
+        logger.debug(f"Fixed recipe at {output_path}")
         return output_path
 
 
@@ -41,7 +41,7 @@ class CondaEnv:
 
     def create(self, context: _Context, path: Path):
         deps = self._get_deps(context)
-        logger.info("Writing environment with {} dependencies to {} ...".format(len(deps), path))
+        logger.info(f"Writing environment with {len(deps)} dependencies to {path} ...")
         lines = _EnvHelper().process(self.name, deps, self.extras)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("\n".join(lines), encoding="utf8")

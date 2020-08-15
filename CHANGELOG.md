@@ -5,7 +5,10 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
-## [0.7.0] - unreleased
+## [0.7.0] - 2020-08-14
+
+### Removed
+- Support for Python 3.7
 
 
 ## [0.6.0] - 2020-08-05

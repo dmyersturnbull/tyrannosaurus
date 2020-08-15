@@ -12,7 +12,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.6.1"
+version = "0.7.0"
 description = "Opinionated Python template and metadata synchronizer for 2020."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
@@ -25,9 +25,7 @@ documentation = "https://tyrannosaurus.readthedocs.io"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Natural Language :: English",
-    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
 	"Intended Audience :: Developers",
@@ -54,12 +52,9 @@ Download = "https://pypi.org/project/tyrannosaurus/"
 # Tyrannosaurus
 #########################################################################################
 
-[tool.tyrannosaurus.options]
-align    = true
-
 [tool.tyrannosaurus.sources]
 status             = "'Development'"
-date               = "'2020-07-10'"
+date               = "${today}"
 copyright          = "'Copyright 2020'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
@@ -70,23 +65,12 @@ authors = [
     "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
 ]
 maintainers = "tool.tyrannosaurus.sources.authors"
-contributors = [
 
-]
-# these are dependencies that can only be installed through Conda
-# they will affect running `tyrannosaurus build`, `tyrannosaurus.sync`, `anaconda recipe`, and `tyrannosaurus env`
-# currently this is limited to conda-forge and the ^ syntax.
-anaconda-deps = [
-
-]
 [tool.tyrannosuarus.paths]
 recipe             = "'recipes/${name}/meta.yml'"
 environment        = "'environment.yml'"
 
 [tool.tyrannosaurus.targets]
-# these are file and directory names, without filename extensions
-# they will only be synced if they exist; never created
-# to get a recipe and anaconda env, run 'tyrannosaurus recipe' and 'tyrannosaurus env'
 pyproject    = true
 init         = true
 tox          = true
@@ -112,13 +96,11 @@ environment  = false
 tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
-python                   = ">=3.7, <4"
-tomlkit                  = "^0"
-importlib-metadata       = "^1"
-typer                    = "^0"
+python                   = ">=3.8, <4"
+tomlkit                  = ">=0.5, <1.0"
+typer                    = ">=0.3, <1.0"
 requests                 = "^2"
-grayskull                = "^0"
-urllib3                  = {extras = ["secure"], version = "^1"}
+grayskull                = ">=0.7, <1.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit               = "^2"
@@ -127,25 +109,20 @@ coverage                 = {extras = ["toml"], version = "^5"}
 pytest-cov               = "^2"
 sphinx                   = "^3"
 sphinx-autoapi           = "^1"
-sphinx-rtd-theme         = "^0"
-mypy                     = "^0"
+sphinx-rtd-theme         = ">=0.5, <1.0"
 flake8                   = "^3"
 flake8-docstrings        = "^1"
 black                    = "=19.10b0"
 isort                    = "^5"
 sphinx-autodoc-typehints = "^1"
-xdoctest                 = "^0"
-hypothesis               = "^5"
 flake8-bandit            = "^2"
 flake8-bugbear           = "^20"
 coveralls                = "^2"
 
 [tool.poetry.extras]
-# manually listed
-docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi"]
 # auto-filled from dev-deps
 dev     = [
-        "pre-commit", "pytest", "coverage", "pytest-cov", "xdoctest", "hypothesis",
+        "pre-commit", "pytest", "coverage", "pytest-cov",
         "sphinx", "sphinx-autodoc-typehints", "sphinx-autoapi",
         "mypy",
         "flake8", "flake8-docstrings",
@@ -169,13 +146,10 @@ show_missing = true
 
 [tool.black]
 line-length = 100
-target-version = ["py37", "py38"]
+target-version = ["py38"]
 
 [tool.isort]
 line_length = 100
-[mypy]
-check_untyped_defs = true
-strict_optional = true
 
 [pycodestyle]
 max-line-length = 100

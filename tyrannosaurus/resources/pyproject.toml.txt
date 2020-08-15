@@ -25,10 +25,10 @@ homepage = "https://github.com/${user}/${project}"
 repository = "https://github.com/${user}/${project}"
 documentation = "https://${project}.readthedocs.io"
 # TODO Add topics here
+# Note: Poetry adds the license to the classifiers automatically
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Natural Language :: English",
-    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
@@ -59,38 +59,35 @@ Download = "https://pypi.org/project/${pkg}/"
 tyrannosaurus = "${pkg}.cli:cli"
 
 [tool.poetry.dependencies]
-python                   = ">=3.7, <4"
-tomlkit                  = "^0"
-importlib-metadata       = "^1"
-typer                    = "^0"
+# TODO Add and remove dependencies here
+python                   = ">=3.8, <4"
+typer                    = ">=0.3, <1.0"
 requests                 = "^2"
-urllib3                  = {extras = ["secure"], version = "^1"}
-# TODO add your dependencies here
 
 [tool.poetry.dev-dependencies]
+# TODO Remove build dependencies you don't want (like xdoctest, perhaps)
 pre-commit               = "^2"
 pytest                   = "^6"
 coverage                 = {extras = ["toml"], version = "^5"}
 pytest-cov               = "^2"
 sphinx                   = "^3"
 sphinx-autoapi           = "^1"
-sphinx-rtd-theme         = "^0"
-mypy                     = "^0"
+sphinx-rtd-theme         = ">=0.5, <1.0"
+mypy                     = ">=0.700, <1.0"
 flake8                   = "^3"
 flake8-docstrings        = "^1"
 black                    = "=19.10b0"
 isort                    = "^5"
 sphinx-autodoc-typehints = "^1"
-xdoctest                 = "^0"
+xdoctest                 = "^0.12, <1.0"
 hypothesis               = "^5"
 flake8-bandit            = "^2"
 flake8-bugbear           = "^20"
 coveralls                = "^2"
-tyrannosaurus            = "^0"
+tomlkit                  = ">=0.5, <1.0"
+tyrannosaurus            = ">=0.7, <1.0"
 
 [tool.poetry.extras]
-# manually listed
-docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "sphinx-autodoc-typehints"]
 # auto-filled from dev-deps
 dev     = [
         "tyrannosaurus",
@@ -174,7 +171,7 @@ show_missing = true
 
 [tool.black]
 line-length = 100
-target-version = ["py37", "py38"]
+target-version = ["py38"]
 
 [tool.isort]
 line_length = 100

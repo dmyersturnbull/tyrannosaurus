@@ -33,7 +33,7 @@ class _Toml:
 
     def __getitem__(self, items: str):
         if not isinstance(items, str):
-            raise AssertionError("Failed with '{}'".format(items))
+            raise AssertionError(f"Failed with '{items}'")
         if "." not in items:
             return self.x[items]
         at = self.x
@@ -45,7 +45,7 @@ class _Toml:
 
     def __contains__(self, items):
         if not isinstance(items, str):
-            raise AssertionError("Failed with '{}'".format(items))
+            raise AssertionError(f"Failed with '{items}'")
         if "." not in items:
             return items in self.x
         at = self.x
@@ -62,10 +62,10 @@ class _Toml:
         return self.x.keys()
 
     def __str__(self):
-        return self.__class__.__name__ + "(" + repr(self.x) + ")"
+        return f"{self.__class__.__name__} ({repr(self.x)})"
 
     def __repr__(self):
-        return self.__class__.__name__ + "(" + repr(self.x) + ")"
+        return f"{self.__class__.__name__} ({repr(self.x)})"
 
     def __eq__(self, other):
         return isinstance(other, _Toml) and self.x == other.x
@@ -225,7 +225,7 @@ class _Context:
         if not self.dry_run:
             bak.parent.mkdir(exist_ok=True, parents=True)
             shutil.copyfile(str(path), str(bak))
-            logger.debug("Generated backup of {} to {}".format(path, bak))
+            logger.debug(f"Generated backup of {path} to {bak}")
 
     def trash(
         self, path: Union[Path, str], hard_delete: bool
@@ -245,14 +245,14 @@ class _Context:
         if hard_delete:
             if not self.dry_run:
                 shutil.rmtree(path)
-            logger.debug("Deleted {}".format(path))
+            logger.debug(f"Deleted {path}")
             return path, None
         else:
             bak = self.get_bak_path(path)
             bak.parent.mkdir(exist_ok=True, parents=True)
             if not self.dry_run:
                 os.rename(str(path), str(bak))
-            logger.debug("Trashed {} to {}".format(path, bak))
+            logger.debug(f"Trashed {path} to {bak}")
             return path, bak
 
     def get_bak_path(self, path: Union[Path, str]):
@@ -265,13 +265,13 @@ class _Context:
     def check_path(self, path: Union[Path, str]) -> None:
         path = Path(path)
         if path.resolve() == self.path.resolve():
-            raise ValueError("Cannot touch {}".format(path))
+            raise ValueError(f"Cannot touch {path}")
         if not path.exists():
-            raise FileNotFoundError("Path {} does not exist".format(path))
+            raise FileNotFoundError(f"Path {path} does not exist")
         for parent in path.resolve().parents:
             if parent.resolve() == self.path.resolve():
                 return
-        raise ValueError("Cannot touch {}".format(path))
+        raise ValueError(f"Cannot touch {path}")
 
     def item(self, key: str):
         return self.data[key]

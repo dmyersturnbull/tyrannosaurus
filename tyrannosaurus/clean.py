@@ -22,7 +22,7 @@ class Clean:
 
     def clean(self, path: Path) -> Sequence[Tup[Path, Optional[Path]]]:
         context = _Context(path, dry_run=self.dry_run)
-        logger.info("Clearing .tyrannosaurus")
+        logger.info(f"Clearing {context.tmp_path}")
         trashed = []
         destroyed = context.destroy_tmp()
         if destroyed:

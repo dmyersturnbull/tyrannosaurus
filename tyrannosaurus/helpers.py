@@ -11,12 +11,10 @@ import re
 from pathlib import Path
 import subprocess
 from subprocess import check_output, SubprocessError
-from typing import Optional, Union, Sequence, Mapping, Tuple as Tup
+from typing import Optional, Sequence, Mapping, Tuple as Tup
 
 import requests
 import typer
-
-from tyrannosaurus import __version__
 
 logger = logging.getLogger(__package__)
 
@@ -97,12 +95,12 @@ class _Env:
             result = check_output(["git", "config", key], encoding="utf8").strip()
         except SubprocessError:
             logger.error("Failed calling git")
-            return "<<{}>>".format(name)
+            return f"<<{name}>>"
         if len(result) > 0:
             return result
         else:
-            logger.error("Could not get git config item {}".format(key))
-            return "<<{}>>".format(name)
+            logger.error(f"Could not get git config item {key}")
+            return f"<<{name}>>"
 
 
 class _PyPiHelper:
@@ -115,7 +113,7 @@ class _PyPiHelper:
             try:
                 new = self.get_version(pkg)
             except ValueError:
-                logger.error("Did not find package {}".format(pkg), exc_info=True)
+                logger.error(f"Did not find package {pkg}", exc_info=True)
             else:
                 if new != version:
                     updated[pkg] = version, new
@@ -138,19 +136,18 @@ class _PyPiHelper:
         # )
         text = pat.fullmatch(stderr).group(1).strip()
         if text == "none":
-            raise ValueError("Failed to find package {}".format(name))
+            raise ValueError(f"Failed to find package {name}")
         return text.split(" ")[-1]
 
 
 class _CondaForgeHelper:
     def has_pkg(self, name: str):
         # unfortunately, Anaconda returns 200 even if the page doesn't exist
-        # TODO needed verify=False to get it working on CI
         try:
-            r = requests.get("https://anaconda.org/conda-forge/{}".format(name))
+            r = requests.get(f"https://anaconda.org/conda-forge/{name}")
         except OSError:
             logger.error(
-                "Failed fetching from anaconda.org. Assuming {} is in Conda-Forge.".format(name),
+                f"Failed fetching from anaconda.org. Assuming {name} is in Conda-Forge.",
                 exc_info=True,
             )
             return True
@@ -174,7 +171,7 @@ class _EnvHelper:
                 if value.get("optional") is True and not extras:
                     continue
                 if "extras" in value:
-                    logger.error("'extras' not supported for {} = {}".format(key, value))
+                    logger.error("'extras' not supported for {key} = {value}")
                 value = value.get("version")
             # TODO handle ~ correctly
             if "^" in value or "~" in value:
@@ -190,13 +187,13 @@ class _EnvHelper:
                         + ".0"
                     )
                 else:
-                    logger.error("Couldn't parse {}".format(key + " = =" + value))
+                    logger.error(f"Couldn't parse {key} = {value}")
             line = "    - " + key + value.replace(" ", "")
             if helper.has_pkg(key):
                 lines.append(line)
             else:
                 not_in.append(line)
-        typer.echo("Found {} dependencies not in Conda-Forge.".format(len(not_in)))
+        typer.echo(f"Found {len(not_in)} dependencies not in Conda-Forge.")
         if len(not_in) > 0:
             lines.append("    - pip>=20")
             lines.append("    - pip:")

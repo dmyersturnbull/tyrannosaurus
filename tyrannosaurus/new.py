@@ -71,7 +71,7 @@ class New:
             text = parser.parse(license_file.read_text(encoding="utf8"))
             Path(path / "LICENSE.txt").write_text(text, encoding="utf8")
         else:
-            logger.error("License file for {} not found".format(license_file.name))
+            logger.error(f"License file for {license_file.name} not found")
         # copy resources, overwriting
         for source in (path / "tyrannosaurus" / "resources").iterdir():
             if not Path(source).is_file():
@@ -100,7 +100,7 @@ class New:
 
     def _checkout(self, path: Path):
         if path.exists():
-            raise FileExistsError("Path {} already exists".format(path))
+            raise FileExistsError(f"Path {path} already exists")
         path.parent.mkdir(exist_ok=True, parents=True)
         logger.info("Running git clone...")
         check_call(
