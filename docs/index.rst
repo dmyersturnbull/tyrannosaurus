@@ -9,6 +9,7 @@ Tyrannosaurus, a Python template for 2020
     guide
     synchronization
     anaconda
+    databases
 
 Tyrannosaurus is an opinionated 2020 Python template
 that comes with a tool to synchronize duplicate metadata across your build.
