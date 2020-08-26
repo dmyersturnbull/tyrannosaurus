@@ -39,6 +39,7 @@ eggs/
 sdist/
 docs/_build
 cython_debug/
+docs/autoapi
 
 # Hidden files that are definitely unwanted (redundant)
 .tox/

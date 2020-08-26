@@ -2,7 +2,7 @@
 description-file = "README.md"
 
 [build-system]
-requires = ["poetry>=1.0", "coverage[toml]"]
+requires = ["poetry>=1,<2", "coverage[toml]>=5,<6"]
 build-backend = "poetry.masonry.api"
 
 
@@ -100,7 +100,7 @@ python                   = ">=3.8, <4"
 tomlkit                  = ">=0.5, <1.0"
 typer                    = ">=0.3, <1.0"
 requests                 = "^2"
-grayskull                = ">=0.7, <1.0"
+grayskull                = ">=0.8, <1.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit               = "^2"
@@ -114,7 +114,6 @@ flake8                   = "^3"
 flake8-docstrings        = "^1"
 black                    = "=19.10b0"
 isort                    = "^5"
-sphinx-autodoc-typehints = "^1"
 flake8-bandit            = "^2"
 flake8-bugbear           = "^20"
 coveralls                = "^2"
@@ -123,7 +122,7 @@ coveralls                = "^2"
 # auto-filled from dev-deps
 dev     = [
         "pre-commit", "pytest", "coverage", "pytest-cov",
-        "sphinx", "sphinx-autodoc-typehints", "sphinx-autoapi",
+        "sphinx", "sphinx-autoapi",
         "mypy",
         "flake8", "flake8-docstrings",
         "black", "isort",
