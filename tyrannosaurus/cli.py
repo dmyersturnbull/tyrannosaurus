@@ -4,16 +4,13 @@ Tyrannosaurus command-line interface.
 
 from __future__ import annotations
 
-import contextlib
 import logging
 import os
-import enum
 from pathlib import Path
 from typing import Optional, Sequence
 from subprocess import check_call
 
 import typer
-from typer import completion
 
 from tyrannosaurus.context import _Context
 from tyrannosaurus.helpers import _License, _Env
@@ -51,13 +48,12 @@ class CliState:
 
     def callback(self, dry_run: bool = False, verbose: bool = False):
         """
+        Tyrannosaurus.
         Tyrannosaurus can create new modern Python projects from a template
         and synchronize metadata across the project.
 
         Args:
-
             dry_run: Just say what would be done; don't write to the filesystem
-
             verbose: Output more information
         """
         self.dry_run = dry_run
@@ -69,36 +65,34 @@ cli = typer.Typer(callback=state.callback, add_completion=True)
 
 
 class CliCommands:
+
+    _APACHE2 = typer.Option("apache2")
+    _ENV_YAML = Path("environment.yml")
+
     @staticmethod
     @cli.command()
     def new(
         name: str,
-        license: _License = typer.Option("apache2"),
+        license: _License = _APACHE2,
         user: Optional[str] = None,
         authors: Optional[str] = None,
         description: str = "<<A Python project>>",
         keywords: str = "",
         version: str = "0.1.0",
+        newest: bool = False,
         prompt: bool = False,
     ) -> None:
         """
         Creates a new project.
         Args:
-
             name: The name of the project, including any dashes or capital letters
-
             license: The name of the license. One of: apache2, cc0, ccby, ccbync, gpl3, lgpl3, mit
-
             user: Github repository user or org name
-
             authors: List of author names, comma-separated
-
             description: A <100 char description for the project
-
             keywords: A list of <= 5 keywords, comma-separated
-
             version: A semantic version
-
+            newest: Use the most recent version of Tyrannosaurus code from Github
             prompt: Prompt for info
         """
         if prompt:
@@ -123,6 +117,7 @@ class CliCommands:
             description=description,
             keywords=keywords,
             version=version,
+            newest=newest,
         ).create(path)
         typer.echo("Done! Created a new repository under {}".format(name))
         typer.echo(
@@ -145,22 +140,15 @@ class CliCommands:
     @staticmethod
     @cli.command()
     def env(
-        path: Path = Path("environment.yml"),
-        name: Optional[str] = None,
-        dev: bool = False,
-        extras: bool = False,
+        path: Path = _ENV_YAML, name: Optional[str] = None, dev: bool = False, extras: bool = False,
     ) -> None:
         """
         Generates an Anaconda environment file.
 
         Args:
-
-            path: Write tot his path
-
+            path: Write to his path
             name: The name of the environment; defaults to the project name
-
             dev: Include development/build dependencies
-
             extras: Include optional dependencies
         """
         dry_run = state.dry_run
@@ -206,11 +194,8 @@ class CliCommands:
         Then trashes temporary and unwanted files and directories to a tree under ``.tyrannosaurus``.
 
         Args:
-
             dists: Remove dists
-
             aggressive: Delete additional files, including .swp and .ipython_checkpoints.
-
             hard_delete: If true, call shutil.rmtree instead of moving to .tyrannosaurus
         """
         dry_run = state.dry_run
@@ -234,13 +219,9 @@ class CliCommands:
         Syncs, builds, and tests your project.
 
         If ``notox`` is NOT set, runs:
-
             - tyrannosaurus sync
-
             - poetry lock
-
             - tox
-
             - tyrannosaurus clean
 
         z----------------------------------------z
@@ -250,42 +231,25 @@ class CliCommands:
         It's also often faster.
         This command is for convenience and isn't very customizable.
         In this case, runs:
-
             - tyrannosaurus sync
-
             - poetry lock
-
             - pre-commit run check-toml
-
             - pre-commit run check-yaml
-
             - pre-commit run check-json
-
             - poetry check
-
             - poetry build
-
             - poetry install -v
-
             - poetry run pytest --cov
-
             - poetry run flake8 tyrannosaurus
-
             - poetry run flake8 docs
-
             - poetry run flake8 --ignore=D100,D101,D102,D103,D104,S101 tests
-
             - sphinx-build -b html docs docs/html
-
             - tyrannosaurus clean
-
             - pip install .
         z----------------------------------------z
 
         Args:
-
             bare: Do not use tox or virtualenv. See above.
-
             dry: Just output the commands to stdout (don't run them). Useful for making a script template.
         """
         CliCommands.build_internal(bare=bare, dry=dry)

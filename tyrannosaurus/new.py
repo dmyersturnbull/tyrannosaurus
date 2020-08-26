@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-import time
 import os
 import stat
 import shutil
@@ -11,11 +10,18 @@ from typing import Union, Sequence
 
 import typer
 
+from tyrannosaurus import __version__ as tyranno_version
 from tyrannosaurus.context import _LiteralParser
 from tyrannosaurus.helpers import _License
 
 logger = logging.getLogger(__package__)
 cli = typer.Typer()
+
+
+class VersionNotFoundError(LookupError):
+    """
+    The Git tag corresponding to the version was not found.
+    """
 
 
 class New:
@@ -28,6 +34,7 @@ class New:
         description: str,
         keywords: Sequence[str],
         version: str,
+        newest: bool,
     ):
         if isinstance(license_name, str):
             license_name = _License[license_name.lower()]
@@ -39,6 +46,7 @@ class New:
         self.description = description
         self.keywords = keywords
         self.version = version
+        self.newest = newest
 
     def create(self, path: Path) -> None:
         self._checkout(Path(str(path).lower()))
@@ -106,12 +114,19 @@ class New:
         check_call(
             ["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", str(path)]
         )
+        if not self.newest:
+            try:
+                check_call(["git", "checkout", f"tags/v{tyranno_version}"], cwd=str(path))
+            except CalledProcessError:
+                raise VersionNotFoundError(f"Git tag 'v{tyranno_version}' was not found.")
         self._murder_evil_path_for_sure(path / ".git")
 
     def _murder_evil_path_for_sure(self, evil_path: Path) -> None:
         """
         There are likely to be permission issues with .git directories.
-        :param evil_path: The .git directory
+
+        Args:
+            evil_path: The .git directory
         """
         try:
             shutil.rmtree(str(evil_path))

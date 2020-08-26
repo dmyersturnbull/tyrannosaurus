@@ -6,7 +6,6 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 from typing import Sequence, Mapping
-from subprocess import check_call
 
 from tyrannosaurus.context import _Context
 

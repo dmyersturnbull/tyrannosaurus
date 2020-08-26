@@ -1,5 +1,4 @@
 from pathlib import Path
-import shutil
 import tempfile
 from datetime import datetime
 
@@ -27,6 +26,7 @@ class TestNew:
             "A description",
             ["some", "keywords"],
             "0.1.0",
+            newest=True,
         ).create(path)
         assert (path / "pyproject.toml").exists()
         context = _Context(path, dry_run=True)

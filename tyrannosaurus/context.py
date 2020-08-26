@@ -55,6 +55,12 @@ class _Toml:
             at = at[item]
         return True
 
+    def get(self, items: str, default: Any = None) -> Optional[Any]:
+        try:
+            return self[items]
+        except KeyError:
+            return default
+
     def items(self):
         return self.x.items()
 
@@ -183,10 +189,12 @@ class _Context:
         if data is None:
             data = _Toml.read(Path(self.path) / "pyproject.toml")
         self.data = data
-        self.options = {k for k, v in data["tool.tyrannosaurus.options"].items() if v}
-        self.targets = {k for k, v in data["tool.tyrannosaurus.targets"].items() if v}
+        self.options = {k for k, v in data.get("tool.tyrannosaurus.options", {}).items() if v}
+        self.targets = {k for k, v in data.get("tool.tyrannosaurus.targets", {}).items() if v}
         self.sources = {
-            k: _Source.parse(v, data) for k, v in data["tool.tyrannosaurus.sources"].items() if v
+            k: _Source.parse(v, data)
+            for k, v in data.get("tool.tyrannosaurus.sources", {}).items()
+            if v
         }
         self.tmp_path = self.path / ".tyrannosaurus"
         self.dry_run = dry_run

@@ -6,7 +6,8 @@ from tyrannosaurus.helpers import _Env
 
 class TestHelpers:
     def test_env(self):
-        env = _Env(None, None)
+        _Env(None, None)
+        # env = _Env(None, None)
         # TODO run in test mode
         # assert '<<' not in env.user
         # assert len(env.authors) == 1 and '<<' not in env.authors[0]
