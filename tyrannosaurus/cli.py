@@ -7,22 +7,22 @@ from __future__ import annotations
 import logging
 import os
 from pathlib import Path
-from typing import Optional, Sequence
 from subprocess import check_call
+from typing import Optional, Sequence
 
 import typer
 
-from tyrannosaurus.context import _Context
-from tyrannosaurus.helpers import _License, _Env
 from tyrannosaurus.clean import Clean
+from tyrannosaurus.conda import CondaEnv, Recipe
+from tyrannosaurus.context import _Context
+from tyrannosaurus.helpers import _Env, _License
 from tyrannosaurus.new import New
 from tyrannosaurus.sync import Sync
-from tyrannosaurus.conda import Recipe, CondaEnv
 
 logger = logging.getLogger(__package__)
 
 
-class _DevNull:
+class _DevNull:  # pragma: no cover
     """Pretends to write but doesn't."""
 
     def write(self, msg):
@@ -41,7 +41,7 @@ class _DevNull:
         self.close()
 
 
-class CliState:
+class CliState:  # pragma: no cover
     def __init__(self):
         self.dry_run = False
         self.verbose = False
@@ -81,7 +81,7 @@ class CliCommands:
         version: str = "0.1.0",
         newest: bool = False,
         prompt: bool = False,
-    ) -> None:
+    ) -> None:  # pragma: no cover
         """
         Creates a new project.
         Args:
@@ -126,7 +126,7 @@ class CliCommands:
 
     @staticmethod
     @cli.command()
-    def sync() -> None:
+    def sync() -> None:  # pragma: no cover
         """
         Syncs project metadata between configured files.
         """
@@ -134,14 +134,14 @@ class CliCommands:
         context = _Context(Path(os.getcwd()), dry_run=dry_run)
         typer.echo("Syncing metadata...")
         typer.echo("Currently, only targets 'init' and 'recipe' are implemented.")
-        targets = Sync(context, dry_run=dry_run).sync(Path(os.getcwd()))
+        targets = Sync(context).sync()
         typer.echo("Done. Synced to {} targets: {}.".format(len(targets), ", ".join(targets)))
 
     @staticmethod
     @cli.command()
     def env(
         path: Path = _ENV_YAML, name: Optional[str] = None, dev: bool = False, extras: bool = False,
-    ) -> None:
+    ) -> None:  # pragma: no cover
         """
         Generates an Anaconda environment file.
 
@@ -156,24 +156,24 @@ class CliCommands:
         context = _Context(Path(os.getcwd()), dry_run=dry_run)
         if name is None:
             name = context.project
-        CondaEnv(name, dev=dev, extras=extras, dry_run=dry_run).create(context, path)
-        typer.echo(f"Wrote environment {path}")
+        CondaEnv(name, dev=dev, extras=extras).create(context, path)
+        typer.echo(f"Wrote environment file {path}")
 
     @staticmethod
     @cli.command()
-    def recipe() -> None:
+    def recipe() -> None:  # pragma: no cover
         """
         Generates a Conda recipe using grayskull.
         """
         dry_run = state.dry_run
         context = _Context(Path(os.getcwd()), dry_run=dry_run)
         output_path = context.path / "recipes"
-        output_path = Recipe(dry_run=dry_run).create(context, output_path)
-        typer.echo(f"Generated a new recipe at {output_path}")
+        Recipe(context).create(output_path)
+        typer.echo(f"Generated a new recipe under {output_path}")
 
     """
     @cli.command()
-    def update() -> None:
+    def update() -> None:  # pragma: no cover
         updates, dev_updates = Update(dry_run=dry_run).update(Path(os.getcwd()))
         typer.echo("Main updates:")
         for pkg, (old, up) in updates.items():
@@ -187,7 +187,9 @@ class CliCommands:
 
     @staticmethod
     @cli.command()
-    def clean(dists: bool = False, aggressive: bool = False, hard_delete: bool = False) -> None:
+    def clean(
+        dists: bool = False, aggressive: bool = False, hard_delete: bool = False
+    ) -> None:  # pragma: no cover
         """
         Removes unwanted files.
         Deletes the contents of ``.tyrannosaurus``.
@@ -204,28 +206,28 @@ class CliCommands:
 
     @staticmethod
     @cli.command()
-    def info() -> None:
+    def info() -> None:  # pragma: no cover
         """
         Prints Tyrannosaurus info.
         """
-        from tyrannosaurus import __version__, __date__
+        from tyrannosaurus import __date__, __version__
 
         typer.echo(f"Tyrannosaurus version {__version__} ({__date__})")
 
     @staticmethod
     @cli.command()
-    def build(bare: bool = False, dry: bool = False) -> None:
+    def build(bare: bool = False, dry: bool = False) -> None:  # pragma: no cover
         """
         Syncs, builds, and tests your project.
 
-        If ``notox`` is NOT set, runs:
+        If ``bare`` is NOT set, runs:
             - tyrannosaurus sync
             - poetry lock
             - tox
             - tyrannosaurus clean
 
         z----------------------------------------z
-        If the ``notox`` IS set:
+        If the ``bare`` IS set:
         Runs the commands without tox and without creating a new virtualenv.
         This can be useful if you're using Conda and have a dependency only available through Anaconda.
         It's also often faster.

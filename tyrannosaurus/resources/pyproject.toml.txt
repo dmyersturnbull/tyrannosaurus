@@ -132,7 +132,7 @@ contributors = [
 maintainers = "tool.tyrannosaurus.sources.authors"
 
 [tool.tyrannosuarus.paths]
-recipe             = "'recipes/${project}/meta.yml'"
+recipe             = "'recipes/${project}/meta.yaml'"
 environment        = "'environment.yml'"
 
 [tool.tyrannosaurus.targets]
@@ -175,6 +175,7 @@ target-version = ["py38"]
 
 [tool.isort]
 line_length = 100
+
 [mypy]
 check_untyped_defs = true
 strict_optional = true
@@ -185,4 +186,6 @@ statistics = true
 
 [pydocstyle]
 # 212 and 213 contradict; 203 and 204 contradict; D302 is not relevant in Py3
-ignore = ["D203", "D212", "D302"]
+# D107 isn't needed sometimes
+# and the rest are just too picky
+ignore = ["D107", "D200", "D203", "D205", "D212", "D302", "D400", "D403", "D409", "D411"]

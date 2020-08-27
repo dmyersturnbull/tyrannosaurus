@@ -3,10 +3,11 @@ Metadata for this project.
 """
 
 import logging
-from pathlib import Path
 
 # If you need Python < 3.8, change to importlib_metadata and add it as a dependency
-from importlib.metadata import PackageNotFoundError, metadata as __load
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import metadata as __load
+from pathlib import Path
 
 logger = logging.getLogger(Path(__file__).parent.name)
 
@@ -24,14 +25,14 @@ try:
     __author__ = metadata["author"]
     __maintainer__ = metadata["maintainer"]
     __contact__ = metadata["maintainer"]
-except PackageNotFoundError:
+except PackageNotFoundError:  # pragma: no cover
     logger.error(
         "Could not load package metadata for {}. Is it installed?".format(
             Path(__file__).absolute().parent.name
         )
     )
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     if metadata is not None:
         print("{} (v{})".format(metadata["name"], metadata["version"]))
     else:

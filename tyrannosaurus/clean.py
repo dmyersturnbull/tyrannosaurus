@@ -3,9 +3,11 @@ Tyrannosaurus command-line interface.
 """
 
 from __future__ import annotations
+
 import logging
 from pathlib import Path
-from typing import Optional, Sequence, Tuple as Tup
+from typing import Optional, Sequence
+from typing import Tuple as Tup
 
 from tyrannosaurus.context import _Context
 from tyrannosaurus.helpers import _fast_scandir, _TrashList

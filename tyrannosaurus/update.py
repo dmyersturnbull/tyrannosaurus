@@ -1,3 +1,4 @@
+"""
 from __future__ import annotations
 
 import logging
@@ -25,5 +26,5 @@ class Update:
         dev_updates = helper.new_versions(context.dev_deps)
         return updates, dev_updates
 
-
 __all__ = ["Update"]
+"""

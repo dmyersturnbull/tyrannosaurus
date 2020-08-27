@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import logging
 import os
-import stat
 import shutil
+import stat
 from pathlib import Path
-from subprocess import check_call, CalledProcessError
-from typing import Union, Sequence
+from subprocess import CalledProcessError, check_call
+from typing import Sequence, Union
 
 import typer
 

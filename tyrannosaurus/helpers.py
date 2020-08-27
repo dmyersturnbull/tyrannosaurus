@@ -8,10 +8,11 @@ import enum
 import logging
 import os
 import re
-from pathlib import Path
 import subprocess
-from subprocess import check_output, SubprocessError
-from typing import Optional, Sequence, Mapping, Tuple as Tup
+from pathlib import Path
+from subprocess import SubprocessError, check_output
+from typing import Mapping, Optional, Sequence
+from typing import Tuple as Tup
 
 import requests
 import typer
@@ -104,9 +105,6 @@ class _Env:
 
 
 class _PyPiHelper:
-    def __init__(self, timeout_sec: int = 10):
-        self.timeout_sec = timeout_sec
-
     def new_versions(self, pkg_versions: Mapping[str, str]) -> Mapping[str, Tup[str, str]]:
         updated = {}
         for pkg, version in pkg_versions.items():
@@ -119,25 +117,23 @@ class _PyPiHelper:
                     updated[pkg] = version, new
         return updated
 
-    def get_version(self, name: str):
-        pat = re.compile(r"^[^(]+\(from versions: ([^)]+)+\).*$")
-        # TODO this hangs when run in pytest
-        proc = subprocess.Popen(
-            ["pip", "install", name + "=="],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            encoding="utf8",
-        )
-        stdout, stderr = proc.communicate(timeout=self.timeout_sec)
-        # result = subprocess.run(
-        #    ["pip", "install", name + "=="],
-        #    capture_output=True,
-        #    encoding="utf8"
-        # )
-        text = pat.fullmatch(stderr).group(1).strip()
-        if text == "none":
-            raise ValueError(f"Failed to find package {name}")
-        return text.split(" ")[-1]
+    def get_version(self, name: str) -> str:
+        pat = re.compile('"package-header__name">[ \n\t]*' + name + " ([0-9a-zA-Z_.-]+)")
+        try:
+            r = requests.get(f"https://pypi.org/project/{name}")
+            if r.status_code > 400:
+                raise LookupError(f"Status code {r.status_code} from pypi for package {name}")
+        except OSError:
+            logger.error(
+                f"Failed fetching {name} from pypi.org.", exc_info=True,
+            )
+            raise
+        matches = {m.group(1).strip() for m in pat.finditer(r.content.decode(encoding="utf8"))}
+        if len(matches) != 1:
+            raise LookupError(
+                f"Failed to extract version from pypi for package {name} (matches: {matches})"
+            )
+        return next(iter(matches))
 
 
 class _CondaForgeHelper:
@@ -220,8 +216,8 @@ __all__ = [
     "_TrashList",
     "_Env",
     "_License",
-    "_PyPiHelper",
     "_CondaForgeHelper",
+    "_PyPiHelper",
     "_EnvHelper",
     "_fast_scandir",
 ]

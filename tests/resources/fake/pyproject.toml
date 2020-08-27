@@ -11,8 +11,8 @@ build-backend = "poetry.masonry.api"
 #########################################################################################
 
 [tool.poetry]
-name = "fake"
-version = "0.0.1"
+name = "grayskull"
+version = "0.8.1"
 description = "A mock project."
 authors = ["Fake Person"]
 maintainers = ["Fake Person"]
@@ -60,7 +60,7 @@ linelength         = "tool.black.line-length"
 maintainers        = "'fakeorg'"
 
 [tool.tyrannosuarus.paths]
-recipe             = "'recipes/${name}/meta.yml'"
+recipe             = "'recipes/${name}/meta.yaml'"
 
 [tool.tyrannosaurus.targets]
 # these are file and directory names, without filename extensions

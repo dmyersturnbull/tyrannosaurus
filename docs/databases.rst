@@ -3,7 +3,7 @@ Testing database-connected code
 
 Getting Github actions and Tox to work well with databases takes a little extra work.
 This shows how to get MariaDB/MySQL working. The principles should be the same for other databases, like PostgreSQL.
-`This project <https://github.com/dmyersturnbull/valarpy>`_ shows a working example of this.
+`This project <https://github.com/dmyersturnbull/valarpy>`_ has a working example of this.
 
 First, include MariaDB as a service by adding this under ``jobs`` in ``.github/workflows/build.yml``.
 Note that the ``MYSQL_DATABASE: test`` does not refer to your database.
@@ -40,7 +40,8 @@ There’s no security relevance here, so we can just use the root throughout.
     Make sure the name of your test database won’t ever conflict with a real database.
     Otherwise, you’ll lose your database.
 
-Then, in ``tox.ini``, add this command. It’s likely to be fast, so consider adding it as the first step (command).
+Then, in ``tox.ini``, ``mysql`` to ``whitelist_externals``.
+Then add this to the ``commands``. It’s likely to be fast, so consider adding it as the first step.
 
 .. code-block::
 
