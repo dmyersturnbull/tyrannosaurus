@@ -5,6 +5,16 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
+## [0.8.0] - 2020-08-28
+
+### Changed
+- Split pull and push workflows
+
+### Fixed
+- Coveralls integration
+- Bug in which some paths weren't deleted by `clean`
+
+
 ## [0.7.0] - 2020-08-26
 
 ### Removed

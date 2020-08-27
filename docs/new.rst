@@ -12,10 +12,16 @@ See ``tyrannosaurus new --help`` for more info.
 
 After, modify your project as needed,
 especially by setting your metadata and dependencies in ``pyproject.toml``.
-You may consider adding ``tyrannosaurus clean``, ``tyrannosaurus sync``,
-and/or ``tyrannosaurus env`` to your tox config.
-Finally, you may want to modify the ``.github/labels.json`` file.
-When you commit, your Github labels will be replaced with these.
+You may want to modify the ``.github/labels.json`` file;
+when you commit, your Github labels will be replaced with these.
+
+Coverage reports will be sent to `Coveralls <https://coveralls.io/>`_ and `CodeCov <codecov.io>`_
+when you push to the master branch if you set the relevant tokens.
+Add ``COVERALLS_REPO_TOKEN`` to your Github repo secrets if you’re using coveralls.
+If you’re using CodeCov, add ``CODECOV_TOKEN``.
+These commands will silently fail if the secrets are missing.
+You can add others in ``commit.yml``.
+This way, the coverage of your master branch is always reflected.
 
 .. caution::
 

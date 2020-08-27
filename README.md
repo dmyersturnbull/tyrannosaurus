@@ -26,7 +26,7 @@ Install with `pip install tyrannosaurus`.
   Security checks are run, style is checked,
   documentation is generated, and docker images, sdists, and wheels are built.
 - _When you release on Github_, your code is published to PyPi and DockerHub.
-  Just add `PYPI_TOKEN` as a Github repo secret.
+  Just add `PYPI_TOKEN` and `COVERALLS_REPO_TOKEN` as Github repo secrets.
 
 If you’re curious why older infrastructure (setup.py, etc) is problematic,
 see [this post](https://dmyersturnbull.github.io/#-the-python-build-landscape).

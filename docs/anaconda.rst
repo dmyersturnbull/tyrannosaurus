@@ -10,11 +10,13 @@ For example, you might have a *build* environment and run tox inside it:
 
   conda create \
     --name build \
-    --channel conda-forge \
     --override-channels \
+    --channel conda-forge \
     --force \
     --yes \
-    tox poetry
+    python=3.8
+    pip install tox poetry
+
 
 In addition, for `several reasons <https://dmyersturnbull.github.io/#-the-python-build-landscape>`_,
 I strongly recommend using Poetry to manage dependencies instead of Anaconda.

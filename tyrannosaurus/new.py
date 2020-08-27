@@ -2,17 +2,17 @@ from __future__ import annotations
 
 import logging
 import os
-import stat
 import shutil
+import stat
 from pathlib import Path
-from subprocess import check_call, CalledProcessError
-from typing import Union, Sequence
+from subprocess import CalledProcessError, check_call
+from typing import Sequence, Union
 
 import typer
 
 from tyrannosaurus import __version__ as tyranno_version
-from tyrannosaurus.context import _LiteralParser
-from tyrannosaurus.helpers import _License
+from tyrannosaurus.context import LiteralParser
+from tyrannosaurus.helpers import License
 
 logger = logging.getLogger(__package__)
 cli = typer.Typer()
@@ -28,7 +28,7 @@ class New:
     def __init__(
         self,
         name: str,
-        license_name: Union[str, _License],
+        license_name: Union[str, License],
         username: str,
         authors: Sequence[str],
         description: str,
@@ -37,7 +37,7 @@ class New:
         newest: bool,
     ):
         if isinstance(license_name, str):
-            license_name = _License[license_name.lower()]
+            license_name = License[license_name.lower()]
         self.project_name = name.lower()
         self.pkg_name = name.replace("_", "").replace("-", "").replace(".", "").lower()
         self.license_name = license_name
@@ -63,7 +63,7 @@ class New:
             if p.is_file() and p.name != "__init__.py":
                 p.unlink()
         # copy license
-        parser = _LiteralParser(
+        parser = LiteralParser(
             self.project_name,
             self.username,
             self.authors,

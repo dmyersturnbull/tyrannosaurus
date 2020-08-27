@@ -2,51 +2,54 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import Sequence
+from typing import Optional, Sequence
 
 from grayskull.base.factory import GrayskullFactory
 
-from tyrannosaurus.context import _Context
-from tyrannosaurus.helpers import _EnvHelper
+from tyrannosaurus.context import Context
+from tyrannosaurus.helpers import EnvHelper
 from tyrannosaurus.sync import Sync
 
 logger = logging.getLogger(__package__)
 
 
 class Recipe:
-    def __init__(self, dry_run: bool):
-        self.dry_run = dry_run
+    def __init__(self, context: Context):
+        self.context = context
 
-    def create(self, context: _Context, output_path: Path) -> Path:
-        if output_path.exists():
-            context.trash(output_path, False)
-        if (output_path / context.project).exists():
-            (output_path / context.project).rmdir()
-        (output_path / context.project).mkdir(parents=True)
+    def create(self, output_dir: Optional[Path]) -> Sequence[str]:
+        context = self.context
+        yaml_path = output_dir / f"{context.project}/meta.yaml"
+        if yaml_path.exists():
+            context.delete_exact_path(yaml_path, False)
+        if (output_dir / context.project).exists():
+            (output_dir / context.project).rmdir()
+        (output_dir / context.project).mkdir(parents=True)
         skull = GrayskullFactory.create_recipe("pypi", context.poetry("name"), "")
-        skull.generate_recipe(str(output_path), mantainers=context.source("maintainers").split(","))
-        logger.debug(f"Generated a new recipe at {output_path}")
-        helper = Sync(context, self.dry_run)
-        helper.fix_recipe()
-        logger.debug(f"Fixed recipe at {output_path}")
-        return output_path
+        skull.generate_recipe(str(output_dir), mantainers=context.source("maintainers").split(","))
+        logger.debug(f"Generated a new recipe at {output_dir}/meta.yaml")
+        helper = Sync(context)
+        lines = helper.fix_recipe_internal(yaml_path)
+        logger.debug(f"Fixed recipe at {yaml_path}/meta.yaml")
+        return lines
 
 
 class CondaEnv:
-    def __init__(self, name: str, dev: bool, extras: bool, dry_run: bool):
+    def __init__(self, name: str, dev: bool, extras: bool):
         self.name = name
         self.dev = dev
         self.extras = extras
-        self.dry_run = dry_run
 
-    def create(self, context: _Context, path: Path):
+    def create(self, context: Context, path: Path) -> Sequence[str]:
         deps = self._get_deps(context)
         logger.info(f"Writing environment with {len(deps)} dependencies to {path} ...")
-        lines = _EnvHelper().process(self.name, deps, self.extras)
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text("\n".join(lines), encoding="utf8")
+        lines = EnvHelper().process(self.name, deps, self.extras)
+        if not context.dry_run:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("\n".join(lines), encoding="utf8")
+        return lines
 
-    def _get_deps(self, context: _Context) -> Sequence[str]:
+    def _get_deps(self, context: Context) -> Sequence[str]:
         path = Path(self.name + ".yml")
         if path.exists():
             context.back_up(path)

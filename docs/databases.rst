@@ -3,9 +3,10 @@ Testing database-connected code
 
 Getting Github actions and Tox to work well with databases takes a little extra work.
 This shows how to get MariaDB/MySQL working. The principles should be the same for other databases, like PostgreSQL.
-`This project <https://github.com/dmyersturnbull/valarpy>`_ shows a working example of this.
+`This project <https://github.com/dmyersturnbull/valarpy>`_ has a working example of this.
 
-First, include MariaDB as a service by adding this under ``jobs`` in ``.github/workflows/build.yml``.
+First, include MariaDB as a service by adding this under ``jobs`` in
+``.github/workflows/commit.yml`` and ``.github/workflows/pull.yml``.
 Note that the ``MYSQL_DATABASE: test`` does not refer to your database.
 
 .. code-block::
@@ -18,7 +19,11 @@ Note that the ``MYSQL_DATABASE: test`` does not refer to your database.
                     MYSQL_DATABASE: test
                 ports:
                     - 3306:3306
-                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+                options: \
+                    --health-cmd="mysqladmin ping" \
+                    --health-interval=10s \
+                    --health-timeout=5s \
+                    --health-retries=3
 
 
 Then, add a step to test the MariaDB connection. Add it before other steps so the workflow fails early.
@@ -40,7 +45,8 @@ There’s no security relevance here, so we can just use the root throughout.
     Make sure the name of your test database won’t ever conflict with a real database.
     Otherwise, you’ll lose your database.
 
-Then, in ``tox.ini``, add this command. It’s likely to be fast, so consider adding it as the first step (command).
+Then, in ``tox.ini``, ``mysql`` to ``whitelist_externals``.
+Then add this to the ``commands``. It’s likely to be fast, so consider adding it as the first step.
 
 .. code-block::
 

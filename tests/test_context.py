@@ -3,13 +3,13 @@ from pathlib import Path
 import pytest
 
 # noinspection PyProtectedMember
-from tyrannosaurus.context import _Context, _Source, _TomlBuilder, timestamp
+from tyrannosaurus.context import Context, Source, TomlBuilder, timestamp
 
 
 class TestContext:
     def test_toml(self):
         toml = (
-            _TomlBuilder()
+            TomlBuilder()
             .add("simple", "is simple")
             .add("tool.poetry.name", "project")
             .add("tool.poetry.version", "version 1")
@@ -25,7 +25,7 @@ class TestContext:
 
     def test_source(self):
         toml = (
-            _TomlBuilder()
+            TomlBuilder()
             .add("simple", "is simple")
             .add("tool.poetry.name", "project")
             .add("tool.poetry.version", "version 1")
@@ -35,14 +35,14 @@ class TestContext:
             .add("tool.poetry.keywords", ["key", "words"])
             .build()
         )
-        source = _Source().parse("'a value'", toml)
+        source = Source().parse("'a value'", toml)
         assert source == "a value"
-        source = _Source().parse("tool.poetry.name", toml)
+        source = Source().parse("tool.poetry.name", toml)
         assert source == "project"
 
     def test_context(self):
         root = Path(__file__).parent.parent.resolve()
-        context = _Context(root)
+        context = Context(root)
         assert context.path == root
         assert context.has_opt("align")
         assert context.has_target("init")

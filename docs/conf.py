@@ -14,6 +14,15 @@ toml = tomlkit.loads((root / "pyproject.toml").read_text(encoding="utf8"))
 
 
 def find(key: str) -> str:
+    """
+    Finds a value defined in the tool.poetry section of the pyproject.toml.
+
+    Args:
+        key: TOML key
+
+    Returns:
+        The value
+    """
     return str(toml["tool"]["poetry"][key])
 
 

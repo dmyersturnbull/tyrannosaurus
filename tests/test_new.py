@@ -1,11 +1,11 @@
-from pathlib import Path
 import tempfile
 from datetime import datetime
+from pathlib import Path
 
 import pytest
 
 # noinspection PyProtectedMember
-from tyrannosaurus.context import _Context
+from tyrannosaurus.context import Context
 from tyrannosaurus.new import New
 
 
@@ -29,7 +29,7 @@ class TestNew:
             newest=True,
         ).create(path)
         assert (path / "pyproject.toml").exists()
-        context = _Context(path, dry_run=True)
+        context = Context(path, dry_run=True)
         assert context.project == project
 
 

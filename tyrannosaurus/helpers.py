@@ -9,9 +9,9 @@ import logging
 import os
 import re
 from pathlib import Path
-import subprocess
-from subprocess import check_output, SubprocessError
-from typing import Optional, Sequence, Mapping, Tuple as Tup
+from subprocess import SubprocessError, check_output
+from typing import Mapping, Optional, Sequence, Union
+from typing import Tuple as Tup
 
 import requests
 import typer
@@ -19,7 +19,7 @@ import typer
 logger = logging.getLogger(__package__)
 
 
-class _TrashList:
+class TrashList:
     def __init__(self, dists: bool, aggressive: bool):
         self.trash_patterns = {
             ".pytest_cache",
@@ -52,8 +52,8 @@ class _TrashList:
                 }
             )
 
-    def get_list(self) -> Sequence[Path]:
-        return [Path(s) for s in self.trash_patterns if isinstance(s, str)]
+    def get_list(self) -> Sequence[str]:
+        return [s for s in self.trash_patterns if isinstance(s, str)]
 
     def get_patterns(self) -> Sequence[re.Pattern]:
         return [s for s in self.trash_patterns if isinstance(s, re.Pattern)]
@@ -72,7 +72,7 @@ class _TrashList:
         )
 
 
-class _License(enum.Enum):
+class License(enum.Enum):
     apache2 = "apache2"
     cc0 = "cc0"
     ccby = "cc-by"
@@ -103,44 +103,62 @@ class _Env:
             return f"<<{name}>>"
 
 
-class _PyPiHelper:
-    def __init__(self, timeout_sec: int = 10):
-        self.timeout_sec = timeout_sec
-
+class PyPiHelper:
     def new_versions(self, pkg_versions: Mapping[str, str]) -> Mapping[str, Tup[str, str]]:
+        logger.warning("Making a best effort to find new versions. Correctness is not guaranteed.")
         updated = {}
         for pkg, version in pkg_versions.items():
+            if pkg == "python":
+                continue
+            logger.debug(f"Searching pypi for package {pkg} (current version: {type(version)})")
+            version = self._extract_version(version)
+            if version is None:
+                logger.error(f"Failed to extract version from {version} for package {pkg}")
+                continue
             try:
                 new = self.get_version(pkg)
             except ValueError:
                 logger.error(f"Did not find package {pkg}", exc_info=True)
+            except LookupError:
+                logger.error(f"Failed extracting new version for pypi package {pkg}")
+                logger.debug(f"Version error for {pkg}", exc_info=True)
             else:
                 if new != version:
                     updated[pkg] = version, new
         return updated
 
-    def get_version(self, name: str):
-        pat = re.compile(r"^[^(]+\(from versions: ([^)]+)+\).*$")
-        # TODO this hangs when run in pytest
-        proc = subprocess.Popen(
-            ["pip", "install", name + "=="],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            encoding="utf8",
-        )
-        stdout, stderr = proc.communicate(timeout=self.timeout_sec)
-        # result = subprocess.run(
-        #    ["pip", "install", name + "=="],
-        #    capture_output=True,
-        #    encoding="utf8"
-        # )
-        text = pat.fullmatch(stderr).group(1).strip()
-        if text == "none":
-            raise ValueError(f"Failed to find package {name}")
-        return text.split(" ")[-1]
+    def _extract_version(self, version: str) -> Optional[str]:
+        version = str(version)
+        matches = re.compile(r"([0-9]+[^ ,]+)").finditer(version)
+        matches = list(matches)
+        if len(matches) == 0 or len(matches) > 2:
+            return None
+        # assume the last one will be the max if there are two
+        return matches[-1].group(1)
+
+    def get_version(self, name: str) -> str:
+        pat = re.compile('"package-header__name">[ \n\t]*' + name + " ([0-9a-zA-Z_.-]+)")
+        try:
+            r = requests.get(f"https://pypi.org/project/{name}")
+            if r.status_code > 400:
+                # thanks to Sphinx and a couple of others
+                r = requests.get(f"https://pypi.org/project/{name.capitalize()}")
+                if r.status_code > 400:
+                    raise LookupError(f"Status code {r.status_code} from pypi for package {name}")
+        except OSError:
+            logger.error(
+                f"Failed fetching {name} from pypi.org.", exc_info=True,
+            )
+            raise
+        matches = {m.group(1).strip() for m in pat.finditer(r.content.decode(encoding="utf8"))}
+        if len(matches) != 1:
+            raise LookupError(
+                f"Failed to extract version from pypi for package {name} (matches: {matches})"
+            )
+        return next(iter(matches))
 
 
-class _CondaForgeHelper:
+class CondaForgeHelper:
     def has_pkg(self, name: str):
         # unfortunately, Anaconda returns 200 even if the page doesn't exist
         try:
@@ -154,9 +172,9 @@ class _CondaForgeHelper:
         return "login?next" not in r.url
 
 
-class _EnvHelper:
+class EnvHelper:
     def process(self, name: str, deps, extras: bool) -> Sequence[str]:
-        helper = _CondaForgeHelper()
+        helper = CondaForgeHelper()
         lines = [
             "# auto-generated by `tyrannosaurus env`",
             "name: " + name,
@@ -203,7 +221,14 @@ class _EnvHelper:
         return lines
 
 
-def _fast_scandir(topdir, trash):
+def scandir_fast(topdir: Union[str, Path], trash: TrashList):
+    """
+
+    Args:
+        topdir: The directory to search under
+        trash: List of trash dirs
+
+    """
     subdirs = [Path(f.path) for f in os.scandir(topdir) if Path(f).is_dir()]
     for dirname in list(subdirs):
         if (
@@ -212,16 +237,16 @@ def _fast_scandir(topdir, trash):
             not in {".tox", ".pytest_cache", ".git", ".idea", "docs", "__pycache__"}
             and dirname.name not in {str(s) for s in trash.get_list()}
         ):
-            subdirs.extend(_fast_scandir(dirname, trash))
+            subdirs.extend(scandir_fast(dirname, trash))
     return subdirs
 
 
 __all__ = [
-    "_TrashList",
+    "TrashList",
     "_Env",
-    "_License",
-    "_PyPiHelper",
-    "_CondaForgeHelper",
-    "_EnvHelper",
-    "_fast_scandir",
+    "License",
+    "CondaForgeHelper",
+    "PyPiHelper",
+    "EnvHelper",
+    "scandir_fast",
 ]

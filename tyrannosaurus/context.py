@@ -21,12 +21,12 @@ now = datetime.now()
 timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 
 
-class _Toml:
+class Toml:
     """A thin wrapper around toml to make getting values easier."""
 
     @classmethod
-    def read(cls, path: Union[PurePath, str]) -> _Toml:
-        return _Toml(tomlkit.loads(Path(path).read_text(encoding="utf8")))
+    def read(cls, path: Union[PurePath, str]) -> Toml:
+        return Toml(tomlkit.loads(Path(path).read_text(encoding="utf8")))
 
     def __init__(self, x: Mapping[str, Any]) -> None:
         self.x = x
@@ -40,7 +40,7 @@ class _Toml:
         for item in items.split("."):
             at = at[item]
         if isinstance(at, dict):
-            return _Toml(at)
+            return Toml(at)
         return at
 
     def __contains__(self, items):
@@ -74,10 +74,10 @@ class _Toml:
         return f"{self.__class__.__name__} ({repr(self.x)})"
 
     def __eq__(self, other):
-        return isinstance(other, _Toml) and self.x == other.x
+        return isinstance(other, Toml) and self.x == other.x
 
 
-class _TomlBuilder:
+class TomlBuilder:
     def __init__(self):
         self._dict = {}
 
@@ -91,11 +91,11 @@ class _TomlBuilder:
         at[key.split(".")[-1]] = value
         return self
 
-    def build(self) -> _Toml:
-        return _Toml(self._dict)
+    def build(self) -> Toml:
+        return Toml(self._dict)
 
 
-class _LiteralParser:
+class LiteralParser:
     def __init__(
         self,
         project: str,
@@ -152,9 +152,9 @@ class _LiteralParser:
         return s
 
 
-class _Source:
+class Source:
     @classmethod
-    def parse(cls, s: str, toml: _Toml) -> Union[str, Sequence]:
+    def parse(cls, s: str, toml: Toml) -> Union[str, Sequence]:
         project = toml["tool.poetry.name"]
         version = toml["tool.poetry.version"]
         description = toml["tool.poetry.description"]
@@ -163,7 +163,7 @@ class _Source:
         license = toml["tool.poetry.license"]
         if isinstance(s, str) and s.startswith("'") and s.endswith("'"):
             return (
-                _LiteralParser(
+                LiteralParser(
                     project=project,
                     user=None,
                     authors=authors,
@@ -183,16 +183,16 @@ class _Source:
             return list(s)
 
 
-class _Context:
+class Context:
     def __init__(self, path: Union[Path, str], data=None, dry_run: bool = False):
         self.path = Path(path).resolve()
         if data is None:
-            data = _Toml.read(Path(self.path) / "pyproject.toml")
+            data = Toml.read(Path(self.path) / "pyproject.toml")
         self.data = data
         self.options = {k for k, v in data.get("tool.tyrannosaurus.options", {}).items() if v}
         self.targets = {k for k, v in data.get("tool.tyrannosaurus.targets", {}).items() if v}
         self.sources = {
-            k: _Source.parse(v, data)
+            k: Source.parse(v, data)
             for k, v in data.get("tool.tyrannosaurus.sources", {}).items()
             if v
         }
@@ -235,21 +235,15 @@ class _Context:
             shutil.copyfile(str(path), str(bak))
             logger.debug(f"Generated backup of {path} to {bak}")
 
-    def trash(
-        self, path: Union[Path, str], hard_delete: bool
+    def trash(self, path: str, hard_delete: bool) -> Tup[Optional[Path], Optional[Path]]:
+        return self.delete_exact_path(self.path / path, hard_delete=hard_delete)
+
+    def delete_exact_path(
+        self, path: Path, hard_delete: bool
     ) -> Tup[Optional[Path], Optional[Path]]:
-        path = Path(path)
         if not path.exists():
             return None, None
-        try:
-            self.check_path(path)
-        except ValueError as e:
-            # this can fail while testing
-            if path.name == ".pytest_cache":
-                logger.debug("Could not deleted .pytest_cache", exc_info=True)
-                return path, None
-            else:
-                raise e
+        self.check_path(path)
         if hard_delete:
             if not self.dry_run:
                 shutil.rmtree(path)
@@ -271,15 +265,18 @@ class _Context:
         return self.tmp_path / path.relative_to(self.path).with_suffix(suffix)
 
     def check_path(self, path: Union[Path, str]) -> None:
+        # none of these should even be possible, but let's be 100% sure
         path = Path(path)
         if path.resolve() == self.path.resolve():
-            raise ValueError(f"Cannot touch {path}")
+            raise ValueError(f"Cannot touch {path.resolve()}: identical to {self.path.resolve()}")
         if not path.exists():
             raise FileNotFoundError(f"Path {path} does not exist")
         for parent in path.resolve().parents:
             if parent.resolve() == self.path.resolve():
                 return
-        raise ValueError(f"Cannot touch {path}")
+        raise ValueError(
+            f"Cannot touch {path.resolve()}: not under the parent dir {self.path.resolve()}"
+        )
 
     def item(self, key: str):
         return self.data[key]
@@ -303,4 +300,4 @@ class _Context:
         return key in self.targets
 
 
-__all__ = ["_Toml", "_TomlBuilder", "_LiteralParser", "_Context"]
+__all__ = ["Toml", "TomlBuilder", "LiteralParser", "Context"]

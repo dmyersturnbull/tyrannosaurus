@@ -5,12 +5,14 @@ Command-line interface for ${project}.
 from __future__ import annotations
 
 import logging
+import time
 
 import typer
 
-logger = logging.getLogger(__package__)
-
 from ${pkg} import __title__, __version__, __copyright__, metadata
+
+
+logger = logging.getLogger(__package__)
 
 
 class Options:
@@ -19,12 +21,11 @@ class Options:
 
 global_options = None
 
-def context(verbose: bool = False):
+def context(verbose: bool = False) -> None:
     """
     Run ${display}, which is a Python project that does something.
 
     Args:
-
         verbose: Print extended information.
     """
     global_options = Options(verbose=verbose)
@@ -38,7 +39,6 @@ def info(n_seconds: float = 0.01) -> None:
     Get info about ${project}.
 
     Args:
-
         n_seconds: Number of seconds to wait between processing.
     """
     typer.echo(f"{__title__} version {__version__}, {__copyright__}")
