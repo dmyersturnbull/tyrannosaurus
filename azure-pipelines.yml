@@ -14,6 +14,7 @@ variables:
   imageRepository: 'tyrannosaurus'
   containerRegistry: 'dmyersturnbull.azurecr.io'
   tag: '$(Build.BuildId)'
+  redirect disable: false
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
