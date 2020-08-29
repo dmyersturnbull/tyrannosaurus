@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from tyrannosaurus.conda import CondaEnv
+from tyrannosaurus.conda import CondaEnv, Recipe
 
 # noinspection PyProtectedMember
 from tyrannosaurus.context import Context
@@ -23,14 +23,14 @@ class TestConda:
         assert "sphinx" not in txt
 
     def test_recipe(self):
-        # Path(tempfile.gettempdir()) / (
-        #    "trash-tmpdir-" + datetime.now().strftime("%Y-%m-%d.%H%M%S")
-        # )
+        output_path = Path(tempfile.gettempdir()) / (
+            "trash-tmpdir-" + datetime.now().strftime("%Y-%m-%d.%H%M%S")
+        )
         path = Path(__file__).parent / "resources" / "fake"
-        Context(path, dry_run=True)
-        # lines = Recipe(context).create(output_path)
-        # assert len(lines) > 20
-        # assert "    - fakeorg" in lines
+        context = Context(path, dry_run=True)
+        lines = Recipe(context).create(output_path)
+        assert len(lines) > 20
+        assert "    - fakeorg" in lines
 
 
 if __name__ == "__main__":
