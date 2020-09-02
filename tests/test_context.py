@@ -48,7 +48,7 @@ class TestContext:
         assert context.has_target("init")
         assert context.source("linelength") == "100"
         assert str(context.get_bak_path("pyproject.toml")) == str(
-            Path(root / ".tyrannosaurus" / "pyproject.toml.{}.bak".format(timestamp))
+            Path(root / ".tyrannosaurus" / f"pyproject.toml.{timestamp}.bak")
         )
 
 

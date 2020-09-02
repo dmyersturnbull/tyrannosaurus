@@ -35,3 +35,10 @@ To get the Github publish action working, you need to:
 1. Make an account on pypi.org if you don’t have one.
 2. Make a new single-repo token on PyPi.
 3. In your Github secrets page, add ``PYPI_TOKEN``.
+
+.. tip::
+
+    **Support for Python < 3.8:**
+    If you need to support Python 3.7 and below, add ``importlib_metadata`` to ``pyproject.toml``
+    and ``docs/requirements.txt``. Then change ``importlib.metadata`` in ``__init__.py``
+    with ``importlib_metadata``.

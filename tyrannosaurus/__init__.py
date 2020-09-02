@@ -1,22 +1,23 @@
 """
 Metadata for this project.
 """
-
 import logging
 
-# If you need Python < 3.8, change to importlib_metadata and add it as a dependency
+# If you need to support Python 3.7, change to importlib_metadata (underscore, not dot)
+# and then list importlib_metadata to [tool.poetry.dependencies] and docs/requirements.txt
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import metadata as __load
 from pathlib import Path
 
-logger = logging.getLogger(Path(__file__).parent.name)
 
+pkg = Path(__file__).absolute().parent.name
+logger = logging.getLogger(pkg)
 metadata = None
 try:
-    metadata = __load(Path(__file__).absolute().parent.name)
+    metadata = __load(pkg)
     __status__ = "Development"
     __copyright__ = "Copyright 2020"
-    __date__ = "2020-06-28"
+    __date__ = "2020-09-01"
     __uri__ = metadata["home-page"]
     __title__ = metadata["name"]
     __summary__ = metadata["summary"]
@@ -26,14 +27,10 @@ try:
     __maintainer__ = metadata["maintainer"]
     __contact__ = metadata["maintainer"]
 except PackageNotFoundError:  # pragma: no cover
-    logger.error(
-        "Could not load package metadata for {}. Is it installed?".format(
-            Path(__file__).absolute().parent.name
-        )
-    )
+    logger.error(f"Could not load package metadata for {pkg}. Is it installed?")
 
 if __name__ == "__main__":  # pragma: no cover
     if metadata is not None:
-        print("{} (v{})".format(metadata["name"], metadata["version"]))
+        print(f"{pkg} (v{metadata['version']})")
     else:
         print("Unknown project info")

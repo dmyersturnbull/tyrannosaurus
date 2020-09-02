@@ -5,6 +5,13 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
+## [0.8.x] - 2020-09-01
+
+### Fixed
+- Simplified dependencies
+- Cleaned up code and docs
+
+
 ## [0.8.0] - 2020-08-28
 
 ### Changed

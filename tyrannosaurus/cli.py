@@ -120,7 +120,7 @@ class CliCommands:
             version=version,
             newest=newest,
         ).create(path)
-        typer.echo("Done! Created a new repository under {}".format(name))
+        typer.echo(f"Done! Created a new repository under {name}")
         typer.echo(
             "See https://tyrannosaurus.readthedocs.io/en/latest/guide.html#to-do-list-for-new-projects"
         )
@@ -136,7 +136,7 @@ class CliCommands:
         typer.echo("Syncing metadata...")
         typer.echo("Currently, only targets 'init' and 'recipe' are implemented.")
         targets = Sync(context).sync()
-        typer.echo("Done. Synced to {} targets: {}.".format(len(targets), ", ".join(targets)))
+        typer.echo(f"Done. Synced to {len(targets)} targets: {targets}")
 
     @staticmethod
     @cli.command()
@@ -179,10 +179,10 @@ class CliCommands:
         updates, dev_updates = Update(context).update()
         typer.echo("Main updates:")
         for pkg, (old, up) in updates.items():
-            typer.echo("    {}:  {} --> {}".format(pkg, old, up))
+            typer.echo(f"    {pkg}:  {old} --> {up}")
         typer.echo("Dev updates:")
         for pkg, (old, up) in dev_updates.items():
-            typer.echo("    {}:  {} --> {}".format(pkg, old, up))
+            typer.echo(f"    {pkg}:  {old} --> {up}")
         if not state.dry_run:
             logger.error("Auto-fixing is not supported yet!")
 

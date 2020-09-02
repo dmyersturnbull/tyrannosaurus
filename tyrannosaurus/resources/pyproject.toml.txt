@@ -30,7 +30,6 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Natural Language :: English",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
 	"Intended Audience :: Developers",
@@ -62,40 +61,37 @@ tyrannosaurus = "${pkg}.cli:cli"
 # TODO Add and remove dependencies here
 python                   = ">=3.8, <4"
 typer                    = ">=0.3, <1.0"
-requests                 = "^2"
 
 [tool.poetry.dev-dependencies]
 # TODO Remove build dependencies you don't want (like xdoctest, perhaps)
+tomlkit                  = ">=0.7, <1.0"
+tyrannosaurus            = ">=0.8, <1.0"
 pre-commit               = "^2"
+pre-commit-hooks         = "^3"
+black                    = "=19.10b0"
+isort                    = "^5"
 pytest                   = "^6"
+hypothesis               = "^5"
 coverage                 = {extras = ["toml"], version = "^5"}
 pytest-cov               = "^2"
-sphinx                   = "^3"
-sphinx-autoapi           = "^1"
-sphinx-rtd-theme         = ">=0.5, <1.0"
+xdoctest                 = "^0.12, <1.0"
 mypy                     = ">=0.700, <1.0"
 flake8                   = "^3"
 flake8-docstrings        = "^1"
-black                    = "=19.10b0"
-isort                    = "^5"
-sphinx-autodoc-typehints = "^1"
-xdoctest                 = "^0.12, <1.0"
-hypothesis               = "^5"
 flake8-bandit            = "^2"
 flake8-bugbear           = "^20"
-tomlkit                  = ">=0.5, <1.0"
-tyrannosaurus            = ">=0.7, <1.0"
+sphinx                   = "^3"
+sphinx-autoapi           = "^1"
+sphinx-rtd-theme         = ">=0.5, <1.0"
 
 [tool.poetry.extras]
 # auto-filled from dev-deps
 dev     = [
-        "tyrannosaurus",
-        "pre-commit", "pytest", "coverage", "xdoctest", "hypothesis",
-        "sphinx", "sphinx-autodoc-typehints", "sphinx-autoapi",
-        "mypy",
-        "flake8", "flake8-docstrings",
-        "black", "isort",
-        "flake8-bandit", "flake8-bugbear"
+        "tomlkit", "tyrannosaurus",
+        "pre-commit", "pre-commit-hooks", "black", "isort",
+        "pytest", "hypothesis", "coverage", "pytest-cov", "xdoctest",
+        "mypy", "flake8", "flake8-docstrings", "flake8-bandit", "flake8-bugbear",
+        "sphinx",  "sphinx-autoapi", "sphinx-rtd-theme"
 ]
 
 
