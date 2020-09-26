@@ -10,7 +10,7 @@
 [![Travis](https://img.shields.io/travis/dmyersturnbull/tyrannosaurus?label=Travis)](https://travis-ci.org/dmyersturnbull/tyrannosaurus)
 [![Azure DevOps builds](https://img.shields.io/azure-devops/build/dmyersturnbull/0350c934-2512-4592-848e-9db46c63241a/1?label=Azure)](https://dev.azure.com/dmyersturnbull/tyrannosaurus/_build?definitionId=1&_a=summary)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5e3b38c9b9c418461dc3/maintainability)](https://codeclimate.com/github/dmyersturnbull/tyrannosaurus/maintainability)
-[![Coverage](https://coveralls.io/repos/github/dmyersturnbull/tyrannosaurus/badge.svg?branch=master)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=master)
+[![Coverage](https://coveralls.io/repos/github/dmyersturnbull/tyrannosaurus/badge.svg?branch=master&service=github)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=master)
 
 An opinionated, forwards-looking Python template for 2020.
 No setup.py, requirements.txt, or eggs.

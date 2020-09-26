@@ -12,7 +12,7 @@
 [![Travis](https://img.shields.io/travis/${user}/${project}?label=Travis)](https://travis-ci.org/${user}/${project})
 [![Azure DevOps builds](https://img.shields.io/azure-devops/build/${user}/<<key>>/<<defid>>?label=Azure)](https://dev.azure.com/${user}/${project}/_build?definitionId=1&_a=summary)
 [![Maintainability](https://api.codeclimate.com/v1/badges/<<apikey>>/maintainability)](https://codeclimate.com/github/${user}/${project}/maintainability)
-[![Coverage](https://coveralls.io/repos/github/${user}/${project}/badge.svg?branch=master)](https://coveralls.io/github/${user}/${project}?branch=master)
+[![Coverage](https://coveralls.io/repos/github/${user}/${project}/badge.svg?branch=master&service=github)](https://coveralls.io/github/${user}/${project}?branch=master)
 
 This project does the thing described by this sentence.
 
