@@ -12,7 +12,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.8.2"
+version = "0.8.3"
 description = "Opinionated Python template and metadata synchronizer for 2020."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
@@ -108,7 +108,7 @@ grayskull                = ">=0.8.1, <1.0"
 [tool.poetry.dev-dependencies]
 pre-commit               = "^2"
 pre-commit-hooks         = "^3"
-black                    = "=19.10b0"
+black                    = "=20.8b1"
 isort                    = "^5"
 pytest                   = "^6"
 coverage                 = {extras = ["toml"], version = "^5"}
@@ -122,7 +122,6 @@ sphinx-autoapi           = "^1"
 sphinx-rtd-theme         = ">=0.5, <1.0"
 
 [tool.poetry.extras]
-# auto-filled from dev-deps
 dev     = [
         "pre-commit", "pre-commit-hooks", "black", "isort",
         "pytest", "coverage", "pytest-cov",
