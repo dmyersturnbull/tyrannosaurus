@@ -4,7 +4,9 @@ description-file = "README.md"
 [build-system]
 # virtualenv 20.0.34 partly breaks pre-commit under conda
 # https://github.com/ContinuumIO/anaconda-issues/issues/12094
-requires = ["poetry>=1.1,<2", "virtualenv>=20.0,<20.0.34"]
+# Poetry uses pip and setuptools (although they're not included as dependencies)
+# We don't need to list wheel here, but setting a min vr can avoid generating inferior wheels
+requires = ["poetry>=1.1,<2", "virtualenv==20.0.33", "wheel>=0.36,<1.0"]
 build-backend = "poetry.masonry.api"
 
 
@@ -59,32 +61,31 @@ Download = "https://pypi.org/project/tyrannosaurus/"
 align = true
 
 [tool.tyrannosaurus.sources]
+metavm             = "'ubuntu-latest'"
+pymetaversion      = "'3.9'"
 pycompatversions   = "tool.poetry.dependencies"
 pytoxversions      = "tool.poetry.dependencies"
-pymetaversion      = "'3.9'"
-poetrymetaversion  = "'${latest}'"
-vmmetaversion      = "'ubuntu-latest'"
 status             = "'Development'"
 date               = "'${today}'"
 copyright          = "'Copyright 2020–2021'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
 devdeps            = "tool.poetry.dev-dependencies"
-linelength         = "tool.black.line-length"
-authors = [
-    "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
-]
-maintainers = "tool.tyrannosaurus.sources.authors"
-toxminversion      = "${leave}"
-flakesourceignore  = "'[W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293]'"
-flaketestignore    = "'[D100,D101,D102,D103,D104,S101,W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293]'"
-# flakedocignore is synced to tox.ini
-# The names beginning with D are also synced to [pydocstyle.ignore]
-flakedocignore     = "tool.tyrannosaurus.sources.flake8sourceignore"
-importorderstyle   = "'google'"
-docstringstyle     = "'google'"
 precommitvr        = "tool.poetry.dev-dependencies"
 precommitconfigvr  = "tool.poetry.dev-dependencies"
+linelength         = "tool.black.line-length"
+authors            = [
+    "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
+]
+maintainers        = "tool.tyrannosaurus.sources.authors"
+importorderstyle   = "'google'"
+docstringstyle     = "'google'"
+
+[tool.tyrannosaurus.sources.flake8skip]
+# 212 and 213 contradict; 203 and 204 contradict; D302 is not relevant in Py3
+# D107 isn't needed sometimes; and the rest are overly picky
+all   = "'W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293'"
+test  = "'D100,D101,D102,D103,D104,S101,W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293'"
 
 [tool.tyrannosuarus.paths]
 recipe             = "'recipes/${name}/meta.yaml'"
@@ -118,14 +119,15 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
 python                   = ">=3.8, <4"
-tomlkit                  = ">=0.7, <1.0"
-typer                    = ">=0.3, <1.0"
-requests                 = "^2"
-grayskull                = ">=0.8, <1.0"
+tomlkit                  = ">=0.7, <1"
+typer                    = ">=0.3, <1"
+requests                 = ">=2.24, <3"
+grayskull                = ">=0.8.4, <1"
 
 [tool.poetry.dev-dependencies]
 pre-commit               = ">=2.9, <3.0"
 pre-commit-hooks         = ">=3.4, <4.0"
+bandit                   = ">=1.7, <2.0"
 black                    = "=20.8b1"
 isort                    = "^5"
 pytest                   = "^6"
@@ -133,18 +135,18 @@ coverage                 = {extras = ["toml"], version = "^5"}
 pytest-cov               = "^2"
 flake8                   = "^3"
 flake8-docstrings        = "^1"
-flake8-bandit            = "^2"
 flake8-bugbear           = "^20"
 sphinx                   = "^3"
 sphinx-autoapi           = "^1"
 sphinx-rtd-theme         = ">=0.5, <1.0"
 
 [tool.poetry.extras]
-dev     = [
-        "pre-commit", "pre-commit-hooks", "black", "isort",
-        "pytest", "coverage", "pytest-cov",
-        "flake8", "flake8-docstrings", "flake8-bandit", "flake8-bugbear",
-        "sphinx", "sphinx-autoapi"
+dev = [
+    "pre-commit", "pre-commit-hooks",
+    "black", "isort", "bandit",
+    "pytest", "coverage", "pytest-cov",
+    "flake8", "flake8-docstrings", "flake8-bugbear",
+    "sphinx", "sphinx-autoapi"
 ]
 
 
@@ -168,12 +170,21 @@ target-version = ["py38"]
 [tool.isort]
 line_length = 100
 
-[pycodestyle]
+[mypy]
+check_untyped_defs = true
+strict_optional = true
+
+# ------- THE FOLLOWING ARE NOT USED BY THEIR RESPECTIVE TOOLS  --------
+# --- There are open discussions about supporting pyproject for each ---
+# https://github.com/python/mypy/issues/5205
+# https://github.com/PyCQA/bandit/issues/606
+# https://github.com/PyCQA/pycodestyle/issues/813
+# https://github.com/PyCQA/pydocstyle/issues/447
+
+[tool.bandit]
+
+[tool.pycodestyle]
 max-line-length = 100
 statistics = true
 
-[pydocstyle]
-# 212 and 213 contradict; 203 and 204 contradict; D302 is not relevant in Py3
-# D107 isn't needed sometimes
-# and the rest are just too picky
-ignore = ["D107", "D200", "D203", "D205", "D212", "D302", "D400", "D403", "D409", "D411"]
+[tool.pydocstyle]

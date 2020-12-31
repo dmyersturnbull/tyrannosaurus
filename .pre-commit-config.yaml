@@ -8,7 +8,7 @@ repos:
       # e.g. excluding recipes/*.yml, if they exist
       # - id: check-useless-excludes
   - repo: 'https://github.com/psf/black'
-    rev: stable
+    rev: 20.8b1
     hooks:
       - id: black
   - repo: 'https://github.com/pre-commit/pre-commit-hooks'

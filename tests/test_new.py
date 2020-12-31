@@ -10,7 +10,16 @@ from tyrannosaurus.new import New
 
 
 class TestNew:
-    def test_new(self):
+    def test_new_newest(self):
+        self._test_it(tyranno_vr=None)
+
+    def test_new_version(self):
+        self._test_it(tyranno_vr="0.8.0")
+
+    def test_new_track(self):
+        self._test_it(should_track=True)
+
+    def _test_it(self, should_track=False, tyranno_vr=None):
         project = "tempted2temp"
         path = (
             Path(tempfile.gettempdir())
@@ -19,14 +28,15 @@ class TestNew:
             / project
         )
         New(
-            project,
-            "apache2",
-            "user",
-            ["Author 1"],
-            "A description",
-            ["some", "keywords"],
-            "0.1.0",
-            newest=True,
+            name=project,
+            license_name="apache2",
+            username="user",
+            authors=["Author 1"],
+            description="A description",
+            keywords=["some", "keywords"],
+            version="0.1.0",
+            should_track=should_track,
+            tyranno_vr=tyranno_vr,
         ).create(path)
         assert (path / "pyproject.toml").exists()
         context = Context(path, dry_run=True)

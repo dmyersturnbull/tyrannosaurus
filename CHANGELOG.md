@@ -9,7 +9,9 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 
 ### Changed
 - Moved build to Python 3.9 (internal only)
-- Bumped a few dependencies
+- Bumped and simplified a few dependencies
+- Moved pre-commit run commands in tox to after poetry install, so versions are enforced
+- Replaced flake8-bandit with `bandit -r .` call (the former is abandoned)
 - Made compatible with Github’s [master branch renaming](https://github.com/github/renaming)
   (Because this external change broke backwards compatibility for newly generated projects,
   I consider this a fix, which won’t trigger a minor version bump)
@@ -17,9 +19,9 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 ### Added
 - A `--track` flag in `tyrannosaurus new` (to simplify the readme’s example)
 - Some currently unused items in [tool.tyrannosaurus.sources]
+- Integration with [https://github.com/pyupio/safety](Safety)
 
 ### Fixed
-- Simplified dependencies
 - Cleaned up code and docs
 - Added a copyright notice for Github CodeQL
 - Bad editorconfig settings for yaml and json

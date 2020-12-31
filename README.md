@@ -23,6 +23,9 @@ see [this post](https://dmyersturnbull.github.io/#-the-python-build-landscape)
 I wrote this after making nearly 50 commits to configure
 readthedocs, PyPi, Poetry, Tox, Docker, Travis, and Github actions.
 This avoids that struggle for 99% of projects.
+
+##### Basic usage:
+
 To generate a new project, run:
 
 ```bash
@@ -31,6 +34,9 @@ tyrannosaurus new projectname --user gituserororg --track
 ```
 
 Modify the generated files (especially `pyproject.toml`) as you see fit.
+
+##### Main behavior (features):
+
 Here’s how your new project will behave, by default:
 
 - When you _commit_, your code is linted.
@@ -51,6 +57,23 @@ These can be modified by editing `.github/labels.json`, `.github/ISSUE_TEMPLATE`
 Integration is also provided for Travis, Azure, Anaconda/Conda, and a few other tools.
 (Azure may take a little extra to get working.)
 
+
+##### Integration list:
+
+  - Dependency management with Poetry
+  - Continuous integration with Github Actions, Travis, or Azure Pipelines
+  - Continuous deployment to PyPi and Dockerhub
+  - Documentation sent to readthedocs
+  - API docs with sphinx-autoapi
+  - Test automation with Tox
+  - Coverage and code quality with Coveralls and CodeClimate
+  - Code linting with Pre-Commit, Black, isort, and Prettifier
+  - Security analysis with Bandit
+  - Conda-Forge recipes and environment YML files
+  - IDE hints via EditorConfig
+  - GitHub labels, issue templates, pull request templates, and contributing guide
+  - codemeta.json and CITATION.cff
+  - [ChangeLog](https://keepachangelog.com) and [Semantic Versioning](https://semver.org)
 
 ##### Synchronization:
 
@@ -77,6 +100,18 @@ Then just type `tox` to build artifacts and run tests.
 To create an initial Anaconda recipe or environment file, run `tyrannosaurus recipe` or `tyrannosaurus env`.
 
 **[See the docs](https://tyrannosaurus.readthedocs.io/en/stable/)** for more information.
+
+
+##### Similar tools:
+
+- [hypermodern-python](https://github.com/cjolowicz/hypermodern-python), a Python template that is similarly modern.
+  It looks solid but has fewer integrations.
+  A few choices were different, such as the use of [Nox](https://github.com/theacodes/nox).
+  As of 2020-12, the last update was in 2020-04.
+- [cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)
+- [cookiecutter](https://github.com/cookiecutter/cookiecutter), which still uses setup.py
+- [python-blueprint](https://github.com/johnthagen/python-blueprint), which is useful to look through
+  but still uses setup.py
 
 
 ##### Contributing:

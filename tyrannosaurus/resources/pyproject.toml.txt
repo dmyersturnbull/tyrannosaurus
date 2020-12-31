@@ -4,7 +4,9 @@ description-file = "README.md"
 [build-system]
 # virtualenv 20.0.34 partly breaks pre-commit under conda
 # https://github.com/ContinuumIO/anaconda-issues/issues/12094
-requires = ["poetry>=1.1,<2", "virtualenv>=20.0,<20.0.34"]
+# Poetry uses pip and setuptools (although they're not included as dependencies)
+# We don't need to list wheel here, but setting a min vr can avoid generating inferior wheels
+requires = ["poetry>=1.1,<2", "virtualenv==20.0.33", "wheel>=0.36,<1.0"]
 build-backend = "poetry.masonry.api"
 
 
@@ -47,6 +49,7 @@ include = [
 ]
 
 [tool.poetry.urls]
+# 'CI', 'Issues', and 'Download' seem to have special meanings; they get icons on PyPi
 CI = "https://github.com/${user}/${project}/actions"
 Issues = "https://github.com/${user}/${project}/issues"
 Download = "https://pypi.org/project/${pkg}/"
@@ -71,6 +74,7 @@ tomlkit                  = ">=0.7, <1.0"
 tyrannosaurus            = ">=0.8, <1.0"
 pre-commit               = ">=2.9, <3.0"
 pre-commit-hooks         = ">=3.4, <4.0"
+bandit                   = ">=1.7, <2.0"
 black                    = "=20.8b1"
 isort                    = "^5"
 pytest                   = "^6"
@@ -81,7 +85,7 @@ xdoctest                 = ">=0.15, <1.0"
 mypy                     = ">=0.790, <1.0"
 flake8                   = "^3"
 flake8-docstrings        = "^1"
-flake8-bandit            = "^2"
+# note: flake8-bandit appears to be unmaintained
 flake8-bugbear           = "^20"
 sphinx                   = "^3"
 sphinx-autoapi           = "^1"
@@ -92,8 +96,8 @@ sphinx-rtd-theme         = ">=0.5, <1.0"
 dev     = [
         "tomlkit", "tyrannosaurus",
         "pre-commit", "pre-commit-hooks", "black", "isort",
-        "pytest", "hypothesis", "coverage", "pytest-cov", "xdoctest",
-        "mypy", "flake8", "flake8-docstrings", "flake8-bandit", "flake8-bugbear",
+        "pytest", "hypothesis", "coverage", "pytest-cov", "xdoctest", "bandit",
+        "mypy", "flake8", "flake8-docstrings", "flake8-bugbear",
         "sphinx",  "sphinx-autoapi", "sphinx-rtd-theme"
 ]
 
@@ -123,32 +127,19 @@ align    = true
 # You can alternatively specify exact versions, like '[3.8]' or '[3.8.5,3.9.1]'
 # (Don't forget the single quote marks in that example.)
 # pymetaversion is only used when building; e.g. in readthedocs, Docker, and Github workflows
-# Good choices are ${latest} or a version that you know works, like '3.9.1'
 # (Note that this last one is not a list -- use single quotes but not brackets.)
 pycompatversions   = "tool.poetry.dependencies"
 pytoxversions      = "tool.poetry.dependencies"
-pymetaversion      = "${latest}"
+pymetaversion      = "'3.9'"
 
 # --- DEVELOPMENT PARAMS ---
-# Some of these are copied to tox.ini
-# You can set to ${leave} to have targets for these left alone.
-# (That's equivalent to commenting out the line, but it's more clear.)
-toxminversion      = "${leave}"
 # virtual machine info used in Dockerfile and Github workflows
-poetrymetaversion  = "'${latest}'"
-vmmetaversion      = "'ubuntu-latest'"
+metavm             = "'ubuntu-latest'"
 # Development dependencies
 devdeps            = "tool.poetry.dev-dependencies"
-precommitvr        = "tool.poetry.dev-dependencies"
-precommitconfigvr  = "tool.poetry.dev-dependencies"
-
-# --- CODING STYLE ---
-linelength         = "tool.black.line-length"
-flakesourceignore  = "'[W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293]'"
-flaketestignore    = "'[D100,D101,D102,D103,D104,S101,W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293]'"
-flakedocignore     = "tool.tyrannosaurus.sources.flake8sourceignore"
-importorderstyle   = "'google'"
-docstringstyle     = "'google'"
+# Pick the latest versions compatible with the version ranges:
+#precommitvr        = "tool.poetry.dev-dependencies"
+#precommitconfigvr  = "tool.poetry.dev-dependencies"
 
 # --- PROJECT INFO ---
 # These are used in dunders like __copyright__, docs/conf.py, and PyPi classifiers (like Development Status)
@@ -167,13 +158,35 @@ release            = "tool.poetry.version"
 #authors = [
 #    "<<Author Name>> <github:<<username>>,orcid:<<id>>>"
 #]
-# Ex:
-# authors = [
-#contributors = [
-#
-#]
+authors = [ ]
+contributors = [ ]
 # Turn this into a literal list if it is different than the authors
 maintainers = "tool.tyrannosaurus.sources.authors"
+
+# --- CODING STYLE ---
+linelength         = "tool.black.line-length"
+importorderstyle   = "'google'"
+docstringstyle     = "'google'"
+
+
+# --- CODING STYLE IN PEP8 ---
+[tool.tyrannosaurus.sources.flake8skip]
+# These affect flake8 commands as directed in tox.ini
+# 'all' is copied to tox.ini [flake8.ignore]; these are always ignored
+# Any other keys refer to the directory that flake8 is called on
+# Ex, `${pkg} = "'D100'"` adds D100 in `poetry run flake8 ${pkg} --ignore=D100`
+# (Note 1: flake8's --ignore overrides the [flake8.ignore], so Tyrannosaurus appends the "all" values.)
+# (Note 2: Keys referring to directory names that tox.ini doesn't call flake8 on are ignored.)
+# (Note 3: [tool.pycodestyle] and [tool.pydocstyle] don't need these values because flake8 handles it.)
+# You probably want some choices in 'all'
+# Then add some more to 'test' if you're less concerned with your test file conventions
+# 212 and 213 contradict; 203 and 204 contradict; D302 is not relevant in Py3;
+# D107 isn't needed sometimes; and the rest just seem too picky
+all    = "'W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293'"
+#${pkg}  = ""
+#doc  = ""
+test = "'D100,D101,D102,D103,D104,S101,W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293'"
+
 
 [tool.tyrannosuarus.paths]
 # These specify where to put certain files
@@ -232,12 +245,18 @@ line_length = 100
 check_untyped_defs = true
 strict_optional = true
 
-[pycodestyle]
+
+# ------- THE FOLLOWING ARE NOT USED BY THEIR RESPECTIVE TOOLS  --------
+# --- There are open discussions about supporting pyproject for each ---
+# https://github.com/python/mypy/issues/5205
+# https://github.com/PyCQA/bandit/issues/606
+# https://github.com/PyCQA/pycodestyle/issues/813
+# https://github.com/PyCQA/pydocstyle/issues/447
+
+[tool.bandit]
+
+[tool.pycodestyle]
 max-line-length = 100
 statistics = true
 
-[pydocstyle]
-# 212 and 213 contradict; 203 and 204 contradict; D302 is not relevant in Py3
-# D107 isn't needed sometimes
-# and the rest are just too picky
-ignore = ["D107", "D200", "D203", "D205", "D212", "D302", "D400", "D403", "D409", "D411"]
+[tool.pydocstyle]

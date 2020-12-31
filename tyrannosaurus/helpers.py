@@ -9,7 +9,7 @@ import logging
 import os
 import re
 from pathlib import Path
-from subprocess import SubprocessError, check_output
+from subprocess import SubprocessError, check_output  # nosec
 from typing import Mapping, Optional, Sequence, Union
 from typing import Tuple as Tup
 
@@ -82,7 +82,10 @@ class License(enum.Enum):
     mit = "mit"
 
     def full_name(self) -> str:
-        return dict(apache2="Apache-2.0", mit="MIT",).get(self.name, "")
+        return dict(
+            apache2="Apache-2.0",
+            mit="MIT",
+        ).get(self.name, "")
 
 
 class _Env:
@@ -92,7 +95,7 @@ class _Env:
 
     def _git(self, key: str, name: str) -> str:
         try:
-            result = check_output(["git", "config", key], encoding="utf8").strip()
+            result = check_output(["git", "config", key], encoding="utf8").strip()  # nosec
         except SubprocessError:
             logger.error("Failed calling git")
             return f"<<{name}>>"
@@ -147,7 +150,8 @@ class PyPiHelper:
                     raise LookupError(f"Status code {r.status_code} from pypi for package {name}")
         except OSError:
             logger.error(
-                f"Failed fetching {name} from pypi.org.", exc_info=True,
+                f"Failed fetching {name} from pypi.org.",
+                exc_info=True,
             )
             raise
         matches = {m.group(1).strip() for m in pat.finditer(r.content.decode(encoding="utf8"))}

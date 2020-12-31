@@ -5,12 +5,12 @@ import os
 import shutil
 import stat
 from pathlib import Path
-from subprocess import CalledProcessError, SubprocessError, check_call
+from subprocess import CalledProcessError, check_call  # nosec
 from typing import Sequence, Union, Optional, List
 
 import typer
 
-from tyrannosaurus import __version__ as tyranno_version
+from tyrannosaurus import __version__ as global_tyranno_version
 from tyrannosaurus.context import LiteralParser
 from tyrannosaurus.helpers import License
 
@@ -34,8 +34,8 @@ class New:
         description: str,
         keywords: Sequence[str],
         version: str,
-        newest: bool,
         should_track: bool,
+        tyranno_vr: Optional[str] = global_tyranno_version,
     ):
         if isinstance(license_name, str):
             license_name = License[license_name.lower()]
@@ -47,8 +47,8 @@ class New:
         self.description = description
         self.keywords = keywords
         self.version = version
-        self.newest = newest
         self.should_track = should_track
+        self.tyranno_vr = tyranno_vr
         self.repo_to_track = f"https://github.com/{username}/{name.lower()}.git"
 
     def create(self, path: Path) -> None:
@@ -99,7 +99,10 @@ class New:
                 )
                 dest = path / Path(*resource.split("@"))
                 if dest.name.startswith("-"):
-                    dest = Path(*reversed(dest.parents), "." + dest.name[1:],)
+                    dest = Path(
+                        *reversed(dest.parents),
+                        "." + dest.name[1:],
+                    )
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 text = parser.parse(source.read_text(encoding="utf8"))
                 dest.write_text(text, encoding="utf8")
@@ -135,18 +138,20 @@ class New:
     def _checkout(self, path: Path) -> None:
         if path.exists():
             raise FileExistsError(f"Path {path} already exists")
-        path.parent.mkdir(exist_ok=True, parents=True)
-        logger.info("Running git clone...")
-        self._call(
-            ["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", str(path)]
-        )
-        if not self.newest:
+        try:
+            path.parent.mkdir(exist_ok=True, parents=True)
+            logger.info("Running git clone...")
             self._call(
-                ["git", "checkout", f"tags/v{tyranno_version}"],
-                cwd=path,
-                fail=VersionNotFoundError(f"Git tag 'v{tyranno_version}' was not found."),
+                ["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", str(path)]
             )
-        self._murder_evil_path_for_sure(path / ".git")
+            if self.tyranno_vr is not None:
+                self._call(
+                    ["git", "checkout", f"tags/v{self.tyranno_vr}"],
+                    cwd=path,
+                    fail=VersionNotFoundError(f"Git tag 'v{self.tyranno_vr}' was not found."),
+                )
+        finally:
+            self._murder_evil_path_for_sure(path / ".git")
 
     def _call(
         self,
@@ -157,7 +162,7 @@ class New:
     ) -> bool:
         kwargs = {} if cwd is None else dict(cwd=str(cwd))
         try:
-            check_call(cmd, **kwargs)
+            check_call(cmd, **kwargs)  # nosec
         except CalledProcessError:
             logger.debug(f"Failed calling {' '.join(cmd)} in {cwd}", exc_info=True)
             if fail is not None and isinstance(fail, BaseException):

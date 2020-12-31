@@ -33,4 +33,4 @@ if __name__ == "__main__":  # pragma: no cover
     if metadata is not None:
         print(f"{pkg} (v{metadata['version']})")
     else:
-        print("Unknown project info")
+        print(f"Unknown project info for {pkg}")

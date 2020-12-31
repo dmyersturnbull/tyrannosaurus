@@ -7,7 +7,7 @@ from __future__ import annotations
 import logging
 import os
 from pathlib import Path
-from subprocess import check_call
+from subprocess import check_call  # nosec
 from typing import Optional, Sequence
 
 import typer
@@ -144,7 +144,10 @@ class CliCommands:
     @staticmethod
     @cli.command()
     def env(
-        path: Path = _ENV_YAML, name: Optional[str] = None, dev: bool = False, extras: bool = False,
+        path: Path = _ENV_YAML,
+        name: Optional[str] = None,
+        dev: bool = False,
+        extras: bool = False,
     ) -> None:  # pragma: no cover
         """
         Generates an Anaconda environment file.
@@ -271,7 +274,7 @@ class CliCommands:
         if not dry:
             for cmd in cmds:
                 logger.info("Running: " + cmd)
-                check_call(cmd.split(" "))
+                check_call(cmd.split(" "))  # nosec
         return cmds
 
 
