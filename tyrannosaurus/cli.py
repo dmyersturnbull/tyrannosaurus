@@ -81,6 +81,7 @@ class CliCommands:
         keywords: str = "",
         version: str = "0.1.0",
         newest: bool = False,
+        track: bool = False,
         prompt: bool = False,
     ) -> None:  # pragma: no cover
         """
@@ -94,6 +95,7 @@ class CliCommands:
             keywords: A list of <= 5 keywords, comma-separated
             version: A semantic version
             newest: Use the most recent version of Tyrannosaurus code from Github
+            track: Track a remote repo (should be an empty repo; otherwise there will be a merge conflict)
             prompt: Prompt for info
         """
         if prompt:
@@ -119,6 +121,7 @@ class CliCommands:
             keywords=keywords,
             version=version,
             newest=newest,
+            should_track=track,
         ).create(path)
         typer.echo(f"Done! Created a new repository under {name}")
         typer.echo(

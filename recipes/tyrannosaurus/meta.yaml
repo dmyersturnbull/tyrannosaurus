@@ -1,5 +1,5 @@
 {% set name = "tyrannosaurus" %}
-{% set version = "0.1.0" %}
+{% set version = "0.8.1" %}
 
 
 package:
@@ -20,12 +20,12 @@ build:
 requirements:
   host:
     - pip
-    - python >=3.6,<4.0
+    - python >=3.8,<4.0
   run:
     - importlib-metadata >=1.6,<2.0
-    - python >=3.6,<4.0
-    - tomlkit >=0.6.0,<0.7.0
-    - typer >=0.2.1,<0.3.0
+    - python >=3.8,<4.0
+    - tomlkit >=0.7.0,<1.0.0
+    - typer >=0.3.0,<1.0.0
 
 test:
   imports:
@@ -38,7 +38,7 @@ test:
 
 about:
   home: https://pypi.org/project/tyrannosaurus/
-  summary: Opinionated 2020 Python template and metadata synchronizer.
+  summary: Opinionated 2021 Python template and metadata synchronizer.
   license: Apache-2.0
   license_file: LICENSE.txt
 

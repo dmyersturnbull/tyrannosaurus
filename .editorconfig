@@ -1,10 +1,21 @@
 # Check http://editorconfig.org for more information
+# Useful: https://ukupat.github.io/tabs-or-spaces/
 root = true
 
 [*]
-charset = utf-8
-trim_trailing_whitespace = true
 end_of_line = lf
-indent_style = space
+charset = utf-8
 indent_size = 4
+trim_trailing_whitespace = true
 insert_final_newline = true
+indent_style = space
+
+[*.{yml,yaml,json,scala,coffee,css,js,sh,sql,tex,xml,html,htm,hs,ml,pp,R,rb}]
+indent_size = 2
+
+[*.md]
+indent_size = 2
+trim_trailing_whitespace = false
+
+[*.{go,lua,vala,v}]
+indent_style = tab

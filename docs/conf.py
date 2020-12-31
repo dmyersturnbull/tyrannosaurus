@@ -31,7 +31,7 @@ project = find("name")
 version = find("version")
 release = find("version")
 author = ", ".join(find("authors"))
-copyright = "Copyright (2016)"
+copyright = "Copyright (2020–2021)"
 
 
 extensions = ["autoapi.extension", "sphinx.ext.napoleon", "sphinx_rtd_theme"]

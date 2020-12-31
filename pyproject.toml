@@ -2,7 +2,9 @@
 description-file = "README.md"
 
 [build-system]
-requires = ["poetry>=1,<2", "coverage[toml]>=5,<6"]
+# virtualenv 20.0.34 partly breaks pre-commit under conda
+# https://github.com/ContinuumIO/anaconda-issues/issues/12094
+requires = ["poetry>=1.1,<2", "virtualenv>=20.0,<20.0.34"]
 build-backend = "poetry.masonry.api"
 
 
@@ -12,8 +14,8 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.8.3"
-description = "Opinionated Python template and metadata synchronizer for 2020."
+version = "0.8.1"
+description = "Opinionated Python template and metadata synchronizer for 2021."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
 license = "Apache-2.0"
@@ -28,6 +30,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
 	"Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Environment :: Console",
@@ -56,18 +59,32 @@ Download = "https://pypi.org/project/tyrannosaurus/"
 align = true
 
 [tool.tyrannosaurus.sources]
+pycompatversions   = "tool.poetry.dependencies"
+pytoxversions      = "tool.poetry.dependencies"
+pymetaversion      = "'3.9'"
+poetrymetaversion  = "'${latest}'"
+vmmetaversion      = "'ubuntu-latest'"
 status             = "'Development'"
 date               = "'${today}'"
-copyright          = "'Copyright 2020'"
+copyright          = "'Copyright 2020–2021'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
-pyversions         = "tool.poetry.dependencies"
 devdeps            = "tool.poetry.dev-dependencies"
 linelength         = "tool.black.line-length"
 authors = [
     "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
 ]
 maintainers = "tool.tyrannosaurus.sources.authors"
+toxminversion      = "${leave}"
+flakesourceignore  = "'[W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293]'"
+flaketestignore    = "'[D100,D101,D102,D103,D104,S101,W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293]'"
+# flakedocignore is synced to tox.ini
+# The names beginning with D are also synced to [pydocstyle.ignore]
+flakedocignore     = "tool.tyrannosaurus.sources.flake8sourceignore"
+importorderstyle   = "'google'"
+docstringstyle     = "'google'"
+precommitvr        = "tool.poetry.dev-dependencies"
+precommitconfigvr  = "tool.poetry.dev-dependencies"
 
 [tool.tyrannosuarus.paths]
 recipe             = "'recipes/${name}/meta.yaml'"
@@ -76,6 +93,7 @@ environment        = "'environment.yml'"
 [tool.tyrannosaurus.targets]
 pyproject    = true
 init         = true
+precommit    = true
 tox          = true
 docs         = true
 recipes      = true
@@ -100,14 +118,14 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
 python                   = ">=3.8, <4"
-tomlkit                  = ">=0.5, <1.0"
+tomlkit                  = ">=0.7, <1.0"
 typer                    = ">=0.3, <1.0"
 requests                 = "^2"
-grayskull                = ">=0.8.1, <1.0"
+grayskull                = ">=0.8, <1.0"
 
 [tool.poetry.dev-dependencies]
-pre-commit               = "^2"
-pre-commit-hooks         = "^3"
+pre-commit               = ">=2.9, <3.0"
+pre-commit-hooks         = ">=3.4, <4.0"
 black                    = "=20.8b1"
 isort                    = "^5"
 pytest                   = "^6"

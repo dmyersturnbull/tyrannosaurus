@@ -12,9 +12,9 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '<<id>>'
   imageRepository: '${project}'
-  containerRegistry: '${user}.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  containerRegistry: '${username}.azurecr.io'
   tag: '$(Build.BuildId)'
+  redirect disable: false
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -33,7 +33,6 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)

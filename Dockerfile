@@ -1,6 +1,6 @@
 # https://stackoverflow.com/questions/53835198/integrating-python-poetry-with-docker/54763270#54763270
 
-FROM python:3.8
+FROM python:3.9
 
 ARG YOUR_ENV
 
@@ -11,7 +11,7 @@ ENV YOUR_ENV=${YOUR_ENV} \
   PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100 \
-  POETRY_VERSION=1.0.5
+  POETRY_VERSION=1.1.4
 
 # System deps:
 RUN pip install "poetry==$POETRY_VERSION"

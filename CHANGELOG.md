@@ -5,11 +5,24 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
-## [0.8.x] - 2020-09-01
+## [0.8.1] - 2021-01-01
+
+### Changed
+- Moved build to Python 3.9 (internal only)
+- Bumped a few dependencies
+- Made compatible with Github’s [master branch renaming](https://github.com/github/renaming)
+  (Because this external change broke backwards compatibility for newly generated projects,
+  I consider this a fix, which won’t trigger a minor version bump)
+
+### Added
+- A `--track` flag in `tyrannosaurus new` (to simplify the readme’s example)
+- Some currently unused items in [tool.tyrannosaurus.sources]
 
 ### Fixed
 - Simplified dependencies
 - Cleaned up code and docs
+- Added a copyright notice for Github CodeQL
+- Bad editorconfig settings for yaml and json
 
 
 ## [0.8.0] - 2020-08-28
@@ -19,7 +32,7 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 
 ### Fixed
 - Coveralls integration
-- Bug in which some paths weren't deleted by `clean`
+- Bug in which some paths weren’t deleted by `clean`
 
 
 ## [0.7.0] - 2020-08-26

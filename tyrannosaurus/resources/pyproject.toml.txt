@@ -2,7 +2,9 @@
 description-file = "README.md"
 
 [build-system]
-requires = ["poetry>=1.0", "coverage[toml]"]
+# virtualenv 20.0.34 partly breaks pre-commit under conda
+# https://github.com/ContinuumIO/anaconda-issues/issues/12094
+requires = ["poetry>=1.1,<2", "virtualenv>=20.0,<20.0.34"]
 build-backend = "poetry.masonry.api"
 
 
@@ -32,6 +34,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
 	"Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Environment :: Console",
@@ -66,16 +69,16 @@ typer                    = ">=0.3, <1.0"
 # TODO Remove build dependencies you don't want (like xdoctest, perhaps)
 tomlkit                  = ">=0.7, <1.0"
 tyrannosaurus            = ">=0.8, <1.0"
-pre-commit               = "^2"
-pre-commit-hooks         = "^3"
-black                    = "=19.10b0"
+pre-commit               = ">=2.9, <3.0"
+pre-commit-hooks         = ">=3.4, <4.0"
+black                    = "=20.8b1"
 isort                    = "^5"
 pytest                   = "^6"
 hypothesis               = "^5"
 coverage                 = {extras = ["toml"], version = "^5"}
 pytest-cov               = "^2"
-xdoctest                 = "^0.12, <1.0"
-mypy                     = ">=0.700, <1.0"
+xdoctest                 = ">=0.15, <1.0"
+mypy                     = ">=0.790, <1.0"
 flake8                   = "^3"
 flake8-docstrings        = "^1"
 flake8-bandit            = "^2"
@@ -103,40 +106,93 @@ dev     = [
 align    = true
 
 [tool.tyrannosaurus.sources]
-# use a literal value ('') or refer to a pyproject setting
+# These tell Tyrannosaurus where to get information to copy
+# If a value is not listed here, it won't be copied
+# Everything is either:
+# 1. A literal value, surrounded with single quotes (e.g. 'py38')
+# 2. A literal list, comma-separated (e.g. '[py38,py39]')
+# 3. A reference to a pyproject setting (e.g. tool.poetry.version)
+# 4. A value or list containing a special variable (e.g. 'Project J, copyright ${today.year}')
+
+# --- VERSIONS ---
+# These control different aspects of Python versions
+# pycompatversions says what Python versions are compatible
+# tool.poetry.dependencies is almost definitely the best source for this
+# pytoxversions dictates what's actually used to test
+# tool.poetry.dependencies will choose all of the compatible major versions
+# You can alternatively specify exact versions, like '[3.8]' or '[3.8.5,3.9.1]'
+# (Don't forget the single quote marks in that example.)
+# pymetaversion is only used when building; e.g. in readthedocs, Docker, and Github workflows
+# Good choices are ${latest} or a version that you know works, like '3.9.1'
+# (Note that this last one is not a list -- use single quotes but not brackets.)
+pycompatversions   = "tool.poetry.dependencies"
+pytoxversions      = "tool.poetry.dependencies"
+pymetaversion      = "${latest}"
+
+# --- DEVELOPMENT PARAMS ---
+# Some of these are copied to tox.ini
+# You can set to ${leave} to have targets for these left alone.
+# (That's equivalent to commenting out the line, but it's more clear.)
+toxminversion      = "${leave}"
+# virtual machine info used in Dockerfile and Github workflows
+poetrymetaversion  = "'${latest}'"
+vmmetaversion      = "'ubuntu-latest'"
+# Development dependencies
+devdeps            = "tool.poetry.dev-dependencies"
+precommitvr        = "tool.poetry.dev-dependencies"
+precommitconfigvr  = "tool.poetry.dev-dependencies"
+
+# --- CODING STYLE ---
+linelength         = "tool.black.line-length"
+flakesourceignore  = "'[W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293]'"
+flaketestignore    = "'[D100,D101,D102,D103,D104,S101,W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293]'"
+flakedocignore     = "tool.tyrannosaurus.sources.flake8sourceignore"
+importorderstyle   = "'google'"
+docstringstyle     = "'google'"
+
+# --- PROJECT INFO ---
+# These are used in dunders like __copyright__, docs/conf.py, and PyPi classifiers (like Development Status)
 # ${today} is the date you run it at, and ${now} is the datetime
 status             = "'Development'"
 date               = "'${today}'"
 copyright          = "'Copyright ${today.year}'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
-pyversions         = "tool.poetry.dependencies"
-devdeps            = "tool.poetry.dev-dependencies"
-linelength         = "tool.black.line-length"
-# TODO Fill in authors, contributors, and maintainers
-# Can be literal lists or pyproject setting references
-# Use this syntax: "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
-# You should include Github usernames and Orcid IDs if they're available
-# But they're not required
-authors = [
-    "<<Author Name>> <github:<<username>>,orcid:<<id>>>"
-]
-contributors = [
 
-]
+# --- AUTHOR INFO ---
+# TODO Fill in authors, contributors, and maintainers
+# Use this syntax: "Person Name <id:value,[id:value, [...]]>"
+# Specifying github usernames is recommended
+# ORCID IDs can also be referenced
+#authors = [
+#    "<<Author Name>> <github:<<username>>,orcid:<<id>>>"
+#]
+# Ex:
+# authors = [
+#contributors = [
+#
+#]
+# Turn this into a literal list if it is different than the authors
 maintainers = "tool.tyrannosaurus.sources.authors"
 
 [tool.tyrannosuarus.paths]
-recipe             = "'recipes/${project}/meta.yaml'"
-environment        = "'environment.yml'"
+# These specify where to put certain files
+# If they're left blank, the defaults will be used
+# The syntax is the same as for tool.tyrannosaurus.sources
+#recipe             = "'recipes/${project}/meta.yaml'"
+#environment        = "'environment.yml'"
 
 [tool.tyrannosaurus.targets]
-# these are file and directory names, without filename extensions
-# they will only be synced if they exist; never created
-# to get a recipe and anaconda env, run 'tyrannosaurus recipe' and 'tyrannosaurus env'
+# This section tells Tyrannosaurus what to sync to.
+# These are file and directory names, without filename extensions.
+# Removing a line is the same as setting it to false
+# They will only be synced if they exist; never created
+# To get a recipe and anaconda env, run 'tyrannosaurus recipe' and 'tyrannosaurus env'
+# Choices are only true or false
 pyproject    = true
 init         = true
 tox          = true
+precommit    = true
 docs         = true
 recipes      = true
 license      = true
@@ -166,6 +222,7 @@ show_missing = true
 
 [tool.black]
 line-length = 100
+# As of December 2020, black doesn't accept py39
 target-version = ["py38"]
 
 [tool.isort]

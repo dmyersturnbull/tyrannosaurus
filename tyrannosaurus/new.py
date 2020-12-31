@@ -5,8 +5,8 @@ import os
 import shutil
 import stat
 from pathlib import Path
-from subprocess import CalledProcessError, check_call
-from typing import Sequence, Union
+from subprocess import CalledProcessError, SubprocessError, check_call
+from typing import Sequence, Union, Optional, List
 
 import typer
 
@@ -35,6 +35,7 @@ class New:
         keywords: Sequence[str],
         version: str,
         newest: bool,
+        should_track: bool,
     ):
         if isinstance(license_name, str):
             license_name = License[license_name.lower()]
@@ -47,6 +48,8 @@ class New:
         self.keywords = keywords
         self.version = version
         self.newest = newest
+        self.should_track = should_track
+        self.repo_to_track = f"https://github.com/{username}/{name.lower()}.git"
 
     def create(self, path: Path) -> None:
         self._checkout(Path(str(path).lower()))
@@ -105,21 +108,68 @@ class New:
         Path(path / "recipes" / self.pkg_name).mkdir(parents=True)
         (path / "tyrannosaurus" / "__init__.py").rename(Path(path / self.pkg_name / "__init__.py"))
         shutil.rmtree(str(path / "tyrannosaurus"))
+        if self.should_track:
+            self._track(path)
 
-    def _checkout(self, path: Path):
+    def _track(self, path: Path) -> None:
+        is_initialized = self._call(
+            ["git", "init"], cwd=path, fail="Failed calling git init. Giving up."
+        )
+        if is_initialized:
+            self._call(
+                ["pre-commit", "install"], cwd=path, fail="Failed calling pre-commit install."
+            )
+            is_tracked = self._call(
+                ["git", "remote", "add", "origin", self.repo_to_track],
+                cwd=path,
+                fail=f"Failed tracking {self.repo_to_track}",
+            )
+            if is_tracked:
+                self._call(
+                    ["git", "branch", "--set-upstream-to=origin/main", "main"],
+                    cwd=path,
+                    fail=f"Failed setting upstream to {self.repo_to_track}",
+                )
+        logger.info(f"Initialized new git repo tracking remote {self.repo_to_track}")
+
+    def _checkout(self, path: Path) -> None:
         if path.exists():
             raise FileExistsError(f"Path {path} already exists")
         path.parent.mkdir(exist_ok=True, parents=True)
         logger.info("Running git clone...")
-        check_call(
+        self._call(
             ["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", str(path)]
         )
         if not self.newest:
-            try:
-                check_call(["git", "checkout", f"tags/v{tyranno_version}"], cwd=str(path))
-            except CalledProcessError:
-                raise VersionNotFoundError(f"Git tag 'v{tyranno_version}' was not found.")
+            self._call(
+                ["git", "checkout", f"tags/v{tyranno_version}"],
+                cwd=path,
+                fail=VersionNotFoundError(f"Git tag 'v{tyranno_version}' was not found."),
+            )
         self._murder_evil_path_for_sure(path / ".git")
+
+    def _call(
+        self,
+        cmd: List[str],
+        cwd: Optional[Path] = None,
+        succeed: Optional[str] = None,
+        fail: Union[None, str, BaseException] = None,
+    ) -> bool:
+        kwargs = {} if cwd is None else dict(cwd=str(cwd))
+        try:
+            check_call(cmd, **kwargs)
+        except CalledProcessError:
+            logger.debug(f"Failed calling {' '.join(cmd)} in {cwd}", exc_info=True)
+            if fail is not None and isinstance(fail, BaseException):
+                raise fail
+            elif fail is not None:
+                logger.error(fail)
+            return False
+        else:
+            logger.debug(f"Succeeded calling {' '.join(cmd)} in {cwd}", exc_info=True)
+            if succeed is not None:
+                logger.info(succeed)
+            return True
 
     def _murder_evil_path_for_sure(self, evil_path: Path) -> None:
         """

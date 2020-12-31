@@ -1,9 +1,10 @@
 language: python
 python:
-  - "3.8"
+    # from tyrannosaurus "pymetaversion"; actual versions are handled in Tox
+    - "3.9"
 
 install:
-  - pip install poetry tox tox-travis virtualenv
+    - pip install poetry tox tox-travis virtualenv
 
 script:
-  - tox
+    - tox
