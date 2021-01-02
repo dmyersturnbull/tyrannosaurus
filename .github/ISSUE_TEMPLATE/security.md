@@ -2,7 +2,7 @@
 name: "🔒 Security issue"
 about: Security issue
 title: ''
-labels: 'kind: security'
+labels: 'kind: security 🔒'
 assignees: ''
 ---
 

@@ -2,7 +2,7 @@
 name: "🎁 Feature"
 about: Feature request
 title: ''
-labels: 'kind: feature'
+labels: 'kind: new feature'
 assignees: ''
 ---
 

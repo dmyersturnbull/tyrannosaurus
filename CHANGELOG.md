@@ -29,6 +29,7 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - Bad editorconfig settings for yaml and json
 - Improved readme
 - Wrote better descriptions and names of workflows
+- Missing 'feature' and 'security' labels in pull request templates
 
 
 ## [0.8.0] - 2020-08-28
