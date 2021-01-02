@@ -13,91 +13,91 @@
 
 An opinionated, forwards-looking Python template for 2021.
 
-This is a massively upgraded, trimmed-down, modern alternative to
+This is an upgraded, trimmed-down, modern alternative to
 [cookiecutter](https://github.com/cookiecutter/cookiecutter) built with [Poetry](https://python-poetry.org/),
 [Tox](https://github.com/tox-dev/tox), and [Github Actions](https://github.com/features/actions).
-No setup.py, requirements.txt, or eggs. If you’re curious why that infrastructure is problematic,
-see [this post](https://dmyersturnbull.github.io/#-the-python-build-landscape)
+[No legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
 
-I wrote this after making nearly 50 commits to configure
-readthedocs, PyPi, Poetry, Tox, Docker, Travis, and Github actions.
-This avoids that struggle for 99% of projects.
-It’s technically in an alpha state, but it’s pretty solid.
+Don’t make 55 commits trying to configure Travis, Docker, or readthedocs. Just use `tyrannosaurus new`.
 
-
-#### Basic usage:
-
-To generate a new project, run:
 
 ```bash
 pip install tyrannosaurus
 tyrannosaurus new projectname --user gituserororg --track
 ```
 
-It’ll give you a link with some steps to follow (such as adding API keys).
-Of course, you can modify the generated files however you see fit.
+Tyrannosaurus will then list final manual steps like adding API keys.
+(`--track` will git track _gituserororg/projectname_.)
 
 
 #### Main behavior / features:
 
-Here’s how your new project will behave, by default:
-
-- When you _commit_, your code is linted and files are checked.
-- When you _push or make a pull request_, your code is tested,
-  security checks are run, and artifacts are built.
-- When you _push_ to main, badges are updated and documentation is sent
-- When you _release on Github_, your code is published to PyPi and DockerHub,
-  and artifacts are attached to the Github release
-  (Add `PYPI_TOKEN` and `COVERALLS_REPO_TOKEN` as Github repo secrets.)
-- If you run `tyrannosaurus sync`, your project metadata is synchronized to pyproject.toml
-
-Tox, Git Pre-Commit, and Github Actions provide these behaviors.
-You can modify them via `pyproject.toml`, `tox.ini`, `pre-commit-config.yml` and `.github/workflows`.
-
-#### Extras / nice-to-haves:
-
-You’ll also have nice Github labels, templates for issues and pull requests, and a changelog template.
-These can be modified by editing `.github/labels.json`, `.github/ISSUE_TEMPLATE`, and `CHANGELOG.md`.
-Integration is also provided for Travis, Azure, Anaconda/Conda, and a few other tools.
-
-
+Generated projects are integrated with various tools (from PyPi) and external CI/CD/code-quality systems.
+Github Actions are used by default, but config files for Travis and Azure Pipelines are also provided.
+You can swap out, modify, or disable anything as you see fit.
 **[See the docs 📚](https://tyrannosaurus.readthedocs.io/en/stable/)** for more information.
+
+*By default*, here’s how your new project will behave:
+
+- **Commit** ⇒ Files are linted and verified for integrity.
+- **Make a pull request** ⇒ Code is built and tested.
+- **Push to the main branch** ⇒ Code is built and tested; code quality, coverage, and security badges are updated.
+- **Make a Github release** ⇒ Artifacts are sent to Github, PyPi, DockerHub, and readthedocs.
+- Running `tyrannosaurus sync` ⇒ your project metadata is synced to pyproject.toml
+- Running `tyrannosaurus update` ⇒ new versions for you dependencies are found
 
 
 #### Full features / integrations:
 
   - Packaging and dependency management with [Poetry](https://python-poetry.org/)
-  - Python 3.8, 3.9, and 3.8 (3.6 and 3.7 with a small change)
+  - Python 3.8, 3.9, and 3.10 (3.6 and 3.7 with a small change)
   - Only modern files: *no* manifest file, setup.py, requirements.txt, setup.cfg, or eggs
   - Continuous integration with [Github Actions](https://github.com/features/actions),
-    [Travis](https://www.travis-ci.com/), or [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) †
-  - Continuous deployment to [PyPi](http://pypi.org/) and [Dockerhub](https://hub.docker.com/)
+    [Travis](https://www.travis-ci.com/), or
+    [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) \*
+  - Continuous deployment to [PyPi](http://pypi.org/) and [Dockerhub](https://hub.docker.com/) †
   - Automatic attachment of [sdits](https://docs.python.org/3/distutils/sourcedist.html)
-    and [wheels](https://pythonwheels.com/) to [Github Releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-releases)
+    and [wheels](https://pythonwheels.com/) to
+    [Github Releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-releases)
   - Documentation sent to [readthedocs](https://readthedocs.org/)
-  - Nice documentation defaults with [Sphinx extensions](https://www.sphinx-doc.org/en/master/usage/extensions/index.html)
+  - Nice documentation defaults with
+    [Sphinx extensions](https://www.sphinx-doc.org/en/master/usage/extensions/index.html)
   - Test automation with [Tox](https://tox.readthedocs.io)
   - Code quality and coverage [badges](https://github.com/badges/shields) with [Coveralls](https://coveralls.io/),
-    [codecov](https://about.codecov.io/), and [CodeClimate](https://codeclimate.com/)
+    [codecov](https://about.codecov.io/), and [CodeClimate](https://codeclimate.com/) ‡
     that reflect the main branch
   - Code linting with [pre-commit](https://pre-commit.com/), [Black](https://pypi.org/project/black/),
     and [Prettifier](https://prettier.io/)
   - Security analysis with [Bandit](https://github.com/PyCQA/bandit),
-    [CodeQL](https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/)
-    ([temporary issue](https://github.com/dmyersturnbull/tyrannosaurus/issues/7),
-    and [safety](https://github.com/pyupio/safety) ([temporary issue](https://github.com/pyupio/safety/issues/201))
+    [CodeQL](https://github.com/github/codeql-action),
+    and [safety](https://github.com/pyupio/safety) §
   - Static type analysis with [mypy](https://mypy.readthedocs.io)
-  - Auto-generation and synchronization of [Conda-Forge](https://conda-forge.org/) recipes and environment YML files
+  - Auto-generation and synchronization of [Conda-Forge](https://conda-forge.org/)
+    [recipes](https://conda-forge.org/docs/maintainer/adding_pkgs.html#the-recipe-meta-yaml) and
+    [environment YML](https://medium.com/@balance1150/how-to-build-a-conda-environment-through-a-yaml-file-db185acf5d22)
+    files with [Grayskull](https://github.com/conda-incubator/grayskull)
+    and [Tyrannosaurus](https://tyrannosaurus.readthedocs.io/)
   - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
-  - Nice gitignore, dockerignore; issue labels; and Github-recognized issue templates, pull request templates,
-    [ChangeLog](https://keepachangelog.com), readme, license, and contributing guide
+  - Fancy [issue labels](https://github.com/crazy-max/ghaction-github-labeler)
+  - Fancy Github-recognized readme, license,
+    [contributing guide](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/setting-guidelines-for-repository-contributors#adding-a-contributing-file),
+    [issue templates](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/configuring-issue-templates-for-your-repository),
+    [pull request templates](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/creating-a-pull-request-template-for-your-repository),
+    and [ChangeLog](https://keepachangelog.com)
+  - Nice gitignore, dockerignore, and other misc files
+  - Auto cleanup of useless files (on running tox); `tyrannosaurus clean` command to clean the repo
   - [CodeMeta](https://codemeta.github.io/user-guide/) and [CITATION.cff](https://citation-file-format.github.io/)
-  - Dependency updating with [Dependabot](https://dependabot.com/) (disabled by default)
+  - Dependency updating with [Dependabot](https://dependabot.com/) ¶
+  - A `tyrannosaurus update` command that finds updated dependency versions
   - Synchronization of project metadata with [Tyrannosaurus](https://tyrannosaurus.readthedocs.io/),
     so that only pyproject.toml needs to be updated
 
-
-† The Azure workflow currently only builds the Docker image.
+\* Add `PYPI_TOKEN` as a Github repo secret and configure a webhook.
+† Currently only builds the Docker image. Azure Pipelines is not free except for a trial period.
+‡ Add `COVERALLS_REPO_TOKEN` as a Github repo secret.
+§ [Temporary issue 1](https://github.com/dmyersturnbull/tyrannosaurus/issues/7)
+  and [Temporary issue 2](https://github.com/pyupio/safety/issues/201)
+¶ Off by default; a configuration file is provided
 
 
 #### Syncing to pyproject.toml:
