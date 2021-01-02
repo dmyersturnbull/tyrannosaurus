@@ -26,9 +26,7 @@ jobs:
           languages: python
       - name: Install build dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install --upgrade virtualenv
-          pip install tox
+          pip install tox poetry
       - name: Test with tox
         run: |
           tox -v
@@ -38,7 +36,7 @@ jobs:
       - name: Update coveralls/codecov
         run: |
           pip install coveralls codecov
-          coveralls
-          codecov
+          coveralls || true
+          codecov || true
       - name: Run Github CodeQL
         uses: github/codeql-action/analyze@v1

@@ -23,8 +23,10 @@ see [this post](https://dmyersturnbull.github.io/#-the-python-build-landscape)
 I wrote this after making nearly 50 commits to configure
 readthedocs, PyPi, Poetry, Tox, Docker, Travis, and Github actions.
 This avoids that struggle for 99% of projects.
+It’s technically in an alpha state, but it’s pretty solid.
 
-##### Basic usage:
+
+#### Basic usage:
 
 To generate a new project, run:
 
@@ -33,37 +35,43 @@ pip install tyrannosaurus
 tyrannosaurus new projectname --user gituserororg --track
 ```
 
-Modify the generated files (especially `pyproject.toml`) as you see fit.
+It’ll give you a link with some steps to follow (such as adding API keys).
+Of course, you can modify the generated files however you see fit.
 
-##### Main behavior (features):
+
+#### Main behavior / features:
 
 Here’s how your new project will behave, by default:
 
-- When you _commit_, your code is linted.
-- When you _push or make a pull request_, your code is built and tested.
-  Security checks are run, style is checked, documentation is validated, and artifacts are built.
-- When you _push_ to the main branch, coverage and code quality badges are updated,
-  and documentation is sent to readthedocs.
+- When you _commit_, your code is linted and files are checked.
+- When you _push or make a pull request_, your code is tested.
+  Security checks are run, style is checked, and artifacts are built.
+- When you _push_ to main, badges are updated and documentation is sent
 - When you _release on Github_, your code is published to PyPi and DockerHub,
-  and wheels and sdists are attached to the Github release.
+  and artifacts are attached to the Github release
   (Add `PYPI_TOKEN` and `COVERALLS_REPO_TOKEN` as Github repo secrets.)
 - If you run `tyrannosaurus sync`, your project metadata is synchronized to pyproject.toml
 
 Tox, Git Pre-Commit, and Github Actions provide these behaviors.
 You can modify them via `pyproject.toml`, `tox.ini`, `pre-commit-config.yml` and `.github/workflows`.
 
+#### Extras / nice-to-haves:
+
 You’ll also have nice Github labels, templates for issues and pull requests, and a changelog template.
 These can be modified by editing `.github/labels.json`, `.github/ISSUE_TEMPLATE`, and `CHANGELOG.md`.
 Integration is also provided for Travis, Azure, Anaconda/Conda, and a few other tools.
-(Azure may take a little extra to get working.)
 
 
-##### Features / integrations:
+**[See the docs 📚](https://tyrannosaurus.readthedocs.io/en/stable/)** for more information.
+
+
+#### Full features / integrations:
 
   - Packaging and dependency management with [Poetry](https://python-poetry.org/)
+  - Python 3.8, 3.9, and 3.8 (3.6 and 3.7 with a small change)
   - Only modern files: *no* manifest file, setup.py, requirements.txt, setup.cfg, or eggs
   - Continuous integration with [Github Actions](https://github.com/features/actions),
-    [Travis](https://www.travis-ci.com/), or [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
+    [Travis](https://www.travis-ci.com/), or [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) †
   - Continuous deployment to [PyPi](http://pypi.org/) and [Dockerhub](https://hub.docker.com/)
   - Automatic attachment of [sdits](https://docs.python.org/3/distutils/sourcedist.html)
     and [wheels](https://pythonwheels.com/) to [Github Releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-releases)
@@ -81,14 +89,18 @@ Integration is also provided for Travis, Azure, Anaconda/Conda, and a few other 
   - Static type analysis with [mypy](https://mypy.readthedocs.io)
   - Auto-generation and synchronization of [Conda-Forge](https://conda-forge.org/) recipes and environment YML files
   - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
-  - Nice gitignore, dockerignore; issue labels; and Github-recognized issue templates, pull request templates, [ChangeLog](https://keepachangelog.com), readme, license, and contributing guide
+  - Nice gitignore, dockerignore; issue labels; and Github-recognized issue templates, pull request templates,
+    [ChangeLog](https://keepachangelog.com), readme, license, and contributing guide
   - [CodeMeta](https://codemeta.github.io/user-guide/) and [CITATION.cff](https://citation-file-format.github.io/)
   - Dependency updating with [Dependabot](https://dependabot.com/) (disabled by default)
   - Synchronization of project metadata with [Tyrannosaurus](https://tyrannosaurus.readthedocs.io/),
     so that only pyproject.toml needs to be updated
 
 
-##### Synchronization:
+† The Azure workflow currently only builds the Docker image.
+
+
+#### Syncing to pyproject.toml:
 
 *Note: This feature is only partly complete.*
 
@@ -105,17 +117,15 @@ install, and clean up.
 Target files can be disabled in `[tool.tyrannosaurus.targets]`.
 
 
-##### Building your project locally:
+#### Building your project locally:
 
 To run locally, install [Poetry](https://github.com/python-poetry/poetry)
 and [Tox](https://tox.readthedocs.io/en/latest/) (`pip install tox`).
 Then just type `tox` to build artifacts and run tests.
 To create an initial Anaconda recipe or environment file, run `tyrannosaurus recipe` or `tyrannosaurus env`.
 
-**[See the docs](https://tyrannosaurus.readthedocs.io/en/stable/)** for more information.
 
-
-##### Similar tools:
+#### Similar tools:
 
 - [hypermodern-python](https://github.com/cjolowicz/hypermodern-python), a Python template that is similarly modern.
   It looks solid but has fewer integrations.
@@ -127,7 +137,7 @@ To create an initial Anaconda recipe or environment file, run `tyrannosaurus rec
   but still uses setup.py
 
 
-##### Contributing:
+#### Contributing:
 
 [New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
 Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/CONTRIBUTING.md).

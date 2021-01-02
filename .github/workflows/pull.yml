@@ -19,7 +19,7 @@ jobs:
           python-version: '${{ matrix.python-version }}'
       - name: Install build meta-dependencies
         run: |
-          pip install tox
+          pip install tox poetry
       - name: Test with tox
         run: |
           tox -v

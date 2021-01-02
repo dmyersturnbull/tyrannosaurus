@@ -173,6 +173,9 @@ line_length = 100
 check_untyped_defs = true
 strict_optional = true
 
+[tool.towncrier]
+filename = "CHANGELOG.md"
+
 # ------- THE FOLLOWING ARE NOT USED BY THEIR RESPECTIVE TOOLS  --------
 # --- There are open discussions about supporting pyproject for each ---
 # https://github.com/python/mypy/issues/5205

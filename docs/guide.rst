@@ -19,26 +19,32 @@ Consider following them after running ``tyrannosaurus new``.
 
 1. Remove unwanted files, such as ``.travis.yml`` if unused.
 2. Modify ``.github/labels.json``, ``pyproject.toml``, and ``README.md`` as needed.
-3. Create an empty (non-initialized) Github repo and copy the files.
-4. Run ``pre-commit install`` and ``poetry install && tyrannosaurus sync && tox``.
-5. Update the changelog and commit. (If changes were needed, just run again to accept them.)
+3. (Note: if you used ``--track`` with ``tyrannosaurus new``, you can skip this step.)
+   Create an empty (non-initialized) Github repo and copy the files.
+   Run ``pre-commit install`` and ``poetry install && tyrannosaurus sync && tox``.
+5. Update the changelog and run ``git commit``.
+   If changes were needed due to failed pre-commit lint changes (such as from black),
+   just run again git commit again to accept the linted version. Push to the main branch after committing.
 6. On `PyPi <https://pypi.org>`_, create a new repo and get a repo-specific token.
 7. In your Github secrets page (under Settings), add ``PYPI_TOKEN``.
 8. Tell `DockerHub <https://hub.docker.com/>`_ to track your repo with source ``/v[0-9]+.*/`` and tag ``{sourceref}``.
 9. On your Github repo ⮞ Settings ⮞ Webhooks ⮞ your docker hook ⮞ Edit, check ``Releases``.
 10. Create a release on Github to publish to PyPi and Dockerhub.
-11. Review `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_, `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_, and `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_.
+11. Review `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_,
+    `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_, and
+    `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_.
 12. Consider `getting a DOI <https://guides.github.com/activities/citable-code/>`_.
-13. Consider adding ``tyrannosaurus sync`` to your ``tox.ini``. This is disabled by default.
+13. Remove features of the Github repo that you don’t want (such as the wiki).
+14. If you’re using Jupyter, consider adding [nbstripout](https://github.com/kynan/nbstripout)
+    to your ``pre-commit-config.yaml`` to avoid ending up with a massive git history.
 
-If you’re not using coveralls, remove the ``coveralls`` line in tox.ini.
-Or you might instead want to add this to your Github workflow.
-You may also want to add new integrations, like `codeclimate <https://codeclimate.com/>`_ or `codacy <https://www.codacy.com/>`_.
-Consider adding `shields <https://shields.io/>`_ for them.
+Remember to always sync metadata (``tyrannosaurus sync``) or at least ``poetry lock`` before committing or testing.
+You can even add ``tyrannosaurus sync`` to your ``tox.ini`` (preferably above ``poetry check``).
 
-.. note::
-
-    If you delete ``recipes``, you will need to remove this line from ``.pre-commit-config.yml``: ``exclude: ^recipes/.*``.
+You may want to add new code quality integrations, like  `codacy <https://www.codacy.com/>`_.
+Consider adding `shields <https://shields.io/>`_ for those.
+Other good tools to consider include [github-labeler](https://github.com/marketplace/actions/github-labeler).
+and [Towncrier](https://pypi.org/project/towncrier/).
 
 
 Reference of commands
@@ -49,7 +55,7 @@ These commands might be useful:
 - ``tyrannosaurus sync`` to sync metadata and nothing else
 - ``tyrannosaurus clean --aggressive`` to remove lots of temp files
 - ``pre-commit install`` to configure pre-commit hooks
-- ``tox`` to sync metadata, build, install, build docs, and test
+- ``tox`` to build, test, build docs, and run some static analyses
 - ``poetry bump`` to bump dependency versions (major or minor)
 - ``tyrannosaurus recipe`` to generate a Conda recipe
 

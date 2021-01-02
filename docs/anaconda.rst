@@ -14,7 +14,7 @@ For example, you might have a *build* environment and run tox inside it:
     --channel conda-forge \
     --force \
     --yes \
-    python=3.8
+    python=3.9
     pip install tox poetry
 
 

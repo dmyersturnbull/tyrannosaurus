@@ -1,7 +1,7 @@
 cff-version: 1.1.0
 message: Software reference
 title: Tyrannosaurus
-version: 0.8.3
+version: 0.8.1
 abstract: Opinionated Python template and metadata synchronizer for 2021.
 authors:
     -

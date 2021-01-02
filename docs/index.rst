@@ -1,4 +1,4 @@
-Tyrannosaurus, a Python template for 2020
+Tyrannosaurus, a Python template for 2021
 =========================================
 
 .. toctree::
@@ -11,8 +11,8 @@ Tyrannosaurus, a Python template for 2020
     anaconda
     databases
 
-Tyrannosaurus is an opinionated 2020 Python template
-that comes with a tool to synchronize duplicate metadata across your build.
+`Tyrannosaurus <https://github.com/dmyersturnbull/tyrannosaurus>`_ is an opinionated Python
+template for 2021 that comes with a tool to synchronize duplicate metadata across your build.
 
 Use it to generate ready-to-go Python projects
 with easy testing and Github actions for testing and publishing.
@@ -28,7 +28,7 @@ To install, run: ``pip install tyrannosaurus``
 .. warning::
 
     Tyrannosaurus is in an alpha build.
-    Generally works pretty well, but the ``sync`` command does less than advertised.
+    Generally works quite well, but the ``sync`` command does less than advertised.
 
 
 What’s wrong with pip or anaconda?
@@ -44,14 +44,19 @@ and some are not kept up-to-date. It can also make for a more complex build proc
 List of integrations
 --------------------
 
-New projects are configured for:
+A similar list is in the `readme <https://github.com/dmyersturnbull/tyrannosaurus>`_.
+Briefly, projects are configured for:
 
-- Build: `Poetry <https://github.com/python-poetry/poetry>`_, Tox, Conda,
-  `DepHell <https://github.com/dephell/dephell>`_, wheels, sdist
-- Test: Tox, pytest, Coverage, Bandit
+- Python 3.8, 3.9, and 3.10
+- Build: `Poetry <https://github.com/python-poetry/poetry>`_, Tox, Conda, wheels, sdist
+- Test: Tox, pytest, Coverage, Bandit, BugBear, Dependabot
 - Style: Black, Flake8, MyPy, pycodestyle, pydocstyle
 - Hooks: `EditorConfig <https://editorconfig.org>`_, pre-commit-hooks
 - Documentation: ReadTheDocs, Sphinx, sphinx-autoapi
-- CI: Travis, Github actions
-- Publish: Twine, Docker, Conda-Forge (with `grayskull <https://github.com/marcelotrevisani/grayskull>`_)
-- Reference: `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_, `Github issue templates <https://help.github.com/en/github/building-a-strong-community/setting-guidelines-for-repository-contributors>`_, `Citation File Format <https://github.com/citation-file-format/citation-file-format>`_, `codemeta.json <https://codemeta.github.io/>`_
+- CI: Travis, Github actions, Azure pipelines
+- Coveralls, CodeCov, CodeClimate, and CodeQL
+- Publish: Twine, DockerHub, Conda-Forge (with `grayskull <https://github.com/marcelotrevisani/grayskull>`_)
+- Reference: `Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_,
+  `Github issue templates <https://help.github.com/en/github/building-a-strong-community/setting-guidelines-for-repository-contributors>`_,
+  `Citation File Format <https://github.com/citation-file-format/citation-file-format>`_,
+  `codemeta.json <https://codemeta.github.io/>`_

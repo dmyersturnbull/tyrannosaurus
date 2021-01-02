@@ -245,6 +245,13 @@ line_length = 100
 check_untyped_defs = true
 strict_optional = true
 
+# not used by default, but you could run it
+# in tox.ini or .github/workflows/publish.yml (with a commit)
+[tool.towncrier]
+# Alternatively, you could replace CHANGELOG.md
+# In my experience, commit logs make mediocre changelogs
+filename = "NEWS.md"
+
 
 # ------- THE FOLLOWING ARE NOT USED BY THEIR RESPECTIVE TOOLS  --------
 # --- There are open discussions about supporting pyproject for each ---
