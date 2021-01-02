@@ -15,16 +15,17 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - Made compatible with Github’s [master branch renaming](https://github.com/github/renaming)
   (Because this external change broke backwards compatibility for newly generated projects,
   I consider this a fix, which won’t trigger a minor version bump)
-- Moved CodeQL workflow into commit.yml
+- Moved CodeQL workflow into commit.yml (shouldn’t affect much)
 
 ### Added
 - A `--track` flag in `tyrannosaurus new` (to simplify the readme’s example)
 - Some currently unused items in [tool.tyrannosaurus.sources]
 - Integration with [https://github.com/pyupio/safety](Safety)
+- A `--tyranno` flag to new (deprecates `--newest`, which is now hidden)
+- `--version` and `--info` options (exit immediately)
 
 ### Fixed
 - Cleaned up code
-- Added a copyright notice for Github CodeQL
 - Bad editorconfig settings for yaml and json
 - Improved readme
 - Wrote better descriptions and names of workflows

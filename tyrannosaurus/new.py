@@ -5,7 +5,7 @@ import os
 import shutil
 import stat
 from pathlib import Path
-from subprocess import CalledProcessError, check_call  # nosec
+from subprocess import CalledProcessError, check_call, check_output  # nosec
 from typing import Sequence, Union, Optional, List
 
 import typer
@@ -35,7 +35,7 @@ class New:
         keywords: Sequence[str],
         version: str,
         should_track: bool,
-        tyranno_vr: Optional[str] = global_tyranno_version,
+        tyranno_vr: str,
     ):
         if isinstance(license_name, str):
             license_name = License[license_name.lower()]
@@ -48,8 +48,8 @@ class New:
         self.keywords = keywords
         self.version = version
         self.should_track = should_track
-        self.tyranno_vr = tyranno_vr
         self.repo_to_track = f"https://github.com/{username}/{name.lower()}.git"
+        self.tyranno_vr = str(tyranno_vr)
 
     def create(self, path: Path) -> None:
         self._checkout(Path(str(path).lower()))
@@ -144,11 +144,12 @@ class New:
             self._call(
                 ["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", str(path)]
             )
-            if self.tyranno_vr is not None:
+            tyranno_vr = self._parse_tyranno_vr()
+            if tyranno_vr is not None:
                 self._call(
-                    ["git", "checkout", f"tags/v{self.tyranno_vr}"],
+                    ["git", "checkout", f"tags/{self.tyranno_vr}"],
                     cwd=path,
-                    fail=VersionNotFoundError(f"Git tag 'v{self.tyranno_vr}' was not found."),
+                    fail=VersionNotFoundError(f"Git tag '{self.tyranno_vr}' was not found."),
                 )
         finally:
             self._murder_evil_path_for_sure(path / ".git")
@@ -175,6 +176,19 @@ class New:
             if succeed is not None:
                 logger.info(succeed)
             return True
+
+    def _parse_tyranno_vr(self) -> Optional[str]:
+        vr = self.tyranno_vr.lower().strip()
+        if vr == "latest":
+            return None
+        elif vr == "current":
+            return "v" + global_tyranno_version
+        elif vr == "stable":
+            return check_output(["git", "describe", "--abbrev=0", "--tags"], encoding="utf8")
+        elif vr.startswith("v"):
+            return vr
+        else:
+            return "v" + vr
 
     def _murder_evil_path_for_sure(self, evil_path: Path) -> None:
         """

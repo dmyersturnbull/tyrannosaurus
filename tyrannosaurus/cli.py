@@ -42,21 +42,39 @@ class _DevNull:  # pragma: no cover
         self.close()
 
 
+def write_info():
+    # avoid importing above, just in case a user runs --version, --info, or info on an improperly installed version
+    from tyrannosaurus import __date__, __version__
+
+    typer.echo(f"Tyrannosaurus v{__version__} ({__date__})")
+
+
 class CliState:  # pragma: no cover
     def __init__(self):
         self.dry_run = False
         self.verbose = False
 
-    def callback(self, dry_run: bool = False, verbose: bool = False):
+    def callback(
+        self,
+        version: bool = False,
+        info: bool = False,
+        dry_run: bool = False,
+        verbose: bool = False,
+    ):
         """
         Tyrannosaurus.
         Tyrannosaurus can create new modern Python projects from a template
         and synchronize metadata across the project.
 
         Args:
+            version: Write version and exit
+            info: Write info and exit (same as 'tyrannosaurus info')
             dry_run: Just say what would be done; don't write to the filesystem
             verbose: Output more information
         """
+        if version or info:
+            write_info()
+            raise typer.Exit()
         self.dry_run = dry_run
         self.verbose = verbose
 
@@ -77,11 +95,12 @@ class CliCommands:
         license: License = _APACHE2,
         user: Optional[str] = None,
         authors: Optional[str] = None,
-        description: str = "<<A Python project>>",
+        description: str = "A Python project",
         keywords: str = "",
         version: str = "0.1.0",
-        newest: bool = False,
         track: bool = False,
+        tyranno: str = "current",
+        newest=typer.Option(False, hidden=True),
         prompt: bool = False,
     ) -> None:  # pragma: no cover
         """
@@ -93,25 +112,47 @@ class CliCommands:
             authors: List of author names, comma-separated
             description: A <100 char description for the project
             keywords: A list of <= 5 keywords, comma-separated
-            version: A semantic version
-            newest: Use the most recent version of Tyrannosaurus code from Github
+            version: A semantic version (for your project)
             track: Track a remote repo (should be an empty repo; otherwise there will be a merge conflict)
+            tyranno: Version of tyrannosaurus to use as the template; can be:
+                     an exact version number,
+                     'current' for the currently installed version,
+                     'stable' for the latest stable version,
+                     or 'latest' for the bleeding-edge version
+            newest: Same as '--tyranno latest' (deprecated)
             prompt: Prompt for info
         """
         if prompt:
-            name = typer.prompt("name", default=name, type=str)
-            description = typer.prompt("description", default="A new project", type=str)
-            version = typer.prompt("version", default="0.1.0", type=str)
-            license = typer.prompt("license", type=License, default=License.apache2).lower()
-            user = typer.prompt("user [default: from 'git config']", default=user)
-            authors = typer.prompt(
-                "authors [default: from 'git config'], comma-separated", default=authors
+            name = typer.prompt("name", type=str, default=name)
+            description = typer.prompt("description", type=str, default="A new project")
+            version = typer.prompt("version", type=str, default="0.1.0")
+            license = typer.prompt("license", type=License, default="apache2").lower()
+            user = typer.prompt(
+                "user", type=str, prompt_suffix=" [default: from 'git config']", default=user
             )
-            description = typer.prompt("description", default=description)
-            keywords = typer.prompt("keywords, comma-separated", default=keywords)
+            authors = typer.prompt(
+                "authors",
+                type=str,
+                prompt_suffix=" [comma-separated; default: from 'git config']",
+                default=authors,
+            )
+            description = typer.prompt("description", type=str, default=description)
+            keywords = typer.prompt(
+                "keywords", type=str, prompt_suffix=" [comma-separated]", default=keywords
+            )
+            track = typer.prompt("track", type=bool, default=track)
+            tyranno = typer.prompt(
+                "tyranno",
+                type=str,
+                prompt_suffix=" ['current', 'stable', 'latest', or a version]",
+                default=tyranno,
+            )
         e = _Env(user=user, authors=authors)
         keywords = keywords.split(",")
         path = Path(name)
+        # for backwards-compat only
+        if newest and tyranno == "current":
+            tyranno = "latest"
         New(
             name,
             license_name=license,
@@ -120,8 +161,8 @@ class CliCommands:
             description=description,
             keywords=keywords,
             version=version,
-            newest=newest,
             should_track=track,
+            tyranno_vr=tyranno,
         ).create(path)
         typer.echo(f"Done! Created a new repository under {name}")
         typer.echo(
@@ -217,9 +258,7 @@ class CliCommands:
         """
         Prints Tyrannosaurus info.
         """
-        from tyrannosaurus import __date__, __version__
-
-        typer.echo(f"Tyrannosaurus version {__version__} ({__date__})")
+        write_info()
 
     @staticmethod
     @cli.command()
