@@ -156,6 +156,7 @@ class New:
         # if it's None, just leave it as HEAD
         if self.tyranno_vr == "latest":
             logger.info(f"Using HEAD for tyrannosaurus template version")
+        else:
             tyranno_vr = self._parse_tyranno_vr(path, self.tyranno_vr)
             try:
                 self._checkout_rev(path, tyranno_vr)
