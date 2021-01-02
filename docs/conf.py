@@ -41,7 +41,7 @@ master_doc = "index"
 napoleon_include_special_with_doc = True
 autoapi_keep_files = True
 autoapi_python_class_content = "both"
-autoapi_options = ["private-members=false"]
+autoapi_options = ["private-members=true"]
 
 
 exclude_patterns = ["_build", "Thumbs.db", ".*", "~*", "*~", "*#"]

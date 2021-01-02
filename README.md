@@ -72,13 +72,13 @@ Integration is also provided for Travis, Azure, Anaconda/Conda, and a few other 
   - Test automation with [Tox](https://tox.readthedocs.io)
   - Code quality and coverage [badges](https://github.com/badges/shields) with [Coveralls](https://coveralls.io/),
     [codecov](https://about.codecov.io/), and [CodeClimate](https://codeclimate.com/)
-    that always reflect the main branch
+    that reflect the main branch
   - Code linting with [pre-commit](https://pre-commit.com/), [Black](https://pypi.org/project/black/),
     and [Prettifier](https://prettier.io/)
   - Security analysis with [Bandit](https://github.com/PyCQA/bandit),
     [CodeQL](https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/),
     and [safety](https://github.com/pyupio/safety) ([issue](https://github.com/pyupio/safety/issues/201))
-  - Static analysis with [https://mypy.readthedocs.io] and
+  - Static type analysis with [mypy](https://mypy.readthedocs.io)
   - Auto-generation and synchronization of [Conda-Forge](https://conda-forge.org/) recipes and environment YML files
   - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
   - Nice gitignore, dockerignore; issue labels; and Github-recognized issue templates, pull request templates, [ChangeLog](https://keepachangelog.com), readme, license, and contributing guide
