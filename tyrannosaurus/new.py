@@ -154,10 +154,13 @@ class New:
 
     def _set_tyranno_vr(self, path: Path):
         # if it's None, just leave it as HEAD
-        if (tyranno_vr := self._parse_tyranno_vr(path, self.tyranno_vr)) is not None:
+        if self.tyranno_vr == "latest":
+            logger.info(f"Using HEAD for tyrannosaurus template version")
+            tyranno_vr = self._parse_tyranno_vr(path, self.tyranno_vr)
             try:
                 self._checkout_rev(path, tyranno_vr)
             except VersionNotFoundError:
+                # if it was set as 'current', we might have failed because we're testing an unreleased version
                 if self.tyranno_vr == "current":
                     logger.warning(
                         f"Installed tyrannosaurus version {tyranno_vr} not found; using stable"
@@ -168,9 +171,7 @@ class New:
                 else:
                     # let everything else fail, including for "stable"
                     raise
-        logger.info(
-            f"Using tyrannosaurus template version {'HEAD' if tyranno_vr is None else tyranno_vr}"
-        )
+            logger.info(f"Using tyrannosaurus template version {tyranno_vr}")
 
     def _checkout_rev(self, path: Path, tyranno_vr: str):
         self._call(

@@ -11,19 +11,16 @@ from tyrannosaurus.new import New
 
 
 class TestNew:
-    def test_new_current(self):
-        self._test_it()
-
     def test_new_latest(self):
         self._test_it(tyranno_vr="latest")
 
     def test_new_version(self):
         self._test_it(tyranno_vr="0.8.0")
 
-    def test_new_track(self):
+    def test_new_latest_track(self):
         self._test_it(should_track=True)
 
-    def _test_it(self, should_track=False, tyranno_vr="current"):
+    def _test_it(self, should_track=False, tyranno_vr="latest"):
         path = None
         try:
             project = "tempted2temp"
