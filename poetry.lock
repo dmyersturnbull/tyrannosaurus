@@ -77,11 +77,12 @@ stevedore = ">=1.20.0"
 
 [[package]]
 name = "black"
-version = "20.8b1"
+version = "20.8b2.dev61+gf07832e"
 description = "The uncompromising code formatter."
 category = "dev"
 optional = false
 python-versions = ">=3.6"
+develop = false
 
 [package.dependencies]
 appdirs = "*"
@@ -90,12 +91,18 @@ mypy-extensions = ">=0.4.3"
 pathspec = ">=0.6,<1"
 regex = ">=2020.1.8"
 toml = ">=0.10.1"
-typed-ast = ">=1.4.0"
+typed-ast = ">=1.4.2"
 typing-extensions = ">=3.7.4"
 
 [package.extras]
 colorama = ["colorama (>=0.4.3)"]
 d = ["aiohttp (>=3.3.2)", "aiohttp-cors"]
+
+[package.source]
+type = "git"
+url = "https://github.com/psf/black.git"
+reference = "f07832eac44e"
+resolved_reference = "f07832eac44eb38f8b048aae3e1de3512a06057c"
 
 [[package]]
 name = "certifi"
@@ -893,7 +900,7 @@ dev = []
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8, <4"
-content-hash = "97dde8b6173b21bc2f1589f573ef28543db5d076330f5788cf8482a0942b2cc2"
+content-hash = "3dc9fbecfc173723552f78133a9e76aeeac3f2f4f19378bfbff4e8163cca4751"
 
 [metadata.files]
 alabaster = [
@@ -924,9 +931,7 @@ bandit = [
     {file = "bandit-1.7.0-py3-none-any.whl", hash = "sha256:216be4d044209fa06cf2a3e51b319769a51be8318140659719aa7a115c35ed07"},
     {file = "bandit-1.7.0.tar.gz", hash = "sha256:8a4c7415254d75df8ff3c3b15cfe9042ecee628a1e40b44c15a98890fbfc2608"},
 ]
-black = [
-    {file = "black-20.8b1.tar.gz", hash = "sha256:1c02557aa099101b9d21496f8a914e9ed2222ef70336404eeeac8edba836fbea"},
-]
+black = []
 certifi = [
     {file = "certifi-2020.12.5-py2.py3-none-any.whl", hash = "sha256:719a74fb9e33b9bd44cc7f3a8d94bc35e4049deebe19ba7d8e108280cfd59830"},
     {file = "certifi-2020.12.5.tar.gz", hash = "sha256:1a4995114262bffbc2413b159f2a1a480c969de6e6eb13ee966d470af86af59c"},

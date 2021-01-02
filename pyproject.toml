@@ -128,7 +128,7 @@ grayskull                = ">=0.8.4, <1"
 pre-commit               = ">=2.9, <3.0"
 pre-commit-hooks         = ">=3.4, <4.0"
 bandit                   = ">=1.7, <2.0"
-black                    = "=20.8b1"
+black                    = {git = "https://github.com/psf/black.git", rev="f07832eac44e"}
 pytest                   = "^6"
 coverage                 = {extras = ["toml"], version = "^5"}
 pytest-cov               = "^2"
