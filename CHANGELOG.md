@@ -5,7 +5,7 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
-## [0.8.1] - 2021-01-01
+## [0.8.x] - 2021-01-01
 
 ### Changed
 - Moved build to Python 3.9 (internal only)

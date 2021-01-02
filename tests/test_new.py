@@ -15,7 +15,7 @@ class TestNew:
         self._test_it(tyranno_vr="latest")
 
     def test_new_version(self):
-        self._test_it(tyranno_vr="0.8.0")
+        self._test_it(tyranno_vr="0.8.1")
 
     def test_new_latest_track(self):
         self._test_it(should_track=True)

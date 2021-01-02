@@ -83,8 +83,9 @@ Integration is also provided for Travis, Azure, Anaconda/Conda, and a few other 
   - Code linting with [pre-commit](https://pre-commit.com/), [Black](https://pypi.org/project/black/),
     and [Prettifier](https://prettier.io/)
   - Security analysis with [Bandit](https://github.com/PyCQA/bandit),
-    [CodeQL](https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/),
-    and [safety](https://github.com/pyupio/safety) ([issue](https://github.com/pyupio/safety/issues/201))
+    [CodeQL](https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/)
+    ([temporary issue](https://github.com/dmyersturnbull/tyrannosaurus/issues/7),
+    and [safety](https://github.com/pyupio/safety) ([temporary issue](https://github.com/pyupio/safety/issues/201))
   - Static type analysis with [mypy](https://mypy.readthedocs.io)
   - Auto-generation and synchronization of [Conda-Forge](https://conda-forge.org/) recipes and environment YML files
   - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
