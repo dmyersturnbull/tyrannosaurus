@@ -15,29 +15,12 @@ repos:
     rev: v3.4.0
     hooks:
       - id: trailing-whitespace
+        language: python
       - id: fix-byte-order-marker
       - id: end-of-file-fixer
       - id: debug-statements
       - id: check-builtin-literals
       - id: check-toml
-        name: Check Toml
-        description: Toml file syntax errors
-        entry: check-toml
-        language: python
-        types:
-          - toml
-      - id: check-yaml
-        name: Check Yaml
-        description: Yaml file syntax errors
-        entry: check-yaml
-        language: python
-        types:
-          - yaml
-        exclude: ^recipes/.*
       - id: check-json
-        name: Check JSON
-        description: JSON file syntax errors
-        entry: check-json
-        language: python
-        types:
-          - json
+      - id: check-yaml
+        exclude: ^recipes/.*
