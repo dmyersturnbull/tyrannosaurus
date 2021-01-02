@@ -39,6 +39,9 @@ class New:
     ):
         if isinstance(license_name, str):
             license_name = License[license_name.lower()]
+        # check for historical reasons; can remove in the future
+        if not isinstance(tyranno_vr, str):
+            raise ValueError(f"{tyranno_vr} has type {type(tyranno_vr)}")
         self.project_name = name.lower()
         self.pkg_name = name.replace("_", "").replace("-", "").replace(".", "").lower()
         self.license_name = license_name
@@ -144,15 +147,50 @@ class New:
             self._call(
                 ["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", str(path)]
             )
-            tyranno_vr = self._parse_tyranno_vr()
-            if tyranno_vr is not None:
-                self._call(
-                    ["git", "checkout", f"tags/{self.tyranno_vr}"],
-                    cwd=path,
-                    fail=VersionNotFoundError(f"Git tag '{self.tyranno_vr}' was not found."),
-                )
+            # FYI this would fail if we had deleted .git first
+            self._set_tyranno_vr(path)
         finally:
             self._murder_evil_path_for_sure(path / ".git")
+
+    def _set_tyranno_vr(self, path: Path):
+        # if it's None, just leave it as HEAD
+        if (tyranno_vr := self._parse_tyranno_vr(path, self.tyranno_vr)) is not None:
+            try:
+                self._checkout_rev(path, tyranno_vr)
+            except VersionNotFoundError:
+                if self.tyranno_vr == "current":
+                    logger.warning(
+                        f"Installed tyrannosaurus version {tyranno_vr} not found; using stable"
+                    )
+                    tyranno_vr = self._parse_tyranno_vr(path, "stable")
+                    self._checkout_rev(path, tyranno_vr)
+                    # if that still doesn't work, let it fail
+                else:
+                    # let everything else fail, including for "stable"
+                    raise
+        logger.info(
+            f"Using tyrannosaurus template version {'HEAD' if tyranno_vr is None else tyranno_vr}"
+        )
+
+    def _checkout_rev(self, path: Path, tyranno_vr: str):
+        self._call(
+            ["git", "checkout", f"tags/{tyranno_vr}"],
+            cwd=path,
+            fail=VersionNotFoundError(f"Git tag '{tyranno_vr}' was not found."),
+        )
+
+    def _parse_tyranno_vr(self, path: Path, vr: str) -> Optional[str]:
+        vr = vr.lower().strip()
+        if vr == "latest":
+            return None
+        elif vr == "current":
+            return "v" + global_tyranno_version
+        elif vr == "stable":
+            return self._call(["git", "describe", "--abbrev=0", "--tags"], cwd=path)
+        elif vr.startswith("v"):
+            return vr
+        else:
+            return "v" + vr
 
     def _call(
         self,
@@ -160,35 +198,22 @@ class New:
         cwd: Optional[Path] = None,
         succeed: Optional[str] = None,
         fail: Union[None, str, BaseException] = None,
-    ) -> bool:
+    ) -> Optional[str]:
         kwargs = {} if cwd is None else dict(cwd=str(cwd))
         try:
-            check_call(cmd, **kwargs)  # nosec
+            output = check_output(cmd, encoding="utf8", **kwargs)  # nosec
         except CalledProcessError:
             logger.debug(f"Failed calling {' '.join(cmd)} in {cwd}", exc_info=True)
             if fail is not None and isinstance(fail, BaseException):
                 raise fail
             elif fail is not None:
                 logger.error(fail)
-            return False
+            return None
         else:
             logger.debug(f"Succeeded calling {' '.join(cmd)} in {cwd}", exc_info=True)
             if succeed is not None:
                 logger.info(succeed)
-            return True
-
-    def _parse_tyranno_vr(self) -> Optional[str]:
-        vr = self.tyranno_vr.lower().strip()
-        if vr == "latest":
-            return None
-        elif vr == "current":
-            return "v" + global_tyranno_version
-        elif vr == "stable":
-            return check_output(["git", "describe", "--abbrev=0", "--tags"], encoding="utf8")
-        elif vr.startswith("v"):
-            return vr
-        else:
-            return "v" + vr
+            return output
 
     def _murder_evil_path_for_sure(self, evil_path: Path) -> None:
         """

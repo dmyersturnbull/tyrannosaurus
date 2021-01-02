@@ -197,8 +197,11 @@ class EnvHelper:
                 value = value.get("version")
             # TODO handle ~ correctly
             if "^" in value or "~" in value:
-                match = re.compile(r"^[^~]([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?$").fullmatch(value)
-                if match is not None:
+                if (
+                    match := re.compile(r"^[^~]([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?$").fullmatch(
+                        value
+                    )
+                ) is not None:
                     value = (
                         ">="
                         + match.group(1)
