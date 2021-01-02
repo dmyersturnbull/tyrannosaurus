@@ -1,5 +1,5 @@
 {% set name = "tyrannosaurus" %}
-{% set version = "0.8.1" %}
+{% set version = "0.8.2" %}
 
 
 package:
@@ -22,7 +22,6 @@ requirements:
     - pip
     - python >=3.8,<4.0
   run:
-    - importlib-metadata >=1.6,<2.0
     - python >=3.8,<4.0
     - tomlkit >=0.7.0,<1.0.0
     - typer >=0.3.0,<1.0.0
