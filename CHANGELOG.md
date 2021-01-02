@@ -24,6 +24,11 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - A `--tyranno` flag to new (deprecates `--newest`, which is now hidden)
 - `--version` and `--info` options (exit immediately)
 
+### Removed
+- isort, which conflicted with black anyway
+- trailing-whitespace hook, which was unnecessary due to black and prettifier,
+  and which incorrectly modified markdown files
+
 ### Fixed
 - Cleaned up code
 - Bad editorconfig settings for yaml and json
