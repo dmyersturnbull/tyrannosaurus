@@ -15,6 +15,7 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - Made compatible with Github’s [master branch renaming](https://github.com/github/renaming)
   (Because this external change broke backwards compatibility for newly generated projects,
   I consider this a fix, which won’t trigger a minor version bump)
+- Moved CodeQL workflow into commit.yml
 
 ### Added
 - A `--track` flag in `tyrannosaurus new` (to simplify the readme’s example)
@@ -22,9 +23,11 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - Integration with [https://github.com/pyupio/safety](Safety)
 
 ### Fixed
-- Cleaned up code and docs
+- Cleaned up code
 - Added a copyright notice for Github CodeQL
 - Bad editorconfig settings for yaml and json
+- Improved readme
+- Wrote better descriptions and names of workflows
 
 
 ## [0.8.0] - 2020-08-28

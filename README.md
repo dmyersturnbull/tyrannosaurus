@@ -58,22 +58,35 @@ Integration is also provided for Travis, Azure, Anaconda/Conda, and a few other 
 (Azure may take a little extra to get working.)
 
 
-##### Integration list:
+##### Features / integrations:
 
-  - Dependency management with Poetry
-  - Continuous integration with Github Actions, Travis, or Azure Pipelines
-  - Continuous deployment to PyPi and Dockerhub
-  - Documentation sent to readthedocs
-  - API docs with sphinx-autoapi
-  - Test automation with Tox
-  - Coverage and code quality with Coveralls and CodeClimate
-  - Code linting with Pre-Commit, Black, isort, and Prettifier
-  - Security analysis with Bandit
-  - Conda-Forge recipes and environment YML files
-  - IDE hints via EditorConfig
-  - GitHub labels, issue templates, pull request templates, and contributing guide
-  - codemeta.json and CITATION.cff
-  - [ChangeLog](https://keepachangelog.com) and [Semantic Versioning](https://semver.org)
+  - Packaging and dependency management with [Poetry](https://python-poetry.org/)
+  - Only modern files: *no* manifest file, setup.py, requirements.txt, setup.cfg, or eggs
+  - Continuous integration with [Github Actions](https://github.com/features/actions),
+    [Travis](https://www.travis-ci.com/), or [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
+  - Continuous deployment to [PyPi](http://pypi.org/) and [Dockerhub](https://hub.docker.com/)
+  - Automatic attachment of [sdits](https://docs.python.org/3/distutils/sourcedist.html)
+    and [wheels](https://pythonwheels.com/) to [Github Releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-releases)
+  - Documentation sent to [readthedocs](https://readthedocs.org/)
+  - Nice documentation defaults with [Sphinx extensions](https://www.sphinx-doc.org/en/master/usage/extensions/index.html)
+  - Test automation with [Tox](https://tox.readthedocs.io)
+  - Code quality and coverage [badges](https://github.com/badges/shields) with [Coveralls](https://coveralls.io/),
+    [codecov](https://about.codecov.io/), and [CodeClimate](https://codeclimate.com/)
+    that always reflect the main branch
+  - Code linting with [pre-commit](https://pre-commit.com/), [Black](https://pypi.org/project/black/),
+    and [Prettifier](https://prettier.io/)
+  - Security analysis with [Bandit](https://github.com/PyCQA/bandit),
+    [CodeQL](https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/),
+    and [safety](https://github.com/pyupio/safety) ([issue](https://github.com/pyupio/safety/issues/201))
+  - Static analysis with [https://mypy.readthedocs.io] and
+  - Auto-generation and synchronization of [Conda-Forge](https://conda-forge.org/) recipes and environment YML files
+  - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
+  - Nice gitignore, dockerignore; issue labels; and Github-recognized issue templates, pull request templates, [ChangeLog](https://keepachangelog.com), readme, license, and contributing guide
+  - [CodeMeta](https://codemeta.github.io/user-guide/) and [CITATION.cff](https://citation-file-format.github.io/)
+  - Dependency updating with [Dependabot](https://dependabot.com/) (disabled by default)
+  - Synchronization of project metadata with [Tyrannosaurus](https://tyrannosaurus.readthedocs.io/),
+    so that only pyproject.toml needs to be updated
+
 
 ##### Synchronization:
 

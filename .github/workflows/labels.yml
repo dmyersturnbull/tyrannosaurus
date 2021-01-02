@@ -1,9 +1,9 @@
+name: Create Github labels
 on:
   push:
     branches:
       - master
       - main
-name: Generate labels
 jobs:
   labels:
     name: DefaultLabelsActions

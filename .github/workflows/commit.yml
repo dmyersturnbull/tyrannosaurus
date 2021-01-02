@@ -1,4 +1,4 @@
-name: Build & test on main
+name: Test and update badges on push to main
 on:
   push:
     branches:
@@ -20,19 +20,25 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '${{ matrix.python-version }}'
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: python
       - name: Install build dependencies
         run: |
           python -m pip install --upgrade pip
           pip install --upgrade virtualenv
-          pip install poetry tox pre-commit
+          pip install tox
       - name: Test with tox
         run: |
           tox -v
       - name: Build the Docker image
         run: |
           docker build .
-      - name: Run coveralls
+      - name: Update coveralls/codecov
         run: |
           pip install coveralls codecov
-          coveralls || true
-          codecov || true
+          coveralls
+          codecov
+      - name: Run Github CodeQL
+        uses: github/codeql-action/analyze@v1

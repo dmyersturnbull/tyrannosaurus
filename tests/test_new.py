@@ -1,3 +1,4 @@
+import shutil
 import tempfile
 from datetime import datetime
 from pathlib import Path
@@ -20,27 +21,35 @@ class TestNew:
         self._test_it(should_track=True)
 
     def _test_it(self, should_track=False, tyranno_vr=None):
-        project = "tempted2temp"
-        path = (
-            Path(tempfile.gettempdir())
-            / "tyrannosaurus-test"
-            / datetime.now().strftime("%Y-%m-%d.%H%M%S")
-            / project
-        )
-        New(
-            name=project,
-            license_name="apache2",
-            username="user",
-            authors=["Author 1"],
-            description="A description",
-            keywords=["some", "keywords"],
-            version="0.1.0",
-            should_track=should_track,
-            tyranno_vr=tyranno_vr,
-        ).create(path)
-        assert (path / "pyproject.toml").exists()
-        context = Context(path, dry_run=True)
-        assert context.project == project
+        path = None
+        try:
+            project = "tempted2temp"
+            path = (
+                Path(tempfile.gettempdir())
+                / "tyrannosaurus-test"
+                / datetime.now().strftime("%Y-%m-%d.%H%M%S")
+                / project
+            )
+            New(
+                name=project,
+                license_name="apache2",
+                username="user",
+                authors=["Author 1"],
+                description="A description",
+                keywords=["some", "keywords"],
+                version="0.1.0",
+                should_track=should_track,
+                tyranno_vr=tyranno_vr,
+            ).create(path)
+            assert (path / "pyproject.toml").exists()
+            context = Context(path, dry_run=True)
+            assert context.project == project
+        finally:
+            if path is not None and path.exists():
+                try:
+                    shutil.rmtree(str(path))
+                except OSError:
+                    pass  # TODO warning?
 
 
 if __name__ == "__main__":

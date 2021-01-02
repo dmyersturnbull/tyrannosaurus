@@ -95,7 +95,7 @@ sphinx-rtd-theme         = ">=0.5, <1.0"
 # auto-filled from dev-deps
 dev     = [
         "tomlkit", "tyrannosaurus",
-        "pre-commit", "pre-commit-hooks", "black", "isort",
+        "pre-commit", "pre-commit-hooks", "black",
         "pytest", "hypothesis", "coverage", "pytest-cov", "xdoctest", "bandit",
         "mypy", "flake8", "flake8-docstrings", "flake8-bugbear",
         "sphinx",  "sphinx-autoapi", "sphinx-rtd-theme"

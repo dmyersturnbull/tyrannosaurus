@@ -37,7 +37,7 @@ Here are most of the available synchronization targets:
 - Dev dependencies between ``tool.poetry.dev-dependencies``, ``tool.poetry.extras``, and ``tox.ini``
 - An ``all`` optional dependency list with all optional non-dev packages
 - Dependencies for building docs in ``docs/conf.py`` and ``docs/requirements.txt``
-- Code line length between ``isort``, ``black``, and ``pycodestyle``
+- Code line length between ``black`` and ``pycodestyle``
 - Python version in ``pyproject.toml``, ``tox.ini``, ``.travis.yml``, ``black``, and ``readthedocs.yml``
 - Copyright in ``docs/conf.py``
 - Poetry version in ``Dockerfile``

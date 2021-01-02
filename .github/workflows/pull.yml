@@ -1,4 +1,4 @@
-name: Build & test on pull
+name: Test on pull request
 on:
   pull_request:
 jobs:
@@ -17,11 +17,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '${{ matrix.python-version }}'
-      - name: Install build dependencies
+      - name: Install build meta-dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install --upgrade virtualenv
-          pip install poetry tox pre-commit
+          pip install tox
       - name: Test with tox
         run: |
           tox -v
