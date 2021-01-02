@@ -44,8 +44,8 @@ Of course, you can modify the generated files however you see fit.
 Here’s how your new project will behave, by default:
 
 - When you _commit_, your code is linted and files are checked.
-- When you _push or make a pull request_, your code is tested.
-  Security checks are run, style is checked, and artifacts are built.
+- When you _push or make a pull request_, your code is tested,
+  security checks are run, and artifacts are built.
 - When you _push_ to main, badges are updated and documentation is sent
 - When you _release on Github_, your code is published to PyPi and DockerHub,
   and artifacts are attached to the Github release
