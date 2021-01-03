@@ -137,7 +137,7 @@ To create an initial Anaconda recipe or environment file, run `tyrannosaurus rec
 #### Contributing:
 
 [New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
-Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/CONTRIBUTING.md).
+Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/CONTRIBUTING.md).  
 Generated with tyrannosaurus: `tyrannosaurus new tyrannosaurus`
 
 
