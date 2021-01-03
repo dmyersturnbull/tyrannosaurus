@@ -43,7 +43,7 @@ You can swap out, modify, or disable anything as you see fit.
 - **Commit** ⇒ Files are linted and verified for integrity
 - **Make a pull request** ⇒ Code is built and tested
 - **Push to the main branch** ⇒ Code is built and tested; code quality, coverage, and security badges are updated
-- **Make a Github release** ⇒ Artifacts are sent to Github, PyPi, DockerHub, and readthedocs
+- **Make a Github release** ⇒ Artifacts are sent to Github, PyPi, DockerHub, Github Packages, and readthedocs
 - `tox` ⇒ Tests are run locally
 - `tyrannosaurus sync` ⇒ Project metadata is synced to pyproject.toml
 - `tyrannosaurus update` ⇒ New dependency versions from PyPi and/or Conda are listed
@@ -57,7 +57,8 @@ You can swap out, modify, or disable anything as you see fit.
   - Continuous integration with [Github Actions](https://github.com/features/actions),
     [Travis](https://www.travis-ci.com/), or
     [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) †
-  - Continuous deployment to [PyPi](http://pypi.org/) and [Dockerhub](https://hub.docker.com/)
+  - Continuous deployment to [PyPi](http://pypi.org/), [Dockerhub](https://hub.docker.com/),
+    and [Github Packages](https://github.com/features/packages).
   - Automatic attachment of [sdits](https://docs.python.org/3/distutils/sourcedist.html)
     and [wheels](https://pythonwheels.com/) to
     [Github Releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-releases)
@@ -91,9 +92,9 @@ You can swap out, modify, or disable anything as you see fit.
   - `tyrannosaurus update` that lists dependency versions to bump
   - `tyrannosaurus sync` to synchronize project metadata to pyproject.toml
 
-† Currently, the Azure pipeline config only builds a Docker image. Azure Pipelines costs $$.
+† Currently, the Azure pipeline config only builds a Docker image. Azure Pipelines costs $$.  
 ‡ [Temporary issue 1](https://github.com/dmyersturnbull/tyrannosaurus/issues/7)
-  and [Temporary issue 2](https://github.com/pyupio/safety/issues/201)
+  and [Temporary issue 2](https://github.com/pyupio/safety/issues/201)  
 § Dependabot is off by default; a configuration file is provided
 
 

@@ -22,7 +22,7 @@ Consider following them after running ``tyrannosaurus new``.
 3. (Note: if you used ``--track`` with ``tyrannosaurus new``, you can skip this step.)
    Create an empty (non-initialized) Github repo and copy the files.
    Run ``pre-commit install`` and ``poetry install && tyrannosaurus sync && tox``.
-5. Update the changelog and run ``git commit``.
+5. Update ``CHANGELOG.md`` and run ``git commit``.
    If changes were needed due to failed pre-commit lint changes (such as from black),
    just run again git commit again to accept the linted version. Push to the main branch after committing.
 6. On `PyPi <https://pypi.org>`_, create a new repo and get a repo-specific token.
@@ -38,8 +38,17 @@ Consider following them after running ``tyrannosaurus new``.
 14. If you’re using Jupyter, consider adding [nbstripout](https://github.com/kynan/nbstripout)
     to your ``pre-commit-config.yaml`` to avoid ending up with a massive git history.
 
-Remember to always sync metadata (``tyrannosaurus sync``) or at least ``poetry lock`` before committing or testing.
-You can even add ``tyrannosaurus sync`` to your ``tox.ini`` (preferably above ``poetry check``).
+.. note::
+
+    Github made *main* the `default branch name <https://github.com/github/renaming>`_ for new repositories in
+    October 2020. The provided workflows should work with either *main* or *master*.
+    You’ll want ``git push origin main``, not ``git push origin master``, unless you renamed the branch.
+
+.. tip::
+
+    Remember to always sync metadata (``tyrannosaurus sync``) or at least ``poetry lock`` before committing or testing.
+    You can create a custom pre-commit hook to do this before each commit.
+
 
 You may want to add new code quality integrations, like  `codacy <https://www.codacy.com/>`_.
 Consider adding `shields <https://shields.io/>`_ for those.
@@ -54,12 +63,12 @@ These commands might be useful:
 
 - ``tyrannosaurus sync`` to sync metadata and nothing else
 - ``tyrannosaurus clean --aggressive`` to remove lots of temp files
-- ``pre-commit install`` to configure pre-commit hooks
 - ``tox`` to build, test, build docs, and run some static analyses
-- ``poetry bump`` to bump dependency versions (major or minor)
+- ``poetry update`` to find updated dependency versions (major or minor)
 - ``tyrannosaurus recipe`` to generate a Conda recipe
 
-And these commands are run automatically via either Tox or a Github action:
+These commands are run automatically via either Tox or a Github action,
+but you can run them locally too:
 
 - ``poetry install`` to install and nothing more
 - ``poetry build`` to build wheels and sdists
