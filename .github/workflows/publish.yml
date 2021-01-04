@@ -34,7 +34,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: ${{ github.repository }}/package
+          repository: ${{ github.repository }}/${{ github.event.repository.name }}
           tag_with_ref: true
       - name: Attach artifacts to the Github release
         uses: skx/github-action-publish-binaries@master
