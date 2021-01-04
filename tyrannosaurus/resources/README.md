@@ -9,7 +9,7 @@
 [![Conda-Forge](https://img.shields.io/conda/vn/conda-forge/${project}?label=Conda-Forge)](https://anaconda.org/conda-forge/${project})
 [![Documentation status](https://readthedocs.org/projects/${project}/badge/?version=latest&style=flat-square)](https://${project}.readthedocs.io/en/stable/)
 [![Build & test](https://github.com/${user}/${project}/workflows/Build%20&%20test/badge.svg)](https://github.com/${user}/${project}/actions)
-[![Travis](https://img.shields.io/travis/${user}/${project}?label=Travis)](https://travis-ci.org/${user}/${project})
+[![Travis](https://img.shields.io/travis/${user}/${project}?label=Travis)](https://travis-ci.com/${user}/${project})
 [![Azure DevOps builds](https://img.shields.io/azure-devops/build/${user}/<<key>>/<<defid>>?label=Azure)](https://dev.azure.com/${user}/${project}/_build?definitionId=1&_a=summary)
 [![Maintainability](https://api.codeclimate.com/v1/badges/<<apikey>>/maintainability)](https://codeclimate.com/github/${user}/${project}/maintainability)
 [![Coverage](https://coveralls.io/repos/github/${user}/${project}/badge.svg?branch=main&service=github)](https://coveralls.io/github/${user}/${project}?branch=main)
@@ -20,5 +20,6 @@ And it’s described in this paragraph.
 [See the docs](https://${project}.readthedocs.io/en/stable/) for more info.
 
 [New issues](https://github.com/${user}/${project}/issues) and pull requests are welcome.
-Please refer to the [contributing guide](https://github.com/${user}/${project}/blob/main/CONTRIBUTING.md).
+Please refer to the [contributing guide](https://github.com/${user}/${project}/blob/main/CONTRIBUTING.md)
+and [security policy](https://github.com/${user}/${project}/blob/main/SECURITY.md).  
 Generated with [Tyrannosaurus](https://github.com/dmyersturnbull/tyrannosaurus).

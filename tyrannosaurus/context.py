@@ -4,6 +4,7 @@ Context for Tyrannosaurus.
 
 from __future__ import annotations
 
+import enum
 import logging
 import os
 import shutil
@@ -15,10 +16,74 @@ from typing import Union
 
 import tomlkit
 
+from tyrannosaurus import __version__ as global_tyranno_vr
+
 logger = logging.getLogger(__package__)
 today = date.today()
 now = datetime.now()
 timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
+
+
+class DevStatus(enum.Enum):
+    planning = 1
+    pre_alpha = 2
+    alpha = 3
+    beta = 4
+    production = 5
+    mature = 6
+    inactive = 7
+
+    @property
+    def true_name(self) -> str:
+        """
+        A nice name, like "pre-alpha".
+        """
+        return self.name.replace("_", "-")
+
+    @property
+    def description(self) -> str:
+        """
+        A fragment like "a production state" or "an alpha state"
+        """
+        name = self.true_name
+        article = "an" if name[0] in ["a", "e", "i", "o", "u", "h"] else "a"
+        return f"{article} {name} state"
+
+    @property
+    def pypi(self) -> str:
+        """
+        A string that is recognized as a PyPi classifier.
+        """
+        name = self.name.replace("_", " ").title().replace(" ", "-")
+        return f"{self.value} - {name}"
+
+    @property
+    def dunder(self) -> str:
+        """
+        A string that works for __status__
+        """
+        return "Production" if self.value >= 5 else "Development"
+
+    @classmethod
+    def guess_from_version(cls, vr: str) -> DevStatus:
+        """
+        Makes a really rough guess for the status from a semantic version string::
+
+            - Guesses planning for 0.0.x (these are not semantic versions).
+            - Guesses alpha for pre-1.0
+            - Guesses production for 1.0+
+
+        Arguments:
+            vr: A semantic version like "0.1.x"; can also start with 0.0.
+        """
+        if vr.startswith("v"):
+            vr = vr[1:]
+        if vr.startswith("0.0."):
+            return DevStatus.planning
+        elif vr.startswith("1."):
+            return DevStatus.production
+        else:
+            return DevStatus.alpha
 
 
 class Toml:
@@ -104,7 +169,9 @@ class LiteralParser:
         description: str,
         keywords: Sequence[str],
         version: str,
-        license: str,
+        status: DevStatus,
+        license_name: str,
+        tyranno_vr: str,
     ):
         self.project = project.lower()
         # TODO doing this in two places
@@ -114,7 +181,8 @@ class LiteralParser:
         self.description = description
         self.keywords = keywords
         self.version = version
-        self.license = str(license)
+        self.status = status
+        self.license = str(license_name)
         self.license_official = dict(
             apache2="Apache-2.0",
             cc0="CC0-1.0",
@@ -123,7 +191,8 @@ class LiteralParser:
             gpl2="GPL-2.0-or-later",
             gpl3="GPL-3.0-or-later",
             mit="MIT",
-        ).get(str(license), "TODO:fix:" + str(license))
+        ).get(str(license_name), "TODO:fix:" + str(license_name))
+        self.tyranno_vr = tyranno_vr
 
     def parse(self, s: str) -> str:
         s = (
@@ -136,13 +205,22 @@ class LiteralParser:
             .replace("${now.minute}", str(now.minute))
             .replace("${now.second}", str(now.second))
             .replace("${project}", self.project.lower())
-            .replace("${Project}", self.project[0].upper() + self.project[1:])
+            .replace("${Project}", self.project.capitalize())
             .replace("${pkg}", self.pkg)
             .replace("${license}", self.license)
             .replace("${license.official}", self.license_official)
             .replace("${version}", self.version)
+            .replace("${status.Name}", self.status.name.capitalize())
+            .replace("${status.name}", self.status.name)
+            .replace("${status.pypi}", self.status.pypi)
+            .replace("${status.dunder}", self.status.dunder)
+            .replace("${status.Description}", self.status.description.capitalize())
+            .replace("${status.description}", self.status.description)
+            .replace("${description}", self.description.capitalize())
             .replace("${description}", self.description)
             .replace("${keywords}", str(self.keywords))
+            .replace("${KEYWORDS}", str([k.upper() for k in self.keywords]))
+            .replace("${tyranno.version}", self.tyranno_vr)
         )
         if self.user is not None:
             s = s.replace("${user}", self.user)
@@ -160,7 +238,8 @@ class Source:
         description = toml["tool.poetry.description"]
         authors = toml["tool.poetry.authors"]
         keywords = toml["tool.poetry.keywords"]
-        license = toml["tool.poetry.license"]
+        license_name = toml["tool.poetry.license"]
+        status = DevStatus.guess_from_version(version)
         if isinstance(s, str) and s.startswith("'") and s.endswith("'"):
             return (
                 LiteralParser(
@@ -170,7 +249,9 @@ class Source:
                     description=description,
                     keywords=keywords,
                     version=version,
-                    license=license,
+                    status=status,
+                    license_name=license_name,
+                    tyranno_vr=global_tyranno_vr,
                 )
                 .parse(s)
                 .strip("'")
@@ -300,4 +381,4 @@ class Context:
         return key in self.targets
 
 
-__all__ = ["Toml", "TomlBuilder", "LiteralParser", "Context"]
+__all__ = ["DevStatus", "Toml", "TomlBuilder", "LiteralParser", "Context"]

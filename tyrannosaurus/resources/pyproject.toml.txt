@@ -31,7 +31,7 @@ documentation = "https://${project}.readthedocs.io"
 # TODO Add topics here
 # Note: Poetry adds the license to the classifiers automatically
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: ${status.pypi}",
     "Natural Language :: English",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.8",
@@ -71,7 +71,7 @@ typer                    = ">=0.3, <1.0"
 [tool.poetry.dev-dependencies]
 # TODO Remove build dependencies you don't want (like xdoctest, perhaps)
 tomlkit                  = ">=0.7, <1.0"
-tyrannosaurus            = ">=0.8, <1.0"
+tyrannosaurus            = ">=${tyranno.version}, <1.0"
 pre-commit               = ">=2.9, <3.0"
 pre-commit-hooks         = ">=3.4, <4.0"
 bandit                   = ">=1.7, <2.0"

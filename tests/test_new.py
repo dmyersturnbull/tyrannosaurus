@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 # noinspection PyProtectedMember
-from tyrannosaurus.context import Context
+from tyrannosaurus.context import DevStatus, Context
 from tyrannosaurus.new import New
 
 
@@ -38,6 +38,7 @@ class TestNew:
                 description="A description",
                 keywords=["some", "keywords"],
                 version="0.1.0",
+                status=DevStatus.alpha,
                 should_track=should_track,
                 tyranno_vr=tyranno_vr,
             ).create(path)

@@ -14,7 +14,7 @@ import typer
 
 from tyrannosaurus.clean import Clean
 from tyrannosaurus.conda import CondaEnv, Recipe
-from tyrannosaurus.context import Context
+from tyrannosaurus.context import Context, DevStatus
 from tyrannosaurus.helpers import License, _Env
 from tyrannosaurus.new import New
 from tyrannosaurus.sync import Sync
@@ -98,6 +98,7 @@ class CliCommands:
         description: str = "A Python project",
         keywords: str = "",
         version: str = "0.1.0",
+        status: Optional[DevStatus] = None,
         track: bool = False,
         tyranno: str = "current",
         newest=typer.Option(False, hidden=True),
@@ -113,6 +114,8 @@ class CliCommands:
             description: A <100 char description for the project
             keywords: A list of <= 5 keywords, comma-separated
             version: A semantic version (for your project)
+            status: A PyPi classifier for development status;
+                    if None, defaults to "alpha" if version<1.0 else "production"
             track: Track a remote repo (should be an empty repo; otherwise there will be a merge conflict)
             tyranno: Version of tyrannosaurus to use as the template; can be:
                      an exact version number,
@@ -122,10 +125,19 @@ class CliCommands:
             newest: Same as '--tyranno latest' (deprecated)
             prompt: Prompt for info
         """
+        if version.startswith("v"):
+            version = version[1:]
+        if status is None:
+            status = DevStatus.guess_from_version(version)
         if prompt:
             name = typer.prompt("name", type=str, default=name)
             description = typer.prompt("description", type=str, default="A new project")
             version = typer.prompt("version", type=str, default="0.1.0")
+            if version.startswith("v"):
+                version = version[1:]
+            if status is None:
+                status = DevStatus.guess_from_version(version)
+            status = typer.prompt("status", type=DevStatus, default=status)
             license = typer.prompt("license", type=License, default="apache2").lower()
             user = typer.prompt(
                 "user", type=str, prompt_suffix=" [default: from 'git config']", default=user
@@ -161,6 +173,7 @@ class CliCommands:
             description=description,
             keywords=keywords,
             version=version,
+            status=status,
             should_track=track,
             tyranno_vr=tyranno,
         ).create(path)

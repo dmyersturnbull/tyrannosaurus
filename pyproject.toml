@@ -16,8 +16,8 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.8.2"
-description = "Opinionated Python template and metadata synchronizer for 2021."
+version = "0.8.3"
+description = "Generate elegant, bleeding-edge, ready-to-use Python projects with seamless CI/CD, fit for 2021+."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
 license = "Apache-2.0"

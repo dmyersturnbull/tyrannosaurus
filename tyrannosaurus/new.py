@@ -5,13 +5,13 @@ import os
 import shutil
 import stat
 from pathlib import Path
-from subprocess import CalledProcessError, check_call, check_output  # nosec
+from subprocess import CalledProcessError, check_output  # nosec
 from typing import Sequence, Union, Optional, List
 
 import typer
 
 from tyrannosaurus import __version__ as global_tyranno_version
-from tyrannosaurus.context import LiteralParser
+from tyrannosaurus.context import DevStatus, LiteralParser
 from tyrannosaurus.helpers import License
 
 logger = logging.getLogger(__package__)
@@ -34,6 +34,7 @@ class New:
         description: str,
         keywords: Sequence[str],
         version: str,
+        status: DevStatus,
         should_track: bool,
         tyranno_vr: str,
     ):
@@ -50,6 +51,7 @@ class New:
         self.description = description
         self.keywords = keywords
         self.version = version
+        self.status = status
         self.should_track = should_track
         self.repo_to_track = f"https://github.com/{username}/{name.lower()}.git"
         self.tyranno_vr = str(tyranno_vr)
@@ -70,13 +72,15 @@ class New:
                 p.unlink()
         # copy license
         parser = LiteralParser(
-            self.project_name,
-            self.username,
-            self.authors,
-            self.description,
-            self.keywords,
-            self.version,
-            self.license_name.name,
+            project=self.project_name,
+            user=self.username,
+            authors=self.authors,
+            description=self.description,
+            keywords=self.keywords,
+            version=self.version,
+            status=self.status,
+            license_name=self.license_name.name,
+            tyranno_vr=self.tyranno_vr,
         )
         license_file = (
             path / "tyrannosaurus" / "resources" / ("license_" + self.license_name.name + ".txt")
@@ -112,7 +116,15 @@ class New:
         # rename some files
         Path(path / self.pkg_name).mkdir(exist_ok=True)
         Path(path / "recipes" / self.pkg_name).mkdir(parents=True)
-        (path / "tyrannosaurus" / "__init__.py").rename(Path(path / self.pkg_name / "__init__.py"))
+        # TODO: Pretty hacky
+        old_init_path = path / "tyrannosaurus" / "__init__.py"
+        new_init_path = Path(path / self.pkg_name / "__init__.py")
+        init_text = old_init_path.read_text(encoding="utf8")
+        init_text = init_text.replace(
+            '__status__ = "Development"', f'__status__ = "{self.status.dunder}"'
+        )
+        new_init_path.write_text(init_text, encoding="utf8")
+        old_init_path.unlink()
         shutil.rmtree(str(path / "tyrannosaurus"))
         if self.should_track:
             self._track(path)
