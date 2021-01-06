@@ -15,7 +15,6 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - Made compatible with Github’s [master branch renaming](https://github.com/github/renaming)
   (Because this external change broke backwards compatibility for newly generated projects,
   I consider this a fix, which won’t trigger a minor version bump)
-- Moved CodeQL workflow into commit.yml (shouldn’t affect much)
 
 ### Added
 - A `--track` flag in `tyrannosaurus new` (to simplify the readme’s example)

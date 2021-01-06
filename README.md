@@ -93,8 +93,7 @@ You can swap out, modify, or disable anything as you see fit.
   - `tyrannosaurus sync` to synchronize project metadata to pyproject.toml
 
 † Currently, the Azure pipeline config only builds a Docker image. Azure Pipelines costs $$.  
-‡ [Temporary issue 1](https://github.com/dmyersturnbull/tyrannosaurus/issues/7)
-  and [Temporary issue 2](https://github.com/pyupio/safety/issues/201)  
+‡ [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)  
 § Dependabot is off by default; a configuration file is provided
 
 
