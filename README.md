@@ -87,14 +87,13 @@ You can swap out, modify, or disable anything as you see fit.
     [pull request templates](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/creating-a-pull-request-template-for-your-repository)
   - Nice gitignore, dockerignore, [ChangeLog](https://keepachangelog.com), and other misc files
   - [CodeMeta](https://codemeta.github.io/user-guide/) and [CITATION.cff](https://citation-file-format.github.io/)
-  - Dependency updating with [Dependabot](https://dependabot.com/) §
+  - Dependency updating with [Dependabot](https://dependabot.com/)
   - Auto cleanup of useless files (on running tox); `tyrannosaurus clean` to clean all temp files
   - `tyrannosaurus update` that lists dependency versions to bump
   - `tyrannosaurus sync` to synchronize project metadata to pyproject.toml
 
-† Currently, the Azure pipeline config only builds a Docker image. Azure Pipelines costs $$.  
-‡ [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)  
-§ Dependabot is off by default; a configuration file is provided
+† Currently, the Azure pipeline config only builds a Docker image.
+‡ [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)
 
 
 #### Syncing to pyproject.toml:
