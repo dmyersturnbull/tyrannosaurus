@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 import shutil
 import stat
 from pathlib import Path
@@ -96,14 +97,15 @@ class New:
                 continue
             resource = Path(source).name
             if not resource.startswith("license_"):
-                # TODO replace project with pkg
-                resource = (
-                    str(resource)
-                    .replace(".py.txt", ".py")
-                    .replace(".toml.txt", ".toml")
-                    .replace("$project", self.project_name)
-                    .replace("$pkg", self.pkg_name)
+                resource = resource.replace("$project", self.project_name).replace(
+                    "$pkg", self.pkg_name
                 )
+                # Remove .{other-extension}.txt at the end, with some restrictions
+                # Don't fix, e.g. beautiful.butterfly.txt
+                # But do replace .json.txt
+                # Our ad-hoc rule is that an "extension" contains between 1 and 5 characters
+                # (Also forbid a @ in the extension -- that's a path separator.)
+                resource = re.compile(r"^.*?(\.[^.@]{1,5})\.txt$").sub("$1", resource)
                 dest = path / Path(*resource.split("@"))
                 if dest.name.startswith("-"):
                     dest = Path(
@@ -113,19 +115,9 @@ class New:
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 text = parser.parse(source.read_text(encoding="utf8"))
                 dest.write_text(text, encoding="utf8")
-        # rename some files
-        Path(path / self.pkg_name).mkdir(exist_ok=True)
-        Path(path / "recipes" / self.pkg_name).mkdir(parents=True)
-        # TODO: Pretty hacky
-        old_init_path = path / "tyrannosaurus" / "__init__.py"
-        new_init_path = Path(path / self.pkg_name / "__init__.py")
-        init_text = old_init_path.read_text(encoding="utf8")
-        init_text = init_text.replace(
-            '__status__ = "Development"', f'__status__ = "{self.status.dunder}"'
-        )
-        new_init_path.write_text(init_text, encoding="utf8")
-        old_init_path.unlink()
+        # remove unneeded tyrannosaurus source dir
         shutil.rmtree(str(path / "tyrannosaurus"))
+        # track remote via git
         if self.should_track:
             self._track(path)
 

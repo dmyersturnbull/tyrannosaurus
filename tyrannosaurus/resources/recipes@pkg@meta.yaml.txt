@@ -1,0 +1,46 @@
+{% set name = "${pkg}" %}
+{% set version = "${version}" %}
+
+
+package:
+  name: ${pkg}
+  version: ${version}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: TODO: <put hash here>
+
+build:
+  number: 0
+  noarch: python
+  entry_points:
+    - ${pkg} = ${pkg}.cli:cli
+  script: {{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - pip
+    - python >=3.8,<4.0
+  run:
+    - python >=3.8,<4.0
+    - tomlkit >=0.7.0,<1.0.0
+    - typer >=0.3.0,<1.0.0
+
+test:
+  imports:
+    - ${pkg}
+  commands:
+    - pip check
+    - ${pkg} --help
+  requires:
+    - pip
+
+about:
+  home: https://pypi.org/project/${pkg}/
+  summary: ${description}
+  license: ${license.official}
+  license_file: LICENSE.txt
+
+extra:
+  recipe-maintainers:
+    - ${user}

@@ -192,6 +192,15 @@ class LiteralParser:
             gpl3="GPL-3.0-or-later",
             mit="MIT",
         ).get(str(license_name), "TODO:fix:" + str(license_name))
+        self.license_name = dict(
+            apache2="Apache 2.0",
+            cc0="CC0 1.0",
+            ccby="CC BY 4.0",
+            ccybync="CC BY NC 4.0",
+            gpl2="GPL 2.0",
+            gpl3="GPL 3.0",
+            mit="MIT",
+        ).get(str(license_name), "TODO:fix:" + str(license_name))
         self.tyranno_vr = tyranno_vr
 
     def parse(self, s: str) -> str:
@@ -199,6 +208,7 @@ class LiteralParser:
             s.replace("${today}", str(today))
             .replace("${today.year}", str(today.year))
             .replace("${today.month}", str(today.month))
+            .replace("${today.Month}", today.strftime("%B"))
             .replace("${today.day}", str(today.day))
             .replace("${now}", timestamp)
             .replace("${now.hour}", str(now.hour))
@@ -206,9 +216,11 @@ class LiteralParser:
             .replace("${now.second}", str(now.second))
             .replace("${project}", self.project.lower())
             .replace("${Project}", self.project.capitalize())
+            .replace("${PROJECT}", self.project.upper())
             .replace("${pkg}", self.pkg)
             .replace("${license}", self.license)
             .replace("${license.official}", self.license_official)
+            .replace("${license.name}", self.license_name)
             .replace("${version}", self.version)
             .replace("${status.Name}", self.status.name.capitalize())
             .replace("${status.name}", self.status.name)
@@ -216,9 +228,12 @@ class LiteralParser:
             .replace("${status.dunder}", self.status.dunder)
             .replace("${status.Description}", self.status.description.capitalize())
             .replace("${status.description}", self.status.description)
-            .replace("${description}", self.description.capitalize())
+            .replace("${Description}", self.description.capitalize())
             .replace("${description}", self.description)
             .replace("${keywords}", str(self.keywords))
+            .replace("${keywords.yaml0}", "\n- ".join(self.keywords) + "\n")
+            .replace("${keywords.yaml2}", "\n  - ".join(self.keywords) + "\n")
+            .replace("${keywords.yaml4}", "\n    - ".join(self.keywords) + "\n")
             .replace("${KEYWORDS}", str([k.upper() for k in self.keywords]))
             .replace("${tyranno.version}", self.tyranno_vr)
         )

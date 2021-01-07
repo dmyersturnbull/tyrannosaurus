@@ -4,9 +4,9 @@ title: ${project}
 version: 0.1.0
 abstract: ${description}
 authors:
-    -
-        family-names: ${author.last#1}
-        given-names: ${author.first#1}
+  -
+    family-names: ${author.last#1}
+    given-names: ${author.first#1}
 keywords:
-    - << a keyword >>
+  - ${keywords.expanded}
 date-released: ${today.zulu}

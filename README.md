@@ -9,7 +9,8 @@
 [![Build & test](https://github.com/dmyersturnbull/tyrannosaurus/workflows/Build%20&%20test/badge.svg)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
 [![Travis](https://img.shields.io/travis/dmyersturnbull/tyrannosaurus?label=Travis)](https://travis-ci.org/dmyersturnbull/tyrannosaurus)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5e3b38c9b9c418461dc3/maintainability)](https://codeclimate.com/github/dmyersturnbull/tyrannosaurus/maintainability)
-[![Coverage](https://coveralls.io/repos/github/dmyersturnbull/tyrannosaurus/badge.svg?branch=master&service=github)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=master)
+[![Coverage (coveralls)](https://coveralls.io/repos/github/dmyersturnbull/tyrannosaurus/badge.svg?branch=master&service=github)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=master)
+[![Coverage (codecov)](https://codecov.io/github/dmyersturnbull/tyrannosaurus/coverage.svg)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus/)
 
 An opinionated, forwards-looking Python template for 2021.  
 Generate elegant, ready-to-use Python projects that have excellent continuous integration and deployment.
@@ -77,7 +78,7 @@ You can swap out, modify, or disable anything as you see fit.
   - Static type analysis with [mypy](https://mypy.readthedocs.io)
   - [Conda-Forge](https://conda-forge.org/) [recipes](https://conda-forge.org/docs/maintainer/adding_pkgs.html#the-recipe-meta-yaml)
     and [environment YML](https://medium.com/@balance1150/how-to-build-a-conda-environment-through-a-yaml-file-db185acf5d22)
-    files with [Grayskull](https://github.com/conda-incubator/grayskull)
+    with [Grayskull](https://github.com/conda-incubator/grayskull)
     and [Tyrannosaurus](https://tyrannosaurus.readthedocs.io/)
   - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
   - Fancy [issue labels](https://github.com/crazy-max/ghaction-github-labeler)
