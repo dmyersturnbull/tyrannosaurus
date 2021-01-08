@@ -93,7 +93,7 @@ You can swap out, modify, or disable anything as you see fit.
   - `tyrannosaurus update` that lists dependency versions to bump
   - `tyrannosaurus sync` to synchronize project metadata to pyproject.toml
 
-† Currently, the Azure pipeline config only builds a Docker image.
+† Currently, the Azure pipeline config only builds a Docker image.  
 ‡ [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)
 
 
@@ -127,7 +127,7 @@ To create an initial Anaconda recipe or environment file, run `tyrannosaurus rec
 - [hypermodern-python](https://github.com/cjolowicz/hypermodern-python), a Python template that is similarly modern.
   It looks solid but has fewer integrations.
   A few choices were different, such as the use of [Nox](https://github.com/theacodes/nox).
-  As of 2020-12, the last update was in 2020-04.
+  Nox has less traction and <500 Github stars, and was not updated since 2020-04 as of 2020-12.
 - [cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)
 - [cookiecutter](https://github.com/cookiecutter/cookiecutter), which still uses setup.py
 - [python-blueprint](https://github.com/johnthagen/python-blueprint), which is useful to look through

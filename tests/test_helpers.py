@@ -1,10 +1,21 @@
+from pathlib import Path
+
 import pytest
 
 # noinspection PyProtectedMember
-from tyrannosaurus.helpers import CondaForgeHelper, PyPiHelper, _Env
+from tyrannosaurus.helpers import CondaForgeHelper, PyPiHelper, _Env, TrashList
 
 
 class TestHelpers:
+    def test_trash(self):
+        assert TrashList(False, False).should_delete(Path("eggs"))
+        assert TrashList(False, False).should_delete(Path("OMG.egg-info"))
+        assert not TrashList(False, False).should_delete(Path("dists"))
+        assert TrashList(True, False).should_delete(Path("dists"))
+        assert not TrashList(False, True).should_delete(Path("dists"))
+        assert TrashList(False, True).should_delete(Path(".tox"))
+        assert not TrashList(True, False).should_delete(Path(".tox"))
+
     def test_env(self):
         _Env(None, None)
         # env = _Env(None, None)

@@ -41,6 +41,7 @@ class TestContext:
         assert source == "project"
 
     def test_context(self):
+        # TODO: This weird test operates on tyrannosaurus itself
         root = Path(__file__).parent.parent.resolve()
         context = Context(root)
         assert context.path == root

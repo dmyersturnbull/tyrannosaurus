@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import logging
 import os
-import re
 import shutil
 import stat
 from pathlib import Path
@@ -11,10 +10,10 @@ from typing import Sequence, Union, Optional, List
 
 import typer
 
-from tyrannosaurus import __version__ as global_tyranno_version
 from tyrannosaurus.context import DevStatus, LiteralParser
 from tyrannosaurus.helpers import License
 
+tyranno_url = "https://github.com/dmyersturnbull/tyrannosaurus.git"
 logger = logging.getLogger(__package__)
 cli = typer.Typer()
 
@@ -42,7 +41,7 @@ class New:
         if isinstance(license_name, str):
             license_name = License[license_name.lower()]
         # check for historical reasons; can remove in the future
-        if not isinstance(tyranno_vr, str):
+        if not isinstance(tyranno_vr, str):  # pragma: no cover
             raise ValueError(f"{tyranno_vr} has type {type(tyranno_vr)}")
         self.project_name = name.lower()
         self.pkg_name = name.replace("_", "").replace("-", "").replace(".", "").lower()
@@ -67,10 +66,7 @@ class New:
         for p in Path(path / "docs").iterdir():
             if p.is_file() and p.name not in {"conf.py", "requirements.txt"}:
                 p.unlink()
-        shutil.rmtree(str(path / "tests" / "resources"))
-        for p in Path(path / "tests").iterdir():
-            if p.is_file() and p.name != "__init__.py":
-                p.unlink()
+        shutil.rmtree(str(path / "tests"))
         # copy license
         parser = LiteralParser(
             project=self.project_name,
@@ -83,13 +79,13 @@ class New:
             license_name=self.license_name.name,
             tyranno_vr=self.tyranno_vr,
         )
-        license_file = (
-            path / "tyrannosaurus" / "resources" / ("license_" + self.license_name.name + ".txt")
-        )
+        license_filename = "license_" + self.license_name.name + ".txt"
+        license_file = path / "tyrannosaurus" / "resources" / license_filename
         if license_file.exists():
             text = parser.parse(license_file.read_text(encoding="utf8"))
             Path(path / "LICENSE.txt").write_text(text, encoding="utf8")
-        else:
+        else:  # pragma: no cover
+            # this really can't happen anyway
             logger.error(f"License file for {license_file.name} not found")
         # copy resources, overwriting
         for source in (path / "tyrannosaurus" / "resources").iterdir():
@@ -97,25 +93,23 @@ class New:
                 continue
             resource = Path(source).name
             if not resource.startswith("license_"):
-                resource = resource.replace("$project", self.project_name).replace(
-                    "$pkg", self.pkg_name
-                )
+                resource = resource.replace("$project", self.project_name)
+                resource = resource.replace("$pkg", self.pkg_name)
                 # Remove .{other-extension}.txt at the end, with some restrictions
                 # Don't fix, e.g. beautiful.butterfly.txt
                 # But do replace .json.txt
                 # Our ad-hoc rule is that an "extension" contains between 1 and 5 characters
                 # (Also forbid a @ in the extension -- that's a path separator.)
-                resource = re.compile(r"^.*?(\.[^.@]{1,5})\.txt$").sub("$1", resource)
+                if resource.endswith(".txt"):
+                    resource = resource[:-4]
+                # TODO
+                # resource = re.compile(r"^.*?(\.[^.@]{1,5})\.txt$").sub(r"\1", resource)
                 dest = path / Path(*resource.split("@"))
-                if dest.name.startswith("-"):
-                    dest = Path(
-                        *reversed(dest.parents),
-                        "." + dest.name[1:],
-                    )
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 text = parser.parse(source.read_text(encoding="utf8"))
                 dest.write_text(text, encoding="utf8")
         # remove unneeded tyrannosaurus source dir
+        # we already copied the files in tyrannosaurus/resources/
         shutil.rmtree(str(path / "tyrannosaurus"))
         # track remote via git
         if self.should_track:
@@ -148,9 +142,7 @@ class New:
         try:
             path.parent.mkdir(exist_ok=True, parents=True)
             logger.info("Running git clone...")
-            self._call(
-                ["git", "clone", "https://github.com/dmyersturnbull/tyrannosaurus.git", str(path)]
-            )
+            self._call(["git", "clone", tyranno_url, str(path)])
             # FYI this would fail if we had deleted .git first
             self._set_tyranno_vr(path)
         finally:
@@ -190,6 +182,8 @@ class New:
         if vr == "latest":
             return None
         elif vr == "current":
+            from tyrannosaurus import __version__ as global_tyranno_version
+
             return "v" + global_tyranno_version
         elif vr == "stable":
             return self._call(["git", "describe", "--abbrev=0", "--tags"], cwd=path)

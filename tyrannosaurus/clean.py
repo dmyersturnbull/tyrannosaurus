@@ -36,6 +36,7 @@ class Clean:
             if tup[0] is not None:
                 trashed.append(tup)
         for p in scandir_fast(path, trash):
+            p = Path(p)
             if trash.should_delete(p):
                 tup = context.trash(p, self.hard_delete)
                 if tup[0] is not None:

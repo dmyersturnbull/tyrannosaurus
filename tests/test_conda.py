@@ -1,36 +1,31 @@
-import tempfile
-from datetime import datetime
-from pathlib import Path
-
 import pytest
 
 from tyrannosaurus.conda import CondaEnv, Recipe
 
 # noinspection PyProtectedMember
 from tyrannosaurus.context import Context
+from tests import TestResources
 
 
 class TestConda:
     def test_env(self):
-        path = Path(__file__).parent / "resources" / "fake"
-        output_env_path = path / "fakeenv.yml"
-        context = Context(path, dry_run=True)
-        env = CondaEnv("fakeenv", False, False)
-        txt = "\n".join(env.create(context, output_env_path))
-        assert "name: fakeenv" in txt
-        assert "grayskull" in txt
-        assert "pip:" not in txt
-        assert "sphinx" not in txt
+        with TestResources.temp_dir(copy_resource="fake") as path:
+            context = Context(path, dry_run=True)
+            output_env_path = path / "fakeenv.yml"
+            env = CondaEnv("fakeenv", False, False)
+            txt = "\n".join(env.create(context, output_env_path))
+            assert "name: fakeenv" in txt
+            assert "grayskull" in txt
+            assert "pip:" not in txt
+            assert "sphinx" not in txt
 
     def test_recipe(self):
-        output_path = Path(tempfile.gettempdir()) / (
-            "trash-tmpdir-" + datetime.now().strftime("%Y-%m-%d.%H%M%S")
-        )
-        path = Path(__file__).parent / "resources" / "fake"
-        context = Context(path, dry_run=True)
-        lines = Recipe(context).create(output_path)
-        assert len(lines) > 20
-        assert "    - fakeorg" in lines
+        with TestResources.temp_dir(copy_resource="fake") as path:
+            # FYI dry run is impossible because of grayskull
+            context = Context(path, dry_run=True)
+            lines = Recipe(context).create(path / "recipes")
+            assert len(lines) > 20
+            assert "    - fakeorg" in lines
 
 
 if __name__ == "__main__":

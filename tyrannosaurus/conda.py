@@ -18,13 +18,21 @@ class Recipe:
         self.context = context
 
     def create(self, output_dir: Optional[Path]) -> Sequence[str]:
+        """
+        Creates the recipe file.
+
+        Arguments:
+
+            output_dir: Probably called "recipes"
+        """
         context = self.context
-        yaml_path = output_dir / f"{context.project}/meta.yaml"
+        wt = output_dir / context.project
+        yaml_path = wt / "meta.yaml"
         if yaml_path.exists():
             context.delete_exact_path(yaml_path, False)
-        if (output_dir / context.project).exists():
+        if wt.exists():
             (output_dir / context.project).rmdir()
-        (output_dir / context.project).mkdir(parents=True)
+        wt.mkdir(parents=True)
         skull = GrayskullFactory.create_recipe("pypi", context.poetry("name"), "")
         skull.generate_recipe(str(output_dir), mantainers=context.source("maintainers").split(","))
         logger.debug(f"Generated a new recipe at {output_dir}/meta.yaml")

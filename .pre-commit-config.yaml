@@ -17,7 +17,6 @@ repos:
       - id: fix-byte-order-marker
       - id: end-of-file-fixer
       - id: debug-statements
-      - id: check-builtin-literals
       - id: check-toml
       - id: check-json
       - id: check-yaml

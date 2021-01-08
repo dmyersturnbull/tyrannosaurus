@@ -23,6 +23,7 @@ class TrashList:
     def __init__(self, dists: bool, aggressive: bool):
         self.trash_patterns = {
             ".pytest_cache",
+            ".mypy_cache",
             "__pycache__",
             "cython_debug",
             "eggs",
@@ -228,7 +229,7 @@ class EnvHelper:
         return lines
 
 
-def scandir_fast(topdir: Union[str, Path], trash: TrashList):
+def scandir_fast(topdir: Union[str, Path], trash: TrashList) -> Sequence[Path]:
     """
 
     Args:

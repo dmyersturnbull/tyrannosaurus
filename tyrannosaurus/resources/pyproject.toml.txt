@@ -2,6 +2,11 @@
 description-file = "README.md"
 
 [build-system]
+# This section instructs pip on how to install
+# In particular, it should install using Poetry's `poetry.masonry.api` build
+# And that it requires certain versions of poetry, virtualenv, and wheel
+# See https://www.python.org/dev/peps/pep-0518/ for how this works
+# == A note about these default choices ==
 # virtualenv 20.0.34 partly breaks pre-commit under conda
 # https://github.com/ContinuumIO/anaconda-issues/issues/12094
 # Poetry uses pip and setuptools (although they're not included as dependencies)
@@ -14,34 +19,56 @@ build-backend = "poetry.masonry.api"
 # Poetry metadata
 #########################################################################################
 
+# This is all metadata that Poetry uses directly.
+# TODO: You will want to modify this section.
+# Hopefully the defaults are good, so you only need to change the individual TODOs.
+# Note that some of these can be filled in with arguments to `tyrannosaurus new` (e.g. --keywords).
+
 [tool.poetry]
+
 name = "${pkg}"
+# This is the version of your project. Keep it up-to-date and follow semantic versioning.
+# It's used in the PyPi, wheels, Docker, and Github packages.
+# Also make sure to use exactly this version when creating a Github release,
+# but prefix a "v" to the Github release.
+# E.g. This might be "1.2.13", and the Github release will be "v1.2.13".
+# Although semantic versioning allows for build tags (metadata),
+# not all tools are compatible with it, so avoid it if you can.
 version = "0.1.0"
-# TODO Set the description and keywrods here
+
+# TODO: Set the description and keywords here
 description = "${description}"
 keywords = ${keywords}
 authors = ${authors}
 maintainers = ${authors}
-# TODO must be an identifier listed in https://spdx.org/licenses/
+# This must be an identifier listed in https://spdx.org/licenses/
 license = "${license.official}"
 readme = "README.md"
 homepage = "https://github.com/${user}/${project}"
 repository = "https://github.com/${user}/${project}"
 documentation = "https://${project}.readthedocs.io"
-# TODO Add topics here
+# TODO: Add topics here
 # Note: Poetry adds the license to the classifiers automatically
+# Development Status, license, and Python versions are kept consistent
+# by `tyrannosaurus sync`, if you choose to use that.
+# The language, intended audience, OS, environment, and topics are not.
 classifiers = [
     "Development Status :: ${status.pypi}",
     "Natural Language :: English",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
 	"Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Environment :: Console",
     "Topic :: Software Development :: Libraries :: Python Modules"
 ]
+# These get packaged into the wheels
+# There are uncommon needs to read the readme, license, and/or changelog
+# in your code. For example, to read and display a "what's new" section
+# if you detect that the user is running a newer version than they were using before.
+# If you don't need this, you can remove these entries.
+# (You might also be able to package this pyproject.toml file and read metadata from it.)
 include = [
     "README.md",
     "LICENSE.txt",
@@ -49,7 +76,8 @@ include = [
 ]
 
 [tool.poetry.urls]
-# 'CI', 'Issues', and 'Download' seem to have special meanings; they get icons on PyPi
+# 'CI', 'Issues', and 'Download' seem to have special meanings
+# These all get icons on PyPi
 CI = "https://github.com/${user}/${project}/actions"
 Issues = "https://github.com/${user}/${project}/issues"
 Download = "https://pypi.org/project/${pkg}/"
@@ -59,40 +87,59 @@ Download = "https://pypi.org/project/${pkg}/"
 # Poetry build & dependencies
 #########################################################################################
 
+# TODO: You will want to modify this section.
+
 [tool.poetry.scripts]
 # TODO Is your code a script?
-tyrannosaurus = "${pkg}.cli:cli"
+# Set the name of the Python module followed by a colon, followed by the name of the function
+${project} = "${pkg}.cli:cli"
 
 [tool.poetry.dependencies]
 # TODO Add and remove dependencies here
+# These are dependencies that are included in the main package
 python                   = ">=3.8, <4"
 typer                    = ">=0.3, <1.0"
 
 [tool.poetry.dev-dependencies]
 # TODO Remove build dependencies you don't want (like xdoctest, perhaps)
-tomlkit                  = ">=0.7, <1.0"
-tyrannosaurus            = ">=${tyranno.version}, <1.0"
-pre-commit               = ">=2.9, <3.0"
-pre-commit-hooks         = ">=3.4, <4.0"
+# These are dependencies that Poetry uses only when testing
+# They all are included as dependencies in tox.ini
+# Where `dev` is from `[tool.poetry.extras]` below
+
+# All of the dependencies in this "paragraph" are needed by the default `tox.ini`
+# and Github workflows (under `.github/workflows`) that Tyrannosaurus generated.
+# If you remove them, builds will always fail unless you also modify the build pipeline.
+# Note: We don't use flake8-bandit because it appears to be unmaintained
 bandit                   = ">=1.7, <2.0"
 black                    = "=20.8b1"
-isort                    = "^5"
-pytest                   = "^6"
-hypothesis               = "^5"
 coverage                 = {extras = ["toml"], version = "^5"}
-pytest-cov               = "^2"
-xdoctest                 = ">=0.15, <1.0"
-mypy                     = ">=0.790, <1.0"
 flake8                   = "^3"
-flake8-docstrings        = "^1"
-# note: flake8-bandit appears to be unmaintained
 flake8-bugbear           = "^20"
+flake8-docstrings        = "^1"
+pre-commit               = ">=2.9, <3.0"
+pre-commit-hooks         = ">=3.4, <4.0"
+pytest                   = "^6"
+pytest-cov               = "^2"
 sphinx                   = "^3"
 sphinx-autoapi           = "^1"
 sphinx-rtd-theme         = ">=0.5, <1.0"
+tomlkit                  = ">=0.7, <1.0"
+
+# These are used directly in the default build pipeline
+# ... but they're generally optional, and the build won't fail if you remove them
+# For example, `mypy` is called in `tox.ini`, but if it's removed then the line
+# will fail without causing the build to fail.
+mypy                     = ">=0.790, <1.0"
+
+# These are useful but are not used directly in the default build pipeline
+# that Tyrannosaurus set up for your project
+hypothesis               = "^5"
+tyrannosaurus            = ">=${tyranno.version}, <1.0"
+xdoctest                 = ">=0.15, <1.0"
 
 [tool.poetry.extras]
-# auto-filled from dev-deps
+# These are referenced in the tox.ini with `extras = dev`
+# These are auto-filled from dev-deps when you run tyrannosaurus sync
 dev     = [
         "tomlkit", "tyrannosaurus",
         "pre-commit", "pre-commit-hooks", "black",
@@ -106,7 +153,19 @@ dev     = [
 # Tyrannosaurus
 #########################################################################################
 
+# == NOTE ==
+# These ONLY configure the behavior of `tyrannosaurus sync` (and tyrannosaurus build).
+# These commands are not run inside the build pipeline; they're only run if you run them
+# specifically. You would only modify them to change this behavior.
+# You can safely remove this whole section if you don't want to use these commands at all.
+
+
 [tool.tyrannosaurus.options]
+# This tells Tyrannosaurus to sort lines for things like dependencies
+# For example, it will sort dependencies in `[tool.poetry.dependencies]` alphabetically
+sort     = false
+# This tells Tyrannosaurus to align the columns in TOML files surrounding = signs
+# For example, see how `[tool.tyrannosaurus.targets]` is sorted in this file
 align    = true
 
 [tool.tyrannosaurus.sources]
@@ -223,6 +282,13 @@ environment  = false
 #########################################################################################
 # Style checking
 #########################################################################################
+
+# You probably don't need to modify any of this.
+# A few you might want to change are:
+# [tool.black.line-length] and [tool.isort.line_length]
+# (Note that isort is not used by default, and that tyrannosaurus sync will handle them.)
+# [mypy.check_untyped_defs] (this is fairly aggressive)
+# [tool.towncrier] (if you want to set up towncrier)
 
 [tool.coverage.paths]
 source = ["${pkg}"]

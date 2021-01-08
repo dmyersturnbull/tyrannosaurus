@@ -5,7 +5,7 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
-## [0.8.x] - 2021-01-01
+## [0.8.x] - 2021-01-08
 
 ### Changed
 - Moved build to Python 3.9 (internal only)
@@ -32,9 +32,10 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 ### Fixed
 - Cleaned up code
 - Bad editorconfig settings for yaml and json
-- Improved readme
+- Improved readme and docs
 - Wrote better descriptions and names of workflows
 - Missing 'feature' and 'security' labels in pull request templates
+- Added `.mypy_cache` to the trash list
 
 
 ## [0.8.0] - 2020-08-28

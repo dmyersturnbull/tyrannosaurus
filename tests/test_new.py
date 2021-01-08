@@ -1,13 +1,10 @@
-import shutil
-import tempfile
-from datetime import datetime
-from pathlib import Path
-
 import pytest
 
 # noinspection PyProtectedMember
 from tyrannosaurus.context import DevStatus, Context
 from tyrannosaurus.new import New
+
+from tests import TestResources
 
 
 class TestNew:
@@ -15,21 +12,15 @@ class TestNew:
         self._test_it(tyranno_vr="latest")
 
     def test_new_version(self):
-        self._test_it(tyranno_vr="0.8.1")
+        self._test_it(tyranno_vr="0.8.4")
 
     def test_new_latest_track(self):
         self._test_it(should_track=True)
 
     def _test_it(self, should_track=False, tyranno_vr="latest"):
-        path = None
-        try:
-            project = "tempted2temp"
-            path = (
-                Path(tempfile.gettempdir())
-                / "tyrannosaurus-test"
-                / datetime.now().strftime("%Y-%m-%d.%H%M%S")
-                / project
-            )
+        project = "tempted2temp"
+        with TestResources.temp_dir() as parent:
+            path = parent / project
             New(
                 name=project,
                 license_name="apache2",
@@ -45,12 +36,6 @@ class TestNew:
             assert (path / "pyproject.toml").exists()
             context = Context(path, dry_run=True)
             assert context.project == project
-        finally:
-            if path is not None and path.exists():
-                try:
-                    shutil.rmtree(str(path))
-                except OSError:
-                    pass  # TODO warning?
 
 
 if __name__ == "__main__":

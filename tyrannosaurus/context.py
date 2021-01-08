@@ -16,8 +16,6 @@ from typing import Union
 
 import tomlkit
 
-from tyrannosaurus import __version__ as global_tyranno_vr
-
 logger = logging.getLogger(__package__)
 today = date.today()
 now = datetime.now()
@@ -248,6 +246,8 @@ class LiteralParser:
 class Source:
     @classmethod
     def parse(cls, s: str, toml: Toml) -> Union[str, Sequence]:
+        from tyrannosaurus import __version__ as global_tyranno_vr
+
         project = toml["tool.poetry.name"]
         version = toml["tool.poetry.version"]
         description = toml["tool.poetry.description"]

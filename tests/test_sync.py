@@ -1,16 +1,16 @@
 from datetime import date
-from pathlib import Path
 
 import pytest
 
 # noinspection PyProtectedMember
 from tyrannosaurus.context import Context
 from tyrannosaurus.sync import Sync
+from tests import TestResources
 
 
 class TestSync:
     def test_fix_init(self):
-        path = (Path(__file__).parent / "resources" / "fake").resolve()
+        path = TestResources.resource("fake")
         context = Context(path, dry_run=True)
         sync = Sync(context)
         lines = sync.fix_init()
