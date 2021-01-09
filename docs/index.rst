@@ -10,7 +10,7 @@ Tyrannosaurus, a Python template for 2021
     synchronization
     anaconda
     databases
-    dev
+    ref
 
 `Tyrannosaurus <https://github.com/dmyersturnbull/tyrannosaurus>`_ is an opinionated Python
 template for 2021 that comes with a tool to synchronize duplicate metadata across your build.

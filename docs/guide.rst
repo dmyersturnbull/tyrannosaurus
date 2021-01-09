@@ -17,142 +17,51 @@ Consider following them after running ``tyrannosaurus new --track``.
     Check ``git config user.name`` and ``git config user.name``.
     Make sure it knows about your GPG keys: ``git config --global user.signingkey``
 
-# Remove unwanted files, such as ``.travis.yml`` if unused.
-# Modify ``.github/labels.json``, ``pyproject.toml``, and ``README.md`` as needed.
-# (Note: if you used ``--track`` with ``tyrannosaurus new``, you can skip this step.) Create an empty (non-initialized) Github repo and copy the files. Run ``pre-commit install`` and ``poetry install && tyrannosaurus sync && tox``.
-# Update ``CHANGELOG.md`` and run ``git commit``. If changes were needed due to failed pre-commit lint changes (such as from black), just run again git commit again to accept the linted version. Push to the main branch after committing.
-# Remove features of the Github repo that you don’t want (such as the wiki).
-# Set up branch protection rules for ``main``. I recommend “Require pull request reviews before merging” and “Require status checks to pass before merging”.
-# Confirm that “Dependabot alerts” and “Dependabot security updates” are enabled under “Security & analysis” (if you’re able).
-# On `PyPi <https://pypi.org>`_, create a new repo and get a repo-specific token.
-# In your Github secrets page (under Settings), add ``PYPI_TOKEN``.
-# Tell `DockerHub <https://hub.docker.com/>`_ to track your repo with source ``/v[0-9]+.*/`` and tag ``{sourceref}``.
-# On your Github repo ⮞ Settings ⮞ Webhooks ⮞ your docker hook ⮞ Edit, check ``Releases``.
-# Create a release on Github to publish to PyPi and Dockerhub.
-# Review `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_, `Keep a Changelog <https://keepachangelog.com>`_, and `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_.
-# Consider `getting a DOI <https://guides.github.com/activities/citable-code/>`_.
-# If you’re using Jupyter, consider adding [nbstripout](https://github.com/kynan/nbstripout) to your ``pre-commit-config.yaml`` to avoid ending up with a massive git history.
+.. note::
+
+    If you did not use ``--track``, you should create ann empty (non-initialized) Github repo and track it with
+    ``git remote add``. You will also need to run run ``pre-commit install``.
+
+
+1. Remove features of the Github repo that you don’t want (such as the wiki).
+2. Set up branch protection rules for *main*. I recommend *Require pull request reviews before merging* and *Require status checks to pass before merging*.
+3. In your newly created project dir, remove unwanted files, such as ``.travis.yml``.
+4. Modify ``pyproject.toml``, ``README.md``, and ``.github/labels.json`` as needed.
+5. Update ``CHANGELOG.md`` and run ``git commit``.
+6. Confirm that *Dependabot alerts* and *Dependabot security updates* are enabled under *Security & analysis* (if you’re able).
+7. On `PyPi <https://pypi.org>`_, create a new project and get a repo-specific token.
+8. In your Github secrets page (under *Settings*), add ``PYPI_TOKEN``.
+9. Tell `DockerHub <https://hub.docker.com/>`_ to track your repo with source ``/v[0-9]+.*/`` and tag ``{sourceref}``.
+10. On your Github repo ⮞ Settings ⮞ Webhooks ⮞ your docker hook ⮞ Edit, check ``Releases``.
+11. Set up readthedocs to track your repo.
+12. Set up CodeCov, Coveralls, Code Climate, and other services you are using. Add ``COVERALLS_REPO_TOKEN`` and ``CODECOV_TOKEN`` to your Github secrets.
+13. Push to a new remote branch and make a pull request to your *main* branch (on Github).
+14. When the pull request tests pass, merge into *main*.
+14. After that workflow succeeds, create a release on Github to publish to PyPi, Dockerhub, and Github Packages.
+15. Watch to see the repo badges get updated.
+
+Review `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_,
+`Keep a Changelog <https://keepachangelog.com/en/1.0.0/>`_, and
+`Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_.
+Consider `getting a DOI <https://guides.github.com/activities/citable-code/>`_.
+If you’re using Jupyter, consider adding [nbstripout](https://github.com/kynan/nbstripout) to your
+``pre-commit-config.yaml`` to avoid ending up with a massive git history.
+
+.. tip::
+
+    When you commit, pre-commit hooks are run. If a linter such as black ran and failed,
+    just run again git commit again on the now-linted version. Push to the main branch after committing.
 
 .. tip::
 
     Remember to always sync metadata (``tyrannosaurus sync``) or at least ``poetry lock`` before committing or testing.
     You can create a custom pre-commit hook to do this before each commit.
 
-
 You may want to add new code quality integrations, like  `codacy <https://www.codacy.com/>`_.
 Consider adding `shields <https://shields.io/>`_ for those.
 Other good tools to consider include [github-labeler](https://github.com/marketplace/actions/github-labeler).
 and [Towncrier](https://pypi.org/project/towncrier/).
 
-
-Reference of files
-------------------
-
-This section explains what the files are and why they exist.
-
-Files that Tyrannosaurus created
-++++++++++++++++++++++++++++++++
-
-Some of these can be deleted if you are not using those tools.
-
-==============================  ==================================================================================
- filename                        purpose
-==============================  ==================================================================================
-.dockerignore                   Tells Docker to ignore temp paths
-.editorconfig                   Tells IDEs how to handle indentation for different file types
-.gitignore                      Avoids committing temp, build, and other unwanted files
-.pre-commit-config.yaml         Forces checks that prevent unnecessary fixup commits
-.travis.yml                     Remove, assuming you are not using Travis
-azure-pipelines.yml             Remove, assuming you are not using Azure Pipelines
-CHANGELOG.md                    Always keep a changelog
-CITATION.cff                    Recommends `citations <https://citation-file-format.github.io/>`_ (obscure)
-codemeta.json                   `Documents scientific software <https://codemeta.github.io/>`_ (obscure)
-CONTRIBUTING.md                 Policy on how to contribute (recognized by Github)
-Dockerfile                      Tells Docker how to build the code
-LICENSE.txt                     License file as plain text (recognized by Github)
-poetry.lock                     Generated by Poetry for consistent and fast dependency resolution
-pyproject.toml                  Core metadata and config file used by a large number of tools
-README.md                       Obviously needed (recognized by Github)
-readthedocs.yml                 Tells readthedocs how to build the documentation
-SECURITY.md                     Security policy document. (recognized by Github)
-tox.ini                         Pipeline file for Tox to build and test the code
-.github/ISSUE_TEMPLATE          Tells Github to suggest templates for new issues
-.github/workflows/codeql.yml    Workflow for Github CodeQL action
-.github/workflows/commit.yml    Builds, tests, and updates code quality reports on pushing to *main*
-.github/workflows/labels.yml    Sets Github issue labels specified in .github/labels.json on push
-.github/workflows/publish.yml   Publishes to Github, etc., when a Github release is made (does **not** test)
-.github/workflows/pull.yml      Builds and tests, but does not update reports, for each pull request to *main*
-dependabot.yml                  Tells dependabot to run weekly
-labels.json                     Specifies the Github issue labels to create or update
-PULL_REQUEST_TEMPLATE.md        Requests a reference to an issue for pull requests (used by Github)
-docs/conf.py                    Configuration file for building documenation with Sphinx
-docs/index.rst                  reStructuredText documentation main page
-docs/requirements.txt           Unfortunately required because readthedocs cannot use Poetry dev-dependencies
-recipes/\*/meta.yaml            A Conda-Forge recipe that ``tyrannosaurus recipe`` can generate (optional)
-environment.yml                 A Conda environment file that ``tyrannosaurus env`` can generate (optional)
-tests/__init__.py               Utilities for tests
-tests/resources/                Resource files that tests need
-tests/\*\*/test\_\*.py          Test source files
-{pkg}/__init__.py               Declares dunder metadata and provides project utilities
-{pkg}/resources/                Resource files that the main code needs
-{pkg}/cli.py                    Command-line interface with Typer (optional)
-{pkg}/\*\*/\*.py                Main code files!
-==============================  ==================================================================================
-
-
-Temporary files
-+++++++++++++++
-
-These are temporary files, which you can delete.
-
-==============================  ==================================================================================
- filename                        purpose
-==============================  ==================================================================================
-.tox/                           Cache from Tox containing virtual environments (*avoid deleting*)
-docs/autoapi/                   Generated reStructuredText files from code docstrings (can delete)
-docs/html/                      Generated HTML files for all documentation (can delete)
-dist/                           Poetry-generated sdists and wheels files (can delete)
-.tyrannosaurus/                 Temporary backup and trashed files from Tyrannosaurus (can delete)
-.coverage                       Generated coverage reports (can delete)
-eggs/                           Obsolete generated egg files (auto-deleted)
-{pkg}.egg-info                  Obsolete generated egg files (auto-deleted)
-\*\*/.pytest_cache/               Cache files from pytest (auto-deleted)
-==============================  ==================================================================================
-
-
-Non-included files
-++++++++++++++++++
-
-These may be useful for some projects, or are alternatives to those used.
-
-==============================  ==================================================================================
- filename                        purpose
-==============================  ==================================================================================
-AUTHORS.md                      Perfectly fine to include if there are many authors (duplicates info)
-BACKERS.md                      Perfectly fine to include
-CODE_OF_CONDUCT.md              Perfectly fine to include
-codecov.yml                     May be useful to include when using codecov
-HISTORY.md                      Perfectly valid, but CHANGELOG.md seems more clear
-==============================  ==================================================================================
-
-
-Bad/obsolete files
-++++++++++++++++++
-
-These are files that you specifically should not use.
-
-==============================  ==================================================================================
- filename                        purpose
-==============================  ==================================================================================
-dev-requirements.txt            Obsolete, and has serious problems
-LICENSE                         No-extension filenames cause problems for Windows
-Makefile                        Obsolete
-MANIFEST.in                     Obsolete
-setup.cfg                       Obsolete
-setup.py                        Obsolete with Poetry, and has serious problems
-requirements.txt                Obsolete, and has serious problems
-test-requirements.txt           Obsolete, and has serious problems
-==============================  ==================================================================================
 
 
 Reference of commands

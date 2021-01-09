@@ -60,7 +60,7 @@ Your SQL file might start with something like:
 .. code-block::
 
     DROP DATABASE IF EXISTS myfakedatabase;
-    CREATE DATABASE valartest CHARACTER SET = 'utf8mb4' COLLATE 'utf8mb4_unicode_520_ci';
+    CREATE DATABASE myfakedatabase CHARACTER SET = 'utf8mb4' COLLATE 'utf8mb4_unicode_520_ci';
     DROP USER IF EXISTS 'myfakeuser'@'localhost';
     CREATE USER 'myfakedatabase'@'localhost' IDENTIFIED BY 'fakeuser123';
     GRANT SELECT, INSERT, UPDATE, DELETE ON myfakedatabase.* TO 'myfakeuser'@'localhost';

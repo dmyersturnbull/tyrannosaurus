@@ -108,10 +108,7 @@ Manual steps to configure DockerHub
 -----------------------------------------
 
 You want to tell `Dockerhub <https://hub.docker.com/>`_ to track your project.
-First, tell `DockerHub <https://hub.docker.com/>`_ to track your repo with:
-
-- source ``/v[0-9]+.*/``
-- tag ``{sourceref}``
-
+First, tell `DockerHub <https://hub.docker.com/>`_ to track your repo with source ``/v[0-9]+.*/``
+and tag ``{sourceref}``
 On your Github repo ⮞ Settings ⮞ Webhooks ⮞ your docker hook ⮞ Edit, check ``Releases``.
 That should be it.
