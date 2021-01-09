@@ -1,3 +1,6 @@
+# NOTE: We're only including things that would already be checked in to the repo
+# So we're not including things like .tox -- that will never be committed
+# We're excluding docs and tests
 ./tests
 ./docs
 ./.github
@@ -6,6 +9,11 @@
 ./.travis.yml
 ./.appveyor.yml
 ./.coverage
+./.codeclimate.yml
 ./.coveralls.yml
 ./.dockerignore
 ./readthedocs.yml
+./.git
+./.gitignore
+./recipes
+./azure-pipelines.yml
