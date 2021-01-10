@@ -7,8 +7,8 @@ assignees: ''
 ---
 
 <!--
-    Please try to fill out the following info:
+    Fill out any relevant fields:
 -->
 
-- **OS name and version:** ...
 - **Project version:** ...
+- **OS/platform:** ...

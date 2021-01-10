@@ -17,7 +17,7 @@ Generate elegant, ready-to-use Python projects that have excellent continuous in
 
 This is an upgraded, trimmed-down, modern alternative to
 [cookiecutter](https://github.com/cookiecutter/cookiecutter) built with [Poetry](https://python-poetry.org/),
-[Tox](https://github.com/tox-dev/tox), and [Github Actions](https://github.com/features/actions).
+[Tox](https://github.com/tox-dev/tox), and [Github Actions](https://github.com/features/actions).  
 [No legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
 
 Don’t make 55 commits trying to configure Travis, Docker, or readthedocs. Just use `tyrannosaurus new`
@@ -57,7 +57,7 @@ You can swap out, modify, or disable anything as you see fit.
   - Only modern files: *no* manifest file, setup.py, requirements.txt, setup.cfg, or eggs
   - Continuous integration with [Github Actions](https://github.com/features/actions),
     [Travis](https://www.travis-ci.com/), or
-    [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) †
+    [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
   - Continuous deployment to [PyPi](http://pypi.org/), [Dockerhub](https://hub.docker.com/),
     and [Github Packages](https://github.com/features/packages).
   - Automatic attachment of [sdits](https://docs.python.org/3/distutils/sourcedist.html)
@@ -74,7 +74,7 @@ You can swap out, modify, or disable anything as you see fit.
     and [Prettifier](https://prettier.io/)
   - Security analysis with [Bandit](https://github.com/PyCQA/bandit),
     [CodeQL](https://github.com/github/codeql-action),
-    and [safety](https://github.com/pyupio/safety) ‡
+    and [safety](https://github.com/pyupio/safety) †
   - Static type analysis with [mypy](https://mypy.readthedocs.io)
   - [Conda-Forge](https://conda-forge.org/) [recipes](https://conda-forge.org/docs/maintainer/adding_pkgs.html#the-recipe-meta-yaml)
     and [environment YML](https://medium.com/@balance1150/how-to-build-a-conda-environment-through-a-yaml-file-db185acf5d22)
@@ -93,8 +93,7 @@ You can swap out, modify, or disable anything as you see fit.
   - `tyrannosaurus update` that lists dependency versions to bump
   - `tyrannosaurus sync` to synchronize project metadata to pyproject.toml
 
-† Currently, the Azure pipeline config only builds a Docker image.  
-‡ [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)
+† [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)
 
 
 #### Syncing to pyproject.toml:

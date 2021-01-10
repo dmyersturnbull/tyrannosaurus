@@ -4,12 +4,14 @@
 
 trigger:
 - master
+  - main
 
 resources:
 - repo: self
 
 variables:
   # Container registry service connection established during pipeline creation
+  # TODO: Fill this in (it's a long base-64 key from Azure)
   dockerRegistryServiceConnection: '<<id>>'
   imageRepository: '${project}'
   containerRegistry: '${username}.azurecr.io'
@@ -28,6 +30,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
+      # TODO: You can add a task to call tox if you want to test
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
