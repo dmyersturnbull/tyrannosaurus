@@ -15,9 +15,9 @@
 [![Coverage (coveralls)](https://coveralls.io/repos/github/${user}/${project}/badge.svg?branch=main&service=github)](https://coveralls.io/github/${user}/${project}?branch=main)
 [![Coverage (codecov)](https://codecov.io/github/${user}/${project}/coverage.svg)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus/)
 
-This project does the thing described by this sentence.
+${Description.}
 
-And it’s described in this paragraph.
+And it’s further described in this paragraph.
 [See the docs](https://${project}.readthedocs.io/en/stable/) for more info.
 
 [New issues](https://github.com/${user}/${project}/issues) and pull requests are welcome.

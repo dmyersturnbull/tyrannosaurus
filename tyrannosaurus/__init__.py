@@ -1,10 +1,15 @@
 """
-Metadata for this project.
+Original source: https://github.com/dmyersturnbull/tyrannosaurus
+Copyright 2020–2021 Douglas Myers-Turnbull
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Metadata for Tyrannosaurus.
 """
 import logging
 
-# If you need to support Python 3.7, change to importlib_metadata (underscore, not dot)
-# and then list importlib_metadata to [tool.poetry.dependencies] and docs/requirements.txt
+from datetime import datetime
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import metadata as __load
 from pathlib import Path
@@ -28,6 +33,16 @@ try:
     __contact__ = metadata["maintainer"]
 except PackageNotFoundError:  # pragma: no cover
     logger.error(f"Could not load package metadata for {pkg}. Is it installed?")
+
+
+class TyrannoInfo:
+    copyright = __copyright__
+    version = __version__
+    now = datetime.now()
+    today = now.date()
+    datestamp = now.strftime("%Y-%m-%d")
+    timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
+
 
 if __name__ == "__main__":  # pragma: no cover
     if metadata is not None:

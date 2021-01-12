@@ -1,3 +1,4 @@
+${LICENSE.HEADER}
 import pytest
 
 from ${pkg} import __copyright__

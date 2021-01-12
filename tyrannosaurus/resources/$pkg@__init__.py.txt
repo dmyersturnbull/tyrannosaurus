@@ -1,4 +1,5 @@
 """
+${LICENSE.HEADER}
 Metadata for this ${project}.
 """
 import logging

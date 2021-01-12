@@ -61,6 +61,7 @@ Here the substitutions made in text files:
 ``${license}``              ``gpl2``
 ``${license.name}``         ``GPL 2.0``
 ``${license.official}``     ``GPL-2.0-or-later``
+``${LICENSE.HEADER}``       <full copyright header>
 ``${version}``              ``0.1``
 ``${status.Name}``          ``Alpha``
 ``${status.name}``          ``alpha``

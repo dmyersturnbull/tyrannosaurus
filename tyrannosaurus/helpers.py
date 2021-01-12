@@ -1,5 +1,11 @@
 """
-Support code for Tyrannosaurus.
+Original source: https://github.com/dmyersturnbull/tyrannosaurus
+Copyright 2020–2021 Douglas Myers-Turnbull
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Various support code, including enums and utils.
 """
 
 from __future__ import annotations
@@ -74,6 +80,7 @@ class TrashList:
 
 
 class License(enum.Enum):
+    apgl = "agpl"
     apache2 = "apache2"
     cc0 = "cc0"
     ccby = "cc-by"
@@ -81,12 +88,33 @@ class License(enum.Enum):
     gpl3 = "gpl3"
     lgpl3 = "lgpl3"
     mit = "mit"
+    mpl3 = "mpl"
 
+    @property
     def full_name(self) -> str:
+        # TODO: We're not using this yet
         return dict(
-            apache2="Apache-2.0",
-            mit="MIT",
-        ).get(self.name, "")
+            agpl="GNU Affero General Public License",
+            apache2="Apache-2.0 License",
+            mpl3="Mozilla Public License",
+        ).get(self.name, self.name.upper() + " License")
+
+    @property
+    def license_url(self) -> str:
+        return self.header_url.replace("-header", "")
+
+    @property
+    def header_url(self) -> str:
+        name = dict(
+            apache2="apache",
+            ccby="cc_by",
+            ccbync="cc_by_nc",
+            gpl3="gpl3",
+            lgpl3="lgpl",
+            mit="mit",
+            mpl3="mpl"
+        )[self.name]
+        return f"https://raw.githubusercontent.com/licenses/license-templates/master/templates/{name}-header.txt"
 
 
 class _Env:

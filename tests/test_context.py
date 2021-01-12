@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 # noinspection PyProtectedMember
-from tyrannosaurus.context import Context, Source, TomlBuilder, timestamp
+from tyrannosaurus.context import Context, Source, TomlBuilder, TyrannoInfo
 
 
 class TestContext:
@@ -49,7 +49,7 @@ class TestContext:
         assert context.has_target("init")
         assert context.source("linelength") == "100"
         assert str(context.get_bak_path("pyproject.toml")) == str(
-            Path(root / ".tyrannosaurus" / f"pyproject.toml.{timestamp}.bak")
+            Path(root / ".tyrannosaurus" / f"pyproject.toml.{TyrannoInfo.timestamp}.bak")
         )
 
 

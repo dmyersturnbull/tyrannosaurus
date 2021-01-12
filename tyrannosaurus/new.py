@@ -1,3 +1,13 @@
+"""
+Original source: https://github.com/dmyersturnbull/tyrannosaurus
+Copyright 2020–2021 Douglas Myers-Turnbull
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Module that generates new projects.
+"""
+
 from __future__ import annotations
 
 import logging
@@ -8,8 +18,10 @@ from pathlib import Path
 from subprocess import CalledProcessError, check_output  # nosec
 from typing import Sequence, Union, Optional, List
 
+import requests
 import typer
 
+from tyrannosaurus import TyrannoInfo
 from tyrannosaurus.context import DevStatus, LiteralParser
 from tyrannosaurus.helpers import License
 
@@ -55,6 +67,17 @@ class New:
         self.should_track = should_track
         self.repo_to_track = f"https://github.com/{username}/{name.lower()}.git"
         self.tyranno_vr = str(tyranno_vr)
+        self.parser = LiteralParser(
+            project=self.project_name,
+            user=self.username,
+            authors=self.authors,
+            description=self.description,
+            keywords=self.keywords,
+            version=self.version,
+            status=self.status,
+            license_name=self.license_name.name,
+            tyranno_vr=self.tyranno_vr,
+        )
 
     def create(self, path: Path) -> None:
         self._checkout(Path(str(path).lower()))
@@ -67,53 +90,52 @@ class New:
             if p.is_file() and p.name not in {"conf.py", "requirements.txt"}:
                 p.unlink()
         shutil.rmtree(str(path / "tests"))
-        # copy license
-        parser = LiteralParser(
-            project=self.project_name,
-            user=self.username,
-            authors=self.authors,
-            description=self.description,
-            keywords=self.keywords,
-            version=self.version,
-            status=self.status,
-            license_name=self.license_name.name,
-            tyranno_vr=self.tyranno_vr,
-        )
-        license_filename = "license_" + self.license_name.name + ".txt"
-        license_file = path / "tyrannosaurus" / "resources" / license_filename
-        if license_file.exists():
-            text = parser.parse(license_file.read_text(encoding="utf8"))
-            Path(path / "LICENSE.txt").write_text(text, encoding="utf8")
-        else:  # pragma: no cover
-            # this really can't happen anyway
-            logger.error(f"License file for {license_file.name} not found")
+        # download license
+        license_text = self._download_license_template(header=False)
+        Path(path / "LICENSE.txt").write_text(license_text, encoding="utf8")
+        header_text = self._download_license_template(header=True)
         # copy resources, overwriting
         for source in (path / "tyrannosaurus" / "resources").iterdir():
             if not Path(source).is_file():
                 continue
             resource = Path(source).name
-            if not resource.startswith("license_"):
-                resource = resource.replace("$project", self.project_name)
-                resource = resource.replace("$pkg", self.pkg_name)
-                # Remove .{other-extension}.txt at the end, with some restrictions
-                # Don't fix, e.g. beautiful.butterfly.txt
-                # But do replace .json.txt
-                # Our ad-hoc rule is that an "extension" contains between 1 and 5 characters
-                # (Also forbid a @ in the extension -- that's a path separator.)
-                if resource.endswith(".txt"):
-                    resource = resource[:-4]
-                # TODO
-                # resource = re.compile(r"^.*?(\.[^.@]{1,5})\.txt$").sub(r"\1", resource)
-                dest = path / Path(*resource.split("@"))
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                text = parser.parse(source.read_text(encoding="utf8"))
-                dest.write_text(text, encoding="utf8")
+            resource = resource.replace("$project", self.project_name)
+            resource = resource.replace("$pkg", self.pkg_name)
+            # Remove .{other-extension}.txt at the end, with some restrictions
+            # Don't fix, e.g. beautiful.butterfly.txt
+            # But do replace .json.txt
+            # Our ad-hoc rule is that an "extension" contains between 1 and 5 characters
+            # (Also forbid a @ in the extension -- that's a path separator.)
+            if resource.endswith(".txt"):
+                resource = resource[:-4]
+            # TODO: Fix this
+            # resource = re.compile(r"^.*?(\.[^.@]{1,5})\.txt$").sub(r"\1", resource)
+            dest = path / Path(*resource.split("@"))
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            text = self.parser.parse(source.read_text(encoding="utf8"))
+            # Also replace ${LICENSE.HEADER}
+            # This is a special one: We don't currently do this in the context
+            # TODO: Put this in the context?
+            text = text.replace("${LICENSE.HEADER}", header_text)
+            dest.write_text(text, encoding="utf8")
         # remove unneeded tyrannosaurus source dir
         # we already copied the files in tyrannosaurus/resources/
         shutil.rmtree(str(path / "tyrannosaurus"))
         # track remote via git
         if self.should_track:
             self._track(path)
+
+    def _download_license_template(self, header: bool) -> str:
+        url = self.license_name.header_url if header else self.license_name.license_url
+        response = requests.get(url)
+        if response.status_code > 400:
+            raise ValueError(f"Status code {response.status_code} for url {url}")
+        return (
+            response.text
+            .replace("{{ organization }}", ", ".join(self.authors))
+            .replace("{{ year }}", str(TyrannoInfo.today.year))
+            .replace("{{ project }}", self.project_name)
+        )
 
     def _track(self, path: Path) -> None:
         is_initialized = self._call(
@@ -182,9 +204,9 @@ class New:
         if vr == "latest":
             return None
         elif vr == "current":
-            from tyrannosaurus import __version__ as global_tyranno_version
+            from tyrannosaurus import TyrannoInfo
 
-            return "v" + global_tyranno_version
+            return "v" + TyrannoInfo.version
         elif vr == "stable":
             return self._call(["git", "describe", "--abbrev=0", "--tags"], cwd=path)
         elif vr.startswith("v"):

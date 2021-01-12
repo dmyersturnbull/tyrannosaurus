@@ -1,7 +1,12 @@
 """
-Tyrannosaurus command-line interface.
-"""
+Original source: https://github.com/dmyersturnbull/tyrannosaurus
+Copyright 2020–2021 Douglas Myers-Turnbull
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 
+Command-line interface.
+"""
 from __future__ import annotations
 
 import logging

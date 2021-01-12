@@ -1,5 +1,11 @@
 """
-Context for Tyrannosaurus.
+Original source: https://github.com/dmyersturnbull/tyrannosaurus
+Copyright 2020–2021 Douglas Myers-Turnbull
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Holds a "context" of metadata that was read from a pyproject.toml.
 """
 
 from __future__ import annotations
@@ -8,7 +14,6 @@ import enum
 import logging
 import os
 import shutil
-from datetime import date, datetime
 from pathlib import Path, PurePath
 from typing import Any, Mapping, Optional, Sequence
 from typing import Tuple as Tup
@@ -16,10 +21,9 @@ from typing import Union
 
 import tomlkit
 
+from tyrannosaurus import TyrannoInfo
+
 logger = logging.getLogger(__package__)
-today = date.today()
-now = datetime.now()
-timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 
 
 class DevStatus(enum.Enum):
@@ -181,29 +185,38 @@ class LiteralParser:
         self.version = version
         self.status = status
         self.license = str(license_name)
+        # TODO: This is all kinds of bad
+        # https://spdx.org/licenses/
         self.license_official = dict(
+            agpl="AGPL-3.0-or-later",
             apache2="Apache-2.0",
             cc0="CC0-1.0",
             ccby="CC-BY-4.0",
             ccybync="CC-BY-NC-4.0",
             gpl2="GPL-2.0-or-later",
             gpl3="GPL-3.0-or-later",
+            lgpl3="LGPL-3.0-or-later",
             mit="MIT",
+            mpl2="MPL-2.0"
         ).get(str(license_name), "TODO:fix:" + str(license_name))
         self.license_name = dict(
-            apache2="Apache 2.0",
+            apache2="Apache License 2.0",
             cc0="CC0 1.0",
             ccby="CC BY 4.0",
             ccybync="CC BY NC 4.0",
             gpl2="GPL 2.0",
             gpl3="GPL 3.0",
-            mit="MIT",
+            lgpl3="GNU Lesser General Public License 3.0",
+            mit="MIT License",
+            mpl2="Mozilla Public License 2.0"
         ).get(str(license_name), "TODO:fix:" + str(license_name))
         self.tyranno_vr = tyranno_vr
 
     def parse(self, s: str) -> str:
+        today, now, timestamp = TyrannoInfo.today, TyrannoInfo.now, TyrannoInfo.timestamp
         s = (
             s.replace("${today}", str(today))
+            .replace("${today.str}", today.strftime("%Y-%m-%d"))
             .replace("${today.year}", str(today.year))
             .replace("${today.month}", str(today.month))
             .replace("${today.Month}", today.strftime("%B"))
@@ -225,6 +238,7 @@ class LiteralParser:
             .replace("${status.pypi}", self.status.pypi)
             .replace("${status.dunder}", self.status.dunder)
             .replace("${status.Description}", self.status.description.capitalize())
+            .replace("${status.Description.}", self.status.description.capitalize().strip(".")+".")
             .replace("${status.description}", self.status.description)
             .replace("${Description}", self.description.capitalize())
             .replace("${description}", self.description)
@@ -246,7 +260,7 @@ class LiteralParser:
 class Source:
     @classmethod
     def parse(cls, s: str, toml: Toml) -> Union[str, Sequence]:
-        from tyrannosaurus import __version__ as global_tyranno_vr
+        from tyrannosaurus import TyrannoInfo
 
         project = toml["tool.poetry.name"]
         version = toml["tool.poetry.version"]
@@ -266,7 +280,7 @@ class Source:
                     version=version,
                     status=status,
                     license_name=license_name,
-                    tyranno_vr=global_tyranno_vr,
+                    tyranno_vr=TyrannoInfo.version,
                 )
                 .parse(s)
                 .strip("'")
@@ -357,7 +371,7 @@ class Context:
         if not str(path).startswith(str(self.path)):
             path = self.path / path
         path = Path(path).resolve()
-        suffix = path.suffix + "." + timestamp + ".bak"
+        suffix = path.suffix + "." + TyrannoInfo.timestamp + ".bak"
         return self.tmp_path / path.relative_to(self.path).with_suffix(suffix)
 
     def check_path(self, path: Union[Path, str]) -> None:

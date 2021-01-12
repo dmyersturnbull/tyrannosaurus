@@ -1,7 +1,7 @@
 cff-version: 1.1.0
 message: Software reference
 title: ${project}
-version: 0.1.0
+version: ${version}
 abstract: ${description}
 authors:
   -
