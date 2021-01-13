@@ -1,5 +1,6 @@
 # Also see https://github.com/github/gitignore/blob/master/Python.gitignore
 # This is simpler and easier to understand
+# We'll ignore all .* files and then re-add some
 
 # General hidden or unwanted
 .*
@@ -15,6 +16,7 @@ tmp/
 *.log
 *.zip
 *.tar.gz
+*.tgz
 *.gz
 *.tar
 *.z7
@@ -66,5 +68,5 @@ deps/deps.jl
 !/.dockerignore
 !/.editorconfig
 !/.pre-commit-config.yaml
-!/.yarn
-!.yarnrc.yml
+!.npmignore
+!/.scrutinizer.yml

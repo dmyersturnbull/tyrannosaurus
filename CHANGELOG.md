@@ -23,6 +23,9 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - A `--tyranno` flag to new (deprecates `--newest`, which is now hidden)
 - `--version` and `--info` options (exit immediately)
 - Support for Github packages (technically should trigger a minor version bump)
+- Stub and shields for scrutinizer
+- Source license headers
+- Link to license in default readme
 
 ### Removed
 - isort, which conflicted with black anyway
@@ -36,6 +39,10 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - Wrote better descriptions and names of workflows
 - Missing 'feature' and 'security' labels in pull request templates
 - Added `.mypy_cache` to the trash list
+- `ccybync` instead of `ccbync`
+- incorrectly recognized license files
+- Added `.git` to `.dockerignore`
+- Added `*.tgz` and `!.npmignore` to `.gitignore`
 
 
 ## [0.8.0] - 2020-08-28

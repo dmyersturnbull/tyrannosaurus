@@ -42,7 +42,7 @@ keywords = ${keywords}
 authors = ${authors}
 maintainers = ${authors}
 # This must be an identifier listed in https://spdx.org/licenses/
-license = "${license.official}"
+license = "${license.spdx}"
 readme = "README.md"
 homepage = "https://github.com/${user}/${project}"
 repository = "https://github.com/${user}/${project}"

@@ -14,12 +14,16 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/<<apikey>>/maintainability)](https://codeclimate.com/github/${user}/${project}/maintainability)
 [![Coverage (coveralls)](https://coveralls.io/repos/github/${user}/${project}/badge.svg?branch=main&service=github)](https://coveralls.io/github/${user}/${project}?branch=main)
 [![Coverage (codecov)](https://codecov.io/github/${user}/${project}/coverage.svg)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/${user}/${project}/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/${user}/${project}/?branch=main)
+[![Code Coverage](https://scrutinizer-ci.com/g/${user}/${project}/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/${user}/${project}/?branch=main)
+[![Build Status](https://scrutinizer-ci.com/g/${user}/${project}/badges/build.png?b=main)](https://scrutinizer-ci.com/g/${user}/${project}/build-status/main)
 
 ${Description.}
 
 And it’s further described in this paragraph.
-[See the docs](https://${project}.readthedocs.io/en/stable/) for more info.
+[See the docs 📚](https://${project}.readthedocs.io/en/stable/) for more info.
 
+Licensed under the terms of the [${license.name}](${license.url}).
 [New issues](https://github.com/${user}/${project}/issues) and pull requests are welcome.
 Please refer to the [contributing guide](https://github.com/${user}/${project}/blob/main/CONTRIBUTING.md)
 and [security policy](https://github.com/${user}/${project}/blob/main/SECURITY.md).  

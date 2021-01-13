@@ -11,9 +11,12 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5e3b38c9b9c418461dc3/maintainability)](https://codeclimate.com/github/dmyersturnbull/tyrannosaurus/maintainability)
 [![Coverage (coveralls)](https://coveralls.io/repos/github/dmyersturnbull/tyrannosaurus/badge.svg?branch=master&service=github)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=master)
 [![Coverage (codecov)](https://codecov.io/github/dmyersturnbull/tyrannosaurus/coverage.svg)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmyersturnbull/tyrannosaurus/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dmyersturnbull/tyrannosaurus/?branch=master)
+
 
 An opinionated, forwards-looking Python template for 2021.  
 Generate elegant, ready-to-use Python projects that have excellent continuous integration and deployment.
+Integrated with Dockerhub, Github Packages, Azure, and Anaconda if you like those.
 
 This is an upgraded, trimmed-down, modern alternative to
 [cookiecutter](https://github.com/cookiecutter/cookiecutter) built with [Poetry](https://python-poetry.org/),
@@ -67,8 +70,11 @@ You can swap out, modify, or disable anything as you see fit.
   - Nice documentation defaults with
     [Sphinx extensions](https://www.sphinx-doc.org/en/master/usage/extensions/index.html)
   - Test automation with [Tox](https://tox.readthedocs.io)
-  - Code quality and coverage [badges](https://github.com/badges/shields) with [Coveralls](https://coveralls.io/),
-    [codecov](https://about.codecov.io/), and [CodeClimate](https://codeclimate.com/)
+  - Code quality and coverage [badges](https://github.com/badges/shields) with
+    [Coveralls](https://coveralls.io/),
+    [codecov](https://about.codecov.io/),
+    [CodeClimate](https://codeclimate.com/),
+    and [Scrutinizer](https://scrutinizer-ci.com/)
     that reflect the main branch
   - Code linting with [pre-commit](https://pre-commit.com/), [Black](https://pypi.org/project/black/),
     and [Prettifier](https://prettier.io/)
@@ -89,7 +95,7 @@ You can swap out, modify, or disable anything as you see fit.
   - Nice gitignore, dockerignore, [ChangeLog](https://keepachangelog.com), and other misc files
   - [CodeMeta](https://codemeta.github.io/user-guide/) and [CITATION.cff](https://citation-file-format.github.io/)
   - Dependency updating with [Dependabot](https://dependabot.com/)
-  - Auto cleanup of useless files (on running tox); `tyrannosaurus clean` to clean all temp files
+  - `tyrannosaurus clean` to clean temp files
   - `tyrannosaurus update` that lists dependency versions to bump
   - `tyrannosaurus sync` to synchronize project metadata to pyproject.toml
 

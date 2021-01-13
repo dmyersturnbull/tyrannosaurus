@@ -102,11 +102,13 @@ license      = true
 authors      = true
 github       = true
 travis       = true
+scrutinizer  = true
 dockerfile   = true
 readme       = true
 changelog    = true
 citation     = true
 codemeta     = true
+headers      = false
 environment  = false
 
 

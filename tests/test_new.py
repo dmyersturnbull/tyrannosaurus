@@ -1,7 +1,8 @@
 import pytest
 
 # noinspection PyProtectedMember
-from tyrannosaurus.context import DevStatus, Context
+from tyrannosaurus.context import Context
+from tyrannosaurus.enums import DevStatus
 from tyrannosaurus.new import New
 
 from tests import TestResources

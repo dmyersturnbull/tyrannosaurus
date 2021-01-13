@@ -3,7 +3,8 @@ from pathlib import Path
 import pytest
 
 # noinspection PyProtectedMember
-from tyrannosaurus.context import Context, Source, TomlBuilder, TyrannoInfo
+from tyrannosaurus.context import Context, Source, TyrannoInfo
+from tyrannosaurus.enums import TomlBuilder
 
 
 class TestContext:
@@ -31,7 +32,7 @@ class TestContext:
             .add("tool.poetry.version", "version 1")
             .add("tool.poetry.authors", ["auth", "ors"])
             .add("tool.poetry.description", "A description")
-            .add("tool.poetry.license", "A license")
+            .add("tool.poetry.license", "MIT")
             .add("tool.poetry.keywords", ["key", "words"])
             .build()
         )

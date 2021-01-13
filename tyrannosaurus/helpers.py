@@ -10,7 +10,6 @@ Various support code, including enums and utils.
 
 from __future__ import annotations
 
-import enum
 import logging
 import os
 import re
@@ -77,44 +76,6 @@ class TrashList:
                 for pattern in self.trash_patterns
             )
         )
-
-
-class License(enum.Enum):
-    apgl = "agpl"
-    apache2 = "apache2"
-    cc0 = "cc0"
-    ccby = "cc-by"
-    ccbync = "cc-by-nc"
-    gpl3 = "gpl3"
-    lgpl3 = "lgpl3"
-    mit = "mit"
-    mpl3 = "mpl"
-
-    @property
-    def full_name(self) -> str:
-        # TODO: We're not using this yet
-        return dict(
-            agpl="GNU Affero General Public License",
-            apache2="Apache-2.0 License",
-            mpl3="Mozilla Public License",
-        ).get(self.name, self.name.upper() + " License")
-
-    @property
-    def license_url(self) -> str:
-        return self.header_url.replace("-header", "")
-
-    @property
-    def header_url(self) -> str:
-        name = dict(
-            apache2="apache",
-            ccby="cc_by",
-            ccbync="cc_by_nc",
-            gpl3="gpl3",
-            lgpl3="lgpl",
-            mit="mit",
-            mpl3="mpl"
-        )[self.name]
-        return f"https://raw.githubusercontent.com/licenses/license-templates/master/templates/{name}-header.txt"
 
 
 class _Env:
@@ -280,7 +241,6 @@ def scandir_fast(topdir: Union[str, Path], trash: TrashList) -> Sequence[Path]:
 __all__ = [
     "TrashList",
     "_Env",
-    "License",
     "CondaForgeHelper",
     "PyPiHelper",
     "EnvHelper",

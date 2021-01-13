@@ -22,8 +22,8 @@ import requests
 import typer
 
 from tyrannosaurus import TyrannoInfo
-from tyrannosaurus.context import DevStatus, LiteralParser
-from tyrannosaurus.helpers import License
+from tyrannosaurus.parser import LiteralParser
+from tyrannosaurus.enums import DevStatus, License
 
 tyranno_url = "https://github.com/dmyersturnbull/tyrannosaurus.git"
 logger = logging.getLogger(__package__)
@@ -91,9 +91,8 @@ class New:
                 p.unlink()
         shutil.rmtree(str(path / "tests"))
         # download license
-        license_text = self._download_license_template(header=False)
+        license_text = self.parser.download_license_template(header=False)
         Path(path / "LICENSE.txt").write_text(license_text, encoding="utf8")
-        header_text = self._download_license_template(header=True)
         # copy resources, overwriting
         for source in (path / "tyrannosaurus" / "resources").iterdir():
             if not Path(source).is_file():
@@ -115,8 +114,6 @@ class New:
             text = self.parser.parse(source.read_text(encoding="utf8"))
             # Also replace ${LICENSE.HEADER}
             # This is a special one: We don't currently do this in the context
-            # TODO: Put this in the context?
-            text = text.replace("${LICENSE.HEADER}", header_text)
             dest.write_text(text, encoding="utf8")
         # remove unneeded tyrannosaurus source dir
         # we already copied the files in tyrannosaurus/resources/
@@ -124,18 +121,6 @@ class New:
         # track remote via git
         if self.should_track:
             self._track(path)
-
-    def _download_license_template(self, header: bool) -> str:
-        url = self.license_name.header_url if header else self.license_name.license_url
-        response = requests.get(url)
-        if response.status_code > 400:
-            raise ValueError(f"Status code {response.status_code} for url {url}")
-        return (
-            response.text
-            .replace("{{ organization }}", ", ".join(self.authors))
-            .replace("{{ year }}", str(TyrannoInfo.today.year))
-            .replace("{{ project }}", self.project_name)
-        )
 
     def _track(self, path: Path) -> None:
         is_initialized = self._call(
@@ -199,20 +184,19 @@ class New:
             fail=VersionNotFoundError(f"Git tag '{tyranno_vr}' was not found."),
         )
 
-    def _parse_tyranno_vr(self, path: Path, vr: str) -> Optional[str]:
-        vr = vr.lower().strip()
-        if vr == "latest":
+    def _parse_tyranno_vr(self, path: Path, version: str) -> Optional[str]:
+        version = version.lower().strip()
+        if version == "latest":
             return None
-        elif vr == "current":
+        elif version == "current":
             from tyrannosaurus import TyrannoInfo
 
             return "v" + TyrannoInfo.version
-        elif vr == "stable":
+        elif version == "stable":
             return self._call(["git", "describe", "--abbrev=0", "--tags"], cwd=path)
-        elif vr.startswith("v"):
-            return vr
-        else:
-            return "v" + vr
+        elif version.startswith("v"):
+            return version
+        return "v" + version
 
     def _call(
         self,

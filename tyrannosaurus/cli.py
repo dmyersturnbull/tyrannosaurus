@@ -19,8 +19,9 @@ import typer
 
 from tyrannosaurus.clean import Clean
 from tyrannosaurus.conda import CondaEnv, Recipe
-from tyrannosaurus.context import Context, DevStatus
-from tyrannosaurus.helpers import License, _Env
+from tyrannosaurus.context import Context
+from tyrannosaurus.enums import DevStatus, License
+from tyrannosaurus.helpers import _Env
 from tyrannosaurus.new import New
 from tyrannosaurus.sync import Sync
 from tyrannosaurus.update import Update

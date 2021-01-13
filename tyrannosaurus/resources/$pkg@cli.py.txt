@@ -1,5 +1,5 @@
 """
-${LICENSE.HEADER}
+${license.header}
 Command-line interface for ${project}.
 """
 

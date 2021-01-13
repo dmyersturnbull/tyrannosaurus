@@ -1,0 +1,29 @@
+build:
+  environment:
+    python: 3.9.1
+  nodes:
+    my-tests:
+      dependencies:
+        before:
+          - 'pip install --upgrade tox>=3.21,<4.0'
+          - 'pip install --upgrade poetry>=1.1.4,<2.0'
+    analysis:
+      project_setup:
+        override:
+          - 'true'
+      tests:
+        override:
+          - py-scrutinizer-run
+          - command: pylint-run
+            # we can control the exact checks on the website
+            # for example, I disabled pylint checks that black contradicts or that I disagreed with
+            use_website_config: true
+checks:
+  python:
+    code_rating: true
+    duplicate_code: true
+#filter:
+  # I actually like getting checks for these too
+  #excluded_paths:
+  #  - 'tests/*'
+  #  - 'docs/*'

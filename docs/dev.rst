@@ -8,9 +8,7 @@ Note that Tyrannosaurus’s own source files are deleted.
 
 .. note::
 
-    The generated files are mostly trivial and are not marked as inheriting Tyrannosaurus’s
-    Apache 2.0 license. The ``tests/__init__.py`` file contains nontrivial code and should
-    retain its copyright notice in the module docstring if it’s kept.
+    The generated files are mostly trivial and are not marked as inheriting Tyrannosaurus’s Apache 2.0 license. The ``tests/__init__.py`` file contains nontrivial code and should retain its copyright notice in the module docstring if it’s kept.
 
 ``tyrannosaurus new`` follows approximately these steps:
 1. It clones the repo and checks out the correct tag (according to ``--tyranno``).
@@ -34,10 +32,8 @@ Finally, ``tyrannosaurus/`` is deleted.
 .. note::
 
     No files under ``.github/`` have copies under ``tyrannosaurus/resources``.
-    That means that parameters are not .
-    If you want to use parameters in template files for these files,
-    you can make and modify copies under, for example,
-   ``tyranonosaurus/resources/.github@ISSUE_TEMPLATE@bug.md``.
+     If you want to use parameters in template files for these files,
+    you can make and modify copies under, for example, ``tyranonosaurus/resources/.github@ISSUE_TEMPLATE@bug.md``.
 
 
 Here the substitutions made in text files:
@@ -60,7 +56,7 @@ Here the substitutions made in text files:
 ``${pkg}``                  ``myspecialproject``
 ``${license}``              ``gpl2``
 ``${license.name}``         ``GPL 2.0``
-``${license.official}``     ``GPL-2.0-or-later``
+``${license.spdx}``         ``GPL-2.0-or-later``
 ``${LICENSE.HEADER}``       <full copyright header>
 ``${version}``              ``0.1``
 ``${status.Name}``          ``Alpha``
