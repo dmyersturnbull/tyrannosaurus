@@ -26,6 +26,7 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - Stub and shields for scrutinizer
 - Source license headers
 - Link to license in default readme
+- Real conda-forge recipe and shield for it
 
 ### Removed
 - isort, which conflicted with black anyway
@@ -40,9 +41,10 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - Missing 'feature' and 'security' labels in pull request templates
 - Added `.mypy_cache` to the trash list
 - `ccybync` instead of `ccbync`
-- incorrectly recognized license files
-- Added `.git` to `.dockerignore`
-- Added `*.tgz` and `!.npmignore` to `.gitignore`
+- Incorrectly recognized license files
+- Added `.git` to `.dockerignore`, and `*.tgz` and `!.npmignore` to `.gitignore`
+- Generated recipes, including Poetry, Python version, and URLs
+- `tyrannosaurus recipe` won’t fail on a non-empty directory
 
 
 ## [0.8.0] - 2020-08-28

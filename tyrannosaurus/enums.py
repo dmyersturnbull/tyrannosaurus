@@ -17,14 +17,14 @@ import requests
 import tomlkit
 
 
-class DevStatus(enum.Enum):
-    planning = 1
-    pre_alpha = 2
-    alpha = 3
-    beta = 4
-    production = 5
-    mature = 6
-    inactive = 7
+class DevStatus(str, enum.Enum):
+    planning = "planning"
+    pre_alpha = "pre-alpha"
+    alpha = "alpha"
+    beta = "beta"
+    production = "production"
+    mature = "mature"
+    inactive = "inactive"
 
     @property
     def true_name(self) -> str:
@@ -32,6 +32,22 @@ class DevStatus(enum.Enum):
         A nice name, like "pre-alpha".
         """
         return self.name.replace("_", "-")
+
+    @property
+    def true_value(self) -> int:
+        """
+        1 for planning, 2 for pre-alpha, ... .
+        Same as for PyPi classifiers.
+        """
+        return dict(
+            planning=1,
+            pre_alpha=2,
+            alpha=3,
+            beta=4,
+            production=5,
+            mature=6,
+            inactive=7,
+        )[self.name]
 
     @property
     def description(self) -> str:
@@ -48,14 +64,14 @@ class DevStatus(enum.Enum):
         A string that is recognized as a PyPi classifier.
         """
         name = self.name.replace("_", " ").title().replace(" ", "-")
-        return f"{self.value} - {name}"
+        return f"{self.true_value} - {name}"
 
     @property
     def dunder(self) -> str:
         """
         A string that works for __status__
         """
-        return "Production" if self.value >= 5 else "Development"
+        return "Production" if self.true_value >= 5 else "Development"
 
     @classmethod
     def guess_from_version(cls, version: str) -> DevStatus:
@@ -152,16 +168,16 @@ class TomlBuilder:
         return Toml(self._dict)
 
 
-class License(enum.Enum):
-    agpl3 = enum.auto()
-    apache2 = enum.auto()
-    cc0 = enum.auto()
-    ccby = enum.auto()
-    ccbync = enum.auto()
-    gpl3 = enum.auto()
-    lgpl3 = enum.auto()
-    mit = enum.auto()
-    mpl2 = enum.auto()
+class License(str, enum.Enum):
+    agpl3 = "agpl3"
+    apache2 = "apache2"
+    cc0 = "cc0"
+    ccby = "ccby"
+    ccbync = "ccbync"
+    gpl3 = "gpl3"
+    lgpl3 = "lgpl3"
+    mit = "mit"
+    mpl2 = "mpl2"
 
     @classmethod
     def of(cls, value: Union[str, License]) -> License:
@@ -208,6 +224,21 @@ class License(enum.Enum):
             mit="MIT License",
             mpl2="Mozilla Public License 2.0",
             agpl3="GNU Affero General Public License 3.0",
+        )[self.name]
+
+    @property
+    def family(self) -> str:
+        return dict(
+            apache2="Apache",
+            cc0="CC",
+            ccby="CC",
+            ccbync="CC",
+            gpl2="GPL",
+            gpl3="GPL",
+            lgpl3="GPL",
+            mit="MIT",
+            mpl2="Mozilla",
+            agpl3="GPL",
         )[self.name]
 
     def download_license(self) -> str:

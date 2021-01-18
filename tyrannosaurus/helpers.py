@@ -187,20 +187,9 @@ class EnvHelper:
                 value = value.get("version")
             # TODO handle ~ correctly
             if "^" in value or "~" in value:
-                if (
-                    match := re.compile(r"^[^~]([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?$").fullmatch(
-                        value
-                    )
-                ) is not None:
-                    value = (
-                        ">="
-                        + match.group(1)
-                        + "."
-                        + match.group(2)
-                        + ",<"
-                        + str(int(match.group(1)) + 1)
-                        + ".0"
-                    )
+                vr_pat_1 = re.compile(r"^[^~]([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?$")
+                if (match := vr_pat_1.fullmatch(value)) is not None:
+                    value = f">={match.group(1)}.{match.group(2)},<{int(match.group(1)) + 1}.0"
                 else:
                     logger.error(f"Couldn't parse {key} = {value}")
             line = "    - " + key + value.replace(" ", "")
@@ -210,6 +199,7 @@ class EnvHelper:
                 not_in.append(line)
         typer.echo(f"Found {len(not_in)} dependencies not in Conda-Forge.")
         if len(not_in) > 0:
+            # TODO: hardcoded pip version
             lines.append("    - pip>=20")
             lines.append("    - pip:")
             for line in not_in:

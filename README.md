@@ -1,38 +1,40 @@
 # Tyrannosaurus Reqs
-[![Version status](https://img.shields.io/pypi/status/tyrannosaurus)](https://pypi.org/project/tyrannosaurus/)
+[![Version status](https://img.shields.io/pypi/status/tyrannosaurus?label=status)](https://pypi.org/project/tyrannosaurus)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/tyrannosaurus)](https://pypi.org/project/tyrannosaurus/)
-[![Docker](https://img.shields.io/docker/v/dmyersturnbull/tyrannosaurus?color=green&label=DockerHub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyrannosaurus)
-[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/dmyersturnbull/tyrannosaurus?include_prereleases&label=GitHub)](https://github.com/dmyersturnbull/tyrannosaurus/releases)
-[![Latest version on PyPi](https://badge.fury.io/py/tyrannosaurus.svg)](https://pypi.org/project/tyrannosaurus/)
-[![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge/?version=latest&style=flat-square)](https://tyrannosaurus.readthedocs.io/en/stable/)
-[![Build & test](https://github.com/dmyersturnbull/tyrannosaurus/workflows/Build%20&%20test/badge.svg)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
-[![Travis](https://img.shields.io/travis/dmyersturnbull/tyrannosaurus?label=Travis)](https://travis-ci.org/dmyersturnbull/tyrannosaurus)
-[![Maintainability](https://api.codeclimate.com/v1/badges/5e3b38c9b9c418461dc3/maintainability)](https://codeclimate.com/github/dmyersturnbull/tyrannosaurus/maintainability)
+[![Python version compatibility](https://img.shields.io/pypi/pyversions/tyrannosaurus?label=Python)](https://pypi.org/project/tyrannosaurus)
+[![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyrannosaurus?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyrannosaurus)
+[![Version on Github](https://img.shields.io/github/v/release/dmyersturnbull/tyrannosaurus?include_prereleases&label=GitHub)](https://github.com/dmyersturnbull/tyrannosaurus/releases)
+[![Version on PyPi](https://img.shields.io/pypi/v/tyrannosaurus?label=PyPi)](https://pypi.org/project/tyrannosaurus)
+[![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/tyrannosaurus?label=Conda-Forge)](https://anaconda.org/conda-forge/tyrannosaurus)  
+[![Build (Actions)](https://img.shields.io/github/workflow/status/dmyersturnbull/tyrannosaurus/Build%20&%20test?label=Tests)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
+[![Build (Travis)](https://img.shields.io/travis/dmyersturnbull/tyrannosaurus?label=Travis)](https://travis-ci.org/dmyersturnbull/tyrannosaurus)
+[![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge)](https://tyrannosaurus.readthedocs.io/en/stable/)
 [![Coverage (coveralls)](https://coveralls.io/repos/github/dmyersturnbull/tyrannosaurus/badge.svg?branch=master&service=github)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=master)
-[![Coverage (codecov)](https://codecov.io/github/dmyersturnbull/tyrannosaurus/coverage.svg)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus/)
+[![Coverage (codecov)](https://codecov.io/github/dmyersturnbull/tyrannosaurus/coverage.svg)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus)
+[![Maintainability (Code Climate)](https://api.codeclimate.com/v1/badges/5e3b38c9b9c418461dc3/maintainability)](https://codeclimate.com/github/dmyersturnbull/tyrannosaurus/maintainability)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmyersturnbull/tyrannosaurus/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dmyersturnbull/tyrannosaurus/?branch=master)
 
 
-An opinionated, forwards-looking Python template for 2021.  
-Generate elegant, ready-to-use Python projects that have excellent continuous integration and deployment.
-Integrated with Dockerhub, Github Packages, Azure, and Anaconda if you like those.
+An opinionated, forwards-looking Python template for 2021.
 
-This is an upgraded, trimmed-down, modern alternative to
+Generate elegant, ready-to-use Python
+projects that have excellent continuous integration and deployment (CI/CD). Integrated with
+Docker Hub, Github Packages, Azure, Conda-Forge, and an array of linting, static analysis,
+security testing, documentation, dependency management, and CI/CD tools, including a custom tool
+to keep all duplicate project metadata synchronized to pyproject.toml.
+
+This is a modern alternative to
 [cookiecutter](https://github.com/cookiecutter/cookiecutter) built with [Poetry](https://python-poetry.org/),
-[Tox](https://github.com/tox-dev/tox), and [Github Actions](https://github.com/features/actions).  
-[No legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
-
-Don’t make 55 commits trying to configure Travis, Docker, or readthedocs. Just use `tyrannosaurus new`
+[Github Actions](https://github.com/features/actions), and [no legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
+Don’t make 55 commits trying to configure CI/CD workflows. Use `tyrannosaurus new`:
 
 
 ```bash
 pip install tyrannosaurus
-tyrannosaurus new projectname --user gituserororg --track
+tyrannosaurus new projectname --track
 ```
 
-Tyrannosaurus will then list final manual steps like adding API keys.  
-(`--track` will git track _gituserororg/projectname_.)
+After initializing your project, Tyrannosaurus will list some manual steps, such as adding API keys.
 
 
 #### Main behavior / features:
@@ -70,7 +72,7 @@ You can swap out, modify, or disable anything as you see fit.
   - Nice documentation defaults with
     [Sphinx extensions](https://www.sphinx-doc.org/en/master/usage/extensions/index.html)
   - Test automation with [Tox](https://tox.readthedocs.io)
-  - Code quality and coverage [badges](https://github.com/badges/shields) with
+  - [Shields](https://github.com/badges/shields) with
     [Coveralls](https://coveralls.io/),
     [codecov](https://about.codecov.io/),
     [CodeClimate](https://codeclimate.com/),

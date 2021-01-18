@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 import shutil
 from pathlib import Path
 from typing import Mapping, Optional, Sequence
@@ -19,7 +20,7 @@ from typing import Tuple as Tup
 from typing import Union
 
 from tyrannosaurus import TyrannoInfo
-from tyrannosaurus.enums import DevStatus, Toml
+from tyrannosaurus.enums import DevStatus, Toml, License
 from tyrannosaurus.parser import LiteralParser
 
 logger = logging.getLogger(__package__)
@@ -84,6 +85,19 @@ class Context:
     @property
     def version(self) -> str:
         return str(self.data["tool.poetry.version"])
+
+    @property
+    def license(self) -> License:
+        return License.of(self.data["tool.poetry.license"])
+
+    @property
+    def build_sys_reqs(self) -> Mapping[str, str]:
+        pat = re.compile(r" *^([A-Za-z][A-Za-z0-9-_.]*) *(.*)$")
+        dct = {}
+        for entry in self.data["build-system.requires"]:
+            match = pat.fullmatch(entry)
+            dct[match.group(1)] = match.group(2)
+        return dct
 
     @property
     def deps(self) -> Mapping[str, str]:

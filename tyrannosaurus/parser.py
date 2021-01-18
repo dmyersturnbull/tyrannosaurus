@@ -50,6 +50,7 @@ class LiteralParser:
             .replace("${license.name}", self.license.full_name)
             .replace("${license.spdx}", self.license.spdx)
             .replace("${license.official}", self.license.spdx)
+            .replace("${license.family}", self.license.family)
             .replace("${license.header}", self.download_license_template(header=True))
             .replace("${LICENSE.HEADER}", self.download_license_template(header=True))
             .replace("${license.full}", self.download_license_template(header=False))

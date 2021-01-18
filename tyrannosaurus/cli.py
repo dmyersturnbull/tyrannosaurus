@@ -91,14 +91,14 @@ cli = typer.Typer(callback=state.callback, add_completion=True)
 
 class CliCommands:
 
-    _APACHE2 = typer.Option("apache2")
+    _APACHE2 = typer.Option(License.apache2)
     _ENV_YAML = Path("environment.yml")
 
     @staticmethod
     @cli.command()
     def new(
         name: str,
-        license: License = _APACHE2,
+        license: str = _APACHE2,
         user: Optional[str] = None,
         authors: Optional[str] = None,
         description: str = "A Python project",
@@ -112,6 +112,7 @@ class CliCommands:
     ) -> None:  # pragma: no cover
         """
         Creates a new project.
+
         Args:
             name: The name of the project, including any dashes or capital letters
             license: The name of the license. One of: apache2, cc0, ccby, ccbync, gpl3, lgpl3, mit

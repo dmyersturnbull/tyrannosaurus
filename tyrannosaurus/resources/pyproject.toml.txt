@@ -208,6 +208,7 @@ date               = "'${today}'"
 copyright          = "'Copyright ${today.year}'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
+long_description   = "tool.poetry.description"
 
 # --- AUTHOR INFO ---
 # TODO Fill in authors, contributors, and maintainers

@@ -2,7 +2,7 @@
 description-file = "README.md"
 
 [build-system]
-requires = ["poetry>=1.0", "coverage[toml]"]
+requires = ["poetry>=1.1,<2", "virtualenv==20.0.33", "wheel>=0.36,<1.0"]
 build-backend = "poetry.masonry.api"
 
 
@@ -32,10 +32,9 @@ include = [
 ]
 
 [tool.poetry.urls]
-ci = "https://github.com/fakeorg/fake/actions"
-issues = "https://github.com/fakeorg/fake/issues"
-source = "https://github.com/fakeorg/fake"
-download = "https://pypi.org/project/fake/"
+CI = "https://github.com/fakeorg/fake/actions"
+Issues = "https://github.com/fakeorg/fake/issues"
+Download = "https://pypi.org/project/fake/"
 
 
 #########################################################################################
@@ -44,6 +43,7 @@ download = "https://pypi.org/project/fake/"
 
 [tool.tyrannosaurus.options]
 align    = true
+sort     = false
 
 [tool.tyrannosaurus.sources]
 # use a literal value ('') or refer to a pyproject setting
@@ -139,6 +139,7 @@ target-version = ["py37", "py38"]
 
 [tool.isort]
 line_length = 100
+
 [mypy]
 check_untyped_defs = true
 strict_optional = true

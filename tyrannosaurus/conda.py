@@ -38,11 +38,10 @@ class Recipe:
         context = self.context
         wt = output_dir / context.project
         yaml_path = wt / "meta.yaml"
+        # ex: yaml_path = "tyrannosaurus/meta.yaml"
         if yaml_path.exists():
             context.delete_exact_path(yaml_path, False)
-        if wt.exists():
-            (output_dir / context.project).rmdir()
-        wt.mkdir(parents=True)
+        wt.mkdir(parents=True, exist_ok=True)
         skull = GrayskullFactory.create_recipe("pypi", context.poetry("name"), "")
         skull.generate_recipe(str(output_dir), mantainers=context.source("maintainers").split(","))
         logger.debug(f"Generated a new recipe at {output_dir}/meta.yaml")
