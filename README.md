@@ -23,9 +23,10 @@ Docker Hub, Github Packages, Azure, Conda-Forge, and an array of linting, static
 security testing, documentation, dependency management, and CI/CD tools, including a custom tool
 to keep all duplicate project metadata synchronized to pyproject.toml.
 
-This is a modern alternative to
-[cookiecutter](https://github.com/cookiecutter/cookiecutter) built with [Poetry](https://python-poetry.org/),
-[Github Actions](https://github.com/features/actions), and [no legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
+This is a modern alternative to cookiecutter built with [Poetry](https://python-poetry.org/),
+[Github Actions](https://github.com/features/actions), and
+[no legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
+See below for a comparison to other tools.
 Don’t make 55 commits trying to configure CI/CD workflows. Use `tyrannosaurus new`:
 
 
@@ -131,14 +132,29 @@ To create an initial Anaconda recipe or environment file, run `tyrannosaurus rec
 
 #### Similar tools:
 
-- [hypermodern-python](https://github.com/cjolowicz/hypermodern-python), a Python template that is similarly modern.
-  It looks solid but has fewer integrations.
-  A few choices were different, such as the use of [Nox](https://github.com/theacodes/nox).
-  Nox has less traction and <500 Github stars, and was not updated since 2020-04 as of 2020-12.
-- [cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)
-- [cookiecutter](https://github.com/cookiecutter/cookiecutter), which still uses setup.py
-- [python-blueprint](https://github.com/johnthagen/python-blueprint), which is useful to look through
-  but still uses setup.py
+There are various packages that can be used to generate Python projects from templates.
+I think Tyrannosaurus has some very clear advantages over these:
+- A highly streamlined workflow. You only need to interact directly with your project via
+  `git commit`, `git push`, and creating Github releases. Everything else happens automatically.
+- Integration with Docker, Docker Hub, Github Packages, and Conda-Forge.
+- Built-in configuration for alternative tools (such as Travis), which can simply be deleted without issue.
+- An optional tool to sync duplicate metadata to pyproject.toml.
+
+Anyway, here are some other tools:
+- [hypermodern-python](https://github.com/cjolowicz/hypermodern-python), a Python template that is as modern
+  as Tyrannosaurus. It looks solid but has fewer integrations and made a few choices that I consider sub-optimal,
+  such as the use of [Nox](https://github.com/theacodes/nox), which has <500 Github stars.
+- [cookiecutter](https://github.com/cookiecutter/cookiecutter). This is an extremely useful package that Tyrannosaurus
+  could have been written to use behind the scenes. There are a number of cookiecutter templates available, including
+  some modern ones. However, I did not find any that are as feature-complete or streamlined as Tyrannosaurus.
+- [cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python), a cookiecutter
+  template for hypermodern-python.
+- [wemake-python-package](https://github.com/wemake-services/wemake-python-package), another cookiecutter template.
+  This is a good package, but it has a less streamlined workflow and far fewer useful integrations
+- [copier](https://github.com/copier-org/copier), which can be used to keep a project up-to-date with a remote template.
+  This is a neat idea that may be useful to integrate, possibly alongside `tyrannosaurus sync`.
+- [python-blueprint](https://github.com/johnthagen/python-blueprint). This is an interesting template, but it’s
+  quite outdated.
 
 
 #### Contributing:

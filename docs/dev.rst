@@ -51,13 +51,15 @@ Here the substitutions made in text files:
 ``${now.minute}``           ``37``
 ``${now.second}``           ``03``
 ``${project}``              ``my special-project``
-``${Project}``              ``My Special Project``
-``${PROJECT}``              ``MY SPECIAL PROJECT``
+``${Project}``              ``My Special-Project``
+``${PROJECT}``              ``MY SPECIAL-PROJECT``
 ``${pkg}``                  ``myspecialproject``
 ``${license}``              ``gpl2``
+``${license.family}``       ``GPL``
 ``${license.name}``         ``GPL 2.0``
 ``${license.spdx}``         ``GPL-2.0-or-later``
-``${LICENSE.HEADER}``       <full copyright header>
+``${license.header}``       <full copyright header>
+``${license.full}``         <full copyright file text>
 ``${version}``              ``0.1``
 ``${status.Name}``          ``Alpha``
 ``${status.name}``          ``alpha``
@@ -67,10 +69,11 @@ Here the substitutions made in text files:
 ``${status.description}``   ``an alpha state``
 ``${Description}``          ``My New Project``
 ``${description}``          ``my new project``
+``${Description.}``         ``my new project.`` [includes a period only if needed]
 ``${keywords}``             ``["python", "fancy"]``
 ``${keywords.yaml0}``       ``- python\n- python\n``
 ``${keywords.yaml2}``       ``- python\n  - python\n``
 ``${keywords.yaml4}``       ``- python\n``    ``- python\n``
 ``${KEYWORDS}``             ``["PYTHON", "FANCY"]``
-``${tyranno.version}``      ``0.8.6``
+``${tyranno.version}``      ``0.8.10``
 =========================   ==================================

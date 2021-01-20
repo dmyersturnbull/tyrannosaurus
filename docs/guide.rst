@@ -34,7 +34,7 @@ Consider following them after running ``tyrannosaurus new --track``.
 9. Tell `DockerHub <https://hub.docker.com/>`_ to track your repo with source ``/v[0-9]+.*/`` and tag ``{sourceref}``.
 10. On your Github repo ⮞ Settings ⮞ Webhooks ⮞ your docker hook ⮞ Edit, check ``Releases``.
 11. Set up readthedocs to track your repo.
-12. Set up CodeCov, Coveralls, Code Climate, and other services you are using. Add ``COVERALLS_REPO_TOKEN`` and ``CODECOV_TOKEN`` to your Github secrets.
+12. Set up CodeCov, Coveralls, Code Climate, Scrutinizer, and other services you want. Add ``COVERALLS_REPO_TOKEN`` and ``CODECOV_TOKEN`` to your Github secrets (if needed).
 13. Push to a new remote branch and make a pull request to your *main* branch (on Github).
 14. When the pull request tests pass, merge into *main*.
 14. After that workflow succeeds, create a release on Github to publish to PyPi, Dockerhub, and Github Packages.
@@ -46,6 +46,8 @@ Review `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_,
 Consider `getting a DOI <https://guides.github.com/activities/citable-code/>`_.
 If you’re using Jupyter, consider adding [nbstripout](https://github.com/kynan/nbstripout) to your
 ``pre-commit-config.yaml`` to avoid ending up with a massive git history.
+If you want to create a package on Conda-Forge, see the
+`anaconda integration guide <https://tyrannosaurus.readthedocs.io/en/stable/anaconda.html#anaconda-recipes>`_.
 
 .. tip::
 

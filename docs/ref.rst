@@ -17,6 +17,7 @@ Some of these can be deleted if you are not using those tools.
 .gitignore                      Avoids committing temp, build, and other unwanted files
 .pre-commit-config.yaml         Forces checks that prevent unnecessary fixup commits
 .travis.yml                     Remove, assuming you are not using Travis
+.scrutinizer.yml                Configuration for scrutinizer build, coverage, and/or code quality analysis
 azure-pipelines.yml             Remove, assuming you are not using Azure Pipelines
 CHANGELOG.md                    Always `keep a changelog <https://keepachangelog.com/>`_.
 CITATION.cff                    Recommends `citations <https://citation-file-format.github.io/>`_ (obscure)
@@ -88,6 +89,7 @@ BACKERS.md                      Perfectly fine to include
 CODE_OF_CONDUCT.md              Perfectly fine to include
 codecov.yml                     May be useful to include when using codecov
 HISTORY.md                      Perfectly valid, but CHANGELOG.md seems more clear
+Makefile                        Could be used to automate additional development tasks
 
 
 Bad/obsolete files
@@ -100,7 +102,6 @@ These are files that you specifically should not use.
 ==============================  ==================================================================================
 dev-requirements.txt            Obsolete, and has serious problems
 LICENSE                         No-extension filenames cause problems for Windows
-Makefile                        Obsolete
 MANIFEST.in                     Obsolete
 setup.cfg                       Obsolete
 setup.py                        Obsolete with Poetry, and has serious problems

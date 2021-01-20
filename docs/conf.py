@@ -6,6 +6,7 @@ https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 
 from pathlib import Path
+from typing import Any
 
 import tomlkit
 
@@ -13,7 +14,7 @@ root = Path(__file__).parent.parent.absolute()
 toml = tomlkit.loads((root / "pyproject.toml").read_text(encoding="utf8"))
 
 
-def find(key: str) -> str:
+def find(key: str) -> Any:
     """
     Finds a value defined in the tool.poetry section of the pyproject.toml.
 
@@ -23,7 +24,7 @@ def find(key: str) -> str:
     Returns:
         The value
     """
-    return str(toml["tool"]["poetry"][key])
+    return toml["tool"]["poetry"][key]
 
 
 language = None
@@ -31,7 +32,7 @@ project = find("name")
 version = find("version")
 release = find("version")
 author = ", ".join(find("authors"))
-copyright = f"{author} (2020–2021)"
+copyright = f"2020–2021 {author}"
 
 
 extensions = ["autoapi.extension", "sphinx.ext.napoleon", "sphinx_rtd_theme"]
@@ -46,3 +47,7 @@ autoapi_options = ["private-members=true"]
 
 exclude_patterns = ["_build", "Thumbs.db", ".*", "~*", "*~", "*#"]
 html_theme = "sphinx_rtd_theme"
+
+
+if __name__ == "__main__":
+    print(f"{project} v{version}\n© Copyright {copyright}\n{find('documentation')}")
