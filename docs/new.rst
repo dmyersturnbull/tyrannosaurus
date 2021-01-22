@@ -22,7 +22,8 @@ See ``tyrannosaurus new --help`` for more info.
 
     Github made *main* the `default branch name <https://github.com/github/renaming>`_ for new repositories in
     October 2020. The provided workflows should work with either *main* or *master*.
-    You’ll want ``git push origin main``, not ``git push origin master``, unless you renamed the branch.
+    You’ll want ``git push origin main``, **not** ``git push origin master``, unless you renamed the branch.
+    I recommend keeping *main* as the default branch.
 
 
 Project metadata in pyproject.toml to modify
@@ -41,15 +42,15 @@ Chances are, you will only need to modify those. In particular, two sections:
     **Support for Python < 3.8:**
     If you need to support Python 3.7 and below, add ``importlib_metadata`` to ``pyproject.toml``
     and ``docs/requirements.txt``. Then change ``importlib.metadata`` in ``__init__.py``
-    with ``importlib_metadata``.
+    to ``importlib_metadata``.
 
 
 Readme file, issue labels, etc.
 -------------------------------
 
-You may want to modify the ``.github/labels.json`` file;
-when you commit, your Github labels will be replaced with these.
-Chances that you want to modify the readme are also quite high :)
+You may want to modify ``.github/settings.json`` (or ``.github/labels.json``);
+when you commit, your full settings (or just Github labels) will be replaced with these.
+Chances are you’ll also want to modify the readme :)
 
 .. caution::
 
@@ -60,6 +61,11 @@ Chances that you want to modify the readme are also quite high :)
 
 Manual steps to configure reports
 ---------------------------------
+
+.. hint::
+
+    Also `see the new project guide <https://tyrannosaurus.readthedocs.io/en/stable/guide.html>`_.
+    It has a more complete list of steps; this doc contains more discussion and explanation.
 
 You will need to set a few Github tokens and set up a few external services manually.
 
@@ -88,27 +94,8 @@ Here’s what you need to do to set these up:
   configuration instructions.
 - Add either ``COVERALLS_REPO_TOKEN`` or ``CODECOV_TOKEN`` to your Github repo secrets.
 - Code Climate assigns a url for your repo. Currently, can see it in Settings→Badges.
-  For example, the badge link for Tyrannosaurus is
+  For example, the badge link for Tyrannosaurus is:
+
   ``https://api.codeclimate.com/v1/badges/5e3b38c9b9c418461dc3/maintainability``.
+
   Copy that URL to ``README.md``.
-
-
-Manual steps to configure PyPI publishing
------------------------------------------
-
-To get the Github publish action working, you need to:
-
-1. Make an account on `PyPi <https://pypi.org>`_ if you don’t have one.
-2. Make a new single-repo token on PyPi.
-3. In your Github secrets page, add ``PYPI_TOKEN``.
-4. If you don’t want to use Github packages, remove that section of ``.github/workflows/publish.yml``.
-
-
-Manual steps to configure DockerHub
------------------------------------------
-
-You want to tell `Dockerhub <https://hub.docker.com/>`_ to track your project.
-First, tell `DockerHub <https://hub.docker.com/>`_ to track your repo with source ``/v[0-9]+.*/``
-and tag ``{sourceref}``
-On your Github repo ⮞ Settings ⮞ Webhooks ⮞ your docker hook ⮞ Edit, check ``Releases``.
-That should be it.

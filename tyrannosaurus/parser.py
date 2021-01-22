@@ -72,6 +72,7 @@ class LiteralParser:
             .replace("${keywords.yaml0}", "\n- ".join(self.keywords) + "\n")
             .replace("${keywords.yaml2}", "\n  - ".join(self.keywords) + "\n")
             .replace("${keywords.yaml4}", "\n    - ".join(self.keywords) + "\n")
+            .replace("${keywords.yamllist}", ", ".join(self.keywords))
             .replace("${KEYWORDS}", str([k.upper() for k in self.keywords]))
             .replace("${tyranno.version}", self.tyranno_vr)
         )

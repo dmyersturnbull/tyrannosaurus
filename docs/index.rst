@@ -1,9 +1,10 @@
-Tyrannosaurus, a Python template for 2021
-=========================================
+Tyrannosaurus overview
+======================
 
 .. toctree::
     :maxdepth: 1
 
+    index
     new
     build
     guide
@@ -18,6 +19,7 @@ template for 2021 that comes with a tool to synchronize duplicate metadata acros
 Use it to generate ready-to-go Python projects
 with easy testing and Github actions for testing and publishing.
 Lints on commit, tests on commit, and deploys to PyPi when you make a release on Github.
+Also see the `Tyrannosaurus readme <https://github.com/dmyersturnbull/tyrannosaurus/blob/master/README.md>`_.
 
 You can either use the command-line interface,
 or just clone from the `Github source <https://github.com/dmyersturnbull/tyrannosaurus>`_.

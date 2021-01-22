@@ -5,6 +5,19 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 
+## [0.9.x] - unreleased
+
+
+## [0.9.0] - 2021-01-22
+
+### Added
+- A [probot](https://github.com/probot/settings) config file
+- A Vagrant file
+
+### Fixed
+- Improved the new-project guide
+
+
 ## [0.8.x] - 2021-01-08
 
 ### Changed
