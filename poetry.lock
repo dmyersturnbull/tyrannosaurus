@@ -690,20 +690,21 @@ test = ["pytest", "pytest-cov", "html5lib", "cython", "typed-ast"]
 
 [[package]]
 name = "sphinx-autoapi"
-version = "1.5.1"
+version = "1.6.0"
 description = "Sphinx API documentation generator"
 category = "dev"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
+python-versions = ">=3.6"
 
 [package.dependencies]
-astroid = {version = "*", markers = "python_version >= \"3\""}
+astroid = ">=2.4"
 Jinja2 = "*"
 PyYAML = "*"
-sphinx = ">=1.6"
+sphinx = ">=3.0"
 unidecode = "*"
 
 [package.extras]
+docs = ["sphinx", "sphinx-rtd-theme"]
 dotnet = ["sphinxcontrib-dotnetdomain"]
 go = ["sphinxcontrib-golangdomain"]
 
@@ -1393,8 +1394,8 @@ sphinx = [
     {file = "Sphinx-3.4.3.tar.gz", hash = "sha256:41cad293f954f7d37f803d97eb184158cfd90f51195131e94875bc07cd08b93c"},
 ]
 sphinx-autoapi = [
-    {file = "sphinx-autoapi-1.5.1.tar.gz", hash = "sha256:4d50878323b80b66abdc4046c1632636473414653bac450b58832b8ee9f6a9a6"},
-    {file = "sphinx_autoapi-1.5.1-py2.py3-none-any.whl", hash = "sha256:ce66306a11a634bdfaef0b528f39202c9ce2db729b2e47f5061a60e852e39170"},
+    {file = "sphinx-autoapi-1.6.0.tar.gz", hash = "sha256:492ecc572aebe6d06ffe184a95d11cf0000a965cf44aac87358cfe59bf2ab340"},
+    {file = "sphinx_autoapi-1.6.0-py2.py3-none-any.whl", hash = "sha256:3a99872b95e2de51e4da7b57672d103ec2abcb5fab9aec1cd3ec03d61d1672ce"},
 ]
 sphinx-rtd-theme = [
     {file = "sphinx_rtd_theme-0.5.1-py2.py3-none-any.whl", hash = "sha256:fa6bebd5ab9a73da8e102509a86f3fcc36dec04a0b52ea80e5a033b2aba00113"},
