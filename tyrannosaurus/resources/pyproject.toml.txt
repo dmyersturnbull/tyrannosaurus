@@ -133,7 +133,7 @@ mypy                     = ">=0.790, <1.0"
 
 # These are useful but are not used directly in the default build pipeline
 # that Tyrannosaurus set up for your project
-hypothesis               = "^5"
+hypothesis               = "^6"
 tyrannosaurus            = ">=${tyranno.version}, <1.0"
 xdoctest                 = ">=0.15, <1.0"
 
