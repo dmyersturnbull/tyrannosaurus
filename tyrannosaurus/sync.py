@@ -28,10 +28,12 @@ class Sync:
     def sync(self) -> Sequence[str]:  # pragma: no cover
         self.fix_init()
         self.fix_recipe()
+        self.fix_codemeta()
+        self.fix_citation()
         return [str(s) for s in self.context.targets]
 
     def has(self, key: str):
-        return self.context.has_target(key)
+        return self.context.has_target(key) and self.context.path_source(key).exists()
 
     def fix_init(self) -> Sequence[str]:  # pragma: no cover
         if self.has("init"):
@@ -45,6 +47,31 @@ class Sync:
                 "__status__ = ": f'__status__ = "{self.context.source("status")}"',
                 "__copyright__ = ": f'__copyright__ = "{self.context.source("copyright")}"',
                 "__date__ = ": f'__date__ = "{self.context.source("date")}"',
+            },
+        )
+
+    def fix_citation(self) -> Sequence[str]:
+        if not self.has("citation"):
+            return []
+        return self._replace_substrs(
+            self.context.path_source("citation"),
+            {
+                re.compile("^version: .*$"): f"version: {self.context.version}",
+                re.compile("^abstract: .*$"): f"abstract: {self.context.description}",
+            },
+        )
+
+    def fix_codemeta(self) -> Sequence[str]:
+        if not self.has("codemeta"):
+            return []
+        return self._replace_substrs(
+            self.context.path_source("codemeta"),
+            {
+                re.compile(' {4}"version" *: *"'): f'"version":"{self.context.version}"',
+                re.compile(
+                    ' {4}"description" *: *"'
+                ): f'"description":"{self.context.description}"',
+                re.compile(' {4}"license" *: *"'): f'"description":"{self.context.license.url}"',
             },
         )
 
@@ -116,7 +143,6 @@ extra:
 
     def _careful_wrap(self, s: str, indent: int = 4) -> str:
         txt = " ".join(s.split())
-        logger.error(f"String is ''' {txt} '''")
         width = self._get_line_length()
         # TODO: I don't know why replace_whitespace=True, drop_whitespace=True isn't sufficient
         return textwrap.fill(
