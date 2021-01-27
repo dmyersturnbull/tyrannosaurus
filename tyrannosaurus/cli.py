@@ -18,7 +18,8 @@ from typing import Optional, Sequence
 import typer
 
 from tyrannosaurus.clean import Clean
-from tyrannosaurus.conda import CondaEnv, Recipe
+from tyrannosaurus.recipes import Recipe
+from tyrannosaurus.envs import CondaEnv
 from tyrannosaurus.context import Context
 from tyrannosaurus.enums import DevStatus, License
 from tyrannosaurus.helpers import _Env

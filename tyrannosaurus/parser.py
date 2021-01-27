@@ -53,7 +53,7 @@ class LiteralParser:
             "Project": self.project.capitalize(),
             "PROJECT": self.project.upper(),
             "pkg": self.pkg,
-            "user": self.user,
+            "user": "<<TODO:user>>" if self.user is None else self.user,
             "authors": self._pretty(self.authors),
             "authors.list": self._list(self.authors),
             "version": self.version,
@@ -81,7 +81,6 @@ class LiteralParser:
         }
         for k, v in reps.items():
             s = s.replace("$${" + k + "}", v)
-            s = s.replace("$${ " + k + " }", v)
         return s
 
     def download_license_template(self, header: bool) -> str:

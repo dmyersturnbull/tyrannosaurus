@@ -26,7 +26,7 @@
   "contIntegration": "https://github.com/$${user}/$${project}/actions",
   "developmentStatus": "active",
   "downloadUrl": "https://pypi.org/project/$${pkg}/",
-  "keywords": $${keywords},
+  "keywords": $${keywords.list},
   "dateCreated": "$${today}",
   "datePublished": "$${today}",
   "programmingLanguage": "Python"

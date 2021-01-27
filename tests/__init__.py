@@ -4,6 +4,7 @@ Copyright: Douglas Myers-Turnbull, 2020–2021
 License: Apache 2.0 <https://www.apache.org/licenses/LICENSE-2.0>
 """
 from __future__ import annotations
+import logging
 import os
 import random
 import shutil
@@ -17,6 +18,9 @@ from typing import Generator, Union
 from warnings import warn
 
 
+KEEP = True
+
+
 class TestResources:
     """
     A static singleton with utilities for filesystem operations in tests.
@@ -28,10 +32,18 @@ class TestResources:
     ``TestResources.temp_dir``.
     """
 
+    logger = logging.getLogger("TYRANNO.TEST")
+
     _start_dt = datetime.now()
     _start_ns = time.monotonic_ns()
-    _tempfile_dir = tempfile.TemporaryDirectory()
-    _temp_dir = Path(_tempfile_dir.name)
+    if KEEP:
+        _tempfile_dir = None
+        _temp_dir = Path("tmp-test-data")
+    else:
+        _tempfile_dir = tempfile.TemporaryDirectory()
+        _temp_dir = Path(_tempfile_dir.name)
+
+    logger.info(f"Set up main temp dir {_temp_dir.absolute()}")
 
     @classmethod
     def resource(cls, *nodes: Union[PurePath, str]) -> Path:
@@ -71,13 +83,16 @@ class TestResources:
             cls._delete_tree(path, surefire=force_delete)
         if copy_resource is None:
             path.mkdir(parents=True)
+            TestResources.logger.info(f"Created empty temp dir {path}")
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
             copy_path = Path(Path(__file__).parent) / "resources" / copy_resource
             shutil.copytree(str(copy_path), str(path))
+            TestResources.logger.info(f"Copied {copy_resource} to temp {path}")
         yield path
         # note the global dir is only cleaned by tempfile on exit
-        cls._delete_tree(path, surefire=force_delete)
+        if not KEEP:
+            cls._delete_tree(path, surefire=force_delete)
 
     @classmethod
     def global_temp_dir(cls) -> Path:
@@ -108,7 +123,8 @@ class TestResources:
         """
         Deletes the full tempdir tree.
         """
-        cls._tempfile_dir.cleanup()
+        if not KEEP:
+            cls._tempfile_dir.cleanup()
 
     @classmethod
     def _delete_tree(cls, path: Path, surefire: bool = False) -> None:

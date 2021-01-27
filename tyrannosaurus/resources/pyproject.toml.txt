@@ -38,7 +38,7 @@ version = "0.1.0"
 
 # TODO: Set the description and keywords here
 description = "$${description}"
-keywords = $${keywords}
+keywords = $${keywords.list}
 authors = $${authors.list}
 maintainers = $${authors.list}
 # This must be an identifier listed in https://spdx.org/licenses/
@@ -140,13 +140,6 @@ xdoctest                 = ">=0.15, <1.0"
 [tool.poetry.extras]
 # These are referenced in the tox.ini with `extras = dev`
 # These are auto-filled from dev-deps when you run tyrannosaurus sync
-dev     = [
-        "tomlkit", "tyrannosaurus",
-        "pre-commit", "pre-commit-hooks", "black",
-        "pytest", "hypothesis", "coverage", "pytest-cov", "xdoctest", "bandit",
-        "mypy", "flake8", "flake8-docstrings", "flake8-bugbear",
-        "sphinx",  "sphinx-autoapi", "sphinx-rtd-theme"
-]
 # List additional extras sets like this:
 # optimization = ["numpy", "scikit-learn"]
 # You MUST also list any extras that you want for testing here

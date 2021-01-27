@@ -1,6 +1,7 @@
 import pytest
 
-from tyrannosaurus.conda import CondaEnv, Recipe
+from tyrannosaurus.recipes import Recipe
+from tyrannosaurus.envs import CondaEnv
 
 # noinspection PyProtectedMember
 from tyrannosaurus.context import Context

@@ -13,7 +13,7 @@ repository:
   homepage: https://github.com/$${user}/$${project}
 
   # A comma-separated list of topics to set on the repository
-  topics: $${keywords.yaml.list}
+  topics: $${keywords.list}
 
   has_issues: true
   has_projects: true

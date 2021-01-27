@@ -132,8 +132,12 @@ class PyPiHelper:
     def get_version(self, name: str) -> str:
         pat = re.compile('"package-header__name">[ \n\t]*' + name + " ([0-9a-zA-Z_.-]+)")
         try:
-            r = requests.get(f"https://pypi.org/project/{name}")
-            if r.status_code > 400:
+            try:
+                r = requests.get(f"https://pypi.org/project/{name}")
+            except OSError:
+                logger.debug(f"Failed fetching PyPi vr for package {name}", exc_info=True)
+                r = None
+            if r is None or r.status_code > 400:
                 # thanks to Sphinx and a couple of others
                 r = requests.get(f"https://pypi.org/project/{name.capitalize()}")
                 if r.status_code > 400:

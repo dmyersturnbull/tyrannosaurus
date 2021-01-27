@@ -7,6 +7,5 @@ authors:
   -
     family-names: $${author.last#1}
     given-names: $${author.first#1}
-keywords:
-  - $${keywords.expanded}
+keywords: $${keywords.list}
 date-released: $${today.zulu}

@@ -15,8 +15,8 @@ import textwrap
 from pathlib import Path
 from typing import Mapping, Optional, Sequence, Union
 
-from tyrannosaurus.enums import License
 from tyrannosaurus.context import Context
+from tyrannosaurus.envs import CondaEnv
 
 logger = logging.getLogger(__package__)
 
@@ -28,12 +28,13 @@ class Sync:
     def sync(self) -> Sequence[str]:  # pragma: no cover
         self.fix_init()
         self.fix_recipe()
+        self.fix_env()
         self.fix_codemeta()
         self.fix_citation()
         return [str(s) for s in self.context.targets]
 
     def has(self, key: str):
-        return self.context.has_target(key) and self.context.path_source(key).exists()
+        return self.context.has_target(key)
 
     def fix_init(self) -> Sequence[str]:  # pragma: no cover
         if self.has("init"):
@@ -51,7 +52,7 @@ class Sync:
         )
 
     def fix_citation(self) -> Sequence[str]:
-        if not self.has("citation"):
+        if not self.has("citation") and (self.context.path / "CITATION.cff").exists():
             return []
         return self._replace_substrs(
             self.context.path_source("citation"),
@@ -62,7 +63,7 @@ class Sync:
         )
 
     def fix_codemeta(self) -> Sequence[str]:
-        if not self.has("codemeta"):
+        if not self.has("codemeta") and (self.context.path / "codemeta.json").exists():
             return []
         return self._replace_substrs(
             self.context.path_source("codemeta"),
@@ -76,8 +77,14 @@ class Sync:
         )
 
     def fix_recipe(self) -> Sequence[str]:  # pragma: no cover
-        if self.has("recipe"):
+        if self.has("recipe") and self.context.path_source("recipe"):
             return self.fix_recipe_internal(self.context.path_source("recipe"))
+        return []
+
+    def fix_env(self) -> Sequence[str]:  # pragma: no cover
+        if self.has("environment") and self.context.path_source("environment").exists():
+            creator = CondaEnv(self.context.project, dev=True, extras=True)
+            return creator.create(self.context, self.context.path)
         return []
 
     def fix_recipe_internal(self, recipe_path: Path) -> Sequence[str]:
