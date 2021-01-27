@@ -9,7 +9,7 @@ Metadata for Tyrannosaurus.
 """
 import logging
 
-from datetime import datetime
+from datetime import datetime, timezone
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import metadata as __load
 from pathlib import Path
@@ -38,10 +38,15 @@ except PackageNotFoundError:  # pragma: no cover
 class TyrannoInfo:
     copyright = __copyright__
     version = __version__
-    now = datetime.now()
+    now_utc = datetime.now(timezone.utc)
+    now = now_utc.astimezone()
     today = now.date()
     datestamp = now.strftime("%Y-%m-%d")
-    timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
+    timestamp = now.strftime("%Y-%m-%dT%H-%M-%S")
+    pretty_timestamp_utc = (
+        now_utc.replace(microsecond=0).isoformat().replace("T", " ").replace("+00:00", " Z")
+    )
+    pretty_timestamp_with_offset = now.strftime("%Y-%m-%d %H-%M-%S") + " " + now.isoformat()[-6:]
 
 
 if __name__ == "__main__":  # pragma: no cover

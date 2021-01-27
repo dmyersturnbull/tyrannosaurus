@@ -26,7 +26,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 
-name = "${pkg}"
+name = "$${pkg}"
 # This is the version of your project. Keep it up-to-date and follow semantic versioning.
 # It's used in the PyPi, wheels, Docker, and Github packages.
 # Also make sure to use exactly this version when creating a Github release,
@@ -37,23 +37,23 @@ name = "${pkg}"
 version = "0.1.0"
 
 # TODO: Set the description and keywords here
-description = "${description}"
-keywords = ${keywords}
-authors = ${authors}
-maintainers = ${authors}
+description = "$${description}"
+keywords = $${keywords}
+authors = $${authors.list}
+maintainers = $${authors.list}
 # This must be an identifier listed in https://spdx.org/licenses/
-license = "${license.spdx}"
+license = "$${license.spdx}"
 readme = "README.md"
-homepage = "https://github.com/${user}/${project}"
-repository = "https://github.com/${user}/${project}"
-documentation = "https://${project}.readthedocs.io"
+homepage = "https://github.com/$${user}/$${project}"
+repository = "https://github.com/$${user}/$${project}"
+documentation = "https://$${project}.readthedocs.io"
 # TODO: Add topics here
 # Note: Poetry adds the license to the classifiers automatically
 # Development Status, license, and Python versions are kept consistent
 # by `tyrannosaurus sync`, if you choose to use that.
 # The language, intended audience, OS, environment, and topics are not.
 classifiers = [
-    "Development Status :: ${status.pypi}",
+    "Development Status :: $${status.pypi}",
     "Natural Language :: English",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.8",
@@ -78,9 +78,9 @@ include = [
 [tool.poetry.urls]
 # 'CI', 'Issues', and 'Download' seem to have special meanings
 # These all get icons on PyPi
-CI = "https://github.com/${user}/${project}/actions"
-Issues = "https://github.com/${user}/${project}/issues"
-Download = "https://pypi.org/project/${pkg}/"
+CI = "https://github.com/$${user}/$${project}/actions"
+Issues = "https://github.com/$${user}/$${project}/issues"
+Download = "https://pypi.org/project/$${pkg}/"
 
 
 #########################################################################################
@@ -92,7 +92,7 @@ Download = "https://pypi.org/project/${pkg}/"
 [tool.poetry.scripts]
 # TODO Is your code a script?
 # Set the name of the Python module followed by a colon, followed by the name of the function
-${project} = "${pkg}.cli:cli"
+$${project} = "$${pkg}.cli:cli"
 
 [tool.poetry.dependencies]
 # TODO Add and remove dependencies here
@@ -134,7 +134,7 @@ mypy                     = ">=0.790, <1.0"
 # These are useful but are not used directly in the default build pipeline
 # that Tyrannosaurus set up for your project
 hypothesis               = "^6"
-tyrannosaurus            = ">=${tyranno.version}, <1.0"
+tyrannosaurus            = ">=$${tyranno.version}, <1.0"
 xdoctest                 = ">=0.15, <1.0"
 
 [tool.poetry.extras]
@@ -147,6 +147,14 @@ dev     = [
         "mypy", "flake8", "flake8-docstrings", "flake8-bugbear",
         "sphinx",  "sphinx-autoapi", "sphinx-rtd-theme"
 ]
+# List additional extras sets like this:
+# optimization = ["numpy", "scikit-learn"]
+# You MUST also list any extras that you want for testing here
+# These will be installed by tox to be used for testing
+# (The dev dependencies will be installed already however)
+# Of course, you can remove the ` --extras "all"` line from tox.ini
+# to avoid this
+all = []
 
 
 #########################################################################################
@@ -175,7 +183,7 @@ align    = true
 # 1. A literal value, surrounded with single quotes (e.g. 'py38')
 # 2. A literal list, comma-separated (e.g. '[py38,py39]')
 # 3. A reference to a pyproject setting (e.g. tool.poetry.version)
-# 4. A value or list containing a special variable (e.g. 'Project J, copyright ${today.year}')
+# 4. A value or list containing a special variable (e.g. 'Project J, copyright $${today.year}')
 
 # --- VERSIONS ---
 # These control different aspects of Python versions
@@ -202,10 +210,10 @@ devdeps            = "tool.poetry.dev-dependencies"
 
 # --- PROJECT INFO ---
 # These are used in dunders like __copyright__, docs/conf.py, and PyPi classifiers (like Development Status)
-# ${today} is the date you run it at, and ${now} is the datetime
+# $${today} is the date you run it at, and $${now} is the datetime
 status             = "'Development'"
-date               = "'${today}'"
-copyright          = "'Copyright ${today.year}'"
+date               = "'$${today}'"
+copyright          = "'Copyright $${today.year}'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
 long_description   = "tool.poetry.description"
@@ -234,7 +242,7 @@ docstringstyle     = "'google'"
 # These affect flake8 commands as directed in tox.ini
 # 'all' is copied to tox.ini [flake8.ignore]; these are always ignored
 # Any other keys refer to the directory that flake8 is called on
-# Ex, `${pkg} = "'D100'"` adds D100 in `poetry run flake8 ${pkg} --ignore=D100`
+# Ex, `$${pkg} = "'D100'"` adds D100 in `poetry run flake8 $${pkg} --ignore=D100`
 # (Note 1: flake8's --ignore overrides the [flake8.ignore], so Tyrannosaurus appends the "all" values.)
 # (Note 2: Keys referring to directory names that tox.ini doesn't call flake8 on are ignored.)
 # (Note 3: [tool.pycodestyle] and [tool.pydocstyle] don't need these values because flake8 handles it.)
@@ -243,7 +251,7 @@ docstringstyle     = "'google'"
 # 212 and 213 contradict; 203 and 204 contradict; D302 is not relevant in Py3;
 # D107 isn't needed sometimes; and the rest just seem too picky
 all    = "'W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293'"
-#${pkg}  = ""
+#$${pkg}  = ""
 #doc  = ""
 test = "'D100,D101,D102,D103,D104,S101,W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293'"
 
@@ -252,7 +260,7 @@ test = "'D100,D101,D102,D103,D104,S101,W503,E203,E225,E301,E302,E501,D107,D200,D
 # These specify where to put certain files
 # If they're left blank, the defaults will be used
 # The syntax is the same as for tool.tyrannosaurus.sources
-#recipe             = "'recipes/${project}/meta.yaml'"
+#recipe             = "'recipes/$${project}/meta.yaml'"
 #environment        = "'environment.yml'"
 
 [tool.tyrannosaurus.targets]
@@ -292,10 +300,10 @@ environment  = false
 # [tool.towncrier] (if you want to set up towncrier)
 
 [tool.coverage.paths]
-source = ["${pkg}"]
+source = ["$${pkg}"]
 
 [tool.coverage.run]
-source = ["${pkg}"]
+source = ["$${pkg}"]
 
 [tool.coverage.report]
 show_missing = true

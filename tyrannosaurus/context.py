@@ -87,6 +87,10 @@ class Context:
         return str(self.data["tool.poetry.version"])
 
     @property
+    def description(self) -> str:
+        return str(self.data["tool.poetry.description"])
+
+    @property
     def license(self) -> License:
         return License.of(self.data["tool.poetry.license"])
 

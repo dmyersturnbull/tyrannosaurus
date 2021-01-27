@@ -47,9 +47,9 @@ sort     = false
 
 [tool.tyrannosaurus.sources]
 # use a literal value ('') or refer to a pyproject setting
-# ${today} is the date you run it at, and ${now} is the datetime
+# $${today} is the date you run it at, and ${now} is the datetime
 status             = "'Development'"
-date               = "'${today}'"
+date               = "'$${today}'"
 copyright          = "'Copyright ${today.year}'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
@@ -60,7 +60,7 @@ linelength         = "tool.black.line-length"
 maintainers        = "'fakeorg'"
 
 [tool.tyrannosuarus.paths]
-recipe             = "'recipes/${name}/meta.yaml'"
+recipe             = "'recipes/$${name}/meta.yaml'"
 
 [tool.tyrannosaurus.targets]
 # these are file and directory names, without filename extensions

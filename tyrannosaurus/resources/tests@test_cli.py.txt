@@ -1,8 +1,8 @@
-${license.header}
+$${license.header}
 import pytest
 
-from ${pkg} import __copyright__
-from ${pkg} import cli
+from $${pkg} import __copyright__
+from $${pkg} import cli
 from . import TestResources
 
 class TestCli:

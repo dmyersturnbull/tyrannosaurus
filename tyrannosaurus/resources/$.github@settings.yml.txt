@@ -4,16 +4,16 @@ repository:
   # See https://developer.github.com/v3/repos/#edit for all available settings.
 
   # The name of the repository. Changing this will rename the repository
-  name: ${project}
+  name: $${project}
 
   # A short description of the repository that will show up on GitHub
-  description: ${description}
+  description: $${description}
 
   # A URL with more information about the repository
-  homepage: https://github.com/${user}/${project}
+  homepage: https://github.com/$${user}/$${project}
 
   # A comma-separated list of topics to set on the repository
-  topics: ${keywords.yamllist}
+  topics: $${keywords.yaml.list}
 
   has_issues: true
   has_projects: true
@@ -160,5 +160,5 @@ branches:
       # Set to null to disable.
       restrictions:
         apps: []
-        users: [${user}]
+        users: [$${user}]
         teams: []

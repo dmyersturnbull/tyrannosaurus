@@ -1,6 +1,6 @@
 """
-${license.header}
-Metadata for this ${project}.
+$${license.header}
+Metadata for this $${project}.
 """
 import logging
 
@@ -16,9 +16,9 @@ logger = logging.getLogger(pkg)
 metadata = None
 try:
     metadata = __load(pkg)
-    __status__ = "${status.dunder}"
-    __copyright__ = "Copyright ${today.year}"
-    __date__ = "${today}"
+    __status__ = "$${status.dunder}"
+    __copyright__ = "Copyright $${today.year}"
+    __date__ = "$${today}"
     __uri__ = metadata["home-page"]
     __title__ = metadata["name"]
     __summary__ = metadata["summary"]
@@ -29,6 +29,30 @@ try:
     __contact__ = metadata["maintainer"]
 except PackageNotFoundError:  # pragma: no cover
     logger.error(f"Could not load package metadata for {pkg}. Is it installed?")
+
+
+class $${Pkg}Assets:
+    """
+    Utilities and resources for ${project}.
+    """
+    @classmethod
+    def path(cls, *nodes: Sequence[str]) -> Path:
+        """
+        Gets the ``Path`` of an asset under ``resources``.
+
+        Args:
+            nodes: Path nodes underneath ``resources``
+
+        Returns:
+            The final ``Path``
+
+        Raises:
+            FileNotFoundError: If the path does not exist
+        """
+        path = Path(__file__.parent, "resources", *nodes)
+        if not path.exists():
+            raise FileNotFoundError(f"Asset {path} not found")
+
 
 if __name__ == "__main__":  # pragma: no cover
     if metadata is not None:

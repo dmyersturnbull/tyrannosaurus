@@ -16,7 +16,7 @@ Note that Tyrannosaurus’s own source files are deleted.
 3. It copies all other files from ``tyrannosaurus/resources``, with modified paths.
    Files are allowed to be overwritten. For example, ``tyrannosaurus/resources/README.md`` will
    replace Tyrannosaurus’s own ``README.md``.
-4. It substitutes ``${...}`` parameters in the files it copied.
+4. It substitutes ``$${...}`` parameters in the files it copied.
 
 Paths under ``tyrannosuaurs/resources/`` are modified according to these rules:
 - ``@`` is a path separator (e.g. ``/`` on Linux).
@@ -41,39 +41,41 @@ Here the substitutions made in text files:
 =========================   ==================================
  parameter                   example
 =========================   ==================================
-``${today}``                ``2021-01-06``
-``${today.year}``           ``2020``
-``${today.month}``          ``01``
-``${today.Month}``          ``January``
-``${today.day}``            ``06``
-``${now}``                  ``2021-01-06 14:37:03``
-``${now.hour}``             ``14``
-``${now.minute}``           ``37``
-``${now.second}``           ``03``
-``${project}``              ``my special-project``
-``${Project}``              ``My Special-Project``
-``${PROJECT}``              ``MY SPECIAL-PROJECT``
-``${pkg}``                  ``myspecialproject``
-``${license}``              ``gpl2``
-``${license.family}``       ``GPL``
-``${license.name}``         ``GPL 2.0``
-``${license.spdx}``         ``GPL-2.0-or-later``
-``${license.header}``       <full copyright header>
-``${license.full}``         <full copyright file text>
-``${version}``              ``0.1``
-``${status.Name}``          ``Alpha``
-``${status.name}``          ``alpha``
-``${status.pypi}``          ``3 - Alpha``
-``${status.dunder}``        ``Development``
-``${status.Description}``   ``An alpha state``
-``${status.description}``   ``an alpha state``
-``${Description}``          ``My New Project``
-``${description}``          ``my new project``
-``${Description.}``         ``my new project.`` [includes a period only if needed]
-``${keywords}``             ``["python", "fancy"]``
-``${keywords.yaml0}``       ``- python\n- python\n``
-``${keywords.yaml2}``       ``- python\n  - python\n``
-``${keywords.yaml4}``       ``- python\n``    ``- python\n``
-``${KEYWORDS}``             ``["PYTHON", "FANCY"]``
-``${tyranno.version}``      ``0.8.10``
+``$${today}``                ``2021-01-06``
+``$${today.year}``           ``2020``
+``$${today.month}``          ``01``
+``$${today.Month}``          ``January``
+``$${today.day}``            ``06``
+``$${now}``                  ``2021-01-06 14:37:03 +03:00``
+``$${now.iso}``              ``2021-01-06T14:37:03+03:00``
+``$${now.utc}``              ``2021-01-06 14:37:03 Z``
+``$${now.utciso}``           ``2021-01-06T14:37:03+00:00``
+``$${now.hour}``             ``14``
+``$${now.minute}``           ``37``
+``$${now.second}``           ``03``
+``$${project}``              ``my special-project``
+``$${Project}``              ``My Special-Project``
+``$${PROJECT}``              ``MY SPECIAL-PROJECT``
+``$${pkg}``                  ``myspecialproject``
+``$${license}``              ``gpl2``
+``$${license.family}``       ``GPL``
+``$${license.name}``         ``GPL 2.0``
+``$${license.spdx}``         ``GPL-2.0-or-later``
+``$${license.header}``       <full copyright header>
+``$${license.full}``         <full copyright file text>
+``$${version}``              ``0.1``
+``$${status.Name}``          ``Alpha``
+``$${status.name}``          ``alpha``
+``$${status.pypi}``          ``3 - Alpha``
+``$${status.dunder}``        ``Development``
+``$${status.Description}``   ``An alpha state``
+``$${status.description}``   ``an alpha state``
+``$${Description}``          ``My New Project``
+``$${description}``          ``my new project``
+``$${Description.}``         ``my new project.`` ['.' suffix if needed]
+``$${authors}``              ``Joe Johnson, Kerri Ki``
+``$${authors.list}``         ``["Joe Johnson", "Kerri Ki"]``
+``$${keywords}``             ``python, fancy``
+``$${keywords.list}``        ``["python", "fancy"]``
+``$${tyranno.version}``      ``0.9.0``
 =========================   ==================================

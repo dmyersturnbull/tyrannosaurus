@@ -1,6 +1,6 @@
 """
-${license.header}
-Command-line interface for ${project}.
+$${license.header}
+Command-line interface for $${project}.
 """
 
 from __future__ import annotations
@@ -10,7 +10,7 @@ import time
 
 import typer
 
-from ${pkg} import __title__, __version__, __copyright__, metadata
+from $${pkg} import __title__, __version__, __copyright__, metadata
 
 
 logger = logging.getLogger(__package__)
@@ -24,7 +24,7 @@ global_options = None
 
 def context(verbose: bool = False) -> None:
     """
-    Run ${display}, which is a Python project that does something.
+    Run $${display}, which is a Python project that does something.
 
     Args:
         verbose: Print extended information.
@@ -37,7 +37,7 @@ cli = typer.Typer(context=context)
 
 def info(n_seconds: float = 0.01) -> None:
     """
-    Get info about ${project}.
+    Get info about $${project}.
 
     Args:
         n_seconds: Number of seconds to wait between processing.

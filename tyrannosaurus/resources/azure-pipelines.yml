@@ -12,9 +12,9 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   # TODO: Fill this in (it's a long base-64 key from Azure)
-  dockerRegistryServiceConnection: '<<id>>'
-  imageRepository: '${project}'
-  containerRegistry: '${username}.azurecr.io'
+  dockerRegistryServiceConnection: '<<TODO:id>>'
+  imageRepository: '$${project}'
+  containerRegistry: '$${username}.azurecr.io'
   tag: '$(Build.BuildId)'
   redirect disable: false
 
