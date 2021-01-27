@@ -14,8 +14,15 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 - A [probot](https://github.com/probot/settings) config file
 - A Vagrant file
 
+### Changed
+- Template params now start with ``$${`` to avoid conflicts
+
+### Removed
+- Install dev extras in tox; they're installed in poetry
+
 ### Fixed
 - Improved the new-project guide
+- A few misc bugs
 
 
 ## [0.8.x] - 2021-01-08
