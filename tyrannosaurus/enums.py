@@ -194,7 +194,7 @@ class License(str, enum.Enum):
 
     @property
     def url(self) -> str:
-        return f"https://spdx.org/licenses/{self.agpl3}.html"
+        return f"https://spdx.org/licenses/{self.spdx}.html"
 
     @property
     def spdx(self) -> str:
