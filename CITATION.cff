@@ -4,13 +4,13 @@ title: Tyrannosaurus
 version: 0.9.0
 abstract: Generate beautifully modern Python projects with seamless, Github-based CI/CD and loads of integrations.
 authors:
-    -
-        family-names: Myers-Turnbull
-        given-names: Douglas
+  -
+    family-names: Myers-Turnbull
+    given-names: Douglas
 keywords:
-    - python
-    - template
-    - pyproject-toml
-    - python-poetry
-    - conda-build
+  - python
+  - template
+  - pyproject-toml
+  - python-poetry
+  - conda-build
 date-released: 2020-05-10T20:06:00.000Z
