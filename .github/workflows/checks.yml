@@ -1,16 +1,18 @@
-name: CodeQL
-'on':
+# Various static code analysis and checks
+# Runs on commit or pull (to any branch)
+# and on a schedule (weekly)
+name: Static checks
+on:
   push:
-    branches:
-      - master
-        - main
   pull_request:
-    branches:
-      - master
-      - main
   schedule:
     - cron: 0 7 * * 6
 jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: gaurav-nelson/github-action-markdown-link-check@v1
   analyse:
     name: Analyze
     runs-on: ubuntu-latest
