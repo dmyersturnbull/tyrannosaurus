@@ -187,7 +187,7 @@ class EnvHelper:
                 if value.get("optional") is True and not extras:
                     continue
                 if "extras" in value:
-                    logger.error("'extras' not supported for {key} = {value}")
+                    logger.error(f"'extras' not supported for {key} = {value}")
                 value = value.get("version")
             # TODO handle ~ correctly
             if "^" in value or "~" in value:

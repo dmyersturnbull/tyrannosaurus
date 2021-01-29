@@ -210,6 +210,13 @@ copyright          = "'Copyright $${today.year}'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
 long_description   = "tool.poetry.description"
+# These describe the license for your documentation text
+# By default no license is mentioned;
+# uncomment these to display the license in the docs
+#doc_license        = "'CC BY 4.0'"
+#doc_license_url    = "'https://creativecommons.org/licenses/by/4.0'"
+# or you can add this (and skip the license URL):
+#doc_license        = "'all rights reserved'"
 
 # --- AUTHOR INFO ---
 # TODO Fill in authors, contributors, and maintainers
