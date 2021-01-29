@@ -1,8 +1,13 @@
 """
+Utilities for tests.
+
 Original source: https://github.com/dmyersturnbull/tyrannosaurus
-Copyright: Douglas Myers-Turnbull, 2020–2021
-License: Apache 2.0 <https://www.apache.org/licenses/LICENSE-2.0>
+Copyright 2020–2021 Douglas Myers-Turnbull
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 """
+# NOTE: If you modify this file, you should indicate your license and copyright as well.
 from __future__ import annotations
 import logging
 import os
@@ -18,7 +23,8 @@ from typing import Generator, Union
 from warnings import warn
 
 
-KEEP = True
+# Keeps created temp files; turn on for debugging
+KEEP = False
 
 
 class TestResources:
@@ -113,8 +119,7 @@ class TestResources:
     @classmethod
     def start_monotonic_ns(cls) -> int:
         """
-        The nanosecond value of the ``time.monotonic`` clock
-        that ``tests/__init__.py`` was imported.
+        The nanosecond value of the ``time.monotonic`` clock at which ``tests/__init__.py`` was imported.
         """
         return cls._start_ns
 

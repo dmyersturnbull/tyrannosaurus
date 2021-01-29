@@ -39,7 +39,7 @@ After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.o
 ### Added
 - A `--track` flag in `tyrannosaurus new` (to simplify the readme’s example)
 - Some currently unused items in [tool.tyrannosaurus.sources]
-- Integration with [https://github.com/pyupio/safety](Safety)
+- Integration with [Safety](https://github.com/pyupio/safety)
 - A `--tyranno` flag to new (deprecates `--newest`, which is now hidden)
 - `--version` and `--info` options (exit immediately)
 - Support for Github packages (technically should trigger a minor version bump)

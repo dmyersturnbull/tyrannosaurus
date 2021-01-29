@@ -2,12 +2,12 @@ name: Create Github labels
 on:
   push:
     branches:
-      - master
       - main
+        - master
 jobs:
   labels:
     name: DefaultLabelsActions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2

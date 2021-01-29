@@ -60,7 +60,6 @@ elif _license is not None:
 # Napoleon is bundled in Sphinx, so we don't need to list it there
 extensions = [
     "autoapi.extension",
-    "sphinxcontrib-bibtex",
     "sphinx.ext.napoleon",
     "sphinx_copybutton",
     "sphinx_rtd_theme",
