@@ -39,18 +39,23 @@ Here’s what you need to get your first commit on Github.
    and ``.azure-pipelines.yml``, assuming you’re not using them. You might also not want ``codemeta.json``,
    ``CITATION.cff``, ``environment.yml``, or ``Vagrantfile``.
 4. Modify ``pyproject.toml`` and ``README.md``.
-5. Add an entry to ``CHANGELOG.md`` and run ``git commit -m "feat: add initial code"`` (probably twice).
+5. Add an entry to ``CHANGELOG.md`` and run ``git commit -m "feat: initial code"`` (probably twice).
 
 
 .. hint::
 
-    When you commit, pre-commit hooks are run. If a linter such as black ran and failed,
-    just run again git commit again on the now-linted version. Push to the main branch after committing.
+    When you commit, pre-commit hooks are run. If a file-modifying linter such as black ran and failed,
+    just run git commit again on the now-linted version. Push to the main branch after committing.
+
+.. hint::
+
+    A `Commitizen <https://github.com/commitizen-tools/commitizen>`_ entry in ``.pre-commit-config``
+    checks commit messages. If it’s too restrictive, modify the ``[tool.commitizen]`` in pyproject.toml
+    or remove the pre-commit hook.
 
 .. tip::
 
-    Remember to always sync metadata (``tyrannosaurus sync``) or at least ``poetry lock`` before committing or testing.
-    You can create a custom pre-commit hook to do this before each commit.
+    Always run ``poetry lock`` after modifying dependencies. ``tyrannosaurus sync`` does this too.
 
 
 Configuring external integrations
@@ -97,7 +102,7 @@ the `anaconda recipe-generation steps <https://tyrannosaurus.readthedocs.io/en/s
 right after. Only two steps:
 
 1. Wait for the test and link-check actions to pass. Then, just create a new Github Release.
-2. Watch the wokflows run, the packages get published, and shields get updated.
+2. Watch the workflows run, the packages get published, and shields get updated.
 
 .. caution::
 
@@ -119,19 +124,23 @@ If you’re using Jupyter, consider adding [nbstripout](https://github.com/kynan
 If you want to create a package on Conda-Forge, see the
 `anaconda integration guide <https://tyrannosaurus.readthedocs.io/en/stable/anaconda.html#anaconda-recipes>`_.
 
-
 You may want to add new code quality integrations, like  `codacy <https://www.codacy.com/>`_.
 Consider adding `shields <https://shields.io/>`_ for those.
 Other good tools to consider include [github-labeler](https://github.com/marketplace/actions/github-labeler).
 and [Towncrier](https://pypi.org/project/towncrier/).
 
-.. tip::
+Commitizen can be used to generate a changelog. In my experience, those changelogs are not great because
+(1) commit messages are too messy, (2) the ``feat:``, ``fix:``, etc. commit types don’t match up with
+those in keep-a-changelog, (3) it fails completely if one commit message is off, (4) it’s hard to modify the style
+at a later date without completely rewriting the git history or adding a plugin for Commitizen, and (5)
+Commitizen destroys any extra text you add to your Changelog, such as a ”Conventions” section.
+Instead, I just add to the changelog manually.
 
-    If you’re following Conventional Commits, consider using messages of this form:
-    ``[feat|fix|BREAKING CHANGE]: [add|remove|change|fix] [rest of message]``.
-    This has the advantage that each commit (from the second term, add/remove/change/fix)
-    maps directly to sections in Keep a Changelog. If you’re properly squashing commits
-    into *main*, you can even generate a quality changelog from the commit messages.
+.. caution::
+
+    Both ``tyrannosaurus sync`` and Commitizen’s ``bump`` copy version numbers. They won’t always play well together.
+    I recommend not using it. In the future, you may be able to point ``tool.tyrannosaurus.sources.version``
+    to ``tool.commitizen.version`` (leaving ``tool.commitizen.version_files`` empty).
 
 
 Reference of commands

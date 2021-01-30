@@ -171,6 +171,16 @@ log_cli_level = "INFO"
 log_cli_format = "%(asctime)s [%(levelname)8s] %(name)s: %(message)s (%(filename)s:%(lineno)s)"
 log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 
+#########################################################################################
+# Changelog generation
+#########################################################################################
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+
+[tool.towncrier]
+filename = "NEWS.md"
+
 
 #########################################################################################
 # Style checking
@@ -195,9 +205,6 @@ line_length = 100
 [mypy]
 check_untyped_defs = true
 strict_optional = true
-
-[tool.towncrier]
-filename = "CHANGELOG.md"
 
 # ------- THE FOLLOWING ARE NOT USED BY THEIR RESPECTIVE TOOLS  --------
 # --- There are open discussions about supporting pyproject for each ---

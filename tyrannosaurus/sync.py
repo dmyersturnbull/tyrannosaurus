@@ -27,6 +27,7 @@ class Sync:
 
     def sync(self) -> Sequence[str]:  # pragma: no cover
         self.fix_init()
+        self.fix_pyproject()
         self.fix_recipe()
         self.fix_env()
         self.fix_codemeta()
@@ -50,6 +51,15 @@ class Sync:
                 "__date__ = ": f'__date__ = "{self.context.source("date")}"',
             },
         )
+
+    def fix_pyproject(self) -> Sequence[str]:
+        if not self.has("pyproject"):
+            version = self.context.version
+            cz_version = self.context.data.get("tool.commitizen.version")
+            version_from = self.context.data.get("tool.tyrannosaurus.sources.version")
+            if cz_version is not None and cz_version != version:
+                logger.error(f"Commitizen version {cz_version} != {version_from} version {version}")
+            return []
 
     def fix_citation(self) -> Sequence[str]:
         if not self.has("citation") and (self.context.path / "CITATION.cff").exists():
@@ -76,12 +86,12 @@ class Sync:
             },
         )
 
-    def fix_recipe(self) -> Sequence[str]:  # pragma: no cover
+    def fix_recipe(self) -> Sequence[str]:
         if self.has("recipe") and self.context.path_source("recipe"):
             return self.fix_recipe_internal(self.context.path_source("recipe"))
         return []
 
-    def fix_env(self) -> Sequence[str]:  # pragma: no cover
+    def fix_env(self) -> Sequence[str]:
         if self.has("environment") and self.context.path_source("environment").exists():
             creator = CondaEnv(self.context.project, dev=True, extras=True)
             return creator.create(self.context, self.context.path)

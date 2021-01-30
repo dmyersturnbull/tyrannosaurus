@@ -28,7 +28,7 @@ custom tool to keep all duplicate project metadata synchronized to pyproject.tom
 This is a modern template built with [Poetry](https://python-poetry.org/),
 [Github Actions](https://github.com/features/actions), and
 [no legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
-See below for a [comparison to other tools](https://github.com/dmyersturnbull/tyrannosaurus#similar-templates-and-tools).
+See below for a [comparison to other tools](https://github.com/dmyersturnbull/tyrannosaurus#-similar-templates-and-tools).
 Don’t make 55 commits trying to configure CI/CD workflows
 
 ```bash
@@ -77,6 +77,7 @@ You can swap out, modify, or disable anything as you see fit.
   - Nice documentation defaults with
     [Sphinx extensions](https://www.sphinx-doc.org/en/master/usage/extensions/index.html)
   - Test automation with [Tox](https://tox.readthedocs.io)
+  - Commit linting and changelog generation with [Commitizen](https://github.com/commitizen-tools/commitizen)
   - [Shields](https://github.com/badges/shields) with
     [Coveralls](https://coveralls.io/),
     [codecov](https://about.codecov.io/),
@@ -84,7 +85,8 @@ You can swap out, modify, or disable anything as you see fit.
     and [Scrutinizer](https://scrutinizer-ci.com/)
     that reflect the main branch
   - Code linting with [pre-commit](https://pre-commit.com/), [Black](https://pypi.org/project/black/),
-    and [Prettifier](https://prettier.io/)
+    [Prettifier](https://prettier.io/), [Dockerfile-lint](https://github.com/Lucas-C/pre-commit-hooks-nodejs),
+    and [markdown-lint-check](https://github.com/gaurav-nelson/github-action-markdown-link-check)
   - Security analysis with [Bandit](https://github.com/PyCQA/bandit),
     [CodeQL](https://github.com/github/codeql-action),
     and [safety](https://github.com/pyupio/safety) †

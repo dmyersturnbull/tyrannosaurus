@@ -304,6 +304,25 @@ log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 
 
 #########################################################################################
+# Commits & changelog generation
+#########################################################################################
+
+# Commitizen (https://github.com/commitizen-tools/commitizen/)
+# is a great tool to generate changelogs from commit messages
+# It doesn't directly map to keep-a-changelog change types (e.g. Added)
+[tool.commitizen]
+name = "cz_conventional_commits"
+# I recommend NOT including version and tag_format
+# See the docs ("guide" section) how to integrate `cz bump`
+
+# not used by default, but you could run it
+# in tox.ini or .github/workflows/publish.yml (with a commit)
+[tool.towncrier]
+# Alternatively, you could replace CHANGELOG.md
+# In my experience, commit logs make mediocre changelogs
+filename = "NEWS.md"
+
+#########################################################################################
 # Style checking
 #########################################################################################
 
@@ -334,13 +353,6 @@ line_length = 100
 [mypy]
 check_untyped_defs = true
 strict_optional = true
-
-# not used by default, but you could run it
-# in tox.ini or .github/workflows/publish.yml (with a commit)
-[tool.towncrier]
-# Alternatively, you could replace CHANGELOG.md
-# In my experience, commit logs make mediocre changelogs
-filename = "NEWS.md"
 
 
 # ------- THE FOLLOWING ARE NOT USED BY THEIR RESPECTIVE TOOLS  --------
