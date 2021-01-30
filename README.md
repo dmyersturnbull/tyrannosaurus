@@ -14,31 +14,33 @@
 [![Maintainability (Code Climate)](https://api.codeclimate.com/v1/badges/5e3b38c9b9c418461dc3/maintainability)](https://codeclimate.com/github/dmyersturnbull/tyrannosaurus/maintainability)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmyersturnbull/tyrannosaurus/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/dmyersturnbull/tyrannosaurus/?branch=main)
 
-
 An opinionated, forwards-looking Python template for 2021.
 
 Generate elegant, ready-to-use Python
 projects that have excellent continuous integration and deployment (CI/CD). Integrated with
 Docker Hub, Github Packages, Azure, Conda-Forge, and an array of linting, static analysis,
-security testing, documentation, dependency management, and CI/CD tools, including a custom tool
-to keep all duplicate project metadata synchronized to pyproject.toml.
+security testing, documentation, dependency management, and CI/CD tools, including an optional
+custom tool to keep all duplicate project metadata synchronized to pyproject.toml.
 
-This is a modern alternative to cookiecutter built with [Poetry](https://python-poetry.org/),
+
+### 🎨 Design / generating a new project
+
+This is a modern template built with [Poetry](https://python-poetry.org/),
 [Github Actions](https://github.com/features/actions), and
 [no legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
-See below for a comparison to other tools.
-Don’t make 55 commits trying to configure CI/CD workflows. Use `tyrannosaurus new`:
-
+See below for a [comparison to other tools](https://github.com/dmyersturnbull/tyrannosaurus#similar-templates-and-tools).
+Don’t make 55 commits trying to configure CI/CD workflows ❌
 
 ```bash
 pip install tyrannosaurus
 tyrannosaurus new projectname --track
 ```
 
-After initializing your project, Tyrannosaurus will list some manual steps, such as adding API keys.
+After initializing your project, Tyrannosaurus will list manual steps like adding API keys.
+Tyrannosaurus was generated with Tyrannosaurus: `tyrannosaurus new tyrannosaurus` ☺
 
 
-### Main behavior / features:
+### 💡 Main behavior / features
 
 Generated projects are integrated with various tools (from PyPi) and external CI/CD/code-quality systems.
 Github Actions are used by default, but config files for Travis and Azure Pipelines are also provided.
@@ -56,7 +58,7 @@ You can swap out, modify, or disable anything as you see fit.
 - `tyrannosaurus update` ⇒ New dependency versions from PyPi and/or Conda are listed
 
 
-### Full features / integrations:
+### 🎁 Full features / integrations
 
   - Packaging and dependency management with [Poetry](https://python-poetry.org/)
   - Python 3.8, 3.9, and 3.10 (3.6 and 3.7 with a small change)
@@ -107,7 +109,7 @@ You can swap out, modify, or disable anything as you see fit.
 † [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)
 
 
-### Syncing to pyproject.toml:
+### ✏️ Syncing to pyproject.toml
 
 *Note: This feature is only partly complete.*
 
@@ -124,43 +126,45 @@ install, and clean up.
 Target files can be disabled in `[tool.tyrannosaurus.targets]`.
 
 
-### Building your project locally:
+### 🔨 Building your project locally
 
-To run locally, install [Poetry](https://github.com/python-poetry/poetry)
+You can test your project locally. Install [Poetry](https://github.com/python-poetry/poetry)
 and [Tox](https://tox.readthedocs.io/en/latest/) (`pip install tox`).
 Then just type `tox` to build artifacts and run tests.
+You can install locally with `poetry install .` or just `pip install .`.
 To create an initial Anaconda recipe or environment file, run `tyrannosaurus recipe` or `tyrannosaurus env`.
+After that, you can use `sync` to keep them up-to-date with pyproject.toml.
 
 
-### Similar templates and tools:
+### 🎯 Similar templates and tools
 
 There are various other templates based on [cookiecutter](https://github.com/cookiecutter/cookiecutter)
-and [copier](https://github.com/copier-org/copier). You should look to see which best suits your style.
-I designed Tyrannosaurus to solve what I saw as problems with existing tools.
+and [copier](https://github.com/copier-org/copier). See which best suits your needs and style.
 
-Here are the features, which other tools tend to lack:
+I designed Tyrannosaurus to solve issues with existing tools.
+Here are features that other tools lack:
 - An **elegant CI/CD workflow**: The workflow gets kicked off only via `git push` and Github releases.
 - **Interopability with Conda**, including recipes and environment files, by mapping dependencies and metadata.
-- **Automated publishing** to PyPi, Conda-Forge, Docker Hub, Github Packages, readthedocs, and static analysis tools.
+- **Automated publishing** to PyPi, Conda-Forge, Docker Hub, Github Packages, and readthedocs.
 - **No duplication** between project files. (Not 100%: some duplication remains.)
 - Built-in optional support for **extra/alternative tools**, such as Travis and codemeta.
 - Complete **absence of legacy tools**, files, and Python 2 support.
 
-**Feature table:**
+##### 🏁 Feature table:
 
 | Tool                                                                                             | Main techs                | CD kickoff  | N int.† | modern‡ | Docker | Conda | sync | Django  |
 | ------------------------------------------------------------------------------------------------ | ------------------------- | ------------| ----|-- | - | - | - | - |
-| Tyranosaurus                                                                                     | Actions, Poetry, Tox      | git, GitHub |  25 | ✓ | ✓ | ✓ | ✓ |   |
-| [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)               | Actions, Poetry, Nox      | git, Poetry |  20 | ✓ |   |   |   |   |
-| [wemake-python-package](https://github.com/wemake-services/wemake-python-package)                | Actions, Poetry, Make     | git, Poetry |  10 | ✓ |   |   | ✓ |   |
-| [copier-poetry](https://github.com/pawamoy/copier-poetry)                                        | Actions, Poetry, Make     | git, manual |  15 |   | ✓ |   |   |   |
-| [best-practices](https://github.com/sourcery-ai/python-best-practices-cookiecutter)              | Actions, pipenv           | git, pipenv |  10 |   | ✓ |   |   |   |
-| [python-blueprint](https://github.com/johnthagen/python-blueprint)                               | Actions, setuptools, Tox  | git, manual |  5  |   | ✓ |   |   |   |
+| Tyranosaurus                                                                                     | Actions, Poetry, Tox      | git, GitHub |  25 | ✔️ | ✔️ | ✔️ | ✔️ |   |
+| [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)               | Actions, Poetry, Nox      | git, Poetry |  20 | ✔️ |   |   |   |   |
+| [copier-poetry](https://github.com/pawamoy/copier-poetry)                                        | Actions, Poetry, Make     | git, manual |  15 |   | ✔️ |   |  ✔️ |   |
+| [wemake-python-package](https://github.com/wemake-services/wemake-python-package)                | Actions, Poetry, Make     | git, Poetry |  10 | ✔️ |   |   |   |   |
+| [best-practices](https://github.com/sourcery-ai/python-best-practices-cookiecutter)              | Actions, pipenv           | git, pipenv |  10 |   | ✔️ |   |   |   |
+| [python-blueprint](https://github.com/johnthagen/python-blueprint)                               | Actions, setuptools, Tox  | git, manual |  5  |   | ✔️ |   |   |   |
 | [cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage)                | Travis, setuptools, Tox   | git, manual |  10 |   |   |   |   |   |
 | [cookiecutter-pylibrary](https://github.com/ionelmc/cookiecutter-pylibrary)                      | Travis, setuptools, Tox   | git, manual |  20 |   |   |   |   |   |
-| [docker-science](https://github.com/docker-science/cookiecutter-docker-science)                  | Make, Docker, setuptools  | no CI/CD    |  15 |   | ✓ |   |   |   |
-| [cookiecutter-django](https://github.com/pydanny/cookiecutter-django)                            | Actions, setuptools, Tox  | git, manual |  15 |   | ✓ |   |   | ✓ |
-| [django-init](https://github.com/Fueled/django-init)                                             | Actions, setuptools, Make | git, manual |  15 |   | ✓ |   |   | ✓ |
+| [docker-science](https://github.com/docker-science/cookiecutter-docker-science)                  | Make, Docker, setuptools  | no CI/CD    |  15 |   | ✔️ |   |   |   |
+| [cookiecutter-django](https://github.com/pydanny/cookiecutter-django)                            | Actions, setuptools, Tox  | git, manual |  15 |   | ✔️ |   |   | ✔️ |
+| [django-init](https://github.com/Fueled/django-init)                                             | Actions, setuptools, Make | git, manual |  15 |   | ✔️ |   |   | ✔️ |
 
 **† _N int._**: Approximate number of built-in integrations with tools and standards. What counts is very roughly defined.  
 **‡ _Modern_**: Lacks legacy files and tools. I’m including Make, setuptools, pipenv, and some others.  
@@ -169,15 +173,14 @@ Here are the features, which other tools tend to lack:
 Some of the packages in the table above need more explanation:
 - [hypermodern-python](https://github.com/cjolowicz/hypermodern-python)
   ([template](https://github.com/cjolowicz/cookiecutter-hypermodern-python)), a Poetry-powered Python
-  template. It’s quite good but made a few unusual choices, such as [Nox](https://github.com/theacodes/nox), which has <500 Github stars.
+  template. It’s good, but it made a few unusual choices, such as [Nox](https://github.com/theacodes/nox), which has <500 Github stars.
 - Both [cookiecutter-django](https://github.com/pydanny/cookiecutter-django) and
   [django-init](https://github.com/Fueled/django-init) have fantastic setups for Django projects.
-  They’re definitely worth checking out for that.
 - [Cookiecutter-docker-science](https://github.com/docker-science/cookiecutter-docker-science) is an interesting project
   that doesn’t quite fit in this list.
 
 
-### Contributing:
+### 🍁 Contributing
 
 [New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
 Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/CONTRIBUTING.md)
