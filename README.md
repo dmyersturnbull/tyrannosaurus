@@ -38,7 +38,7 @@ tyrannosaurus new projectname --track
 After initializing your project, Tyrannosaurus will list some manual steps, such as adding API keys.
 
 
-#### Main behavior / features:
+### Main behavior / features:
 
 Generated projects are integrated with various tools (from PyPi) and external CI/CD/code-quality systems.
 Github Actions are used by default, but config files for Travis and Azure Pipelines are also provided.
@@ -56,7 +56,7 @@ You can swap out, modify, or disable anything as you see fit.
 - `tyrannosaurus update` ⇒ New dependency versions from PyPi and/or Conda are listed
 
 
-#### Full features / integrations:
+### Full features / integrations:
 
   - Packaging and dependency management with [Poetry](https://python-poetry.org/)
   - Python 3.8, 3.9, and 3.10 (3.6 and 3.7 with a small change)
@@ -64,11 +64,13 @@ You can swap out, modify, or disable anything as you see fit.
   - Continuous integration with [Github Actions](https://github.com/features/actions),
     [Travis](https://www.travis-ci.com/), or
     [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
+  - Docker and Vagrant configuration
   - Continuous deployment to [PyPi](http://pypi.org/), [Dockerhub](https://hub.docker.com/),
     and [Github Packages](https://github.com/features/packages).
   - Automatic attachment of [sdits](https://docs.python.org/3/distutils/sourcedist.html)
     and [wheels](https://pythonwheels.com/) to
     [Github Releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-releases)
+  - Good default GitHub settings, synchronized via [Probot settings](https://github.com/probot/settings)
   - Documentation sent to [readthedocs](https://readthedocs.org/)
   - Nice documentation defaults with
     [Sphinx extensions](https://www.sphinx-doc.org/en/master/usage/extensions/index.html)
@@ -105,7 +107,7 @@ You can swap out, modify, or disable anything as you see fit.
 † [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)
 
 
-#### Syncing to pyproject.toml:
+### Syncing to pyproject.toml:
 
 *Note: This feature is only partly complete.*
 
@@ -122,7 +124,7 @@ install, and clean up.
 Target files can be disabled in `[tool.tyrannosaurus.targets]`.
 
 
-#### Building your project locally:
+### Building your project locally:
 
 To run locally, install [Poetry](https://github.com/python-poetry/poetry)
 and [Tox](https://tox.readthedocs.io/en/latest/) (`pip install tox`).
@@ -130,7 +132,7 @@ Then just type `tox` to build artifacts and run tests.
 To create an initial Anaconda recipe or environment file, run `tyrannosaurus recipe` or `tyrannosaurus env`.
 
 
-#### Similar templates and tools:
+### Similar templates and tools:
 
 There are various other templates based on [cookiecutter](https://github.com/cookiecutter/cookiecutter)
 and [copier](https://github.com/copier-org/copier). You should look to see which best suits your style.
@@ -175,7 +177,7 @@ Some of the packages in the table above need more explanation:
   that doesn’t quite fit in this list.
 
 
-#### Contributing:
+### Contributing:
 
 [New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
 Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/CONTRIBUTING.md)
