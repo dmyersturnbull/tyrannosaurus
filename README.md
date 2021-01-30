@@ -29,7 +29,7 @@ This is a modern template built with [Poetry](https://python-poetry.org/),
 [Github Actions](https://github.com/features/actions), and
 [no legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
 See below for a [comparison to other tools](https://github.com/dmyersturnbull/tyrannosaurus#similar-templates-and-tools).
-Don’t make 55 commits trying to configure CI/CD workflows ❌
+Don’t make 55 commits trying to configure CI/CD workflows
 
 ```bash
 pip install tyrannosaurus
@@ -37,7 +37,7 @@ tyrannosaurus new projectname --track
 ```
 
 After initializing your project, Tyrannosaurus will list manual steps like adding API keys.
-Tyrannosaurus was generated with Tyrannosaurus: `tyrannosaurus new tyrannosaurus` ☺
+Tyrannosaurus was generated with Tyrannosaurus: `tyrannosaurus new tyrannosaurus`
 
 
 ### 💡 Main behavior / features
