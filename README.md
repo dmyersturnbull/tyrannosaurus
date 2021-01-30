@@ -130,31 +130,49 @@ Then just type `tox` to build artifacts and run tests.
 To create an initial Anaconda recipe or environment file, run `tyrannosaurus recipe` or `tyrannosaurus env`.
 
 
-#### Similar tools:
+#### Similar templates and tools:
 
-There are various packages that can be used to generate Python projects from templates.
-I think Tyrannosaurus has some very clear advantages over these:
-- A highly streamlined workflow. You only need to interact directly with your project via
-  `git commit`, `git push`, and creating Github releases. Everything else happens automatically.
-- Integration with Docker, Docker Hub, Github Packages, and Conda-Forge.
-- Built-in configuration for alternative tools (such as Travis), which can simply be deleted without issue.
-- An optional tool to sync duplicate metadata to pyproject.toml.
+There are various other templates based on [cookiecutter](https://github.com/cookiecutter/cookiecutter)
+and [copier](https://github.com/copier-org/copier). You should look to see which best suits your style.
+I designed Tyrannosaurus to solve what I saw as problems with existing tools.
 
-Anyway, here are some other tools:
-- [hypermodern-python](https://github.com/cjolowicz/hypermodern-python), a Python template that is as modern
-  as Tyrannosaurus. It looks solid but has fewer integrations and made a few choices that I consider sub-optimal,
-  such as the use of [Nox](https://github.com/theacodes/nox), which has <500 Github stars.
-- [cookiecutter](https://github.com/cookiecutter/cookiecutter). This is an extremely useful package that Tyrannosaurus
-  could have been written to use behind the scenes. There are a number of cookiecutter templates available, including
-  some modern ones. However, I did not find any that are as feature-complete or streamlined as Tyrannosaurus.
-- [cookiecutter-hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python), a cookiecutter
-  template for hypermodern-python.
-- [wemake-python-package](https://github.com/wemake-services/wemake-python-package), another cookiecutter template.
-  This is a good package, but it has a less streamlined workflow and far fewer useful integrations
-- [copier](https://github.com/copier-org/copier), which can be used to keep a project up-to-date with a remote template.
-  This is a neat idea that may be useful to integrate, possibly alongside `tyrannosaurus sync`.
-- [python-blueprint](https://github.com/johnthagen/python-blueprint). This is an interesting template, but it’s
-  quite outdated.
+Here are the features, which other tools tend to lack:
+- An **elegant CI/CD workflow**: The workflow gets kicked off only via `git push` and Github releases.
+- **Interopability with Conda**, including recipes and environment files, by mapping dependencies and metadata.
+- **Automated publishing** to PyPi, Conda-Forge, Docker Hub, Github Packages, readthedocs, and static analysis tools.
+- **No duplication** between project files. (Not 100%: some duplication remains.)
+- Built-in optional support for **extra/alternative tools**, such as Travis and codemeta.
+- Complete **absence of legacy tools**, files, and Python 2 support.
+
+**Feature table:**
+
+| Tool                                                                                             | Main techs                | CD kickoff  | N int.† | modern‡ | Docker | Conda | sync | Django  |
+| ------------------------------------------------------------------------------------------------ | ------------------------- | ------------| ----|-- | - | - | - | - |
+| Tyranosaurus                                                                                     | Actions, Poetry, Tox      | git, GitHub |  25 | ✓ | ✓ | ✓ | ✓ |   |
+| [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)               | Actions, Poetry, Nox      | git, Poetry |  20 | ✓ |   |   |   |   |
+| [wemake-python-package](https://github.com/wemake-services/wemake-python-package)                | Actions, Poetry, Make     | git, Poetry |  10 | ✓ |   |   | ✓ |   |
+| [copier-poetry](https://github.com/pawamoy/copier-poetry)                                        | Actions, Poetry, Make     | git, manual |  15 |   | ✓ |   |   |   |
+| [best-practices](https://github.com/sourcery-ai/python-best-practices-cookiecutter)              | Actions, pipenv           | git, pipenv |  10 |   | ✓ |   |   |   |
+| [python-blueprint](https://github.com/johnthagen/python-blueprint)                               | Actions, setuptools, Tox  | git, manual |  5  |   | ✓ |   |   |   |
+| [cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage)                | Travis, setuptools, Tox   | git, manual |  10 |   |   |   |   |   |
+| [cookiecutter-pylibrary](https://github.com/ionelmc/cookiecutter-pylibrary)                      | Travis, setuptools, Tox   | git, manual |  20 |   |   |   |   |   |
+| [docker-science](https://github.com/docker-science/cookiecutter-docker-science)                  | Make, Docker, setuptools  | no CI/CD    |  15 |   | ✓ |   |   |   |
+| [cookiecutter-django](https://github.com/pydanny/cookiecutter-django)                            | Actions, setuptools, Tox  | git, manual |  15 |   | ✓ |   |   | ✓ |
+| [django-init](https://github.com/Fueled/django-init)                                             | Actions, setuptools, Make | git, manual |  15 |   | ✓ |   |   | ✓ |
+
+**† _N int._**: Approximate number of built-in integrations with tools and standards. What counts is very roughly defined.  
+**‡ _Modern_**: Lacks legacy files and tools. I’m including Make, setuptools, pipenv, and some others.  
+**Note:** [copier](https://github.com/copier-org/copier) syncs with a remote template. It’s a neat idea that Tyrannosaurus lacks.
+
+Some of the packages in the table above need more explanation:
+- [hypermodern-python](https://github.com/cjolowicz/hypermodern-python)
+  ([template](https://github.com/cjolowicz/cookiecutter-hypermodern-python)), a Poetry-powered Python
+  template. It’s quite good but made a few unusual choices, such as [Nox](https://github.com/theacodes/nox), which has <500 Github stars.
+- Both [cookiecutter-django](https://github.com/pydanny/cookiecutter-django) and
+  [django-init](https://github.com/Fueled/django-init) have fantastic setups for Django projects.
+  They’re definitely worth checking out for that.
+- [Cookiecutter-docker-science](https://github.com/docker-science/cookiecutter-docker-science) is an interesting project
+  that doesn’t quite fit in this list.
 
 
 #### Contributing:
