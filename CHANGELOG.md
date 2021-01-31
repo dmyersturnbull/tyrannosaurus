@@ -41,6 +41,7 @@ Commit messages should get mapped to changelog sections this way:
 - Improved the new-project guide  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - A few misc bugs  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Dockerfile labels and lint passing
+- Verbose and dry-run options
 
 
 ## [0.8.x] - 2021-01-08

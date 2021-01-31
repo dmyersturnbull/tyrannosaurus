@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-        - master
+      - master
 jobs:
   labels:
     name: DefaultLabelsActions
@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Create labels
+      - name: Configure issue labels
         uses: lannonbr/issue-label-manager-action@2.0.0
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'

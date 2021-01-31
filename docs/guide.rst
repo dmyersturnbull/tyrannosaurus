@@ -34,13 +34,12 @@ Here’s what you need to get your first commit on Github.
 
 1. **Create a repo:** Create an *empty* repository under ``userororgname/projectname``.
    Do **not** add a readme, license, or gitignore.
-2. **Use Probot:** Install `Probot Settings <https://github.com/probot/settings>`_ in your repo.
+2. **Use Probot Settings:** Install `Probot Settings <https://github.com/probot/settings>`_ in your repo.
 3. **Delete unwanted files:** Delete ``.github/labels.json``, ``.github/workflows/labels.yml``, ``.travis.yml``,
    and ``.azure-pipelines.yml``, assuming you’re not using them. You might also not want ``codemeta.json``,
    ``CITATION.cff``, ``environment.yml``, or ``Vagrantfile``.
 4. Modify ``pyproject.toml`` and ``README.md``.
 5. Add an entry to ``CHANGELOG.md`` and run ``git commit -m "feat: initial code"`` (probably twice).
-
 
 .. hint::
 
@@ -56,6 +55,11 @@ Here’s what you need to get your first commit on Github.
 .. tip::
 
     Always run ``poetry lock`` after modifying dependencies. ``tyrannosaurus sync`` does this too.
+
+.. warning::
+
+    Probot Settings has a `privilege escalation issue <https://github.com/probot/settings#security-implications>`_.
+    Either accept that as a caveat, list ``.github/settings.yml`` in ``.github/CODEOWNERS``, or disable it after your initial push.
 
 
 Configuring external integrations

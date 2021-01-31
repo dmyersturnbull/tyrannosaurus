@@ -31,6 +31,14 @@ jobs:
       - name: Build the Docker image
         run: |
           docker build .
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: ${{ github.repository }}/${{ github.event.repository.name }}
+          tag_with_ref: true
       - name: Attach artifacts to the Github release
         uses: skx/github-action-publish-binaries@master
         with:

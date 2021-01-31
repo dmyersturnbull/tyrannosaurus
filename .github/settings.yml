@@ -4,14 +4,14 @@ repository:
   # See https://developer.github.com/v3/repos/#edit for all available settings.
 
   # The name of the repository. Changing this will rename the repository
-  name: tyrannosaurus
+  name: 'tyrannosaurus'
 
   # A short description of the repository that will show up on GitHub
-  description: Generate beautifully modern Python projects with seamless, Github-based CI/CD and loads of integrations.
+  description: 'Generate beautifully modern Python projects with seamless, Github-based CI/CD and loads of integrations.'
 
-  homepage: https://github.com/dmyersturnbull/tyrannosaurus
+  homepage: 'https://github.com/dmyersturnbull/tyrannosaurus'
 
-  topics: python, template, pyproject-toml, python-poetry, conda-build
+  topics: ['cookiecutter-python', 'template', 'pyproject-toml', 'poetry', 'conda-build']
 
   has_issues: true
   has_projects: true
@@ -135,10 +135,8 @@ branches:
       required_status_checks:
         strict: true
         contexts:
-          - build (3.9)
-          - markdown-link-check
-      enforce_admins: true
+          - 'build (3.9)'
+          - 'markdown-link-check'
+      enforce_admins: false
       required_linear_history: true
-      restrictions:
-        apps: []
-        users: [dmyersturnbull]
+      restrictions: null

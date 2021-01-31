@@ -3,6 +3,7 @@ $${license.header}
 Metadata for this $${project}.
 """
 import logging
+from typing import Sequence
 
 # If you need to support Python 3.7, change to importlib_metadata (underscore, not dot)
 # and then list importlib_metadata to [tool.poetry.dependencies] and docs/requirements.txt
@@ -33,7 +34,7 @@ except PackageNotFoundError:  # pragma: no cover
 
 class $${Pkg}Assets:
     """
-    Utilities and resources for ${project}.
+    Utilities and resources for ${Project}.
     """
     @classmethod
     def path(cls, *nodes: Sequence[str]) -> Path:

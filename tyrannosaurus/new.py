@@ -16,12 +16,10 @@ import shutil
 import stat
 from pathlib import Path
 from subprocess import CalledProcessError, check_output, PIPE  # nosec
-from typing import Sequence, Union, Optional, List
+from typing import Dict, Sequence, Union, Optional, List
 
-import requests
 import typer
 
-from tyrannosaurus import TyrannoInfo
 from tyrannosaurus.parser import LiteralParser
 from tyrannosaurus.enums import DevStatus, License
 
@@ -49,6 +47,7 @@ class New:
         status: DevStatus,
         should_track: bool,
         tyranno_vr: str,
+        debug: bool = False,
     ):
         if isinstance(license_name, str):
             license_name = License[license_name.lower()]
@@ -78,6 +77,7 @@ class New:
             license_name=self.license_name.name,
             tyranno_vr=self.tyranno_vr,
         )
+        self.debug = debug
 
     def create(self, path: Path) -> None:
         self._checkout(Path(str(path).lower()))
@@ -209,9 +209,11 @@ class New:
         succeed: Optional[str] = None,
         fail: Union[None, str, BaseException] = None,
     ) -> Optional[str]:
-        kwargs = {} if cwd is None else dict(cwd=str(cwd))
+        kwargs: Dict[str, str] = {} if cwd is None else dict(cwd=str(cwd))
+        if not self.debug:
+            kwargs["stderr"] = PIPE
         try:
-            output = check_output(cmd, encoding="utf8", stderr=PIPE, **kwargs)  # nosec
+            output = check_output(cmd, encoding="utf8", **kwargs)  # nosec
         except CalledProcessError:
             logger.debug(f"Failed calling {' '.join(cmd)} in {cwd}", exc_info=True)
             if fail is not None and isinstance(fail, BaseException):
