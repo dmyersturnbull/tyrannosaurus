@@ -84,7 +84,9 @@ class New:
         logger.info("Got git checkout. Fixing...")
         # remove tyrannosaurus-specific files
         Path(path / "poetry.lock").unlink()
-        Path(path / "recipes" / "tyrannosaurus" / "meta.yaml").unlink()
+        _recipe_path = Path(path / "recipes" / "tyrannosaurus" / "meta.yaml")
+        if _recipe_path.exists():
+            _recipe_path.unlink()
         Path(path / "recipes" / "tyrannosaurus").rmdir()
         for p in Path(path / "docs").iterdir():
             if p.is_file() and p.name not in {"conf.py", "requirements.txt"}:
