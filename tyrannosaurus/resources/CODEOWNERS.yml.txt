@@ -3,6 +3,6 @@
 
 # This works around this security issue
 # https://github.com/probot/settings#security-implications
-.github/settings.yml dmyersturnbull
+.github/settings.yml $${user}
 
 # You can add other lines here to auto-assign reviewers
