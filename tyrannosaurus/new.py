@@ -126,7 +126,9 @@ class New:
 
     def _track(self, path: Path) -> None:
         is_initialized = self._call(
-            ["git", "init"], cwd=path, fail="Failed calling git init. Giving up."
+            ["git", "init", "--initial-branch=main"],
+            cwd=path,
+            fail="Failed calling git init. Giving up.",
         )
         if is_initialized:
             self._call(
