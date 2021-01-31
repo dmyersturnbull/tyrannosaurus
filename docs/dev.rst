@@ -57,6 +57,7 @@ Here the substitutions made in text files:
 ``$${Project}``              ``My Special-Project``
 ``$${PROJECT}``              ``MY SPECIAL-PROJECT``
 ``$${pkg}``                  ``myspecialproject``
+``$${Pkg}``                  ``Myspecialproject``
 ``$${license}``              ``gpl2``
 ``$${license.family}``       ``GPL``
 ``$${license.name}``         ``GPL 2.0``

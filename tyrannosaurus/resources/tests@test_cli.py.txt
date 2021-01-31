@@ -1,4 +1,6 @@
+"""
 $${license.header}
+"""
 import pytest
 
 from $${pkg} import __copyright__

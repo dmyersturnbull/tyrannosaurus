@@ -15,7 +15,7 @@ import os
 import shutil
 import stat
 from pathlib import Path
-from subprocess import CalledProcessError, check_output  # nosec
+from subprocess import CalledProcessError, check_output, PIPE  # nosec
 from typing import Sequence, Union, Optional, List
 
 import requests
@@ -179,7 +179,7 @@ class New:
 
     def _checkout_rev(self, path: Path, tyranno_vr: str):
         self._call(
-            ["git", "checkout", f"tags/{tyranno_vr}"],
+            ["git", "checkout", f"tags/{tyranno_vr}".strip()],
             cwd=path,
             fail=VersionNotFoundError(f"Git tag '{tyranno_vr}' was not found."),
         )
@@ -207,7 +207,7 @@ class New:
     ) -> Optional[str]:
         kwargs = {} if cwd is None else dict(cwd=str(cwd))
         try:
-            output = check_output(cmd, encoding="utf8", **kwargs)  # nosec
+            output = check_output(cmd, encoding="utf8", stderr=PIPE, **kwargs)  # nosec
         except CalledProcessError:
             logger.debug(f"Failed calling {' '.join(cmd)} in {cwd}", exc_info=True)
             if fail is not None and isinstance(fail, BaseException):

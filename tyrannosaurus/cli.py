@@ -49,11 +49,27 @@ class _DevNull:  # pragma: no cover
         self.close()
 
 
-def write_info():
-    # avoid importing above, just in case a user runs --version, --info, or info on an improperly installed version
-    from tyrannosaurus import __date__, __version__
+class Msg:
+    @classmethod
+    def success(cls, msg: str) -> None:
+        msg = typer.style(msg, fg=typer.colors.BLUE, bold=True)
+        typer.echo(msg)
 
-    typer.echo(f"Tyrannosaurus v{__version__} ({__date__})")
+    @classmethod
+    def info(cls, msg: str) -> None:
+        typer.echo(msg)
+
+    @classmethod
+    def failure(cls, msg: str) -> None:
+        msg = typer.style(msg, fg=typer.colors.RED, bold=True)
+        typer.echo(msg)
+
+    @classmethod
+    def write_info(cls):
+        # avoid importing above, just in case a user runs --version, --info, or info on an improperly installed version
+        from tyrannosaurus import __date__, __version__
+
+        Msg.info(f"Tyrannosaurus v{__version__} ({__date__})")
 
 
 class CliState:  # pragma: no cover
@@ -80,7 +96,7 @@ class CliState:  # pragma: no cover
             verbose: Output more information
         """
         if version or info:
-            write_info()
+            Msg.write_info()
             raise typer.Exit()
         self.dry_run = dry_run
         self.verbose = verbose
@@ -108,7 +124,6 @@ class CliCommands:
         status: Optional[DevStatus] = None,
         track: bool = False,
         tyranno: str = "current",
-        newest=typer.Option(False, hidden=True),
         prompt: bool = False,
     ) -> None:  # pragma: no cover
         """
@@ -130,7 +145,6 @@ class CliCommands:
                      'current' for the currently installed version,
                      'stable' for the latest stable version,
                      or 'latest' for the bleeding-edge version
-            newest: Same as '--tyranno latest' (deprecated)
             prompt: Prompt for info
         """
         if version.startswith("v"):
@@ -170,9 +184,6 @@ class CliCommands:
         e = _Env(user=user, authors=authors)
         keywords = keywords.split(",")
         path = Path(name)
-        # for backwards-compat only
-        if newest and tyranno == "current":
-            tyranno = "latest"
         New(
             name,
             license_name=license,
@@ -183,12 +194,16 @@ class CliCommands:
             version=version,
             status=status,
             should_track=track,
-            tyranno_vr=tyranno,
+            tyranno_vr=tyranno.strip(" \r\n\t"),
         ).create(path)
-        typer.echo(f"Done! Created a new repository under {name}")
-        typer.echo(
+        Msg.success(f"Done! Created a new repository under {name}")
+        Msg.success(
             "See https://tyrannosaurus.readthedocs.io/en/latest/guide.html#to-do-list-for-new-projects"
         )
+        if track:
+            repo_to_track = f"https://github.com/{e.user}/{name.lower()}.git"
+            Msg.info(f"Tracking {repo_to_track}")
+            Msg.info(f"Checked out branch main tracking origin/main")
 
     @staticmethod
     @cli.command()
@@ -198,10 +213,10 @@ class CliCommands:
         """
         dry_run = state.dry_run
         context = Context(Path(os.getcwd()), dry_run=dry_run)
-        typer.echo("Syncing metadata...")
-        typer.echo("Currently, only targets 'init' and 'recipe' are implemented.")
+        Msg.info("Syncing metadata...")
+        Msg.info("Currently, only targets 'init' and 'recipe' are implemented.")
         targets = Sync(context).sync()
-        typer.echo(f"Done. Synced to {len(targets)} targets: {targets}")
+        Msg.success(f"Done. Synced to {len(targets)} targets: {targets}")
 
     @staticmethod
     @cli.command()
@@ -226,7 +241,7 @@ class CliCommands:
         if name is None:
             name = context.project
         CondaEnv(name, dev=dev, extras=extras).create(context, path)
-        typer.echo(f"Wrote environment file {path}")
+        Msg.success(f"Wrote environment file {path}")
 
     @staticmethod
     @cli.command()
@@ -238,21 +253,27 @@ class CliCommands:
         context = Context(Path(os.getcwd()), dry_run=dry_run)
         output_path = context.path / "recipes"
         Recipe(context).create(output_path)
-        typer.echo(f"Generated a new recipe under {output_path}")
+        Msg.success(f"Generated a new recipe under {output_path}")
 
     @staticmethod
     @cli.command()
-    def update(dry_run: bool = False) -> None:  # pragma: no cover
-        context = Context(Path(os.getcwd()), dry_run=dry_run)
+    def update(auto_fix=typer.Option("auto_fix", hidden=True)) -> None:  # pragma: no cover
+        """
+        Finds and lists dependencies that could be updated.
+
+        Args:
+            auto_fix: Update dependencies in place (not supported yet)
+        """
+        context = Context(Path(os.getcwd()), dry_run=not auto_fix)
         updates, dev_updates = Update(context).update()
-        typer.echo("Main updates:")
+        Msg.info("Main updates:")
         for pkg, (old, up) in updates.items():
-            typer.echo(f"    {pkg}:  {old} --> {up}")
-        typer.echo("Dev updates:")
+            Msg.info(f"    {pkg}:  {old} --> {up}")
+        Msg.info("Dev updates:")
         for pkg, (old, up) in dev_updates.items():
-            typer.echo(f"    {pkg}:  {old} --> {up}")
+            Msg.info(f"    {pkg}:  {old} --> {up}")
         if not state.dry_run:
-            logger.error("Auto-fixing is not supported yet!")
+            Msg.failure("Auto-fixing is not supported yet!")
 
     @staticmethod
     @cli.command()
@@ -271,7 +292,7 @@ class CliCommands:
         """
         dry_run = state.dry_run
         trashed = Clean(dists, aggressive, hard_delete, dry_run).clean(Path(os.getcwd()))
-        typer.echo(f"Trashed {len(trashed)} paths.")
+        Msg.info(f"Trashed {len(trashed)} paths.")
 
     @staticmethod
     @cli.command()
@@ -279,7 +300,7 @@ class CliCommands:
         """
         Prints Tyrannosaurus info.
         """
-        write_info()
+        Msg.write_info()
 
     @staticmethod
     @cli.command()
@@ -333,7 +354,7 @@ class CliCommands:
         ]
         if not dry:
             for cmd in cmds:
-                logger.info("Running: " + cmd)
+                Msg.info("Running: " + cmd)
                 check_call(cmd.split(" "))  # nosec
         return cmds
 

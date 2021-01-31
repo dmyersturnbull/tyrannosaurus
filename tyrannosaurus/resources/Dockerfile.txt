@@ -3,13 +3,13 @@
 FROM python:3.9
 
 # See https://github.com/opencontainers/image-spec/blob/master/annotations.md
-LABEL name="tyrannosaurus" \
-      version="0.9.0" \
-      vendor="dmyersturnbull" \
-      org.opencontainers.image.title="tyrannosaurus" \
-      org.opencontainers.image.version="0.9.0" \
-      org.opencontainers.image.url="https://github.com/dmyersturnbull/tyrannosaurus" \
-      org.opencontainers.image.documentation="https://github.com/dmyersturnbull/tyrannosaurus"
+LABEL name="$${project}" \
+      version="$${version}" \
+      vendor="$${user}" \
+      org.opencontainers.image.title="$${project}" \
+      org.opencontainers.image.version="$${version}" \
+      org.opencontainers.image.url="https://github.com/$${user}/$${project}" \
+      org.opencontainers.image.documentation="https://github.com/$${user}/$${project}"
 
 ARG YOUR_ENV
 

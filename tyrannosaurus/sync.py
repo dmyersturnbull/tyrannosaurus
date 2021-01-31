@@ -27,6 +27,7 @@ class Sync:
 
     def sync(self) -> Sequence[str]:  # pragma: no cover
         self.fix_init()
+        self.fix_dockerfile()
         self.fix_pyproject()
         self.fix_recipe()
         self.fix_env()
@@ -36,6 +37,23 @@ class Sync:
 
     def has(self, key: str):
         return self.context.has_target(key)
+
+    def fix_dockerfile(self) -> Sequence[str]:  # pragma: no cover
+        dockerfile = self.context.path / "Dockerfile"
+        if not self.has("dockerfile") or not dockerfile.exists():
+            return []
+        oci_vr = "org.opencontainers.image.version"
+        oci_desc = "org.opencontainers.image.description"
+        return self._replace_substrs(
+            dockerfile,
+            {
+                re.compile(r"^ *version *=.+"): f'      version="{self.context.version} \\"',
+                re.compile(f"^ *{oci_vr} *=.+"): f'      {oci_vr}="{self.context.version} \\"',
+                re.compile(
+                    f"^ *{oci_desc} *=.+"
+                ): f'      {oci_desc}="{self.context.description} \\"',
+            },
+        )
 
     def fix_init(self) -> Sequence[str]:  # pragma: no cover
         if self.has("init"):

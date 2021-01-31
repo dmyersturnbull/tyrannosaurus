@@ -21,23 +21,26 @@ Commit messages should get mapped to changelog sections this way:
 ## [0.9.x] - unreleased
 
 
-## [0.9.0] - 2021-01-22
+## [0.9.0] - 2021-01-30
 
 ### Added
 - A [probot](https://github.com/probot/settings) config file  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - [Commitizen](https://github.com/commitizen-tools/commitizen) config
 - A Vagrant stub file  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - A feature comparison table  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Colors to the CLI
 
 ### Changed
 - Template params now start with ``$${`` to avoid conflicts  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Removed
 - Install dev extras in tox; they're installed in poetry  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- The deprecated `--latest` flag
 
 ### Fixed
 - Improved the new-project guide  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - A few misc bugs  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Dockerfile labels and lint passing
 
 
 ## [0.8.x] - 2021-01-08
