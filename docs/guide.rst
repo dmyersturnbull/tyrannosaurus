@@ -76,6 +76,8 @@ This consists of (1) making accounts, (2) installing Github apps, (3) adding web
 5. **Readthedocs:** Set up readthedocs to track your repo.
 6. **Code quality / coverage (1):** Set up Code Climate, Scrutinizer, and either CodeCov or Coveralls.
 7. **Code quality / coverage (2):** Add either ``COVERALLS_REPO_TOKEN`` or ``CODECOV_TOKEN`` to your Github secrets.
+8. **Slack notifications:** For success/failure notifications about *main* and publishing,
+   add ``SLACK_WEBHOOK`` as a Github secret and set ``use_slack=false`` in ``.github/action-options.json``.
 
 .. tip::
 

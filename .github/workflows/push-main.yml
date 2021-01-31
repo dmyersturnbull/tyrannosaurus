@@ -17,6 +17,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: read action options
+        id: read_options
+        run: |
+          json=`cat .github/action-options.json`
+          USE_SLACK=`echo $(jq -r '.use_slack' <<< "$json")`
       - name: 'Set up Python ${{ matrix.python-version }}'
         uses: actions/setup-python@v2
         with:
@@ -35,3 +40,11 @@ jobs:
           pip install coveralls codecov
           coveralls || true
           codecov || true
+      - name: Send Slack notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,action,workflow
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+        if: always() && steps.read_options.outputs.USE_SLACK
