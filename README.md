@@ -1,4 +1,5 @@
 # Tyrannosaurus Reqs
+
 [![Version status](https://img.shields.io/pypi/status/tyrannosaurus?label=status)](https://pypi.org/project/tyrannosaurus)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python version compatibility](https://img.shields.io/pypi/pyversions/tyrannosaurus?label=Python)](https://pypi.org/project/tyrannosaurus)
@@ -22,7 +23,6 @@ Docker Hub, GitHub Packages, Azure, Conda-Forge, and an array of linting, static
 security testing, documentation, dependency management, and CI/CD tools, including an optional
 custom tool to keep all duplicate project metadata synchronized to pyproject.toml.
 
-
 ### 🎨 Design / generating a new project
 
 This is a modern template built with [Poetry](https://python-poetry.org/),
@@ -39,7 +39,6 @@ tyrannosaurus new projectname --track
 After initializing your project, Tyrannosaurus will list manual steps like adding API keys.
 Tyrannosaurus was generated with Tyrannosaurus: `tyrannosaurus new tyrannosaurus`
 
-
 ### 💡 Main behavior / features
 
 Generated projects are integrated with various tools (from PyPi) and external CI/CD/code-quality systems.
@@ -47,7 +46,7 @@ GitHub Actions are used by default, but config files for Travis and Azure Pipeli
 You can swap out, modify, or disable anything as you see fit.
 **[See the docs 📚](https://tyrannosaurus.readthedocs.io/en/stable/)** for more information.
 
-*By default*, here’s how your new project will behave:
+_By default_, here’s how your new project will behave:
 
 - **Commit** ⇒ Files are linted and verified for integrity
 - **Make a pull request** ⇒ Code is built and tested
@@ -56,7 +55,6 @@ You can swap out, modify, or disable anything as you see fit.
 - `tox` ⇒ Tests are run locally
 - `tyrannosaurus sync` ⇒ Project metadata is synced to pyproject.toml
 - `tyrannosaurus update` ⇒ New dependency versions from PyPi and/or Conda are listed
-
 
 ### 🎁 Full features / integrations
 
@@ -111,10 +109,9 @@ You can swap out, modify, or disable anything as you see fit.
 
 † [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)
 
-
 ### ✏️ Syncing to pyproject.toml
 
-*Note: This feature is only partly complete.*
+_Note: This feature is only partly complete._
 
 Tyrannosaurus has an optional `sync` command that synchronizes metadata from `pyproject.toml` to other files,
 so that **all of your metadata is in pyproject.toml**.
@@ -128,7 +125,6 @@ Running `tyrannosaurus build` will run poetry lock, synchronize project metadata
 install, and clean up.
 Target files can be disabled in `[tool.tyrannosaurus.targets]`.
 
-
 ### 🔨 Building your project locally
 
 You can test your project locally. Install [Poetry](https://github.com/python-poetry/poetry)
@@ -137,7 +133,6 @@ Then just type `tox` to build artifacts and run tests.
 You can install locally with `poetry install .` or just `pip install .`.
 To create an initial Anaconda recipe or environment file, run `tyrannosaurus recipe` or `tyrannosaurus env`.
 After that, you can use `sync` to keep them up-to-date with pyproject.toml.
-
 
 ### 🎯 Similar templates and tools
 
@@ -174,6 +169,7 @@ Here are features that other tools lack:
 **Note:** [copier](https://github.com/copier-org/copier) syncs with a remote template. It’s a neat idea that Tyrannosaurus lacks.
 
 Some of the packages in the table above need more explanation:
+
 - [hypermodern-python](https://github.com/cjolowicz/hypermodern-python)
   ([template](https://github.com/cjolowicz/cookiecutter-hypermodern-python)), a Poetry-powered Python
   template. It’s good, but it made a few unusual choices, such as [Nox](https://github.com/theacodes/nox), which has <500 GitHub stars.
@@ -182,14 +178,12 @@ Some of the packages in the table above need more explanation:
 - [Cookiecutter-docker-science](https://github.com/docker-science/cookiecutter-docker-science) is an interesting project
   that doesn’t quite fit in this list.
 
-
 ### 🍁 Contributing
 
 [New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
 Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/CONTRIBUTING.md)
 and [security policy](https://github.com/dmyersturnbull/tyrannosaurus/blob/main/SECURITY.md).  
 Generated with tyrannosaurus: `tyrannosaurus new tyrannosaurus`
-
 
 ```text
                                               .++++++++++++.
