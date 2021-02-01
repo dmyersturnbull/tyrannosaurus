@@ -17,7 +17,7 @@ build:
           - command: pylint-run
             # we can control the exact checks on the website
             # for example, I disabled pylint checks that black contradicts or that I disagreed with
-            use_website_config: true
+            #use_website_config: true
 checks:
   python:
     code_rating: true
