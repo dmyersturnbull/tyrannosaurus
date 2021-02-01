@@ -97,6 +97,7 @@ You can swap out, modify, or disable anything as you see fit.
     and [Tyrannosaurus](https://tyrannosaurus.readthedocs.io/)
   - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
   - Fancy [issue labels](https://github.com/crazy-max/ghaction-github-labeler)
+  - Slack notifications for CI/CD success and failure with [action-slack](https://github.com/8398a7/action-slack)
   - Fancy Github-recognized readme, license,
     [contributing guide](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/setting-guidelines-for-repository-contributors#adding-a-contributing-file),
     [issue templates](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/configuring-issue-templates-for-your-repository), and

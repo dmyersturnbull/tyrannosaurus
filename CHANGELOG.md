@@ -29,6 +29,7 @@ Commit messages should get mapped to changelog sections this way:
 - A Vagrant stub file  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - A feature comparison table  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Colors to the CLI
+- Slack notifications and `actions-options.json`
 
 ### Changed
 - Template params now start with ``$${`` to avoid conflicts  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
