@@ -38,7 +38,3 @@ so that you’re credited. Run `tyrannosaurus sync` to sync metadata.
    changes from regro-cf-autotick-bot. You can alternatively re-run `tyrannosaurus recipe`
    to generate a new recipe and copy it to the feedstock.
 7. Twenty minutes later, verify that the Conda-Forge shield is updated.
-   
-   
-
-https://github.com/conda-forge/tyrannosaurus-feedstock

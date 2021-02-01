@@ -1,7 +1,7 @@
 Testing database-connected code
 =================================
 
-Getting Github actions and Tox to work well with databases takes a little extra work.
+Getting GitHub actions and Tox to work well with databases takes a little extra work.
 This shows how to get MariaDB/MySQL working. The principles should be the same for other databases, like PostgreSQL.
 `This project <https://github.com/dmyersturnbull/valarpy>`_ has a working example of this.
 

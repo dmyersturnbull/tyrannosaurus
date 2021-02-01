@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python version compatibility](https://img.shields.io/pypi/pyversions/tyrannosaurus?label=Python)](https://pypi.org/project/tyrannosaurus)
 [![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyrannosaurus?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyrannosaurus)
-[![Version on Github](https://img.shields.io/github/v/release/dmyersturnbull/tyrannosaurus?include_prereleases&label=GitHub)](https://github.com/dmyersturnbull/tyrannosaurus/releases)
+[![Version on GitHub](https://img.shields.io/github/v/release/dmyersturnbull/tyrannosaurus?include_prereleases&label=GitHub)](https://github.com/dmyersturnbull/tyrannosaurus/releases)
 [![Version on PyPi](https://img.shields.io/pypi/v/tyrannosaurus?label=PyPi)](https://pypi.org/project/tyrannosaurus)
 [![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/tyrannosaurus?label=Conda-Forge)](https://anaconda.org/conda-forge/tyrannosaurus)  
 [![Build (Actions)](https://img.shields.io/github/workflow/status/dmyersturnbull/tyrannosaurus/Build%20&%20test?label=Tests)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
@@ -18,7 +18,7 @@ An opinionated, forwards-looking Python template for 2021.
 
 Generate elegant, ready-to-use Python
 projects that have excellent continuous integration and deployment (CI/CD). Integrated with
-Docker Hub, Github Packages, Azure, Conda-Forge, and an array of linting, static analysis,
+Docker Hub, GitHub Packages, Azure, Conda-Forge, and an array of linting, static analysis,
 security testing, documentation, dependency management, and CI/CD tools, including an optional
 custom tool to keep all duplicate project metadata synchronized to pyproject.toml.
 
@@ -26,7 +26,7 @@ custom tool to keep all duplicate project metadata synchronized to pyproject.tom
 ### 🎨 Design / generating a new project
 
 This is a modern template built with [Poetry](https://python-poetry.org/),
-[Github Actions](https://github.com/features/actions), and
+[GitHub Actions](https://github.com/features/actions), and
 [no legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
 See below for a [comparison to other tools](https://github.com/dmyersturnbull/tyrannosaurus#-similar-templates-and-tools).
 Don’t make 55 commits trying to configure CI/CD workflows
@@ -43,7 +43,7 @@ Tyrannosaurus was generated with Tyrannosaurus: `tyrannosaurus new tyrannosaurus
 ### 💡 Main behavior / features
 
 Generated projects are integrated with various tools (from PyPi) and external CI/CD/code-quality systems.
-Github Actions are used by default, but config files for Travis and Azure Pipelines are also provided.
+GitHub Actions are used by default, but config files for Travis and Azure Pipelines are also provided.
 You can swap out, modify, or disable anything as you see fit.
 **[See the docs 📚](https://tyrannosaurus.readthedocs.io/en/stable/)** for more information.
 
@@ -52,7 +52,7 @@ You can swap out, modify, or disable anything as you see fit.
 - **Commit** ⇒ Files are linted and verified for integrity
 - **Make a pull request** ⇒ Code is built and tested
 - **Push to the main branch** ⇒ Code is built and tested; code quality, coverage, and security badges are updated
-- **Make a Github release** ⇒ Artifacts are sent to Github, PyPi, DockerHub, Github Packages, and readthedocs
+- **Make a GitHub release** ⇒ Artifacts are sent to GitHub, PyPi, DockerHub, GitHub Packages, and readthedocs
 - `tox` ⇒ Tests are run locally
 - `tyrannosaurus sync` ⇒ Project metadata is synced to pyproject.toml
 - `tyrannosaurus update` ⇒ New dependency versions from PyPi and/or Conda are listed
@@ -63,15 +63,15 @@ You can swap out, modify, or disable anything as you see fit.
   - Packaging and dependency management with [Poetry](https://python-poetry.org/)
   - Python 3.8, 3.9, and 3.10 (3.6 and 3.7 with a small change)
   - Only modern files: *no* manifest file, setup.py, requirements.txt, setup.cfg, or eggs
-  - Continuous integration with [Github Actions](https://github.com/features/actions),
+  - Continuous integration with [GitHub Actions](https://github.com/features/actions),
     [Travis](https://www.travis-ci.com/), or
     [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
   - Docker and Vagrant configuration
   - Continuous deployment to [PyPi](http://pypi.org/), [Dockerhub](https://hub.docker.com/),
-    and [Github Packages](https://github.com/features/packages).
+    and [GitHub Packages](https://github.com/features/packages).
   - Automatic attachment of [sdits](https://docs.python.org/3/distutils/sourcedist.html)
     and [wheels](https://pythonwheels.com/) to
-    [Github Releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-releases)
+    [GitHub Releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-releases)
   - Good default GitHub settings, synchronized via [Probot settings](https://github.com/probot/settings)
   - Documentation sent to [readthedocs](https://readthedocs.org/)
   - Nice documentation defaults with
@@ -98,7 +98,7 @@ You can swap out, modify, or disable anything as you see fit.
   - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
   - Fancy [issue labels](https://github.com/crazy-max/ghaction-github-labeler)
   - Slack notifications for CI/CD success and failure with [action-slack](https://github.com/8398a7/action-slack)
-  - Fancy Github-recognized readme, license,
+  - Fancy GitHub-recognized readme, license,
     [contributing guide](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/setting-guidelines-for-repository-contributors#adding-a-contributing-file),
     [issue templates](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/configuring-issue-templates-for-your-repository), and
     [pull request templates](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/creating-a-pull-request-template-for-your-repository)
@@ -146,9 +146,9 @@ and [copier](https://github.com/copier-org/copier). See which best suits your ne
 
 I designed Tyrannosaurus to solve issues with existing tools.
 Here are features that other tools lack:
-- An **elegant CI/CD workflow**: The workflow gets kicked off only via `git push` and Github releases.
+- An **elegant CI/CD workflow**: The workflow gets kicked off only via `git push` and GitHub releases.
 - **Interopability with Conda**, including recipes and environment files, by mapping dependencies and metadata.
-- **Automated publishing** to PyPi, Conda-Forge, Docker Hub, Github Packages, and readthedocs.
+- **Automated publishing** to PyPi, Conda-Forge, Docker Hub, GitHub Packages, and readthedocs.
 - **No duplication** between project files. (Not 100%: some duplication remains.)
 - Built-in optional support for **extra/alternative tools**, such as Travis and codemeta.
 - Complete **absence of legacy tools**, files, and Python 2 support.
@@ -157,7 +157,7 @@ Here are features that other tools lack:
 
 | Tool                                                                                             | Main techs                | CD kickoff  | N int.† | modern‡ | Docker | Conda | sync | Django  |
 | ------------------------------------------------------------------------------------------------ | ------------------------- | ------------| ----|-- | - | - | - | - |
-| Tyranosaurus                                                                                     | Actions, Poetry, Tox      | git, GitHub |  25 | ✔️ | ✔️ | ✔️ | ✔️ |   |
+| Tyranosaurus                                                                                     | Actions, Poetry, Tox      | git, GitHub |  30 | ✔️ | ✔️ | ✔️ | ✔️ |   |
 | [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)               | Actions, Poetry, Nox      | git, Poetry |  20 | ✔️ |   |   |   |   |
 | [copier-poetry](https://github.com/pawamoy/copier-poetry)                                        | Actions, Poetry, Make     | git, manual |  15 |   | ✔️ |   |  ✔️ |   |
 | [wemake-python-package](https://github.com/wemake-services/wemake-python-package)                | Actions, Poetry, Make     | git, Poetry |  10 | ✔️ |   |   |   |   |
@@ -176,7 +176,7 @@ Here are features that other tools lack:
 Some of the packages in the table above need more explanation:
 - [hypermodern-python](https://github.com/cjolowicz/hypermodern-python)
   ([template](https://github.com/cjolowicz/cookiecutter-hypermodern-python)), a Poetry-powered Python
-  template. It’s good, but it made a few unusual choices, such as [Nox](https://github.com/theacodes/nox), which has <500 Github stars.
+  template. It’s good, but it made a few unusual choices, such as [Nox](https://github.com/theacodes/nox), which has <500 GitHub stars.
 - Both [cookiecutter-django](https://github.com/pydanny/cookiecutter-django) and
   [django-init](https://github.com/Fueled/django-init) have fantastic setups for Django projects.
 - [Cookiecutter-docker-science](https://github.com/docker-science/cookiecutter-docker-science) is an interesting project

@@ -48,7 +48,7 @@ Anaconda recipes
 
 This describes how to generate a Conda recipe and
 [upload it to `Conda-Forge <https://conda-forge.org/#add_recipe>`_.
-Your desired version must already be published on PyPi, which happens shortly after you create a Github release.
+Your desired version must already be published on PyPi, which happens shortly after you create a GitHub release.
 
 Initial recipe generation
 +++++++++++++++++++++++++
