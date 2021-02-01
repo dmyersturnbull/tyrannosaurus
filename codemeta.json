@@ -1,45 +1,45 @@
 {
-    "@context":"https://doi.org/10.5063/schema/codemeta-2.0",
-    "@type":"SoftwareSourceCode",
-    "identifier":"tyrannosaurus",
-    "name":"Tyrannosaurus",
-    "description":"Generate beautifully modern Python projects with seamless, Github-based CI/CD and loads of integrations.",
-    "codeRepository":"https://github.com/dmyersturnbull/tyrannosaurus",
-    "issueTracker":"https://github.com/dmyersturnbull/tyrannosaurus/issues",
-    "license":"https://www.apache.org/licenses/LICENSE-2.0",
-    "version":"0.9.1",
-    "author":[
-        {
-            "@type":"Person",
-            "givenName":"Douglas",
-            "familyName":"Myers-Turnbull",
-            "@id":"https://orcid.org/0000-0003-3610-4808"
-        }
-    ],
-    "contributor":[
-        {
-        "@type":"Person",
-        "givenName":"Kenyon",
-        "familyName":"Ralph"
-        }
-    ],
-    "maintainer":{
-        "@type":"Person",
-        "givenName":"Douglas",
-        "familyName":"Myers-Turnbull",
-        "@id":"https://orcid.org/0000-0003-3610-4808"
-    },
-    "contIntegration":"https://github.com/dmyersturnbull/tyrannosaurus/actions",
-    "developmentStatus":"active",
-    "downloadUrl":"https://pypi.org/project/tyrannosaurus/",
-    "keywords":[
-        "python",
-        "template",
-        "pyproject-toml",
-        "python-poetry",
-        "conda-build"
-    ],
-    "dateCreated":"2020-05-10",
-    "datePublished":"2020-05-12",
-    "programmingLanguage":"Python"
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "tyrannosaurus",
+  "name": "Tyrannosaurus",
+  "description": "Generate beautifully modern Python projects with seamless, Github-based CI/CD and loads of integrations.",
+  "codeRepository": "https://github.com/dmyersturnbull/tyrannosaurus",
+  "issueTracker": "https://github.com/dmyersturnbull/tyrannosaurus/issues",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "version": "0.9.2",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Douglas",
+      "familyName": "Myers-Turnbull",
+      "@id": "https://orcid.org/0000-0003-3610-4808"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Kenyon",
+      "familyName": "Ralph"
+    }
+  ],
+  "maintainer": {
+    "@type": "Person",
+    "givenName": "Douglas",
+    "familyName": "Myers-Turnbull",
+    "@id": "https://orcid.org/0000-0003-3610-4808"
+  },
+  "contIntegration": "https://github.com/dmyersturnbull/tyrannosaurus/actions",
+  "developmentStatus": "active",
+  "downloadUrl": "https://pypi.org/project/tyrannosaurus/",
+  "keywords": [
+    "python",
+    "template",
+    "pyproject-toml",
+    "python-poetry",
+    "conda-build"
+  ],
+  "dateCreated": "2020-05-10",
+  "datePublished": "2020-05-12",
+  "programmingLanguage": "Python"
 }

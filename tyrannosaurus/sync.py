@@ -44,14 +44,14 @@ class Sync:
             return []
         oci_vr = "org.opencontainers.image.version"
         oci_desc = "org.opencontainers.image.description"
+        vr = self.context.version
+        desc = self.context.description
         return self._replace_substrs(
             dockerfile,
             {
-                re.compile(r"^ *version *=.+"): f'      version="{self.context.version} \\"',
-                re.compile(f"^ *{oci_vr} *=.+"): f'      {oci_vr}="{self.context.version} \\"',
-                re.compile(
-                    f"^ *{oci_desc} *=.+"
-                ): f'      {oci_desc}="{self.context.description} \\"',
+                "LABEL version=": f'LABEL version="{vr}"',
+                f"LABEL {oci_vr}=": f'LABEL {oci_vr}="{vr}"',
+                f"LABEL {oci_desc}=": f'LABEL {oci_desc}="{desc}"',
             },
         )
 
@@ -61,46 +61,53 @@ class Sync:
         return []
 
     def fix_init_internal(self, init_path: Path) -> Sequence[str]:
+        status = self.context.source("status")
+        cright = self.context.source("copyright")
+        dadate = self.context.source("date")
         return self._replace_substrs(
             init_path,
             {
-                "__status__ = ": f'__status__ = "{self.context.source("status")}"',
-                "__copyright__ = ": f'__copyright__ = "{self.context.source("copyright")}"',
-                "__date__ = ": f'__date__ = "{self.context.source("date")}"',
+                "__status__ = ": f'__status__ = "{status}"',
+                "__copyright__ = ": f'__copyright__ = "{cright}"',
+                "__date__ = ": f'__date__ = "{dadate}"',
             },
         )
 
     def fix_pyproject(self) -> Sequence[str]:
         if not self.has("pyproject"):
-            version = self.context.version
-            cz_version = self.context.data.get("tool.commitizen.version")
-            version_from = self.context.data.get("tool.tyrannosaurus.sources.version")
-            if cz_version is not None and cz_version != version:
-                logger.error(f"Commitizen version {cz_version} != {version_from} version {version}")
             return []
+        version = self.context.version
+        cz_version = self.context.data.get("tool.commitizen.version")
+        version_from = self.context.data.get("tool.tyrannosaurus.sources.version")
+        if cz_version is not None and cz_version != version:
+            logger.error(f"Commitizen version {cz_version} != {version_from} version {version}")
+        return []  # TODO: lying
 
     def fix_citation(self) -> Sequence[str]:
-        if not self.has("citation") and (self.context.path / "CITATION.cff").exists():
+        path = self.context.path / "CITATION.cff"
+        if not self.has("citation") and path.exists():
             return []
+        vr = self.context.version
+        desc = self.context.description
         return self._replace_substrs(
-            self.context.path_source("citation"),
+            path,
             {
-                re.compile("^version: .*$"): f"version: {self.context.version}",
-                re.compile("^abstract: .*$"): f"abstract: {self.context.description}",
+                "version:": f"version: {vr}",
+                "^abstract:": f"abstract: {desc}",
             },
         )
 
     def fix_codemeta(self) -> Sequence[str]:
-        if not self.has("codemeta") and (self.context.path / "codemeta.json").exists():
+        path = self.context.path / "codemeta.json"
+        if not self.has("codemeta") and path.exists():
             return []
+        vr = self.context.version
+        desc = self.context.description
         return self._replace_substrs(
-            self.context.path_source("codemeta"),
+            path,
             {
-                re.compile(' {4}"version" *: *"'): f'"version":"{self.context.version}"',
-                re.compile(
-                    ' {4}"description" *: *"'
-                ): f'"description":"{self.context.description}"',
-                re.compile(' {4}"license" *: *"'): f'"description":"{self.context.license.url}"',
+                '    "version" *: *"': f'"version":"{vr}"',
+                '    "description" *: *"': f'"description":"{desc}"',
             },
         )
 
@@ -131,14 +138,13 @@ class Sync:
         maintainers = "\n    - ".join(maintainers)
         # the pip >= 20 gets changed for BOTH test and host; this is OK
         # The same is true for the poetry >=1.1,<2.0 line: it's added to both sections
+        vr_strp = poetry_vr.replace(" ", "")
         lines = self._replace_substrs(
             recipe_path,
             {
                 "{% set version = ": '{% set version = "' + str(self.context.version) + '" %}',
-                "    - python >=": f"    - python {python_vr.replace(' ', '')}",
-                re.compile(
-                    "^ {4}- pip *$"
-                ): f"    - pip >=20\n    - poetry {poetry_vr.replace(' ', '')}",
+                "    - python >=": f"    - python {vr_strp}",
+                re.compile("^ {4}- pip *$"): f"    - pip >=20\n    - poetry {vr_strp}",
             },
         )
         new_lines = self._until_line(lines, "about:")
@@ -215,8 +221,12 @@ extra:
 
     def _replace(self, line: str, k: Union[str, re.Pattern], v: str) -> Optional[str]:
         if isinstance(k, re.Pattern):
-            if k.fullmatch(line) is not None:
-                return k.sub(line, v)
+            try:
+                if k.fullmatch(line) is not None:
+                    return k.sub(line, v)
+            except re.error:
+                logger.error(f"Failed to process '{line}' with pattern '{k}")
+                raise
         elif line.startswith(k):
             return v
         return None

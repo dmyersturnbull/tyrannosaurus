@@ -3,24 +3,26 @@
 FROM python:3.9
 
 # See https://github.com/opencontainers/image-spec/blob/master/annotations.md
-LABEL name="tyrannosaurus" \
-      version="0.9.0" \
-      vendor="dmyersturnbull" \
-      org.opencontainers.image.title="tyrannosaurus" \
-      org.opencontainers.image.version="0.9.0" \
-      org.opencontainers.image.url="https://github.com/dmyersturnbull/tyrannosaurus" \
-      org.opencontainers.image.documentation="https://github.com/dmyersturnbull/tyrannosaurus"
+LABEL name="tyrannosaurus"
+LABEL version="0.9.2"
+LABEL vendor="dmyersturnbull"
+LABEL org.opencontainers.image.title="tyrannosaurus"
+LABEL org.opencontainers.image.version="0.9.2"
+LABEL org.opencontainers.image.url="https://github.com/dmyersturnbull/tyrannosaurus"
+LABEL org.opencontainers.image.documentation="https://github.com/dmyersturnbull/tyrannosaurus"
 
 ARG YOUR_ENV
 
-ENV YOUR_ENV=${YOUR_ENV} \
-    PYTHONFAULTHANDLER=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONHASHSEED=random \
-    PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=120 \
-    POETRY_VERSION=1.1.4
+# ENV no longer adds a layer in new Docker versions,
+# so we don't need to chain these in a single line
+ENV YOUR_ENV=${YOUR_ENV}
+ENV PYTHONFAULTHANDLER=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONHASHSEED=random
+ENV PIP_NO_CACHE_DIR=off
+ENV PIP_DISABLE_PIP_VERSION_CHECK=on
+ENV PIP_DEFAULT_TIMEOUT=120
+ENV POETRY_VERSION=1.1.4
 
 # System deps:
 RUN pip install "poetry==$POETRY_VERSION"
@@ -35,3 +37,5 @@ RUN poetry config virtualenvs.create false \
 
 # Creating folders, and files for a project:
 COPY . /code
+
+CMD tyrannosaurus --help
