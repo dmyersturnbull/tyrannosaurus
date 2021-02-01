@@ -24,7 +24,7 @@ Getting your first commit on GitHub
 +++++++++++++++++++++++++++++++++++
 
 1. **Create a repo:** Create an *non-initialized* repository under ``userororgname/projectname``.
-   (Don’t add a readme, etc.) **Install `Probot Settings <https://github.com/probot/settings>`_:**  in your repo.
+   (Don’t add a readme, etc.) Install `Probot Settings <https://github.com/apps/settings>`_:  in your repo.
 3. **Delete unwanted files:** Delete ``.github/labels.json``, ``.github/workflows/labels.yml``, ``.travis.yml``,
    and ``.azure-pipelines.yml``, assuming you’re not using them. You might also not want ``codemeta.json``,
    ``CITATION.cff``, ``environment.yml``, or ``Vagrantfile``.
@@ -104,8 +104,8 @@ If you want to create a package on Conda-Forge, see the
 
 You may want to add new code quality integrations, like  `codacy <https://www.codacy.com/>`_.
 Consider adding `shields <https://shields.io/>`_ for those.
-Other good tools to consider include [github-labeler](https://github.com/marketplace/actions/github-labeler).
-and [Towncrier](https://pypi.org/project/towncrier/).
+Other good tools to consider include `github-labeler <https://github.com/marketplace/actions/github-labeler>`_
+and `Towncrier <https://pypi.org/project/towncrier>`_.
 
 Commitizen can be used to generate a changelog. In my experience, those changelogs are not great because
 (1) commit messages are too messy, (2) the ``feat:``, ``fix:``, etc. commit types don’t match up with

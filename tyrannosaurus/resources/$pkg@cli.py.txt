@@ -1,6 +1,7 @@
 """
-$${license.header}
 Command-line interface for $${project}.
+
+$${license.header}
 """
 
 from __future__ import annotations

@@ -1,6 +1,7 @@
 """
-$${license.header}
 Metadata for this $${project}.
+
+$${license.header}
 """
 import logging
 from typing import Sequence

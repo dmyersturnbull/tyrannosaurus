@@ -1,4 +1,6 @@
 """
+Tests for command-line interface.
+
 $${license.header}
 """
 import pytest
