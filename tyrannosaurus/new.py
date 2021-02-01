@@ -100,6 +100,8 @@ class New:
             if not Path(source).is_file():
                 continue
             resource = Path(source).name
+            # $dot so we can circumvent the .gitignore
+            resource = resource.replace("$dot", ".")
             resource = resource.replace("$project", self.project_name)
             resource = resource.replace("$pkg", self.pkg_name)
             # Remove .{other-extension}.txt at the end, with some restrictions

@@ -1,0 +1,167 @@
+# These settings are synced to GitHub by https://probot.github.io/apps/settings/
+
+repository:
+  # See https://developer.github.com/v3/repos/#edit for all available settings.
+
+  # The name of the repository. Changing this will rename the repository
+  name: '$${project}'
+
+  # A short description of the repository that will show up on GitHub
+  description: '$${description}'
+
+  homepage: 'https://github.com/dmyersturnbull/always-initialized'
+
+  topics: $${keywords.list}
+
+  has_issues: true
+  has_projects: true
+  has_wiki: false
+  has_downloads: true
+
+  default_branch: main
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: true
+
+  enable_automated_security_fixes: true
+  enable_vulnerability_alerts: true
+
+labels:
+  - name: 'a notice ♢'
+    description: 'Bulletin; notice me!'
+    color: '#ffffff'
+  - name: 'breaking ⚙'
+    description: 'Requires a breaking change'
+    color: '#000000'
+  - name: 'difficulty: easy'
+    description: '< 30 min'
+    color: '#bbddbb'
+  - name: 'difficulty: hard'
+    description: 'difficulty: hard'
+    color: '#009900'
+  - name: 'difficulty: milestone ⚑'
+    description: '⚑ A milestone referencing other issues'
+    color: '#00ff00'
+  - name: 'difficulty: severe'
+    description: 'difficulty: severe'
+    color: '#006600'
+  - name: 'difficulty: typical'
+    description: '30 min – 4 hours'
+    color: '#66bb66'
+  - name: 'kind: bug'
+    description: 'Something isn’t working'
+    color: '#ee5500'
+  - name: 'kind: cleanup'
+    description: 'Simplify or improve code'
+    color: '#84b6eb'
+  - name: 'kind: documentation'
+    description: 'A feature needs better documentation'
+    color: '#006b75'
+  - name: 'kind: enhancement'
+    description: 'Improve functionality'
+    color: '#2060cc'
+  - name: 'kind: infrastructure'
+    description: 'Modify dependencies, installation, tools, etc.'
+    color: '#333788'
+  - name: 'kind: new feature'
+    description: 'Create something new'
+    color: '#0000ff'
+  - name: 'kind: performance'
+    description: 'Improve speed or resource usage'
+    color: '#bbbbdd'
+  - name: 'kind: question'
+    description: 'Further information is requested'
+    color: '#66317c'
+  - name: "kind: security \U0001F512"
+    description: 'Vulnerability to fix'
+    color: '#ffbb00'
+  - name: 'kind: tests'
+    description: 'Write or improve tests'
+    color: '#d08000'
+  - name: 'priority: critical ⚠'
+    description: '⚠ Must be done NOW'
+    color: '#ff0000'
+  - name: 'priority: important'
+    description: 'Should be done soon'
+    color: '#cc0000'
+  - name: 'priority: minor'
+    description: 'Should do, but not important'
+    color: '#ddaa99'
+  - name: 'priority: pickmeup'
+    description: 'Too minor to bother'
+    color: '#f0e9e9'
+  - name: 'priority: wontfix'
+    description: 'Should not be fixed'
+    color: '#fff9f9'
+  - name: 'status: decision'
+    description: 'Whether to fix / how to fix'
+    color: '#33aaaa'
+  - name: 'status: duplicate'
+    description: 'This issue or pull request already exists'
+    color: '#cfd3d7'
+  - name: 'status: fixed ✓'
+    description: '100% done'
+    color: '#ddffee'
+  - name: 'status: help needed ◉'
+    description: '◉  More contributors need to be assigned'
+    color: '#55cccc'
+  - name: 'status: in progress \U0001F846'
+    description: 'Assigned and in progress'
+    color: '#aacfbb'
+  - name: 'status: info required ❔'
+    description: 'Can’t be fixed until questions are answered'
+    color: '#77ccbb'
+  - name: 'status: invalid'
+    description: 'Not a real issue'
+    color: '#e6e6e6'
+  - name: 'status: unresolvable'
+    description: 'Can’t be fixed: The required info doesn’t exist.'
+    color: '#111111'
+  - name: 'status: in upstream'
+    description: 'Can’t fix until a dependency is fixed'
+    color: '#fefeee'
+  - name: 'sticky note ☆'
+    description: '☆ Important for reference even after it’s closed'
+    color: '#ffee00'
+
+
+
+branches:
+  - name: 'main'
+    # https://developer.github.com/v3/repos/branches/#update-branch-protection
+    # Branch Protection settings. Set to null to disable
+    protection:
+      # Required. Require at least one approving review on a pull request, before merging. Set to null to disable.
+      required_pull_request_reviews:
+        # The number of approvals required. (1-6)
+        required_approving_review_count: 1
+        # Dismiss approved reviews automatically when a new commit is pushed.
+        dismiss_stale_reviews: true
+        # Blocks merge until code owners have reviewed.
+        require_code_owner_reviews: true
+        # Specify which users and teams can dismiss pull request reviews.
+        # Pass an empty dismissal_restrictions object to disable.
+        # User and team dismissal_restrictions are only available for organization-owned repositories.
+        # Omit this parameter for personal repositories.
+        #dismissal_restrictions:
+        #  users: []
+        #  teams: []
+      # Required. Require status checks to pass before merging.
+      # Set to null to disable.
+      required_status_checks:
+        # Required. Require branches to be up to date before merging.
+        strict: true
+        # Required. The list of status checks to require in order to merge into this branch
+        contexts:
+          - 'build (3.9)'
+          - 'markdown-link-check'
+      # Required. Enforce all configured restrictions for administrators.
+      # Set to true to enforce required status checks for repository administrators.
+      # Set to null to disable.
+      enforce_admins: false
+      # Prevent merge commits from being pushed to matching branches
+      required_linear_history: true
+      # Required. Restrict who can push to this branch.
+      # Team and user restrictions are only available for organization-owned repositories.
+      # Set to null to disable.
+      restrictions: null
