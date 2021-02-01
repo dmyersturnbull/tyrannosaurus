@@ -18,10 +18,22 @@ Commit messages should get mapped to changelog sections this way:
 | `style:`       | skipped   | never  |
 
 
-## [0.9.x] - unreleased
+## [0.10.0] - unreleased
 
 
-## [0.9.0] - 2021-01-30
+## [0.9.x] - 2021-01-31
+
+### Added
+- A code of conduct
+
+### Changed
+- Improved the contributing guide
+
+### Fixed
+- Added missing settings.yml file
+
+
+## [0.9.0] - 2021-01-31
 
 ### Added
 - A [probot](https://github.com/probot/settings) config file  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
