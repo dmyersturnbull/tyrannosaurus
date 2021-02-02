@@ -17,6 +17,7 @@
 [![Test coverage (Scrutinizer)](https://scrutinizer-ci.com/g/$${user}/$${project}/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/$${user}/$${project}/?branch=main)
 [![Maintainability (Code Climate)](https://api.codeclimate.com/v1/badges/<<apikey>>/maintainability)](https://codeclimate.com/github/$${user}/$${project}/maintainability)
 [![Code Quality (Scrutinizer)](https://scrutinizer-ci.com/g/$${user}/$${project}/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/$${user}/$${project}/?branch=main)
+[![Created with Tyrannosaurus](https://img.shields.io/badge/Created_with-Tyrannosaurus-0000ff.svg)](https://github.com/dmyersturnbull/tyrannosaurus)
 
 $${Description.}
 
