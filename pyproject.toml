@@ -16,7 +16,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.9.4"
+version = "0.9.5"
 description = "Generate beautifully modern Python projects with seamless, Github-based CI/CD and loads of integrations."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]

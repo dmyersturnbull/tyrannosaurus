@@ -1,7 +1,7 @@
 cff-version: 1.1.0
 message: Software reference
 title: Tyrannosaurus
-version: 0.9.4
+version: 0.9.5
 abstract: Generate beautifully modern Python projects with seamless, Github-based CI/CD and loads of integrations.
 authors:
   -

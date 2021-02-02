@@ -550,7 +550,7 @@ six = "*"
 
 [[package]]
 name = "pytz"
-version = "2020.5"
+version = "2021.1"
 description = "World timezone definitions, modern and historical"
 category = "dev"
 optional = false
@@ -689,7 +689,7 @@ test = ["pytest", "pytest-cov", "html5lib", "cython", "typed-ast"]
 
 [[package]]
 name = "sphinx-autoapi"
-version = "1.6.0"
+version = "1.7.0"
 description = "Sphinx API documentation generator"
 category = "dev"
 optional = false
@@ -900,7 +900,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.4.1"
+version = "20.4.2"
 description = "Virtual Python Environment builder"
 category = "dev"
 optional = false
@@ -1245,8 +1245,8 @@ python-utils = [
     {file = "python_utils-2.5.5-py2.py3-none-any.whl", hash = "sha256:24fce25cb0eeb32201b95c74ec5f1e31688e7d17345cafed50e79591e275bf20"},
 ]
 pytz = [
-    {file = "pytz-2020.5-py2.py3-none-any.whl", hash = "sha256:16962c5fb8db4a8f63a26646d8886e9d769b6c511543557bc84e9569fb9a9cb4"},
-    {file = "pytz-2020.5.tar.gz", hash = "sha256:180befebb1927b16f6b57101720075a984c019ac16b1b7575673bea42c6c3da5"},
+    {file = "pytz-2021.1-py2.py3-none-any.whl", hash = "sha256:eb10ce3e7736052ed3623d49975ce333bcd712c7bb19a58b9e2089d4057d0798"},
+    {file = "pytz-2021.1.tar.gz", hash = "sha256:83a4a90894bf38e243cf052c8b58f381bfe9a7a483f6a9cab140bc7f702ac4da"},
 ]
 pyyaml = [
     {file = "PyYAML-5.4.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:3b2b1824fe7112845700f815ff6a489360226a5609b96ec2190a45e62a9fc922"},
@@ -1420,8 +1420,8 @@ sphinx = [
     {file = "Sphinx-3.4.3.tar.gz", hash = "sha256:41cad293f954f7d37f803d97eb184158cfd90f51195131e94875bc07cd08b93c"},
 ]
 sphinx-autoapi = [
-    {file = "sphinx-autoapi-1.6.0.tar.gz", hash = "sha256:492ecc572aebe6d06ffe184a95d11cf0000a965cf44aac87358cfe59bf2ab340"},
-    {file = "sphinx_autoapi-1.6.0-py2.py3-none-any.whl", hash = "sha256:3a99872b95e2de51e4da7b57672d103ec2abcb5fab9aec1cd3ec03d61d1672ce"},
+    {file = "sphinx-autoapi-1.7.0.tar.gz", hash = "sha256:48caa054a99c21156e9a1d26559281dc27f86ab8ef8bb6ef160f8cd9f4a0053d"},
+    {file = "sphinx_autoapi-1.7.0-py2.py3-none-any.whl", hash = "sha256:cb0245fc989fa1ec7cb4ddd8a41ff2cc8b0e8a9d12f4c366ad0eac059eb81c2c"},
 ]
 sphinx-copybutton = [
     {file = "sphinx-copybutton-0.3.1.tar.gz", hash = "sha256:0e0461df394515284e3907e3f418a0c60ef6ab6c9a27a800c8552772d0a402a2"},
@@ -1521,8 +1521,8 @@ urllib3 = [
     {file = "urllib3-1.26.3.tar.gz", hash = "sha256:de3eedaad74a2683334e282005cd8d7f22f4d55fa690a2a1020a416cb0a47e73"},
 ]
 virtualenv = [
-    {file = "virtualenv-20.4.1-py2.py3-none-any.whl", hash = "sha256:3e445890d7f58a066080885c48144268f85b456b788ad849a60f239eb04932af"},
-    {file = "virtualenv-20.4.1.tar.gz", hash = "sha256:f61234eee61c817a7d33e3a21642bd642f0825d3a56107b2a8deb067b03bf1e6"},
+    {file = "virtualenv-20.4.2-py2.py3-none-any.whl", hash = "sha256:2be72df684b74df0ea47679a7df93fd0e04e72520022c57b479d8f881485dbe3"},
+    {file = "virtualenv-20.4.2.tar.gz", hash = "sha256:147b43894e51dd6bba882cf9c282447f780e2251cd35172403745fc381a0a80d"},
 ]
 wrapt = [
     {file = "wrapt-1.12.1.tar.gz", hash = "sha256:b62ffa81fb85f4332a4f609cab4ac40709470da05643a082ec1eb88e6d9b97d7"},
