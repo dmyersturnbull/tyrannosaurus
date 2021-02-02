@@ -4,10 +4,10 @@ FROM python:3.9
 
 # See https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL name="tyrannosaurus"
-LABEL version="0.9.4"
+LABEL version="0.10.0"
 LABEL vendor="dmyersturnbull"
 LABEL org.opencontainers.image.title="tyrannosaurus"
-LABEL org.opencontainers.image.version="0.9.2"
+LABEL org.opencontainers.image.version="0.10.0"
 LABEL org.opencontainers.image.url="https://github.com/dmyersturnbull/tyrannosaurus"
 LABEL org.opencontainers.image.documentation="https://github.com/dmyersturnbull/tyrannosaurus"
 

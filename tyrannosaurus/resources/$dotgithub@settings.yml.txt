@@ -9,7 +9,7 @@ repository:
   # A short description of the repository that will show up on GitHub
   description: '$${description}'
 
-  homepage: 'https://github.com/dmyersturnbull/always-initialized'
+  homepage: 'https://github.com/$${user}/$${project}'
 
   topics: $${keywords.list}
 

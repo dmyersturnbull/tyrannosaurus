@@ -16,7 +16,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.9.4"
+version = "0.10.0"
 description = "Generate beautifully modern Python projects with seamless, Github-based CI/CD and loads of integrations."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
@@ -84,7 +84,7 @@ authors            = [
 maintainers        = "tool.tyrannosaurus.sources.authors"
 long_description   = """'
     An opinionated, forwards-looking Python template for 2021. Generate elegant, ready-to-use Python projects that have
-    excellent continuous integration and deployment (CI/CD). Integrated with Docker Hub, Github Packages, Azure,
+    excellent continuous integration and deployment (CI/CD). Integrated with Docker Hub, GitHub Container Registry, Azure,
     Conda-Forge, and an array of linting, static analysis, security testing, documentation, dependency management, and
     CI/CD tools, including a custom tool to keep all duplicate project metadata synchronized to a single pyproject.toml.
     You only need to interact with your project via git, tyrannosaurus, and Github releases – all other integrations

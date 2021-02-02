@@ -8,12 +8,12 @@ on:
       - master
 jobs:
   build:
-    runs-on: ubuntu-20.04
     strategy:
       max-parallel: 1
       matrix:
-        python-version:
-          - 3.9
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        python-version: ["3.9"]
+    runs-on: "${{ matrix.os }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,10 +22,10 @@ jobs:
         run: |
           json=`cat .github/action-options.json`
           USE_SLACK=`echo $(jq -r '.use_slack' <<< "$json")`
-      - name: 'Set up Python ${{ matrix.python-version }}'
+      - name: "Set up Python ${{ matrix.python-version }}"
         uses: actions/setup-python@v2
         with:
-          python-version: '${{ matrix.python-version }}'
+          python-version: "${{ matrix.python-version }}"
       - name: Install build meta-dependencies
         run: |
           pip install poetry tox

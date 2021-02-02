@@ -19,6 +19,10 @@ Commit messages should get mapped to changelog sections this way:
 
 ## [0.10.0] - unreleased
 
+## Changed
+
+- Moved from GitHub Packages to the GitHub Container Registry
+
 ## [0.9.x] - 2021-01-31
 
 ### Added
