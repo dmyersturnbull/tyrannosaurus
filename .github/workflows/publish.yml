@@ -3,11 +3,9 @@
 name: Publish on release creation
 on:
   release:
-    types:
-      - published
+    types: [published]
   repository_dispatch:
-    types:
-      - release-made
+    types: [release-made]
 jobs:
   deploy:
     runs-on: ubuntu-20.04
@@ -47,7 +45,7 @@ jobs:
       - name: Attach artifacts to the Github release
         uses: skx/github-action-publish-binaries@master
         with:
-          args: 'dist/*'
+          args: "dist/*"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish to PyPi

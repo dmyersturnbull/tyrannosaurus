@@ -3,17 +3,15 @@
 name: Build & test
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
 jobs:
   build:
-    runs-on: ubuntu-20.04
     strategy:
       max-parallel: 1
       matrix:
-        python-version:
-          - 3.9
+        os: [ubuntu-20.04]
+        python-version: ["3.9"]
+    runs-on: "${{ matrix.os }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,10 +20,10 @@ jobs:
         run: |
           json=`cat .github/action-options.json`
           USE_SLACK=`echo $(jq -r '.use_slack' <<< "$json")`
-      - name: 'Set up Python ${{ matrix.python-version }}'
+      - name: "Set up Python ${{ matrix.python-version }}"
         uses: actions/setup-python@v2
         with:
-          python-version: '${{ matrix.python-version }}'
+          python-version: "${{ matrix.python-version }}"
       - name: Install build meta-dependencies
         run: |
           pip install poetry tox
@@ -35,10 +33,15 @@ jobs:
       - name: Build the Docker image
         run: |
           docker build .
-      - name: Update coveralls/codecov
+      - name: Update coveralls
         run: |
-          pip install coveralls codecov
-          coveralls || true
+          pip install 'coveralls>=3,<4'
+          coveralls --service=github || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update codecov
+        run: |
+          pip install 'codecov>=2.1,<3.0'
           codecov || true
       - name: Send Slack notification
         uses: 8398a7/action-slack@v3

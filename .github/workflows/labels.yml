@@ -1,17 +1,15 @@
 name: Create Github labels
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
 jobs:
   labels:
     name: DefaultLabelsActions
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Configure issue labels
         uses: lannonbr/issue-label-manager-action@2.0.0
         env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

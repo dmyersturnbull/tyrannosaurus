@@ -92,7 +92,7 @@ Here’s what you need to do to set these up:
 
 - Connect CodeClimate and either Coveralls or CodeCov and to your GitHub account and follow their
   configuration instructions.
-- Add either ``COVERALLS_REPO_TOKEN`` or ``CODECOV_TOKEN`` to your GitHub repo secrets.
+- Add ``CODECOV_TOKEN`` to your GitHub repo secrets, if needed.
 - Code Climate assigns a url for your repo. Currently, can see it in Settings→Badges.
   For example, the badge link for Tyrannosaurus is:
 

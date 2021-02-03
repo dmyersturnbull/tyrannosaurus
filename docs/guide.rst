@@ -61,9 +61,9 @@ for discussion.
    tag ``{sourceref}``. On your GitHub repo ⮞ Settings ⮞ Webhooks ⮞ your docker hook ⮞ Edit, check ``Releases``.
 5. **Readthedocs:** Set up readthedocs to track your repo.
 6. **Code quality / coverage (1):** Set up Code Climate, Scrutinizer, and either CodeCov or Coveralls.
-7. **Code quality / coverage (2):** Add either ``COVERALLS_REPO_TOKEN`` or ``CODECOV_TOKEN`` to your GitHub secrets.
+7. **Code quality / coverage (2):** Add ``CODECOV_TOKEN`` to your GitHub secrets, if you’re using CodeCov
 8. **Slack notifications:** For important success/failure notifications,
-   add ``SLACK_WEBHOOK`` as a GitHub secret and set ``use_slack=false`` in ``.github/action-options.json``.
+   add ``SLACK_WEBHOOK`` as a GitHub secret and set ``use_slack=true`` in ``.github/action-options.json``.
 
 .. tip::
 
