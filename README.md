@@ -31,17 +31,19 @@ This is a modern template built with [Poetry](https://python-poetry.org/),
 [GitHub Actions](https://github.com/features/actions), and
 [no legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
 See below for a [comparison to other tools](https://github.com/dmyersturnbull/tyrannosaurus#-similar-templates-and-tools).
-Also see Tyrannosaurus’s little sister
+Also see Tyrannosaurus’’s little sister
 [science-notebook-template 🧪](https://github.com/dmyersturnbull/science-notebook-template)
 for repos supporting scientific publications.
 
 Don’t make 55 commits trying to configure CI/CD workflows.
+After creating a new GitHub repository called `myproject`:
 
 ```bash
 pip install tyrannosaurus
-tyrannosaurus new projectname --track
+tyrannosaurus new myproject --track
 ```
 
+If the repo is on an organization, pass `--user myorgname`.
 After initializing your project, Tyrannosaurus will list manual steps like adding API keys.
 
 ### 💡 Main behavior / features

@@ -13,6 +13,12 @@ new repo with the proper files. The ``--track`` flag causes it to run ``git init
 guessed from your git config, but it can be set with ``--user``. It’s fine to pass the name of a
 GitHub org, too.
 
+.. tip::
+
+	You need to create the repo on GitHub before running ``new``.
+	If you didn’t do this, delete the ``.git`` dir, run ``git init --initial-branch=main``, and run ``git remote add origin https://github.com/{user}/{myproject}.git``.
+	(You can also just replace the bad ``.git`` with the correct one from your GitHub repo.)
+
 But you can pass those in with ``--authors`` (comma-separated), ``--version``, ``--status``,
 and ``--keywords``. You can choose a different license using ``--license``. Choices are
 Apache 2, CC0, CC-BY, CC-BY-NC, GPL 3, LGPL, and MIT.
