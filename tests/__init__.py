@@ -9,6 +9,7 @@ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2
 """
 # NOTE: If you modify this file, you should indicate your license and copyright as well.
 from __future__ import annotations
+import contextlib
 import logging
 import os
 import random
@@ -16,7 +17,6 @@ import shutil
 import stat
 import tempfile
 import time
-from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path, PurePath
 from typing import Generator, Union
@@ -25,6 +25,30 @@ from warnings import warn
 
 # Keeps created temp files; turn on for debugging
 KEEP = False
+# Separate logging in the main package vs. inside test functions
+logger_name = Path(__file__).parent.parent.name.upper() + ".TEST"
+_logger = logging.getLogger(logger_name)
+
+
+class Capture(contextlib.ExitStack):
+    def __init__(self):
+        super().__init__()
+        self.stdout = io.StringIO()
+        self.stderr = io.StringIO()
+
+    def __enter__(self):
+        _logger.info("Capturing stdout and stderr")
+        super().__enter__()
+        self._stdout_context = self.enter_context(contextlib.redirect_stdout(self.stdout))
+        # If the next line failed, the stdout context wouldn't exit
+        # But this line is very unlikely to fail in practice
+        self._stderr_context = self.enter_context(contextlib.redirect_stderr(self.stderr))
+        return self
+
+    def __exit__(self, *exc):
+        _logger.info("Finished capturing stdout and stderr")
+        # The ExitStack handles everything
+        super().__exit__(*exc)
 
 
 class TestResources:
@@ -38,7 +62,7 @@ class TestResources:
     ``TestResources.temp_dir``.
     """
 
-    logger = logging.getLogger("TYRANNO.TEST")
+    logger = _logger
 
     _start_dt = datetime.now()
     _start_ns = time.monotonic_ns()
@@ -50,6 +74,19 @@ class TestResources:
         _temp_dir = Path(_tempfile_dir.name)
 
     logger.info(f"Set up main temp dir {_temp_dir.absolute()}")
+
+    @classmethod
+    @contextlib.contextmanager
+    def capture(cls) -> Capture:
+        """
+        Context manager that captures stdout and stderr in a ``Capture`` object that contains both.
+        Useful for testing code that prints to stdout and/or stderr.
+
+        Yields:
+            A ``Capture`` instance, which contains ``.stdout`` and ``.stderr``
+        """
+        with Capture() as cap:
+            yield cap
 
     @classmethod
     def resource(cls, *nodes: Union[PurePath, str]) -> Path:
@@ -65,7 +102,7 @@ class TestResources:
         return Path(Path(__file__).parent, "resources", *nodes).resolve()
 
     @classmethod
-    @contextmanager
+    @contextlib.contextmanager
     def temp_dir(
         cls,
         copy_resource: Union[None, str, Path] = None,

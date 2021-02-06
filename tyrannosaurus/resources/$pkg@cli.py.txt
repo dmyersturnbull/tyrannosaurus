@@ -15,7 +15,7 @@ from $${pkg} import __title__, __version__, __copyright__, metadata
 
 
 logger = logging.getLogger(__package__)
-cli = typer.Typer(context=context)
+cli = typer.Typer()
 
 
 def info(n_seconds: float = 0.01, verbose: bool = False) -> None:
