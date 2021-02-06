@@ -5,12 +5,12 @@ build:
     my-tests:
       dependencies:
         before:
-          - 'pip install --upgrade tox>=3.21,<4.0'
-          - 'pip install --upgrade poetry>=1.1.4,<2.0'
+          - "pip install --upgrade 'tox>=3.21,<4.0'"
+          - "pip install --upgrade 'poetry>=1.1.4,<2.0'"
     analysis:
       project_setup:
         override:
-          - 'true'
+          - true
       tests:
         override:
           - py-scrutinizer-run
@@ -23,7 +23,7 @@ checks:
     code_rating: true
     duplicate_code: true
 #filter:
-  # I actually like getting checks for these too
-  #excluded_paths:
-  #  - 'tests/*'
-  #  - 'docs/*'
+# I actually like getting checks for these too
+#excluded_paths:
+#  - 'tests/*'
+#  - 'docs/*'
