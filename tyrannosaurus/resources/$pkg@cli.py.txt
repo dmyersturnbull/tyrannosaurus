@@ -25,6 +25,12 @@ def info(n_seconds: float = 0.01, verbose: bool = False) -> None:
     Args:
         n_seconds: Number of seconds to wait between processing.
         verbose: Output more info
+    
+    Example:
+        To call this, run: ::
+        
+            from testme import info
+            info(0.02)
     """
     typer.echo(f"{__title__} version {__version__}, {__copyright__}")
     if verbose:

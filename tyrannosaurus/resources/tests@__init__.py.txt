@@ -10,6 +10,7 @@ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2
 # NOTE: If you modify this file, you should indicate your license and copyright as well.
 from __future__ import annotations
 import contextlib
+import io
 import logging
 import os
 import random
@@ -33,16 +34,24 @@ _logger = logging.getLogger(logger_name)
 class Capture(contextlib.ExitStack):
     def __init__(self):
         super().__init__()
-        self.stdout = io.StringIO()
-        self.stderr = io.StringIO()
+        self._stdout = io.StringIO()
+        self._stderr = io.StringIO()
+    
+    @property
+    def stdout(self) -> str:
+        return self._stdout.getvalue()
+    
+    @property
+    def stderr(self) -> str:
+        return self._stderr.getvalue()
     
     def __enter__(self):
         _logger.info("Capturing stdout and stderr")
         super().__enter__()
-        self._stdout_context = self.enter_context(contextlib.redirect_stdout(self.stdout))
+        self._stdout_context = self.enter_context(contextlib.redirect_stdout(self._stdout))
         # If the next line failed, the stdout context wouldn't exit
         # But this line is very unlikely to fail in practice
-        self._stderr_context = self.enter_context(contextlib.redirect_stderr(self.stderr))
+        self._stderr_context = self.enter_context(contextlib.redirect_stderr(self._stderr))
         return self
     
     def __exit__(self, *exc):

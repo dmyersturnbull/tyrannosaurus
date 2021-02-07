@@ -158,8 +158,6 @@ Here are features that other tools lack:
 
 ##### 🏁 Feature table
 
-[science-notebook-template 🧪](https://github.com/dmyersturnbull/science-notebook-template)
-
 | Tool                                                                                     | Main techs                | CD kickoff  | N int.† | modern‡ | Docker | Conda | sync | Django |
 | ---------------------------------------------------------------------------------------- | ------------------------- | ----------- | ------- | ------- | ------ | ----- | ---- | ------ |
 | Tyranosaurus                                                                             | Actions, Poetry, Tox      | git, GitHub | 30      | ✔️      | ✔️     | ✔️    | ✔️   |        |

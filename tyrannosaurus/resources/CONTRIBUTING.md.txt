@@ -9,12 +9,10 @@ https://docs.github.com/en/github/site-policy/github-community-guidelines)
 and the [Contributor Code of Conduct, version 2.0](
 https://github.com/$${user}/$${project}/blob/main/CODE_OF_CONDUCT.md).
 
-
 #### Pull requests
 
 If you can, update `CHANGELOG.md` and add your name to the contributors in `pyproject.toml`
 so that you’re credited. Run `tyrannosaurus sync` to sync metadata.
-
 
 #### Publishing a new version
 
