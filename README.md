@@ -32,12 +32,12 @@ This is a modern template built with [Poetry](https://python-poetry.org/),
 [GitHub Actions](https://github.com/features/actions), and
 [no legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
 See below for a [comparison to other tools](https://github.com/dmyersturnbull/tyrannosaurus#-similar-templates-and-tools).
-Also see Tyrannosaurus’’s little sister
+Also see Tyrannosaurus’s little sister
 [science-notebook-template 🧪](https://github.com/dmyersturnbull/science-notebook-template)
-for repos supporting scientific publications.
+for scientific publication repos.
 
-Don’t make 55 commits trying to configure CI/CD workflows.
-After creating a new GitHub repository called `myproject`:
+Don’t make 55 commits trying to configure CI/CD workflows.  
+After creating an empty GitHub repo called `myproject`:
 
 ```bash
 pip install tyrannosaurus
@@ -63,6 +63,7 @@ _By default_, here’s how your new project will behave:
 - `tox` ⇒ Tests are run locally
 - `tyrannosaurus sync` ⇒ Project metadata is synced to pyproject.toml
 - `tyrannosaurus update` ⇒ New dependency versions from PyPi and/or Conda are listed
+- `tyrannosaurus clean` ⇒ Remove temp files (`--aggressive` for more)
 
 ### 🎁 Full features / integrations
 
@@ -157,7 +158,7 @@ Here are features that other tools lack:
 - Built-in optional support for **extra/alternative tools**, such as Travis and codemeta.
 - Complete **absence of legacy tools**, files, and Python 2 support.
 
-##### 🏁 Feature table
+#### 🏁 Feature table
 
 | Tool                                                                                     | Main techs                | CD kickoff  | N int.† | modern‡ | Docker | Conda | sync | Django |
 | ---------------------------------------------------------------------------------------- | ------------------------- | ----------- | ------- | ------- | ------ | ----- | ---- | ------ |
