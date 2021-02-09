@@ -42,9 +42,9 @@ After creating an empty GitHub repo called `myproject`:
 ```bash
 pip install tyrannosaurus
 tyrannosaurus new myproject --track
+# if on a GitHub organization, pass --user my-org-name
 ```
 
-If the repo is on an organization, pass `--user myorgname`.
 After initializing your project, Tyrannosaurus will list manual steps like adding API keys.
 
 ### 💡 Main behavior / features
