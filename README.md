@@ -8,7 +8,7 @@
 [![Version on PyPi](https://img.shields.io/pypi/v/tyrannosaurus?label=PyPi)](https://pypi.org/project/tyrannosaurus)
 [![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/tyrannosaurus?label=Conda-Forge)](https://anaconda.org/conda-forge/tyrannosaurus)  
 [![Build (Actions)](https://img.shields.io/github/workflow/status/dmyersturnbull/tyrannosaurus/Build%20&%20test?label=Tests)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
-[![Build (Travis)](https://img.shields.io/travis/dmyersturnbull/tyrannosaurus?label=Travis)](https://travis-ci.org/dmyersturnbull/tyrannosaurus)
+[![Build (Travis)](https://www.travis-ci.com/dmyersturnbull/tyrannosaurus.svg?branch=main)](https://travis-ci.com/dmyersturnbull/tyrannosaurus)
 [![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge)](https://tyrannosaurus.readthedocs.io/en/stable/)
 [![Coverage (coveralls)](https://coveralls.io/repos/github/dmyersturnbull/tyrannosaurus/badge.svg?branch=main&service=github)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=main)
 [![Coverage (codecov)](https://codecov.io/github/dmyersturnbull/tyrannosaurus/coverage.svg)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus)
