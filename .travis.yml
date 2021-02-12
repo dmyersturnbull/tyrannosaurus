@@ -1,10 +1,14 @@
+branches:
+  # If you enable "Build pushed branches" in Travis CI settings,
+  # all branches will be built
+  # This just ensures that at least these are built
+  only: [main, master]
+
 language: python
-python:
-    # from tyrannosaurus "pymetaversion"; actual versions are handled in Tox
-    - "3.9"
+python: ["3.9"]
 
 install:
-    - pip install tox poetry
+  - pip install tox poetry
 
 script:
-    - tox
+  - tox
