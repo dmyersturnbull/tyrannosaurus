@@ -2,19 +2,17 @@
 
 Tyrannosaurus is licensed under the
 [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
-[New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
-Feel free to [ask a question](
-https://github.com/dmyersturnbull/tyrannosaurus/issues/new?assignees=&labels=kind%3A+question&template=question.md).
-Contributors are asked to abide by both the [GitHub community guidelines](
-https://docs.github.com/en/github/site-policy/github-community-guidelines)
-and the [Contributor Code of Conduct, version 2.0](
-https://github.com/dmyersturnbull/tyrannosaurus/blob/main/CODE_OF_CONDUCT.md).
+New issues and pull requests are welcome.
+Feel free to direct a question to the authors by creating an [issue with the _question_ tag](https://github.com/dmyersturnbull/tyrannosaurus/issues/new?assignees=&labels=kind%3A+question&template=question.md).
+Contributors are asked to abide by both the [GitHub community guidelines](https://docs.github.com/en/github/site-policy/github-community-guidelines)
+and the [Contributor Code of Conduct, version 2.0](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).
 
 
 #### Pull requests
 
-If you can, update `CHANGELOG.md` and add your name to the contributors in `pyproject.toml`
-so that you’re credited. Run `tyrannosaurus sync` to sync metadata.
+Please update `CHANGELOG.md` and add your name to the contributors in `pyproject.toml`
+so that you’re credited. Run `poetry lock` and `tyrannosaurus sync` to sync metadata.
+Feel free to make a draft pull request and solicit feedback from the authors.
 
 
 #### Publishing a new version
