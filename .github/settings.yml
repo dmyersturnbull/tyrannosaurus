@@ -141,8 +141,7 @@ branches:
       required_status_checks:
         strict: true
         contexts:
-          - "build (3.9)"
-          - "Check Markdown links"
+          - "build (ubuntu-20.04, 3.9)"
       enforce_admins: false
       required_linear_history: true
       restrictions: null
