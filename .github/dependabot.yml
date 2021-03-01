@@ -4,19 +4,24 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    default_labels: ["kind: infrastructure"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    default_labels: ["kind: infrastructure"]
   - package-ecosystem: docker
     directory: /
     schedule:
       interval: weekly
+    default_labels: ["kind: infrastructure"]
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
       interval: "daily"
+    default_labels: ["kind: infrastructure"]
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
+    default_labels: ["kind: infrastructure"]
