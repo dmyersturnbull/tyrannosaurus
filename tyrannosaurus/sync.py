@@ -25,7 +25,7 @@ class Sync:
     def __init__(self, context: Context):
         self.context = context
 
-    def sync(self) -> Sequence[str]:  # pragma: no cover
+    def sync(self) -> Sequence[str]:
         self.fix_init()
         self.fix_dockerfile()
         self.fix_pyproject()
@@ -38,7 +38,7 @@ class Sync:
     def has(self, key: str):
         return self.context.has_target(key)
 
-    def fix_dockerfile(self) -> Sequence[str]:  # pragma: no cover
+    def fix_dockerfile(self) -> Sequence[str]:
         dockerfile = self.context.path / "Dockerfile"
         if not self.has("dockerfile") or not dockerfile.exists():
             return []
@@ -55,7 +55,7 @@ class Sync:
             },
         )
 
-    def fix_init(self) -> Sequence[str]:  # pragma: no cover
+    def fix_init(self) -> Sequence[str]:
         if self.has("init"):
             return self.fix_init_internal(self.context.path / self.context.project / "__init__.py")
         return []
@@ -85,7 +85,7 @@ class Sync:
 
     def fix_citation(self) -> Sequence[str]:
         path = self.context.path / "CITATION.cff"
-        if not self.has("citation") and path.exists():
+        if not self.has("citation") or not path.exists():
             return []
         vr = self.context.version
         desc = self.context.description
@@ -99,7 +99,7 @@ class Sync:
 
     def fix_codemeta(self) -> Sequence[str]:
         path = self.context.path / "codemeta.json"
-        if not self.has("codemeta") and path.exists():
+        if not self.has("codemeta") or not path.exists():
             return []
         vr = self.context.version
         desc = self.context.description
@@ -112,12 +112,12 @@ class Sync:
         )
 
     def fix_recipe(self) -> Sequence[str]:
-        if self.has("recipe") and self.context.path_source("recipe"):
+        if self.has("recipe") and self.context.path_source("recipe") and self.context.path_source("recipe").exists():
             return self.fix_recipe_internal(self.context.path_source("recipe"))
         return []
 
     def fix_env(self) -> Sequence[str]:
-        if self.has("environment") and self.context.path_source("environment").exists():
+        if self.has("environment") and self.context.path_source("environment") and self.context.path_source("environment").exists():
             creator = CondaEnv(self.context.project, dev=True, extras=True)
             return creator.create(self.context, self.context.path)
         return []

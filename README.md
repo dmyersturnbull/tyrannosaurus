@@ -46,6 +46,7 @@ tyrannosaurus new myproject --track
 ```
 
 After initializing your project, Tyrannosaurus will list manual steps like adding API keys.
+Feel free to delete files you don’t want (codemeta and citation.cff, for example).
 
 ### 💡 Main behavior / features
 
@@ -114,9 +115,10 @@ _By default_, here’s how your new project will behave:
 - Dependency updating with [Dependabot](https://dependabot.com/)
 - `tyrannosaurus clean` to clean temp files
 - `tyrannosaurus update` that lists dependency versions to bump
-- `tyrannosaurus sync` to synchronize project metadata to pyproject.toml
+- `tyrannosaurus sync` to synchronize project metadata to pyproject.toml ‡
 
-† [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)
+† [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)  
+‡ This feature is experimental and does not yet support all [intended sync targets](https://github.com/dmyersturnbull/tyrannosaurus/issues/12).
 
 ### ✏️ Syncing to pyproject.toml
 

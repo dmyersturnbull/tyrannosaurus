@@ -1,25 +1,11 @@
 # Changelog
 
 Adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
-and [keep a Changelog](https://keepachangelog.com/en/1.0.0/).
-After v1.0, will follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
-
-Commit messages should get mapped to changelog sections this way:
-
-| Commit prefix | Section   | semver |
-| ------------- | --------- | ------ |
-| `breaking:`   | `Changed` | major  |
-| `feat:`       | `Added`   | minor  |
-| `docs:`       | `Fixed`   | patch  |
-| `fix:`        | `Fixed`   | patch  |
-| `refactor:`   | `Fixed`   | patch  |
-| `test:`       | `Fixed`   | patch  |
-| `chore:`      | `Fixed`   | patch  |
-| `style:`      | skipped   | never  |
+and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [0.10.0] - unreleased
 
-## [0.9.x] - 2021-01-31
+## [0.9.x] - 2021-03-14
 
 ### Added
 
@@ -30,9 +16,13 @@ Commit messages should get mapped to changelog sections this way:
 
 - Improved the contributing guide
 
+### Removed
+- Code of conduct file (a link is fine)
+
 ### Fixed
 
 - Added missing settings.yml file
+- Codemeta and citation.cff synced when missing if listed in `[tyrannosaurus.targets]`
 
 ## [0.9.0] - 2021-01-31
 
