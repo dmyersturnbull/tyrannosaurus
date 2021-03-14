@@ -17,7 +17,7 @@ build-backend = "poetry.masonry.api"
 [tool.poetry]
 name = "tyrannosaurus"
 version = "0.9.7"
-description = "Generate beautifully modern Python projects with seamless, Github-based CI/CD and loads of integrations."
+description = "Generate beautifully modern Python projects with seamless, GitHub-based CI/CD and loads of integrations."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
 license = "Apache-2.0"
@@ -84,10 +84,10 @@ authors            = [
 maintainers        = "tool.tyrannosaurus.sources.authors"
 long_description   = """'
     An opinionated, forwards-looking Python template for 2021. Generate elegant, ready-to-use Python projects that have
-    excellent continuous integration and deployment (CI/CD). Integrated with Docker Hub, Github Packages, Azure,
+    excellent continuous integration and deployment (CI/CD). Integrated with Docker Hub, GitHub Packages, Azure,
     Conda-Forge, and an array of linting, static analysis, security testing, documentation, dependency management, and
     CI/CD tools, including a custom tool to keep all duplicate project metadata synchronized to a single pyproject.toml.
-    You only need to interact with your project via git, tyrannosaurus, and Github releases – all other integrations
+    You only need to interact with your project via git, tyrannosaurus, and GitHub releases – all other integrations
     kick off from there.
     '"""
 importorderstyle   = "'google'"
@@ -139,7 +139,7 @@ requests                 = ">=2.24, <3"
 grayskull                = ">=0.8.4, <1"
 
 [tool.poetry.dev-dependencies]
-pre-commit               = ">=2.9, <3.0"
+pre-commit               = ">=2.11, <3.0"
 pre-commit-hooks         = ">=3.4, <4.0"
 bandit                   = ">=1.7, <2.0"
 black                    = {git = "https://github.com/psf/black.git", rev="692c0f50d91"}
@@ -148,7 +148,7 @@ coverage                 = {extras = ["toml"], version = "^5"}
 pytest-cov               = "^2"
 flake8                   = "^3"
 flake8-docstrings        = "^1"
-flake8-bugbear           = "^20"
+flake8-bugbear           = "^21"
 mypy                     = ">=0.790, <1.0"
 sphinx                   = "^3"
 sphinx-autoapi           = "^1"
