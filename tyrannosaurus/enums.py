@@ -269,6 +269,10 @@ class License(str, enum.Enum):
             lgpl3="lgpl",
             mit="mit",
             mpl2="mpl",
+            cc0="cc0",
+            ccby="cc_by",
+            ccbync="cc_by_nc",
+            agpl3="agpl3",
         )[self.name]
         return f"https://raw.githubusercontent.com/licenses/license-templates/master/templates/{name}-header.txt"
 
