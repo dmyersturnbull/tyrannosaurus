@@ -191,6 +191,22 @@ Some of the packages in the table above need more explanation:
 - [Cookiecutter-docker-science](https://github.com/docker-science/cookiecutter-docker-science) is an interesting project
   that doesn’t quite fit in this list.
 
+### ✨ Projects made with Tyrannosaurus
+
+These are some example projects that were generated with Tyrannosaurus:
+- [Tyrannosaurus](https://github.com/dmyersturnbull/tyrannosaurus)
+- [Mandos](https://github.com/dmyersturnbull/mandos)
+- [typed-dfs](https://github.com/dmyersturnbull/typed-dfs)
+- [Valarpy](https://github.com/dmyersturnbull/valarpy)
+- [Sauronlab](https://github.com/dmyersturnbull/sauronlab)
+- [SauronX](https://github.com/dmyersturnbull/sauronx)
+- [suretime](https://github.com/dmyersturnbull/suretime)
+- [service-it](https://github.com/dmyersturnbull/service-it)
+- [chemserve](https://github.com/dmyersturnbull/chemserve)
+- [valar-dagger](https://github.com/dmyersturnbull/valar-dagger)
+- [pocketutils](https://github.com/dmyersturnbull/pocketutils)
+- [auth_capture_proxy](https://github.com/alandtse/auth_capture_proxy)
+
 ### 🍁 Contributing
 
 [New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
