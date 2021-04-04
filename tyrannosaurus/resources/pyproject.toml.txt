@@ -114,14 +114,14 @@ bandit                   = ">=1.7, <2.0"
 black                    = "=20.8b1"
 coverage                 = {extras = ["toml"], version = "^5"}
 flake8                   = "^3"
-flake8-bugbear           = "^20"
+flake8-bugbear           = ">=21"
 flake8-docstrings        = "^1"
 pre-commit               = ">=2.11, <3.0"
 pre-commit-hooks         = ">=3.4, <4.0"
 pytest                   = "^6"
 pytest-cov               = "^2"
 sphinx                   = "^3"
-sphinx-copybutton        = "^0.3.1"
+sphinx-copybutton        = "^0.3"
 sphinx-autoapi           = "^1"
 sphinx-rtd-theme         = ">=0.5, <1.0"
 tomlkit                  = ">=0.7, <1.0"
@@ -130,7 +130,7 @@ tomlkit                  = ">=0.7, <1.0"
 # ... but they're generally optional, and the build won't fail if you remove them
 # For example, `mypy` is called in `tox.ini`, but if it's removed then the line
 # will fail without causing the build to fail.
-mypy                     = ">=0.790, <1.0"
+mypy                     = ">=0.812, <1.0"
 
 # These are useful but are not used directly in the default build pipeline
 # that Tyrannosaurus set up for your project
