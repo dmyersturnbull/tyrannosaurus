@@ -1,11 +1,11 @@
 """
+Module that syncs metadata from pyproject.toml.
+
 Original source: https://github.com/dmyersturnbull/tyrannosaurus
 Copyright 2020–2021 Douglas Myers-Turnbull
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0
-
-Module that syncs metadata from pyproject.toml.
 """
 from __future__ import annotations
 
@@ -112,12 +112,20 @@ class Sync:
         )
 
     def fix_recipe(self) -> Sequence[str]:
-        if self.has("recipe") and self.context.path_source("recipe") and self.context.path_source("recipe").exists():
+        if (
+            self.has("recipe")
+            and self.context.path_source("recipe")
+            and self.context.path_source("recipe").exists()
+        ):
             return self.fix_recipe_internal(self.context.path_source("recipe"))
         return []
 
     def fix_env(self) -> Sequence[str]:
-        if self.has("environment") and self.context.path_source("environment") and self.context.path_source("environment").exists():
+        if (
+            self.has("environment")
+            and self.context.path_source("environment")
+            and self.context.path_source("environment").exists()
+        ):
             creator = CondaEnv(self.context.project, dev=True, extras=True)
             return creator.create(self.context, self.context.path)
         return []
@@ -125,7 +133,7 @@ class Sync:
     def fix_recipe_internal(self, recipe_path: Path) -> Sequence[str]:
         # TODO this is all quite bad
         # Well, I guess this is still an alpha release
-        python_vr = self.context.deps["python"]
+        # python_vr = self.context.deps["python"]
         pat = re.compile(r"github:([a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38})")
         summary = self._careful_wrap(self.context.poetry("description"))
         if "long_description" in self.context.sources:

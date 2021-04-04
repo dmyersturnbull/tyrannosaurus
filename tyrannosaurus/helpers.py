@@ -1,11 +1,11 @@
 """
+Various support code / utils.
+
 Original source: https://github.com/dmyersturnbull/tyrannosaurus
 Copyright 2020–2021 Douglas Myers-Turnbull
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0
-
-Various support code, including enums and utils.
 """
 
 from __future__ import annotations
@@ -214,6 +214,7 @@ class EnvHelper:
 
 def scandir_fast(topdir: Union[str, Path], trash: TrashList) -> Sequence[Path]:
     """
+    Finds paths under a dir.
 
     Args:
         topdir: The directory to search under

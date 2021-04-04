@@ -9,9 +9,9 @@ Files that Tyrannosaurus created
 
 Some of these can be deleted if you are not using those tools.
 
-==============================    ================================================================================
+================================= ================================================================================
  filename                          purpose
-==============================    ================================================================================
+================================= ================================================================================
 .dockerignore                     Tells Docker to ignore temp paths
 .editorconfig                     Tells IDEs how to handle indentation for different file types
 .gitignore                        Avoids committing temp, build, and other unwanted files
@@ -55,7 +55,7 @@ tests/\*\*/test\_\*.py            Test source files
 {pkg}/resources/                  Resource files that the main code needs
 {pkg}/cli.py                      Command-line interface with Typer
 {pkg}/\*\*/\*.py                  Main code files!
-==============================  ==================================================================================
+================================= ================================================================================
 
 
 Temporary files

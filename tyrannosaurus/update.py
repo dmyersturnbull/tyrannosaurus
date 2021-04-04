@@ -1,4 +1,6 @@
 """
+For the 'update' command.
+
 Original source: https://github.com/dmyersturnbull/tyrannosaurus
 Copyright 2020–2021 Douglas Myers-Turnbull
 Licensed under the Apache License, Version 2.0 (the "License");

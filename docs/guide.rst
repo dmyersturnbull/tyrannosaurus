@@ -26,8 +26,7 @@ Getting your first commit on GitHub
 1. **Create a repo:** Create an *non-initialized* repository under ``userororgname/projectname``.
    (Don’t add a readme, etc.) Install `Probot Settings <https://github.com/apps/settings>`_:  in your repo.
 3. **Delete unwanted files:** Delete ``.github/labels.json``, ``.github/workflows/labels.yml``, ``.travis.yml``,
-   and ``.azure-pipelines.yml``, assuming you’re not using them. You might also not want ``codemeta.json``,
-   ``CITATION.cff``, ``environment.yml``, or ``Vagrantfile``.
+   and ``.azure-pipelines.yml``, assuming you’re not using them. You might also not want ``codemeta.json``, ``CITATION.cff``, ``environment.yml``, or ``Vagrantfile``.
 4. Modify ``pyproject.toml`` and ``README.md``.
 5. Add an entry to ``CHANGELOG.md`` and run ``git commit -m "feat: initial code"`` (probably twice).
 
@@ -67,8 +66,7 @@ for discussion.
 
 .. tip::
 
-    If you choose not to install Probot Settings, check out the suggested branch protection rules in
-    ``.github/settings.yml``.
+    If you choose not to install Probot Settings, check out the suggested branch protection rules in ``.github/settings.yml``.
     Also confirm that Dependabot *alerts* and *security updates* are enabled under *Security & analysis*.
     Currently, Dependabot updates are only available on a GitHub organization.
 

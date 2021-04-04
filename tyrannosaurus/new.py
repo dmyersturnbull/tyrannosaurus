@@ -1,11 +1,11 @@
 """
+Module that generates new projects.
+
 Original source: https://github.com/dmyersturnbull/tyrannosaurus
 Copyright 2020–2021 Douglas Myers-Turnbull
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0
-
-Module that generates new projects.
 """
 
 from __future__ import annotations
@@ -164,7 +164,7 @@ class New:
     def _set_tyranno_vr(self, path: Path):
         # if it's None, just leave it as HEAD
         if self.tyranno_vr == "latest":
-            logger.info(f"Using HEAD for tyrannosaurus template version")
+            logger.info("Using HEAD for tyrannosaurus template version")
         else:
             tyranno_vr = self._parse_tyranno_vr(path, self.tyranno_vr)
             try:

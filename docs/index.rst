@@ -4,7 +4,6 @@ Tyrannosaurus overview
 .. toctree::
     :maxdepth: 1
 
-    index
     new
     build
     guide
@@ -12,6 +11,7 @@ Tyrannosaurus overview
     anaconda
     databases
     ref
+    dev
 
 `Tyrannosaurus <https://github.com/dmyersturnbull/tyrannosaurus>`_ is an opinionated Python
 template for 2021 that comes with a tool to synchronize duplicate metadata across your build.
