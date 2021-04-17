@@ -50,14 +50,12 @@ author = ", ".join(find("tool.poetry.authors", as_type=list))
 copyright = find("tool.tyrannosaurus.sources.copyright")
 _license = find("tool.tyrannosaurus.sources.doc_license")
 _license_url = find("tool.tyrannosaurus.sources.doc_license_url")
-if _license is not None and _license_url is not None:
-    copyright += f', <a href="{_license_url}">{_license}</a>'
-elif _license is not None:
-    copyright += f", {_license}"
 
 # Load extensions
 # These should be in docs/requirements.txt
 # Napoleon is bundled in Sphinx, so we don't need to list it there
+# NOTE: 'autoapi' here refers to sphinx-autoapi
+# See https://sphinx-autoapi.readthedocs.io/
 extensions = [
     "autoapi.extension",
     "sphinx.ext.napoleon",
@@ -70,7 +68,8 @@ autoapi_type = "python"
 autoapi_dirs = [str(_root / project)]
 autoapi_keep_files = True
 autoapi_python_class_content = "both"
-autoapi_options = ["private-members=true"]
+autoapi_member_order = "groupwise"
+autoapi_options = ["private-members", "undoc-members", "special-members"]
 
 # The vast majority of Sphinx themes are unmaintained
 # This includes the commonly used alabaster theme
@@ -84,6 +83,9 @@ html_theme_options = dict(
     style_external_links=True,
 )
 
+# doc types to build
+sphinx_enable_epub_build = False
+sphinx_enable_pdf_build = False
 exclude_patterns = ["_build", "Thumbs.db", ".*", "~*", "*~", "*#"]
 
 

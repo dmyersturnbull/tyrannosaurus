@@ -41,8 +41,9 @@ Getting your first commit on GitHub
 .. tip::
 
     A `Commitizen <https://github.com/commitizen-tools/commitizen>`_ pre-commit hook checks commit
-    messages. If it’s too restrictive, modify ``[tool.commitizen]`` in pyproject.toml
-    or remove the pre-commit-config entry.
+    messages. To enable it, you need to
+    run ``pre-commit install --hook-type commit-msg``.If it’s too restrictive,
+    modify ``[tool.commitizen]`` in pyproject.toml or remove the pre-commit-config entry.
 
 
 Configuring external integrations

@@ -23,17 +23,24 @@ I strongly recommend using Poetry to manage dependencies instead of Anaconda.
 (Also, I recommend using Miniconda and conda-forge, as I recommended to a user who
 `broke their conda base <https://stackoverflow.com/questions/61624631/using-anaconda-is-a-messy-base-root-going-to-be-a-problem-in-the-long-term>`_.)
 
+
+If you need a dependency only available via Conda
+-------------------------------------------------
+
+
 Unfortunately, you may occasionally have dependencies that are available through Anaconda but not PyPi.
 One such offending package is `rdkit <https://www.rdkit.org/>`_, and there has been a lot of
 `discussion about this issue <https://github.com/rdkit/rdkit/issues/1812>`_.
 Aside from a handful of scientific packages, this is a rare situation.
-This is a bad problem to have, but you have at least two options:
+Likely, the best choice is to extract the dependency into a new project.
+Your dependency can be built with conda, while your main package can be built and tested in CI
+independently of it. Integration tests can then live outside of both projects.
+See `chemserve <https://github.com/dmyersturnbull/chemserve>`_ for an example solution.
 
-- Refactor. Extract the dependency into a new project.
-  If necessary, you can have the projects `communicate over a socket <https://github.com/dmyersturnbull/service-it>`_
-  and add integration tests in a third project.
-- Use `tox-conda <https://github.com/tox-dev/tox-conda>`_. This project appears unmaintained as of August 2020,
-  and Conda might clobber your carefully managed Poetry dependencies.
+If you really need the dependency coupled directly to your main code,
+document the requirement in your readme and add it
+to your GitHub Actions workflows. [Ensureconda](https://pypi.org/project/ensureconda/)
+and  `tox-conda <https://github.com/tox-dev/tox-conda>`_ may be helpful.
 
 
 Anaconda environment file
