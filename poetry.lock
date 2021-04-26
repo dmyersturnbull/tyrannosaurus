@@ -688,7 +688,7 @@ test = ["pytest", "pytest-cov", "html5lib", "cython", "typed-ast"]
 
 [[package]]
 name = "sphinx-autoapi"
-version = "1.8.0"
+version = "1.8.1"
 description = "Sphinx API documentation generator"
 category = "dev"
 optional = false
@@ -1451,8 +1451,8 @@ sphinx = [
     {file = "Sphinx-3.5.4.tar.gz", hash = "sha256:19010b7b9fa0dc7756a6e105b2aacd3a80f798af3c25c273be64d7beeb482cb1"},
 ]
 sphinx-autoapi = [
-    {file = "sphinx-autoapi-1.8.0.tar.gz", hash = "sha256:51ff98016e51edfa98c03bb829a9843a4add37184c199bcd95b6b1da8cc6a74c"},
-    {file = "sphinx_autoapi-1.8.0-py2.py3-none-any.whl", hash = "sha256:7572d47066e2386ff336660f288cc136b326099d5d45082caa19adcf190ad44d"},
+    {file = "sphinx-autoapi-1.8.1.tar.gz", hash = "sha256:842c0a8f49c824803f7edee31cb1cabd5001a987553bec7b4681283ec9e47d4a"},
+    {file = "sphinx_autoapi-1.8.1-py2.py3-none-any.whl", hash = "sha256:aa453c1011e64ebdf6937539de4d65fe9c6a94c62c5522d2bcdf9aed5cd41ff1"},
 ]
 sphinx-copybutton = [
     {file = "sphinx-copybutton-0.3.1.tar.gz", hash = "sha256:0e0461df394515284e3907e3f418a0c60ef6ab6c9a27a800c8552772d0a402a2"},
