@@ -16,7 +16,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.9.7"
+version = "0.10.0"
 description = "Generate beautifully modern Python projects with seamless, GitHub-based CI/CD and loads of integrations."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
@@ -136,10 +136,10 @@ python                   = ">=3.8, <4"
 tomlkit                  = ">=0.7, <1"
 typer                    = ">=0.3, <1"
 requests                 = ">=2.24, <3"
-grayskull                = ">=0.8.4, <1"
+grayskull                = ">=0.8.5, <1"
 
 [tool.poetry.dev-dependencies]
-pre-commit               = ">=2.11, <3.0"
+pre-commit               = ">=2.12, <3.0"
 pre-commit-hooks         = ">=3.4, <4.0"
 bandit                   = ">=1.7, <2.0"
 black                    = {git = "https://github.com/psf/black.git", rev="692c0f50d91"}

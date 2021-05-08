@@ -46,7 +46,8 @@ tyrannosaurus new myproject --track
 ```
 
 After initializing your project, Tyrannosaurus will list manual steps like adding API keys.
-Feel free to delete files you don’t want (codemeta and citation.cff, for example).
+Just delete files you don’t want. Or pass `--extras` to include extra files like
+azure-pipelines config and `codemeta.json`.
 
 ### 💡 Main behavior / features
 
@@ -194,6 +195,7 @@ Some of the packages in the table above need more explanation:
 ### ✨ Projects made with Tyrannosaurus
 
 These are some example projects that were generated with Tyrannosaurus:
+
 - [Tyrannosaurus](https://github.com/dmyersturnbull/tyrannosaurus)
 - [Mandos](https://github.com/dmyersturnbull/mandos)
 - [typed-dfs](https://github.com/dmyersturnbull/typed-dfs)

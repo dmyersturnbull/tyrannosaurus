@@ -69,11 +69,11 @@ classifiers = [
 # if you detect that the user is running a newer version than they were using before.
 # If you don't need this, you can remove these entries.
 # (You might also be able to package this pyproject.toml file and read metadata from it.)
-include = [
-    "README.md",
-    "LICENSE.txt",
-    "CHANGELOG.md"
-]
+#include = [
+#    "README.md",
+#    "LICENSE.txt",
+#    "CHANGELOG.md"
+#]
 
 [tool.poetry.urls]
 # 'CI', 'Issues', and 'Download' seem to have special meanings
@@ -116,7 +116,7 @@ coverage                 = {extras = ["toml"], version = "^5"}
 flake8                   = "^3"
 flake8-bugbear           = ">=21"
 flake8-docstrings        = "^1"
-pre-commit               = ">=2.11, <3.0"
+pre-commit               = ">=2.12, <3.0"
 pre-commit-hooks         = ">=3.4, <4.0"
 pytest                   = "^6"
 pytest-cov               = "^2"
