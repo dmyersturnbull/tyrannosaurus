@@ -32,6 +32,7 @@ class TestNew:
                 version="0.1.0",
                 status=DevStatus.alpha,
                 should_track=should_track,
+                extras=False,
                 tyranno_vr=tyranno_vr,
             ).create(path)
             assert (path / "pyproject.toml").exists()

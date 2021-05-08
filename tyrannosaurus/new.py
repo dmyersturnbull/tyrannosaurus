@@ -46,6 +46,7 @@ class New:
         version: str,
         status: DevStatus,
         should_track: bool,
+        extras: bool,
         tyranno_vr: str,
         debug: bool = False,
     ):
@@ -64,6 +65,7 @@ class New:
         self.version = version
         self.status = status
         self.should_track = should_track
+        self.extras = extras
         self.repo_to_track = f"https://github.com/{username}/{name.lower()}.git"
         self.tyranno_vr = str(tyranno_vr)
         self.parser = LiteralParser(
@@ -97,9 +99,10 @@ class New:
         Path(path / "LICENSE.txt").write_text(license_text, encoding="utf8")
         # copy resources, overwriting
         for source in (path / "tyrannosaurus" / "resources").iterdir():
-            if not Path(source).is_file():
+            source = Path(source)
+            if not source.is_file():
                 continue
-            resource = Path(source).name
+            resource = source.name
             # $dot so we can circumvent the .gitignore
             resource = resource.replace("$dot", ".")
             resource = resource.replace("$project", self.project_name)
@@ -122,6 +125,16 @@ class New:
         # remove unneeded tyrannosaurus source dir
         # we already copied the files in tyrannosaurus/resources/
         shutil.rmtree(str(path / "tyrannosaurus"))
+        if not self.extras:
+            for f in {
+                "azure-pipelines.yml",
+                "CITATION.cff",
+                "codemeta.json",
+                "Vagrantfile",
+                "environment.yml",
+                ".travis.yml",
+            }:
+                (path / f).unlink(missing_ok=True)
         # track remote via git
         if self.should_track:
             self._track(path)

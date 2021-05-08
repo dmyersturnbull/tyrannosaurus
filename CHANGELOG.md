@@ -3,7 +3,15 @@
 Adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.10.0] - unreleased
+## [0.10.0] - 2021-05-08
+
+### Changed
+
+- Made files like CITATION.cff require a `--extras` flag
+
+### Fixed
+
+- Typer help
 
 ## [0.9.x] - 2021-03-14
 
@@ -17,6 +25,7 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Improved the contributing guide
 
 ### Removed
+
 - Code of conduct file (a link is fine)
 
 ### Fixed

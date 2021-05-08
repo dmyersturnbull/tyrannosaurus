@@ -9,14 +9,17 @@ You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-
 """
 from __future__ import annotations
 
+import inspect
 import logging
 import os
+import re
 from pathlib import Path
 from dataclasses import dataclass
 from subprocess import check_call  # nosec
 from typing import Optional, Sequence
 
 import typer
+from typer.models import ArgumentInfo, OptionInfo
 
 from tyrannosaurus.clean import Clean
 from tyrannosaurus.recipes import Recipe
@@ -29,6 +32,10 @@ from tyrannosaurus.sync import Sync
 from tyrannosaurus.update import Update
 
 logger = logging.getLogger(__package__)
+
+
+def flag(name: str, desc: str, **kwargs) -> typer.Option:
+    return typer.Option(False, "--" + name, help=desc, show_default=False, **kwargs)
 
 
 class _DevNull:  # pragma: no cover
@@ -84,17 +91,13 @@ class CliState:
 
 
 def tyranno_main(
-    version: bool = False,
-    info: bool = False,
+    version: bool = flag("version", "Write version and exit"),
+    info: bool = flag("info", "Write info and exit (same as 'tyrannosaurus info')"),
 ):
     """
     Tyrannosaurus.
     Tyrannosaurus can create new modern Python projects from a template
     and synchronize metadata across the project.
-
-    Args:
-        version: Write version and exit
-        info: Write info and exit (same as 'tyrannosaurus info')
     """
     if version or info:
         Msg.write_info()
@@ -109,52 +112,62 @@ class CliCommands:
     Commands for Tyrannosaurus.
     """
 
+    @classmethod
+    def commands(cls):
+        return [cls.new, cls.sync, cls.env, cls.recipe, cls.update, cls.clean, cls.info, cls.build]
+
     _APACHE2 = typer.Option(License.apache2)
     _ENV_YAML = Path("environment.yml")
 
     @staticmethod
     @cli.command()
     def new(
-        name: str,
-        license: str = _APACHE2,
-        user: Optional[str] = None,
-        authors: Optional[str] = None,
-        description: str = "A Python project",
-        keywords: str = "",
-        version: str = "0.1.0",
-        status: Optional[DevStatus] = None,
-        track: bool = False,
-        tyranno: str = "current",
-        prompt: bool = False,
-        verbose: bool = False,
+        name: str = typer.Argument(
+            "project", help="The name of the project, including any dashes or capital letters"
+        ),
+        license: str = typer.Option(
+            "apache2", help=f"License name. One of {', '.join(s.name for s in License)}"
+        ),
+        user: Optional[str] = typer.Option(None, help="GitHub user or org"),
+        authors: Optional[str] = typer.Option(None, help="Author names, comma-separated"),
+        desc: str = typer.Option("A Python project", help="Short project description"),
+        keywords: str = typer.Option(
+            "", help="List of <6 keywords, comma-separated", show_default=False
+        ),
+        version: str = typer.Option("0.1.0", help="Your project's semantic version"),
+        status: Optional[str] = typer.Option(
+            None,
+            help=f"""
+PyPi classifier for dev status.
+ One of: {", ".join(DevStatus)}
+ [default: chosen by 'version']
+""".replace(
+                "\n", ""
+            ),
+            show_choices=False,
+        ),
+        track: bool = flag("track", "Track an empty remote repo"),
+        extras: bool = flag("extras", "Include uncommon files like codemeta.json"),
+        tyranno: str = typer.Option(
+            "current",
+            help="""
+Tyrannosaurus version to use as the template.
+Choices: an exact version, 'current' (this version), 'stable', or 'latest'.
+""".strip(),
+        ),
+        prompt: bool = flag("prompt", "Prompt for info"),
+        verbose: bool = flag("verbose", "Output more info"),
     ) -> None:  # pragma: no cover
         """
-        Creates a new project.
-
-        Args:
-            name: The name of the project, including any dashes or capital letters
-            license: The name of the license. One of: apache2, cc0, ccby, ccbync, gpl3, lgpl3, mit
-            user: Github repository user or org name
-            authors: List of author names, comma-separated
-            description: A <100 char description for the project
-            keywords: A list of <= 5 keywords, comma-separated
-            version: A semantic version (for your project)
-            status: A PyPi classifier for development status;
-                    if None, defaults to "alpha" if version<1.0 else "production"
-            track: Track a remote repo (should be an empty repo; otherwise there will be a merge conflict)
-            tyranno: Version of tyrannosaurus to use as the template; can be:
-                     an exact version number,
-                     'current' for the currently installed version,
-                     'stable' for the latest stable version,
-                     or 'latest' for the bleeding-edge version
-            prompt: Prompt for info
-            verbose: Output more information
+        Create a new project.
         """
         state = CliState(verbose=verbose)
         if version.startswith("v"):
             version = version[1:]
         if status is None:
             status = DevStatus.guess_from_version(version)
+        else:
+            status = DevStatus[status]
         if prompt:
             name = typer.prompt("name", type=str, default=name)
             description = typer.prompt("description", type=str, default="A new project")
@@ -193,12 +206,13 @@ class CliCommands:
             license_name=license,
             username=e.user,
             authors=e.authors,
-            description=description,
+            description=desc,
             keywords=keywords,
             version=version,
             status=status,
             should_track=track,
             tyranno_vr=tyranno.strip(" \r\n\t"),
+            extras=extras,
             debug=state.verbose,
         ).create(path)
         Msg.success(f"Done! Created a new repository under {name}")
@@ -213,15 +227,11 @@ class CliCommands:
     @staticmethod
     @cli.command()
     def sync(
-        dry_run: bool = False,
-        verbose: bool = False,
+        dry_run: bool = flag("dry-run", "Don't write; just output"),
+        verbose: bool = flag("verbose", "Output more info"),
     ) -> None:  # pragma: no cover
         """
-        Syncs project metadata between configured files.
-
-        Args:
-            dry_run: Don't write; just output what it would do
-            verbose: Output more information
+        Sync project metadata between configured files.
         """
         state = CliState(dry_run=dry_run, verbose=verbose)
         context = Context(Path(os.getcwd()), dry_run=state.dry_run)
@@ -233,23 +243,17 @@ class CliCommands:
     @staticmethod
     @cli.command()
     def env(
-        path: Path = _ENV_YAML,
-        name: Optional[str] = None,
-        dev: bool = False,
-        extras: bool = False,
-        dry_run: bool = False,
-        verbose: bool = False,
+        path: Path = typer.Option(_ENV_YAML, help="Write to this path"),
+        name: Optional[str] = typer.Option(
+            None, help="Name of the environment. [default: project name]", show_default=False
+        ),
+        dev: bool = flag("dev", "Include dev/build dependencies"),
+        extras: bool = flag("extras", "Include optional dependencies"),
+        dry_run: bool = flag("dry-run", "Don't write; just output"),
+        verbose: bool = flag("verbose", "Output more info"),
     ) -> None:  # pragma: no cover
         """
-        Generates an Anaconda environment file.
-
-        Args:
-            path: Write to his path
-            name: The name of the environment; defaults to the project name
-            dev: Include development/build dependencies
-            extras: Include optional dependencies
-            dry_run: Don't write; just output what it would do
-            verbose: Output more information
+        Generate an Anaconda environment file.
         """
         state = CliState(dry_run=dry_run, verbose=verbose)
         typer.echo("Writing environment file...")
@@ -262,15 +266,11 @@ class CliCommands:
     @staticmethod
     @cli.command()
     def recipe(
-        dry_run: bool = False,
-        verbose: bool = False,
+        dry_run: bool = flag("dry-run", "Don't write; just output"),
+        verbose: bool = flag("verbose", "Output more info"),
     ) -> None:  # pragma: no cover
         """
-        Generates a Conda recipe using grayskull.
-
-        Args:
-            dry_run: Don't write; just output what it would do
-            verbose: Output more information
+        Generate a Conda recipe using grayskull.
         """
         state = CliState(dry_run=dry_run, verbose=verbose)
         dry_run = state.dry_run
@@ -282,11 +282,11 @@ class CliCommands:
     @staticmethod
     @cli.command()
     def update(
-        auto_fix=typer.Option("auto_fix", hidden=True),
-        verbose: bool = False,
+        auto_fix=flag("auto-fix", "Update dependencies in place (not supported yet)", hidden=True),
+        verbose: bool = flag("verbose", "Output more information"),
     ) -> None:  # pragma: no cover
         """
-        Finds and lists dependencies that could be updated.
+        Find and list dependencies that could be updated.
 
         Args:
             auto_fix: Update dependencies in place (not supported yet)
@@ -307,23 +307,20 @@ class CliCommands:
     @staticmethod
     @cli.command()
     def clean(
-        dists: bool = False,
-        aggressive: bool = False,
-        hard_delete: bool = False,
-        dry_run: bool = False,
-        verbose: bool = False,
+        dists: bool = flag("dists", "Remove dists"),
+        aggressive: bool = flag(
+            "aggressive", "Delete additional files, including .swp and .ipython_checkpoints"
+        ),
+        hard_delete: bool = flag(
+            "hard-delete", "Use shutil.rmtree instead of moving to .tyrannosaurus"
+        ),
+        dry_run: bool = flag("dry-run", "Don't write; just output"),
+        verbose: bool = flag("verbose", "Output more information"),
     ) -> None:  # pragma: no cover
         """
-        Removes unwanted files.
+        Remove unwanted files.
         Deletes the contents of ``.tyrannosaurus``.
         Then trashes temporary and unwanted files and directories to a tree under ``.tyrannosaurus``.
-
-        Args:
-            dists: Remove dists
-            aggressive: Delete additional files, including .swp and .ipython_checkpoints
-            hard_delete: If true, call shutil.rmtree instead of moving to .tyrannosaurus
-            dry_run: Don't write; just output what it would do
-            verbose: Output more information
         """
         state = CliState(verbose=verbose, dry_run=dry_run)
         dry_run = state.dry_run
@@ -334,16 +331,18 @@ class CliCommands:
     @cli.command()
     def info() -> None:  # pragma: no cover
         """
-        Prints Tyrannosaurus info.
+        Print Tyrannosaurus info.
         """
         Msg.write_info()
 
     @staticmethod
     @cli.command()
     def build(
-        bare: bool = False,
-        dry_run: bool = False,
-        verbose: bool = False,
+        bare: bool = flag("bare", "Don't use tox or virtualenv."),
+        dry_run: bool = flag(
+            "dry-run", "Don't run; just output. Useful for making a script template."
+        ),
+        verbose: bool = flag("verbose", "Output more info"),
     ) -> None:  # pragma: no cover
         """
         Syncs, builds, and tests your project.
@@ -354,7 +353,8 @@ class CliCommands:
             - tox
             - tyrannosaurus clean
 
-        z----------------------------------------z
+        ---------------------------------------------------------------
+
         If the ``bare`` IS set:
         Runs the commands without tox and without creating a new virtualenv.
         This can be useful if you're using Conda and have a dependency only available through Anaconda.
@@ -376,12 +376,8 @@ class CliCommands:
             - sphinx-build -b html docs docs/html
             - tyrannosaurus clean
             - pip install .
-        z----------------------------------------z
 
-        Args:
-            bare: Do not use tox or virtualenv. See above.
-            dry_run: Just output the commands to stdout (don't run them). Useful for making a script template.
-            verbose: Output more information
+        ---------------------------------------------------------------
         """
         state = CliState(dry_run=dry_run, verbose=verbose)
         CliCommands.build_internal(bare=bare, dry=state.dry_run)
@@ -401,5 +397,28 @@ class CliCommands:
         return cmds
 
 
+def _fix_docstrings(commands):
+    for f in commands:
+        if "Args:" in [q.strip() for q in f.__doc__.splitlines()]:
+            continue
+        f.__doc__ += "\n" + " " * 8 + "Args:\n"
+        for p in inspect.signature(f).parameters.values():
+            arg = p.default
+            if arg is not None:
+                d = arg.default
+                if isinstance(d, (OptionInfo, ArgumentInfo)) and hasattr(d, "default"):
+                    d = d.default
+                try:
+                    h = re.compile(" +").sub(arg.help.replace("\n", "").strip(), " ")
+                    f.__doc__ += " " * 12 + p.name + ": " + h + "\n"
+                    if d is not False:
+                        f.__doc__ += " " * (12 + 1 + len(p.name)) + f" [default: {str(d)}]\n"
+                except (AttributeError, TypeError):
+                    f.__doc__ += " " * 12 + p.name + " "
+
+
 if __name__ == "__main__":
     cli()
+# else:
+# _fix_docstrings(CliCommands.commands())
+# _fix_docstrings([tyranno_main])
