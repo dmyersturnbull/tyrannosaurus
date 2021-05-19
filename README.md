@@ -2,7 +2,7 @@
 
 [![Version status](https://img.shields.io/pypi/status/tyrannosaurus?label=status)](https://pypi.org/project/tyrannosaurus)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Python version compatibility](https://img.shields.io/pypi/pyversions/tyrannosaurus?label=Python)](https://pypi.org/project/tyrannosaurus)
+[![Python version compatibility](https://img.shields.io/pypi/pyversions/tyrannosaurus?label=Python)](https://pypi.org/project/tyrannosaurus)  
 [![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyrannosaurus?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyrannosaurus)
 [![Version on GitHub](https://img.shields.io/github/v/release/dmyersturnbull/tyrannosaurus?include_prereleases&label=GitHub)](https://github.com/dmyersturnbull/tyrannosaurus/releases)
 [![Version on PyPi](https://img.shields.io/pypi/v/tyrannosaurus?label=PyPi)](https://pypi.org/project/tyrannosaurus)
