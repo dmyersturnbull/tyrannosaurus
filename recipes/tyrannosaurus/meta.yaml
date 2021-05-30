@@ -22,7 +22,7 @@ requirements:
     - poetry >=1.1,<2
     - python >=3.8,<4
   run:
-    - grayskull >=0.8.4,<1
+    - grayskull >=0.8.5,<1
     - python >=3.8,<4
     - requests >=2.24,<3
     - tomlkit >=0.7,<1

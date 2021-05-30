@@ -58,4 +58,5 @@ repos:
     hooks:
       - id: prettier
         stages: [commit]
+        exclude: ^recipes/.*
     rev: v2.2.1

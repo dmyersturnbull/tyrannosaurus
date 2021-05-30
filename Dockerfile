@@ -12,10 +12,10 @@ FROM python:3.9
 
 # See https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL name="tyrannosaurus"
-LABEL version="0.9.7"
+LABEL version="0.10.2"
 LABEL vendor="dmyersturnbull"
 LABEL org.opencontainers.image.title="tyrannosaurus"
-LABEL org.opencontainers.image.version="0.9.7"
+LABEL org.opencontainers.image.version="0.10.2"
 LABEL org.opencontainers.image.url="https://github.com/dmyersturnbull/tyrannosaurus"
 LABEL org.opencontainers.image.documentation="https://github.com/dmyersturnbull/tyrannosaurus"
 
@@ -32,7 +32,7 @@ ENV PYTHONHASHSEED=random
 ENV PIP_NO_CACHE_DIR=off
 ENV PIP_DISABLE_PIP_VERSION_CHECK=on
 ENV PIP_DEFAULT_TIMEOUT=120
-ENV POETRY_VERSION=1.1.4
+ENV POETRY_VERSION=1.1.6
 
 # Install system deps
 RUN pip install "poetry==$POETRY_VERSION"
