@@ -4,6 +4,7 @@
 name: Static checks
 on:
   push:
+    branches: [main, master]
   pull_request:
   schedule:
     - cron: 0 7 * * 6
@@ -12,8 +13,8 @@ jobs:
     name: Check Markdown links
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@master
-    - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      - uses: actions/checkout@master
+      - uses: gaurav-nelson/github-action-markdown-link-check@v1
   analyse:
     name: Analyze with CodeQL
     runs-on: ubuntu-latest
