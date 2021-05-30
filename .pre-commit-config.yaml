@@ -1,6 +1,6 @@
 # Check out https://pre-commit.com/ for documentation
 # and https://pre-commit.com/hooks.html for more hooks
-minimum_pre_commit_version: 2.9.0
+minimum_pre_commit_version: 2.13.0
 # Don't set language_version -- it's only useful if we have multiple
 # python versions or our build uses a different env than runtime
 repos:
@@ -19,7 +19,6 @@ repos:
       - id: fix-byte-order-marker
       - id: end-of-file-fixer
       - id: check-merge-conflict
-      - id: debug-statements
       - id: check-toml
       - id: check-json
       # This one is slow and doesn't check for much
@@ -30,14 +29,14 @@ repos:
       - id: check-yaml
         exclude: ^recipes/.*
     repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v4.0.1
 
   # --- Commit msg checks ---
   - hooks:
       - id: commitizen
         stages: ["commit-msg"]
     repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.14.0
+    rev: v2.17.8
 
   # --- Strip output from .ipynb files ---
   - hooks:
@@ -54,7 +53,7 @@ repos:
   - hooks:
       - id: black
     repo: https://github.com/psf/black
-    rev: 20.8b1
+    rev: 21.5b1
   - repo: https://github.com/pre-commit/mirrors-prettier
     hooks:
       - id: prettier

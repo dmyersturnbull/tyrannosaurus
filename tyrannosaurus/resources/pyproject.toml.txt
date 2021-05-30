@@ -111,13 +111,13 @@ typer                    = ">=0.3, <1.0"
 # If you remove them, builds will always fail unless you also modify the build pipeline.
 # Note: We don't use flake8-bandit because it appears to be unmaintained
 bandit                   = ">=1.7, <2.0"
-black                    = "=20.8b1"
+black                    = "==21.5b1"
 coverage                 = {extras = ["toml"], version = "^5"}
 flake8                   = "^3"
 flake8-bugbear           = ">=21"
 flake8-docstrings        = "^1"
-pre-commit               = ">=2.12, <3.0"
-pre-commit-hooks         = ">=3.4, <4.0"
+pre-commit               = ">=2.13, <3.0"
+pre-commit-hooks         = ">=4.0, <5.0"
 pytest                   = "^6"
 pytest-cov               = "^2"
 sphinx                   = "^3"
