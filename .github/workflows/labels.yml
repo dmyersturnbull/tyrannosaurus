@@ -10,6 +10,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Configure issue labels
-        uses: lannonbr/issue-label-manager-action@2.0.0
+        uses: lannonbr/issue-label-manager-action@3.0.0
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
