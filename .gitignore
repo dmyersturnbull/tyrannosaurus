@@ -11,6 +11,7 @@ Thumbs.db
 *.bak
 *.swp
 tmp/
+null
 
 # Log files and binary files
 *.log
