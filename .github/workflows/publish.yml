@@ -42,7 +42,7 @@ jobs:
           registry: docker.pkg.github.com
           repository: ${{ github.repository }}/${{ github.event.repository.name }}
           tag_with_ref: true
-      - name: Attach artifacts to the Github release
+      - name: Attach artifacts to the GitHub release
         uses: skx/github-action-publish-binaries@master
         with:
           args: "dist/*"

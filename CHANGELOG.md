@@ -3,6 +3,15 @@
 Adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.10.x] - ongoing
+
+### Changed
+
+- Bumped some versions
+- Improved editorconfig, dockerignore, and gitignore
+- readthedocs now uses Python 3.9
+- Renamed `checks.yml` to `check.yml`
+
 ## [0.10.0] - 2021-05-08
 
 ### Changed
