@@ -130,6 +130,9 @@ class PyPiHelper:
         return matches[-1].group(1)
 
     def get_version(self, name: str) -> str:
+        # lowercase 'sphinx' is allowed in pip & poetry, but will not work for the raw URL request
+        if name == "sphinx":
+            name = "Sphinx"
         pat = re.compile('"package-header__name">[ \n\t]*' + name + " ([0-9a-zA-Z_.-]+)")
         try:
             try:

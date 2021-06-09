@@ -116,7 +116,6 @@ coverage                 = {extras = ["toml"], version = "^5.5"}
 flake8                   = "^3.9"
 flake8-bugbear           = ">=21"
 flake8-docstrings        = "^1.5"
-mypy                     = "^0.901"
 pre-commit               = "^2.13"
 pre-commit-hooks         = "^4.0"
 pytest                   = "^6.2"
@@ -131,7 +130,7 @@ tomlkit                  = "^0.7"
 # ... but they're generally optional, and the build won't fail if you remove them
 # For example, `mypy` is called in `tox.ini`, but if it's removed then the line
 # will fail without causing the build to fail.
-mypy                     = ">=0.812, <1.0"
+mypy                     = "^0.901"
 
 # These are useful but are not used directly in the default build pipeline
 # that Tyrannosaurus set up for your project
