@@ -75,7 +75,7 @@ for discussion.
 Your first GitHub release
 +++++++++++++++++++++++++
 
-Follow these steps to publish to GitHub releases, GitHub Packages, Docker Hub, and PyPi.
+Follow these steps to publish to GitHub releases, the GitHub Container Registry, Docker Hub, and PyPi.
 If you’re using the default Azure-pipelines file, you’ll also publish to Azure’s container registry.
 If you want to publish to Conda-Forge, follow
 the `anaconda recipe-generation steps <https://tyrannosaurus.readthedocs.io/en/stable/anaconda.html#anaconda-recipes>`_
