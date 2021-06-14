@@ -11,6 +11,11 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Improved editorconfig, dockerignore, and gitignore
 - readthedocs now uses Python 3.9
 - Renamed `checks.yml` to `check.yml`
+- Renamed workflows (`name` in the YMLs)
+
+### Removed
+
+- `NO_DEV` argument in Dockerfile
 
 ## [0.10.0] - 2021-05-08
 

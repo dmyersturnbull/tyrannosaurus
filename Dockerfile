@@ -1,9 +1,5 @@
 # https://stackoverflow.com/questions/53835198/integrating-python-poetry-with-docker/54763270#54763270
 
-# Add a build argument that should either be 'true' or 'false'
-# If true, installs without dev dependencies (poetry --no-dev)
-ARG NO_DEV
-
 FROM python:3.9
 
 
@@ -25,7 +21,6 @@ LABEL org.opencontainers.image.documentation="https://github.com/dmyersturnbull/
 
 # ENV no longer adds a layer in new Docker versions,
 # so we don't need to chain these in a single line
-ENV NO_DEV=${NO_DEV}
 ENV PYTHONFAULTHANDLER=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONHASHSEED=random
@@ -45,7 +40,7 @@ COPY poetry.lock pyproject.toml /code/
 # pip install would probably work, too, but we'd have to make sure it's a recent enough pip
 # Don't bother creating a virtual env -- significant performance increase
 RUN poetry config virtualenvs.create false \
-  && poetry install $(test "${NO_DEV}" == true && echo "--no-dev") --no-interaction --no-ansi
+  && poetry install --no-dev --no-interaction --no-ansi
 
 # Copy to workdir
 COPY . /code
