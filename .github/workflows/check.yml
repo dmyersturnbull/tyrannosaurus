@@ -1,7 +1,7 @@
 # Various static code analysis and checks
 # Runs on commit or pull (to any branch)
 # and on a schedule (weekly)
-name: Static checks
+name: check
 on:
   push:
     branches: [main, master]

@@ -1,6 +1,6 @@
 # Build, test, and publish to releases, packages, PyPi, etc.
 # Runs when creating a Github release
-name: Publish on release creation
+name: publish
 on:
   release:
     types: [published]

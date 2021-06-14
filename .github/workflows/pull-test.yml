@@ -1,6 +1,6 @@
 # Runs tests via tox
 # Runs on pull requests to main
-name: Test on pull request
+name: pulltest
 on:
   pull_request:
     branches: [main, master]

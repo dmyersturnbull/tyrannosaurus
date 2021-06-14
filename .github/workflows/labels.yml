@@ -1,4 +1,4 @@
-name: Create Github labels
+name: labels
 on:
   push:
     branches: [main, master]

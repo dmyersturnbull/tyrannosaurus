@@ -1,6 +1,6 @@
 # Build, test, and run static analyses, and send reports to external services
 # Runs only on pushing to main
-name: Build & test
+name: maintest
 on:
   push:
     branches: [main, master]
