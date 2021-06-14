@@ -50,7 +50,7 @@ jobs:
           context: .
           push: true
       - name: Attach artifacts to the GitHub release
-        uses: skx/github-action-publish-binaries@v0
+        uses: skx/github-action-publish-binaries@master
         with:
           args: "dist/*"
         env:
