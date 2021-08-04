@@ -75,9 +75,10 @@ _By default_, here’s how your new project will behave:
   [Travis](https://www.travis-ci.com/), or
   [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
 - Docker and Vagrant configuration
-- Continuous deployment to [PyPi](http://pypi.org/), [Docker Hub](https://hub.docker.com/),
-  the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry);
+- Continuous deployment to [PyPi](http://pypi.org/) and [Docker Hub](https://hub.docker.com/).
+- Deployment to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry);
   plus to any other desired container registries with a simple modification.
+  _note:_ temporarily disabled (0.10.x) due to an issue.
 - Automatic attachment of [sdits](https://docs.python.org/3/distutils/sourcedist.html)
   and [wheels](https://pythonwheels.com/) to
   [GitHub Releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-releases)
@@ -107,6 +108,7 @@ _By default_, here’s how your new project will behave:
 - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
 - Fancy [issue labels](https://github.com/crazy-max/ghaction-github-labeler)
 - Slack notifications for CI/CD success and failure with [action-slack](https://github.com/8398a7/action-slack)
+  _note:_ temporarily disabled (0.10.x) due to an issue.
 - Fancy GitHub-recognized readme, license,
   [contributing guide](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/setting-guidelines-for-repository-contributors#adding-a-contributing-file),
   [issue templates](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/configuring-issue-templates-for-your-repository), and
@@ -164,7 +166,7 @@ Here are features that other tools lack:
 #### 🏁 Feature table
 
 | Tool                                                                                     | Main techs                 | CD kickoff     | N int.† | modern‡ | Docker | Conda | sync | any-OS |
-| ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | ------ | ----- | ---- | ------ |
+| ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | ------ | ----- | ---- | ------ | --- |
 | Tyranosaurus                                                                             | Actions, Poetry, Tox       | git, GitHub    | 30      | ✔️      | ✔️     | ✔️    | ✔️   | ✔️     |
 | [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)       | Actions, Poetry, Nox       | git, Poetry    | 20      | ✔️      |        |       |      | ✔️     |
 | [copier-poetry](https://github.com/pawamoy/copier-poetry)                                | Actions, Poetry, Make      | git, manual    | 15      |         | ✔️     |       | ✔️   |        |
