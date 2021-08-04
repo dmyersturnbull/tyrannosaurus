@@ -128,7 +128,6 @@ class New:
         if not self.extras:
             for f in {
                 "azure-pipelines.yml",
-                "CITATION.cff",
                 "codemeta.json",
                 "Vagrantfile",
                 "environment.yml",

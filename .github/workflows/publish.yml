@@ -1,5 +1,5 @@
 # Build, test, and publish to releases, packages, PyPi, etc.
-# Runs when creating a Github release
+# Runs when creating a GitHub release
 name: publish
 on:
   release:
