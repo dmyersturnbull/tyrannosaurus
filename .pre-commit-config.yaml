@@ -18,6 +18,7 @@ repos:
       - id: check-case-conflict
       - id: fix-byte-order-marker
       - id: end-of-file-fixer
+        exclude: "^tests/resources/"
       - id: check-merge-conflict
       - id: check-toml
       - id: check-json
