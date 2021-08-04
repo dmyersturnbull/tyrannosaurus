@@ -51,7 +51,7 @@ about:
     Docker Hub, the GitHub Container Registry, Azure, Conda-Forge, and an array of linting, static analysis,
     security testing, documentation, dependency management, and CI/CD tools, including a custom tool
     to keep all duplicate project metadata synchronized to a single pyproject.toml. You only need to
-    interact with your project via git, tyrannosaurus, and Github releases – all other integrations
+    interact with your project via git, tyrannosaurus, and GitHub releases – all other integrations
     kick off from there.
   doc_url: https://tyrannosaurus.readthedocs.io
   dev_url: https://github.com/dmyersturnbull/tyrannosaurus

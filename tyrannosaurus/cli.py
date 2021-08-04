@@ -137,12 +137,12 @@ class CliCommands:
         version: str = typer.Option("0.1.0", help="Your project's semantic version"),
         status: Optional[str] = typer.Option(
             None,
-            help=f"""
-PyPi classifier for dev status.
- One of: {", ".join(DevStatus)}
- [default: chosen by 'version']
-""".replace(
-                "\n", ""
+            help=inspect.cleandoc(
+                rf"""
+            PyPi classifier for dev status.
+             One of: {", ".join(DevStatus)}
+             [default: chosen by 'version']
+            """
             ),
             show_choices=False,
         ),
@@ -150,10 +150,12 @@ PyPi classifier for dev status.
         extras: bool = flag("extras", "Include uncommon files like codemeta.json"),
         tyranno: str = typer.Option(
             "current",
-            help="""
-Tyrannosaurus version to use as the template.
-Choices: an exact version, 'current' (this version), 'stable', or 'latest'.
-""".strip(),
+            help=inspect.cleandoc(
+                r"""
+            Tyrannosaurus version to use as the template.
+            Choices: an exact version, 'current' (this version), 'stable', or 'latest'.
+            """
+            ),
         ),
         prompt: bool = flag("prompt", "Prompt for info"),
         verbose: bool = flag("verbose", "Output more info"),

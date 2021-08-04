@@ -28,10 +28,10 @@ build-backend = "poetry.masonry.api"
 
 name = "$${pkg}"
 # This is the version of your project. Keep it up-to-date and follow semantic versioning.
-# It's used in the PyPi, wheels, Docker, and Github packages.
-# Also make sure to use exactly this version when creating a Github release,
-# but prefix a "v" to the Github release.
-# E.g. This might be "1.2.13", and the Github release will be "v1.2.13".
+# It's used in the PyPi, wheels, Docker, and GitHub packages.
+# Also make sure to use exactly this version when creating a GitHub release,
+# but prefix a "v" to the GitHub release.
+# E.g. This might be "1.2.13", and the GitHub release will be "v1.2.13".
 # Although semantic versioning allows for build tags (metadata),
 # not all tools are compatible with it, so avoid it if you can.
 version = "0.1.0"
@@ -107,11 +107,11 @@ typer                    = "^0.3"
 # Where `dev` is from `[tool.poetry.extras]` below
 
 # All of the dependencies in this "paragraph" are needed by the default `tox.ini`
-# and Github workflows (under `.github/workflows`) that Tyrannosaurus generated.
+# and GitHub workflows (under `.github/workflows`) that Tyrannosaurus generated.
 # If you remove them, builds will always fail unless you also modify the build pipeline.
 # Note: We don't use flake8-bandit because it appears to be unmaintained
 bandit                   = "^1.7"
-black                    = "==21.5b2"
+black                    = "==21.7b0"
 coverage                 = {extras = ["toml"], version = "^5.5"}
 flake8                   = "^3.9"
 flake8-bugbear           = ">=21"
@@ -130,7 +130,7 @@ tomlkit                  = "^0.7"
 # ... but they're generally optional, and the build won't fail if you remove them
 # For example, `mypy` is called in `tox.ini`, but if it's removed then the line
 # will fail without causing the build to fail.
-mypy                     = "^0.901"
+mypy                     = "^0.910"
 
 # These are useful but are not used directly in the default build pipeline
 # that Tyrannosaurus set up for your project
@@ -187,14 +187,14 @@ align    = true
 # tool.poetry.dependencies will choose all of the compatible major versions
 # You can alternatively specify exact versions, like '[3.8]' or '[3.8.5,3.9.1]'
 # (Don't forget the single quote marks in that example.)
-# pymetaversion is only used when building; e.g. in readthedocs, Docker, and Github workflows
+# pymetaversion is only used when building; e.g. in readthedocs, Docker, and GitHub workflows
 # (Note that this last one is not a list -- use single quotes but not brackets.)
 pycompatversions   = "tool.poetry.dependencies"
 pytoxversions      = "tool.poetry.dependencies"
 pymetaversion      = "'3.9'"
 
 # --- DEVELOPMENT PARAMS ---
-# virtual machine info used in Dockerfile and Github workflows
+# virtual machine info used in Dockerfile and GitHub workflows
 metavm             = "'ubuntu-latest'"
 # Development dependencies
 devdeps            = "tool.poetry.dev-dependencies"
