@@ -1,0 +1,16 @@
+cff-version: 1.1.0
+message: Software reference
+title: Tyrannosaurus
+version: 0.10.4
+abstract: Generate beautifully modern Python projects with seamless, GitHub-based CI/CD and loads of integrations.
+authors:
+  -
+    family-names: Myers-Turnbull
+    given-names: Douglas
+keywords:
+  - python
+  - template
+  - pyproject-toml
+  - python-poetry
+  - conda-build
+date-released: 2020-05-10T20:06:00.000Z

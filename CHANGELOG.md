@@ -83,7 +83,7 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Integration with [Safety](https://github.com/pyupio/safety) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - A `--tyranno` flag to new (deprecates `--newest`, which is now hidden) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - `--version` and `--info` options (exit immediately) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Support for Github packages (technically should trigger a minor version bump) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Support for GitHub packages (technically should trigger a minor version bump) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Stub and shields for scrutinizer _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Source license headers _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Link to license in default readme _―[dmyersturnbull](https://github.com/dmyersturnbull)_
@@ -95,7 +95,7 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Bumped and simplified a few dependencies _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Moved pre-commit run commands in tox to after poetry install, so versions are enforced _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Replaced flake8-bandit with `bandit -r .` call (the former is abandoned) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Made compatible with Github’s [master branch renaming](https://github.com/github/renaming) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Made compatible with GitHub’s [master branch renaming](https://github.com/github/renaming) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
   (Because this external change broke backwards compatibility for newly generated projects,
   I consider this a fix, which won’t trigger a minor version bump)
 
@@ -158,7 +158,7 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Removed `poetry lock` from tox and added it to `tyrannosaurus sync`. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Removed tests from the release workflow. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Moved coveralls command from tox to the Github commit workflow. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Moved coveralls command from tox to the GitHub commit workflow. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Bumped versions of pre-commit and poetry. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Fixed
@@ -256,7 +256,7 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- Github actions _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- GitHub actions _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ## [0.0.3] - 2020-05-05
 

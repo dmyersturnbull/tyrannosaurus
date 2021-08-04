@@ -1,6 +1,6 @@
 # Security policy
 
-<!--- This was modified from an example file provided by Github --->
+<!--- This was modified from an example file provided by GitHub --->
 
 ## Supported versions
 
