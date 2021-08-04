@@ -735,7 +735,7 @@ go = ["sphinxcontrib-golangdomain"]
 
 [[package]]
 name = "sphinx-copybutton"
-version = "0.3.3"
+version = "0.4.0"
 description = "Add a copy button to each of your code cells."
 category = "dev"
 optional = false
@@ -746,6 +746,7 @@ sphinx = ">=1.8"
 
 [package.extras]
 code_style = ["pre-commit (==2.12.1)"]
+rtd = ["sphinx", "ipython", "sphinx-book-theme"]
 
 [[package]]
 name = "sphinx-rtd-theme"
@@ -955,7 +956,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8, <4"
-content-hash = "f6d59affc1d922417a03d3775a5dff5b35b0476425791cf245b251e09910f5ce"
+content-hash = "6770a92ed50e543cda3b519fb09c93e1e483d85cb0a7f2bb2b1c6566a75733ea"
 
 [metadata.files]
 alabaster = [
@@ -1459,8 +1460,8 @@ sphinx-autoapi = [
     {file = "sphinx_autoapi-1.8.3-py2.py3-none-any.whl", hash = "sha256:2d0062e5da2e53cc66356302861fccc37ca8e930a7a95753692050933f11d653"},
 ]
 sphinx-copybutton = [
-    {file = "sphinx-copybutton-0.3.3.tar.gz", hash = "sha256:3695987d5e98e3b223471aaed8aa7491e03e9bfc48ed655a91446fd5e30b6c25"},
-    {file = "sphinx_copybutton-0.3.3-py3-none-any.whl", hash = "sha256:19850e9c1ed09c899f136ce3cfa304cb3b6d2f508528c19d8f512ccc8c66b0d4"},
+    {file = "sphinx-copybutton-0.4.0.tar.gz", hash = "sha256:8daed13a87afd5013c3a9af3575cc4d5bec052075ccd3db243f895c07a689386"},
+    {file = "sphinx_copybutton-0.4.0-py3-none-any.whl", hash = "sha256:4340d33c169dac6dd82dce2c83333412aa786a42dd01a81a8decac3b130dc8b0"},
 ]
 sphinx-rtd-theme = [
     {file = "sphinx_rtd_theme-0.5.2-py2.py3-none-any.whl", hash = "sha256:4a05bdbe8b1446d77a01e20a23ebc6777c74f43237035e76be89699308987d6f"},
