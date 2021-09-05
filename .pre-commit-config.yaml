@@ -46,11 +46,11 @@ repos:
     rev: v2.17.9
 
   # --- Strip output from .ipynb files ---
-  - hooks:
-      - id: nbstripout
-        files: ".ipynb"
-    repo: https://github.com/kynan/nbstripout
-    rev: 0.4.0
+  # - hooks:
+  #     - id: nbstripout
+  #       files: ".ipynb"
+  #   repo: https://github.com/kynan/nbstripout
+  #   rev: 0.5.0
 
   # --- Linters ---
   - hooks:
@@ -60,7 +60,7 @@ repos:
   - hooks:
       - id: black
     repo: https://github.com/psf/black
-    rev: 21.7b0
+    rev: 21.8b0
   - repo: https://github.com/asottile/blacken-docs
     rev: v1.10.0
     hooks:

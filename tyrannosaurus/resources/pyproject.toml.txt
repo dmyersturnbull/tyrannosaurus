@@ -111,12 +111,12 @@ typer                    = "^0.3"
 # If you remove them, builds will always fail unless you also modify the build pipeline.
 # Note: We don't use flake8-bandit because it appears to be unmaintained
 bandit                   = "^1.7"
-black                    = "==21.7b0"
+black                    = "==21.8b0"
 coverage                 = {extras = ["toml"], version = "^5.5"}
 flake8                   = "^3.9"
 flake8-bugbear           = ">=21"
 flake8-docstrings        = "^1.5"
-pre-commit               = "^2.13"
+pre-commit               = "^2.14"
 pre-commit-hooks         = "^4.0"
 pytest                   = "^6.2"
 pytest-cov               = "^2.11"
@@ -345,8 +345,7 @@ show_missing = true
 
 [tool.black]
 line-length = 100
-# As of December 2020, black doesn't accept py39
-target-version = ["py38"]
+target-version = ["py38", "py39"]
 
 [tool.isort]
 line_length = 100

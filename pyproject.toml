@@ -16,7 +16,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.10.4"
+version = "0.10.5"
 description = "Generate beautifully modern Python projects with seamless, GitHub-based CI/CD and loads of integrations."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
@@ -134,19 +134,20 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 [tool.poetry.dependencies]
 python                   = ">=3.8, <4"
 tomlkit                  = ">=0.7, <1"
-typer                    = ">=0.3, <1"
+typer                    = ">=0.4, <1"
+click                    = ">8.0"  # let typer handle the rest
 requests                 = ">=2.24, <3"
 grayskull                = ">=0.8.5, <1"
 
 [tool.poetry.dev-dependencies]
 bandit                   = "^1.7"
-black                    = "==21.7b0"
+black                    = "==21.8b0"
 coverage                 = {extras = ["toml"], version = "^5.5"}
 flake8                   = "^3.9"
 flake8-bugbear           = ">=21"
 flake8-docstrings        = "^1.5"
 mypy                     = "^0.910"
-pre-commit               = "^2.13"
+pre-commit               = "^2.14"
 pre-commit-hooks         = "^4.0"
 pytest                   = "^6.2"
 pytest-cov               = "^2.11"
@@ -196,7 +197,7 @@ show_missing = true
 
 [tool.black]
 line-length = 100
-target-version = ["py38"]
+target-version = ["py38", "py39"]
 
 [tool.isort]
 line_length = 100
