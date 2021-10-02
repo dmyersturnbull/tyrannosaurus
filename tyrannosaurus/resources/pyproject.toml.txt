@@ -111,19 +111,19 @@ typer                    = "^0.3"
 # If you remove them, builds will always fail unless you also modify the build pipeline.
 # Note: We don't use flake8-bandit because it appears to be unmaintained
 bandit                   = "^1.7"
-black                    = "==21.8b0"
+black                    = "==21.9b0"
 coverage                 = {extras = ["toml"], version = "^5.5"}
 flake8                   = "^3.9"
 flake8-bugbear           = ">=21"
 flake8-docstrings        = "^1.5"
-pre-commit               = "^2.14"
+pre-commit               = "^2.15"
 pre-commit-hooks         = "^4.0"
 pytest                   = "^6.2"
 pytest-cov               = "^2.11"
 sphinx                   = "^4.0"
 sphinx-autoapi           = "^1.5"
 sphinx-copybutton        = "^0.4"
-sphinx-rtd-theme         = "^0.5"
+sphinx-rtd-theme         = "^1.0"
 tomlkit                  = "^0.7"
 
 # These are used directly in the default build pipeline
