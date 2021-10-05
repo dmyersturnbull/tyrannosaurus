@@ -16,7 +16,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "tyrannosaurus"
-version = "0.10.5"
+version = "0.10.4"
 description = "Generate beautifully modern Python projects with seamless, GitHub-based CI/CD and loads of integrations."
 authors = ["Douglas Myers-Turnbull"]
 maintainers = ["Douglas Myers-Turnbull"]
@@ -40,11 +40,6 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Build Tools",
     "Topic :: Software Development :: Code Generators"
-]
-include = [
-    "README.md",
-    "LICENSE.txt",
-    "CHANGELOG.md"
 ]
 
 [tool.poetry.urls]
@@ -141,16 +136,14 @@ grayskull                = ">=0.8.5, <1"
 
 [tool.poetry.dev-dependencies]
 bandit                   = "^1.7"
-black                    = "==21.9b0"
-coverage                 = {extras = ["toml"], version = "^5.5"}
+coverage                 = {extras = ["toml"], version = "^6"}
 flake8                   = "^3.9"
 flake8-bugbear           = ">=21"
 flake8-docstrings        = "^1.5"
-mypy                     = "^0.910"
 pre-commit               = "^2.15"
 pre-commit-hooks         = "^4.0"
 pytest                   = "^6.2"
-pytest-cov               = "^2.11"
+pytest-cov               = "^3"
 sphinx                   = "^4.0"
 sphinx-autoapi           = "^1.5"
 sphinx-copybutton        = "^0.4"
