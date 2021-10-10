@@ -1,21 +1,43 @@
-# Check http://editorconfig.org for more information
-# Useful: https://ukupat.github.io/tabs-or-spaces/
+# Check https://editorconfig.org for more information
+# These are derived from https://ukupat.github.io/tabs-or-spaces/
+# The most majority indentation style was selected for each language
 root = true
 
 [*]
 end_of_line = lf
 charset = utf-8
+
+# 4-space
+[*.{py,c,cpp,inc,h,s,asm,m,mm,ps1,bat,cs,d,erl,fsx,java,groovy,gradle,julia,php,rs,swift,ts,kt,kts,pl,perl,f90,f95,f03,f08,f15,f18}]
+# excludes Fortran fixed-form (e.g. .f/.ftn); these have weird indentation rules
+indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
 insert_final_newline = true
+
+# 2-space
+[{Dockerfile,Vagrantfile,*.scala,*.sbt,*.coffee,*.dart,*.js,*.sh,*.sql,*.hs,*.lhs,*.purs,*.ml,*.sml,*.R,*.rb,*.pas,*.dfm,*.clj,*.lisp,*.ex,*.exs,*.yml,*.yaml,*.json,*.jsonnet,*.xml,*.xaml,*.vim,*.vimrc,*.css,*.tex,*.html,*.htm,*.yy,*.asciidoc,*.pod,*.ini,*.toml}]
 indent_style = space
-
-[*.{yml,yaml,json,scala,sbt,coffee,css,js,sh,sql,tex,xml,html,htm,hs,ml,pp,R,rb}]
 indent_size = 2
+trim_trailing_whitespace = true
+insert_final_newline = true
 
-[*.md]
+# tab
+[{Makefile,*.mk,*.go,*.hx,*.lua,*.sas,*.ahk,*.vala,*.sdc}]
+indent_style = tab
+insert_final_newline = true
+
+# markdown; 2-space
+[*.{md,mdown,markdown}]
+# Markdown uses two trailing spaces for a line break
+indent_style = space
 indent_size = 2
 trim_trailing_whitespace = false
 
-[*.{go,lua,vala,v}]
+# CSV-like
+[*.{tsv,tab,csv}]
+# do NOT add a newline or trim whitespace
+# indent_style=tab seems safer but is probably not necessary
 indent_style = tab
+trim_trailing_whitespace = false
+insert_final_newline = false

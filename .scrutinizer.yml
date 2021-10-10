@@ -1,11 +1,11 @@
 build:
   environment:
-    python: 3.9.5
+    python: 3.9.7
   nodes:
     my-tests:
       dependencies:
         before:
-          - "pip install --upgrade 'tox>=3.21,<4.0'"
+          - "pip install --upgrade 'tox>=3.24,<4.0'"
           - "pip install --upgrade 'poetry>=1.1.4,<2.0'"
     analysis:
       tests:
