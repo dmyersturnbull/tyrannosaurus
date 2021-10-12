@@ -62,6 +62,7 @@ repos:
     hooks:
       - id: isort
         name: isort (python)
+        args: ["--profile", "black"]
   # make sure to run black *after* isort
   - hooks:
       - id: black
@@ -71,6 +72,11 @@ repos:
     rev: v1.11.0
     hooks:
       - id: blacken-docs
+  # run black on Jupyter notebooks
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.1.1
+    hooks:
+      - id: nbqa-black
   - repo: https://github.com/pre-commit/mirrors-prettier
     hooks:
       - id: prettier

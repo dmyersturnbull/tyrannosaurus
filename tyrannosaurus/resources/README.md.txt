@@ -9,7 +9,7 @@
 [![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/$${project}?label=Conda-Forge)](https://anaconda.org/conda-forge/$${project})
 [![Documentation status](https://readthedocs.org/projects/$${project}/badge)](https://$${project}.readthedocs.io/en/stable)
 [![Build (GitHub Actions)](https://img.shields.io/github/workflow/status/$${user}/$${project}/Build%20&%20test?label=Build%20&%20test)](https://github.com/$${user}/$${project}/actions)
-[![Build (Travis)](https://img.shields.io/travis/$${user}/$${project}?label=Travis)](https://travis-ci.com/$${user}/$${project})
+[![Build (Travis)](https://img.shields.io/travis/$${user}/$${project}?label=Travis)](https://travis-ci.com/github/$${user}/$${project})
 [![Build (Azure)](https://img.shields.io/azure-devops/build/$${user}/<<key>>/<<defid>>?label=Azure)](https://dev.azure.com/$${user}/$${project}/_build?definitionId=1&_a=summary)
 [![Build (Scrutinizer)](https://scrutinizer-ci.com/g/$${user}/$${project}/badges/build.png?b=main)](https://scrutinizer-ci.com/g/$${user}/$${project}/build-status/main)
 [![Test coverage (coveralls)](https://coveralls.io/repos/github/$${user}/$${project}/badge.svg?branch=main&service=github)](https://coveralls.io/github/$${user}/$${project}?branch=main)

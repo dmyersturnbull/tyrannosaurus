@@ -6,7 +6,7 @@
 [![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyrannosaurus?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyrannosaurus)
 [![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/tyrannosaurus?label=Conda-Forge)](https://anaconda.org/conda-forge/tyrannosaurus)  
 [![Build (Actions)](https://img.shields.io/github/workflow/status/dmyersturnbull/tyrannosaurus/maintest?label=Tests)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
-[![Build (Travis)](https://badgen.net/travis/dmyersturnbull/tyrannosaurus?label=Travis)](https://travis-ci.com/dmyersturnbull/tyrannosaurus)
+[![Build (Travis)](https://badgen.net/travis/dmyersturnbull/tyrannosaurus?label=Travis)](https://travis-ci.com/github/dmyersturnbull/tyrannosaurus)
 [![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge)](https://tyrannosaurus.readthedocs.io/en/stable/)
 [![Coverage (coveralls)](https://badgen.net/coveralls/c/github/dmyersturnbull/tyrannosaurus?label=Coveralls)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=main)
 [![Coverage (codecov)](https://badgen.net/codecov/c/github/dmyersturnbull/tyrannosaurus?label=CodeCov)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus)  
@@ -166,7 +166,7 @@ Here are features that other tools lack:
 #### 🏁 Feature table
 
 | Tool                                                                                     | Main techs                 | CD kickoff     | N int.† | modern‡ | Docker | Conda | sync | any-OS |
-| ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | ------ | ----- | ---- | ------ |
+| ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | ------ | ----- | ---- | ------ | --- |
 | Tyranosaurus                                                                             | Actions, Poetry, Tox       | git, GitHub    | 30      | ✔️      | ✔️     | ✔️    | ✔️   | ✔️     |
 | [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)       | Actions, Poetry, Nox       | git, Poetry    | 20      | ✔️      |        |       |      | ✔️     |
 | [copier-poetry](https://github.com/pawamoy/copier-poetry)                                | Actions, Poetry, Make      | git, manual    | 15      |         | ✔️     |       | ✔️   |        |
