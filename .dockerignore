@@ -11,7 +11,7 @@ docs
 .codeclimate.yml
 .coveralls.yml
 .dockerignore
-readthedocs.yml
+.readthedocs.yml
 .git
 .gitignore
 recipes
