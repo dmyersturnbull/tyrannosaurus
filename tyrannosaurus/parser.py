@@ -40,10 +40,8 @@ class LiteralParser:
 
     def parse(self, s: str) -> str:
         today, now, now_utc = TyrannoInfo.today, TyrannoInfo.now, TyrannoInfo.now_utc
-        timestamp, utc_stamp = (
-            TyrannoInfo.pretty_timestamp_with_offset,
-            TyrannoInfo.pretty_timestamp_utc,
-        )
+        timestamp = TyrannoInfo.pretty_timestamp_with_offset
+        utc_stamp = TyrannoInfo.pretty_timestamp_utc
         reps = {
             "today": str(today),
             "today.str": today.strftime("%Y-%m-%d"),

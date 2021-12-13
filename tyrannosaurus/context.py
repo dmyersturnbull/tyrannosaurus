@@ -20,7 +20,7 @@ from typing import Tuple as Tup
 from typing import Union
 
 from tyrannosaurus import TyrannoInfo
-from tyrannosaurus.enums import DevStatus, Toml, License
+from tyrannosaurus.enums import DevStatus, License, Toml
 from tyrannosaurus.parser import LiteralParser
 
 logger = logging.getLogger(__package__)
@@ -184,6 +184,7 @@ class Context:
         return key in self.options
 
     def source(self, key: str):
+
         return self.sources[key]
 
     def path_source(self, key: str) -> Path:

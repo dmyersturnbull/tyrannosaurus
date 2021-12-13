@@ -69,7 +69,7 @@ _By default_, here’s how your new project will behave:
 ### 🎁 Full features / integrations
 
 - Packaging and dependency management with [Poetry](https://python-poetry.org/)
-- Python 3.8, 3.9, and 3.10 (3.6 and 3.7 with a small change)
+- Python 3.6 thru 3.10
 - Only modern files: _no_ manifest file, setup.py, requirements.txt, setup.cfg, or eggs
 - Continuous integration with [GitHub Actions](https://github.com/features/actions),
   [Travis](https://www.travis-ci.com/), or
@@ -166,7 +166,7 @@ Here are features that other tools lack:
 #### 🏁 Feature table
 
 | Tool                                                                                     | Main techs                 | CD kickoff     | N int.† | modern‡ | Docker | Conda | sync | any-OS |
-| ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | ------ | ----- | ---- | ------ |
+| ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | ------ | ----- | ---- | ------ | --- |
 | Tyranosaurus                                                                             | Actions, Poetry, Tox       | git, GitHub    | 30      | ✔️      | ✔️     | ✔️    | ✔️   | ✔️     |
 | [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)       | Actions, Poetry, Nox       | git, Poetry    | 20      | ✔️      |        |       |      | ✔️     |
 | [copier-poetry](https://github.com/pawamoy/copier-poetry)                                | Actions, Poetry, Make      | git, manual    | 15      |         | ✔️     |       | ✔️   |        |

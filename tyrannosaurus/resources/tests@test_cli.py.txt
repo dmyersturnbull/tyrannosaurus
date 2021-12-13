@@ -1,6 +1,7 @@
 """
 Tests for command-line interface.
 
+Original source: https://github.com/$${user}/$${project}
 $${license.header}
 """
 import contextlib

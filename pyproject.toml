@@ -59,18 +59,10 @@ sort  = true
 [tool.tyrannosaurus.sources]
 doc_license        = "'CC BY 4.0'"
 doc_license_url    = "'https://creativecommons.org/licenses/by/4.0'"
-metavm             = "'ubuntu-20.04'"
-metavmbox          = "'ubuntu/focal64'"
-pymetaversion      = "'3.9'"
-pycompatversions   = "tool.poetry.dependencies"
-pytoxversions      = "tool.poetry.dependencies"
 status             = "'Development'"
 date               = "'${today}'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
-devdeps            = "tool.poetry.dev-dependencies"
-precommitvr        = "tool.poetry.dev-dependencies"
-precommitconfigvr  = "tool.poetry.dev-dependencies"
 linelength         = "tool.black.line-length"
 copyright          = "'Douglas Myers-Turnbull 2020–2021'"
 authors            = [
@@ -85,14 +77,6 @@ long_description   = """'
     You only need to interact with your project via git, tyrannosaurus, and GitHub releases – all other integrations
     kick off from there.
     '"""
-importorderstyle   = "'google'"
-docstringstyle     = "'google'"
-
-[tool.tyrannosaurus.sources.flake8skip]
-# 212 and 213 contradict; 203 and 204 contradict; D302 is not relevant in Py3
-# D107 isn't needed sometimes; and the rest are overly picky
-all   = "'W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293'"
-test  = "'D100,D101,D102,D103,D104,S101,W503,E203,E225,E301,E302,E501,D107,D200,D205,D400,D403,D409,D410,D411,D212,W391,W293'"
 
 [tool.tyrannosuarus.paths]
 recipe             = "'recipes/${name}/meta.yaml'"
@@ -136,7 +120,7 @@ grayskull                = ">=0.9, <1"
 [tool.poetry.dev-dependencies]
 bandit                   = "^1.7"
 flake8                   = "^4"
-flake8-bugbear           = ">=21.9.2"
+flake8-bugbear           = ">=21.11"
 flake8-docstrings        = "^1.6"
 coverage                 = {extras = ["toml"], version = "^6"}
 nbqa                     = "^1.1"
@@ -144,7 +128,7 @@ pre-commit               = "^2.15"
 pre-commit-hooks         = "^4.0"
 pytest                   = "^6.2"
 pytest-cov               = "^3"
-sphinx                   = "^4.2"
+sphinx                   = "^4.3"
 sphinx-autoapi           = "^1.8"
 sphinx-copybutton        = "^0.4"
 sphinx-rtd-theme         = "^1.0"
@@ -194,6 +178,7 @@ target-version = ["py38", "py39"]
 
 [tool.isort]
 line_length = 100
+profile = "black"
 
 [mypy]
 check_untyped_defs = true

@@ -5,7 +5,7 @@ branches:
   only: [main, master]
 
 language: python
-python: ["3.10"]
+python: ["3.9"]
 
 install:
   - pip install tox poetry
