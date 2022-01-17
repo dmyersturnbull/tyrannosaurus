@@ -66,6 +66,12 @@ _By default_, here’s how your new project will behave:
 - `tyrannosaurus update` ⇒ New dependency versions from PyPi and/or Conda are listed
 - `tyrannosaurus clean` ⇒ Remove temp files (`--aggressive` for more)
 
+#### 📦 Need a little help!
+
+_Packages are currently not pushed to the GitHub Container Registry!_
+_If you know how to use QEMU and Dockerx, please take a look at_
+_[this workflow](https://github.com/dmyersturnbull/tyrannosaurus/blob/b6a731464a212ad851ea13c8b4ffaba3885813a6/.github/workflows/publish.yml)._
+
 ### 🎁 Full features / integrations
 
 - Packaging and dependency management with [Poetry](https://python-poetry.org/)

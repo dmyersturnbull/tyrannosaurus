@@ -1,6 +1,6 @@
 # Check out https://pre-commit.com/ for documentation
 # and https://pre-commit.com/hooks.html for more hooks
-minimum_pre_commit_version: 2.15.0
+minimum_pre_commit_version: 2.16.0
 # Don't set language_version -- it's only useful if we have multiple
 # python versions or our build uses a different env than runtime
 repos:
@@ -36,14 +36,14 @@ repos:
       - id: check-yaml
         exclude: ^recipes/.*
     repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.1.0
 
   # --- Commit msg checks ---
   - hooks:
       - id: commitizen
         stages: ["commit-msg"]
     repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.20.0
+    rev: v2.20.3
 
   # --- Strip output from .ipynb files ---
   # - hooks:
@@ -73,7 +73,7 @@ repos:
       - id: blacken-docs
   # run black on Jupyter notebooks
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.2.2
+    rev: 1.2.3
     hooks:
       - id: nbqa-black
   - repo: https://github.com/pre-commit/mirrors-prettier
