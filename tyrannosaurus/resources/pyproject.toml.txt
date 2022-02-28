@@ -111,7 +111,7 @@ typer                    = "^0.4"
 
 # These are used in the GitHub workflows (under `.github/workflows/`)
 coverage                 = {extras = ["toml"], version = "^6.0"}
-tomlkit                  = ">=0.8, <1.0"
+tomlkit                  = ">=0.10, <1.0"
 
 # These are used in `tox.ini`
 # You can remove these, but modify tox.ini as needed
@@ -122,10 +122,10 @@ flake8-bugbear           = ">=22.1"
 flake8-docstrings        = "^1.6"
 mypy                     = ">=0.910, <1.0"
 nbqa                     = "^1.2"
-pre-commit               = "^2.16"
+pre-commit               = "^2.17"
 pre-commit-hooks         = "^4.1"
-pytest                   = "^6.2"
-pytest-cov               = "^3.0"
+pytest                   = "^7"
+pytest-cov               = "^3"
 sphinx                   = "^4.4"
 sphinx-autoapi           = "^1.8"
 sphinx-copybutton        = "^0.4"

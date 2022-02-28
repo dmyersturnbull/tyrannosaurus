@@ -112,10 +112,10 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
 python                   = "^3.8"
-tomlkit                  = ">=0.8, <1"
+tomlkit                  = ">=0.10, <1"
 typer                    = ">=0.4, <1"
 requests                 = "^2.27"
-grayskull                = ">=0.9, <1"
+grayskull                = "^1"
 
 [tool.poetry.dev-dependencies]
 bandit                   = "^1.7"
@@ -124,15 +124,14 @@ flake8-bugbear           = ">=22.1"
 flake8-docstrings        = "^1.6"
 coverage                 = {extras = ["toml"], version = "^6"}
 nbqa                     = "^1.2"
-pre-commit               = "^2.16"
+pre-commit               = "^2.17"
 pre-commit-hooks         = "^4.1"
-pytest                   = "^6.2"
+pytest                   = "^7"
 pytest-cov               = "^3"
 sphinx                   = "^4.4"
 sphinx-autoapi           = "^1.8"
 sphinx-copybutton        = "^0.4"
 sphinx-rtd-theme         = "^1.0"
-tomlkit                  = "^0.8"
 
 
 #########################################################################################
