@@ -15,6 +15,8 @@ from pathlib import Path
 from typing import Optional, Sequence
 
 from grayskull.base.factory import GrayskullFactory
+from grayskull.config import Configuration
+from grayskull.utils import PyVer
 
 from tyrannosaurus.context import Context
 from tyrannosaurus.sync import Sync
@@ -41,7 +43,11 @@ class Recipe:
         if yaml_path.exists():
             context.delete_exact_path(yaml_path, False)
         wt.mkdir(parents=True, exist_ok=True)
-        skull = GrayskullFactory.create_recipe("pypi", context.poetry("name"), "")
+        config = Configuration(
+            name=context.poetry("name"),
+            version=context.poetry("version"),
+        )
+        skull = GrayskullFactory.create_recipe("pypi", config, context.poetry("name"))
         skull.generate_recipe(str(output_dir), mantainers=context.source("maintainers").split(","))
         logger.debug(f"Generated a new recipe at {output_dir}/meta.yaml")
         helper = Sync(context)
