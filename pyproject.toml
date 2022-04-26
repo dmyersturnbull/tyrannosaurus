@@ -133,7 +133,7 @@ pytest                   = "^7"
 pytest-cov               = "^3"
 sphinx                   = "^4.4"
 sphinx-autoapi           = "^1.8"
-sphinx-copybutton        = "^0.4"
+sphinx-copybutton        = "^0.5"
 sphinx-rtd-theme         = "^1.0"
 
 
