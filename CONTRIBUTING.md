@@ -48,8 +48,7 @@ Feel free to make a draft pull request and solicit feedback from the authors.
 
 ### Publishing a new version
 
-1. Bump the version in `tool.poetry.version` in `pyproject.toml`, following
-   [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+1. Bump the version in `tool.poetry.version` in `pyproject.toml`, following the rules described below.
 2. Run `tyrannosaurus sync` so that the Poetry lock file is up-to-date
    and metadata are synced to pyproject.toml.
 3. Create a [new release](https://github.com/dmyersturnbull/tyrannosaurus/releases/new)
@@ -66,3 +65,47 @@ Feel free to make a draft pull request and solicit feedback from the authors.
    changes from regro-cf-autotick-bot. You can alternatively re-run `tyrannosaurus recipe`
    to generate a new recipe and copy it to the feedstock.
 6. Twenty minutes later, verify that the Conda-Forge shield is updated.
+
+#### Versioning
+
+Versioning is a subset of [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+Git tags and GitHub releases use this notation, prefixed with `v` (e.g. `v0.1.1`).
+
+- Stable releases MUST use: `major "." minor "." patch ["+" platform]`.
+- Pre-alpha releases MUST use: `major "." minor "." patch "-" build "+" [platform "."]`,
+  where `build` increments per tag starting at _0_.
+- Alpha, beta, and RC releases, if used, increment per tag starting at 1 (e.g. `alpha1`).
+  Alpha/beta/RC MUST NOT be used out of order (e.g. NOT `alpha1`, `beta1`, `alpha2`).
+  If major version > 0, releases lacking a build tag SHOULD be preceded by at least one
+  alpha, beta, or RC release.
+- If major version = 0, unstable releases MAY include a build tag.
+
+**In EBNF:**
+
+```
+version    = major , "." , minor , "." , patch , ["-" , build] , ["+" , platform] ;
+major      = number ;
+minor      = number ;
+patch      = number ;
+build      = number | (("alpha" | "beta" | "rc") , positive) ;
+platform   = os | arch | (os , "." , arch) ;
+os         = tag ;
+arch       = tag ;
+
+-- where (with regex):
+tag        = [a-z]+ [a-z0-9]+
+positive   = [1-9]  [0-9]+
+number     = [0-9]+
+```
+
+**Illustration – example release history:**
+
+1. `0.1.0`
+2. `0.1.1`
+3. `0.2.0-0 +1ca8da40`
+4. `0.2.0-1 +f1c045ae`
+5. `0.2.0`
+6. `1.0.0-0 +10f011ca`
+7. `0.2.1`
+8. `1.0.0-rc1+aa40c1cf`
+9. `1.0.0 +win11.1ca8da40`

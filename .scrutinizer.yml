@@ -5,7 +5,7 @@ build:
     my-tests:
       dependencies:
         before:
-          - "pip install --upgrade 'tox>=3.24,<4.0'"
+          - "pip install --upgrade 'tox>=3.25,<4.0'"
           - "pip install --upgrade 'poetry>=1.1,<2.0'"
     analysis:
       tests:
