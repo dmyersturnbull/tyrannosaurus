@@ -1,4 +1,4 @@
-Copyright 2020–2021 Douglas Myers-Turnbull
+Copyright 2020–2021 The authors
 
 
                                  Apache License

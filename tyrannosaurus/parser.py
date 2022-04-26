@@ -94,7 +94,7 @@ class LiteralParser:
     def download_license_template(self, header: bool) -> str:
         text = self.license.download_header() if header else self.license.download_license()
         return (
-            text.replace("{{ organization }}", ", ".join(self.authors))
+            text.replace("{{ organization }}", self.project + " authors")
             .replace("{{ year }}", str(TyrannoInfo.today.year))
             .replace("{{ project }}", self.project)
         )
