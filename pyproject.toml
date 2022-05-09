@@ -127,7 +127,7 @@ flake8-docstrings        = "^1.6"
 flake8-simplify          = "^0.19"
 coverage                 = {extras = ["toml"], version = "^6"}
 nbqa                     = "^1.2"
-pre-commit               = "^2.17"
+pre-commit               = "^2.19"
 pre-commit-hooks         = "^4.1"
 pytest                   = "^7"
 pytest-cov               = "^3"
