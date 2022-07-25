@@ -171,22 +171,22 @@ Here are features that other tools lack:
 
 #### 🏁 Feature table
 
-| Tool                                                                                     | Main techs                 | CD kickoff     | N int.† | modern‡ |     | Docker | Conda | sync | any-OS |
-| ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | --- | ------ | ----- | ---- | ------ |
-| Tyranosaurus                                                                             | Actions, Poetry, Tox       | git, GitHub    | 30      | ✔️      | ✔️  | ✔️     | ✔️    | ✔️   |
-| [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)       | Actions, Poetry, Nox       | git, Poetry    | 20      | ✔️      |     |        |       | ✔️   |
-| [copier-poetry](https://github.com/pawamoy/copier-poetry)                                | Actions, Poetry, Make      | git, manual    | 15      |         | ✔️  |        | ✔️    |      |
-| [python-package-template](https://github.com/TezRomacH/python-package-template)          | Actions, Poetry, Tox, Make | git, Make      | 20      | ✔️      | ✔️  |        |       |      |
-| [pyscaffold](https://github.com/pyscaffold/pyscaffold)                                   | setuptools, Tox            | Gitlab, manual | 10      |         |     |        |       | ✔️   |
-| [wemake-python-package](https://github.com/wemake-services/wemake-python-package)        | Actions, Poetry, Make      | git, Poetry    | 10      | ✔️      |     |        |       |      |
-| [best-practices](https://github.com/sourcery-ai/python-best-practices-cookiecutter)      | Actions, pipenv            | git, pipenv    | 10      |         | ✔️  |        |       | ✔️   |
-| [python-blueprint](https://github.com/johnthagen/python-blueprint)                       | Actions, setuptools, Tox   | git, manual    | 5       |         | ✔️  |        |       | ✔️   |
-| [cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage)        | Travis, setuptools, Tox    | git, manual    | 10      |         |     |        |       |      |
-| [cookiecutter-pylibrary](https://github.com/ionelmc/cookiecutter-pylibrary)              | Travis, setuptools, Tox    | git, manual    | 20      |         |     |        |       |      | ✔️     |
-| [cookiecutter-django](https://github.com/pydanny/cookiecutter-django)                    | Actions, setuptools, Tox   | git, manual    | 15      |         | ✔️  |        |       | ✔️   |
-| [django-init](https://github.com/Fueled/django-init)                                     | Actions, setuptools, Make  | git, manual    | 15      |         | ✔️  |        |       | ✔️   |
-| [docker-science](https://github.com/docker-science/cookiecutter-docker-science)          | Make, Docker, setuptools   | no CI/CD       | 15      |         | ✔️  |        |       |      |
-| [science-notebook-template](https://github.com/dmyersturnbull/science-notebook-template) | Conda                      | no CI/CD       | 5       |         | ✔️  |        |       | ✔️   |
+| Tool                                                                                     | Main techs                 | CD kickoff     | N int.† | modern‡ | Docker  | Conda | sync | any-OS |
+| ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | ------ | ------ | ----- | ----  |
+| Tyranosaurus                                                                             | Actions, Poetry, Tox       | git, GitHub    | 30      | ✔️      | ✔️      | ✔️     | ✔️    | ✔️    |
+| [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)       | Actions, Poetry, Nox       | git, Poetry    | 20      | ✔️      |         |        |       | ✔️   |
+| [copier-poetry](https://github.com/pawamoy/copier-poetry)                                | Actions, Poetry, Make      | git, manual    | 15      |         | ✔️      |        | ✔️    |      |
+| [python-package-template](https://github.com/TezRomacH/python-package-template)          | Actions, Poetry, Tox, Make | git, Make      | 20      | ✔️      | ✔️      |        |       |      |
+| [pyscaffold](https://github.com/pyscaffold/pyscaffold)                                   | setuptools, Tox            | Gitlab, manual | 10      |         |         |        |       | ✔️   |
+| [wemake-python-package](https://github.com/wemake-services/wemake-python-package)        | Actions, Poetry, Make      | git, Poetry    | 10      | ✔️      |         |        |       |      |
+| [best-practices](https://github.com/sourcery-ai/python-best-practices-cookiecutter)      | Actions, pipenv            | git, pipenv    | 10      |         | ✔️      |        |       | ✔️   |
+| [python-blueprint](https://github.com/johnthagen/python-blueprint)                       | Actions, setuptools, Tox   | git, manual    | 5       |         | ✔️      |        |       | ✔️   |
+| [cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage)        | Travis, setuptools, Tox    | git, manual    | 10      |         |         |        |       |      |
+| [cookiecutter-pylibrary](https://github.com/ionelmc/cookiecutter-pylibrary)              | Travis, setuptools, Tox    | git, manual    | 20      |         |         |        |       |  ✔  | 
+| [cookiecutter-django](https://github.com/pydanny/cookiecutter-django)                    | Actions, setuptools, Tox   | git, manual    | 15      |         | ✔️      |        |       | ✔️   |
+| [django-init](https://github.com/Fueled/django-init)                                     | Actions, setuptools, Make  | git, manual    | 15      |         | ✔️      |        |       | ✔️   |
+| [docker-science](https://github.com/docker-science/cookiecutter-docker-science)          | Make, Docker, setuptools   | no CI/CD       | 15      |         | ✔️      |        |       |      |
+| [science-notebook-template](https://github.com/dmyersturnbull/science-notebook-template) | Conda                      | no CI/CD       | 5       |         | ✔️      |        |       | ✔️   |
 
 **† _N int._**: Approximate number of built-in integrations with tools and standards. What counts is very roughly defined.  
 **‡ _Modern_**: Lacks legacy files and tools. I’m including Make, setuptools, pipenv, and some others.  
