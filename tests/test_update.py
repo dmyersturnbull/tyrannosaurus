@@ -13,11 +13,8 @@ class TestUpdate:
             context = Context(path, dry_run=True)
             update = Update(context)
             pkgs, devs = update.update()
-            assert len(pkgs) == 4
-            assert "grayskull" in pkgs
-            assert len(devs) >= 6
-            assert "pytest" in devs
-            # assert "sphinx" in devs or "Sphinx" in devs
+            assert list(sorted(pkgs.keys())) == ["requests", "tomlkit", "typer"]
+            assert list(devs) == ["pytest"]
 
 
 if __name__ == "__main__":

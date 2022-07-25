@@ -1,11 +1,11 @@
 import pytest
 
-from tyrannosaurus.recipes import Recipe
-from tyrannosaurus.envs import CondaEnv
+from tests import TestResources
 
 # noinspection PyProtectedMember
 from tyrannosaurus.context import Context
-from tests import TestResources
+from tyrannosaurus.envs import CondaEnv
+from tyrannosaurus.recipes import Recipe
 
 
 class TestConda:
@@ -16,9 +16,8 @@ class TestConda:
             env = CondaEnv("fakeenv", False, False)
             txt = "\n".join(env.create(context, output_env_path))
             assert "name: fakeenv" in txt
-            assert "grayskull" in txt
             assert "pip:" not in txt
-            assert "sphinx" not in txt
+            assert "pytest" not in txt
 
     def test_recipe(self):
         with TestResources.temp_dir(copy_resource="fake") as path:

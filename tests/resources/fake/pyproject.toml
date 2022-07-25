@@ -12,7 +12,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "grayskull"
-version = "0.1.0"
+version = "1.4.0"
 description = "A mock project."
 authors = ["Fake Person"]
 maintainers = ["Fake Person"]
@@ -83,33 +83,14 @@ changelog    = false
 
 [tool.poetry.dependencies]
 python                   = ">=3.8, <4"
-tomlkit                  = "^0.11"
-typer                    = "^0.6"
+tomlkit                  = "^0.10"
+typer                    = "^0.5"
 requests                 = "^2.23"
-grayskull                = "^1.4"
 
 [tool.poetry.dev-dependencies]
-pre-commit               = "^2.20"
-pytest                   = "^7"
-coverage                 = {extras = ["toml"], version = "^6"}
-pytest-cov               = "^3"
-sphinx                   = "^5"
-sphinx-autoapi           = "^1.8"
-sphinx-rtd-theme         = "^1"
-mypy                     = "^0.900"
-flake8                   = "^4"
-flake8-docstrings        = "^1.6"
-black                    = "=22.6.0"
-sphinx-autodoc-typehints = "^1.10"
-xdoctest                 = "^1"
-hypothesis               = "^6"
-flake8-bugbear           = ">=22"
-
+pytest               = "=7.1.1"
 
 [tool.poetry.extras]
-# manually listed
-docs    = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi"]
-
 
 #########################################################################################
 # Style checking
