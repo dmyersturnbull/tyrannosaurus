@@ -2,6 +2,7 @@ import pytest
 
 from tyrannosaurus.context import Context
 from tyrannosaurus.update import Update
+
 from . import TestResources
 
 
@@ -12,7 +13,7 @@ class TestUpdate:
             context = Context(path, dry_run=True)
             update = Update(context)
             pkgs, devs = update.update()
-            assert len(pkgs) == 5
+            assert len(pkgs) == 4
             assert "grayskull" in pkgs
             assert len(devs) >= 6
             assert "pytest" in devs

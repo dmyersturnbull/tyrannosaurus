@@ -3,7 +3,15 @@
 Adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.10.x] - ongoing
+## [0.11.x] - 2022-07-24
+
+### Changed
+
+- Bumped Grayskull to v1 (1.4)
+- Bumped CI and dev deps
+- readthedocs, Docker, and Travis now use Python 3.10
+
+## [0.11.x] - 2021-10-05
 
 ### Changed
 
