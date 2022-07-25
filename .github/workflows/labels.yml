@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Configure issue labels
-        uses: lannonbr/issue-label-manager-action@3.0.0
+        uses: lannonbr/issue-label-manager-action@3.0.1
         with:
           delete: true
         env:
