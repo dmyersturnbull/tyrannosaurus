@@ -44,6 +44,7 @@ project = find("tool.poetry.name")
 version = find("tool.poetry.version")
 release = version
 author = ", ".join(find("tool.poetry.authors", as_type=list))
+language = "en"
 
 # Copyright string (for documentation)
 # It's not clear whether we're supposed to, but we'll add the license
@@ -77,11 +78,11 @@ autoapi_options = ["private-members", "undoc-members", "special-members"]
 # These can be specific to the theme, or processed by Sphinx directly
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 html_theme = "sphinx_rtd_theme"
-html_theme_options = dict(
-    collapse_navigation=False,
-    navigation_depth=False,
-    style_external_links=True,
-)
+html_theme_options = {
+    "collapse_navigation": False,
+    "navigation_depth": False,
+    "style_external_links": True,
+}
 
 # doc types to build
 sphinx_enable_epub_build = False

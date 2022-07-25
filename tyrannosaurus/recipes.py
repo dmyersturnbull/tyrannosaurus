@@ -16,7 +16,6 @@ from typing import Optional, Sequence
 
 from grayskull.base.factory import GrayskullFactory
 from grayskull.config import Configuration
-from grayskull.utils import PyVer
 
 from tyrannosaurus.context import Context
 from tyrannosaurus.sync import Sync
@@ -33,7 +32,6 @@ class Recipe:
         Creates the recipe file.
 
         Args:
-
             output_dir: Probably called "recipes"
         """
         context = self.context

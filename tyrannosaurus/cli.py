@@ -13,8 +13,8 @@ import inspect
 import logging
 import os
 import re
-from pathlib import Path
 from dataclasses import dataclass
+from pathlib import Path
 from subprocess import check_call  # nosec
 from typing import Optional, Sequence
 
@@ -22,12 +22,12 @@ import typer
 from typer.models import ArgumentInfo, OptionInfo
 
 from tyrannosaurus.clean import Clean
-from tyrannosaurus.recipes import Recipe
-from tyrannosaurus.envs import CondaEnv
 from tyrannosaurus.context import Context
 from tyrannosaurus.enums import DevStatus, License
+from tyrannosaurus.envs import CondaEnv
 from tyrannosaurus.helpers import _Env
 from tyrannosaurus.new import New
+from tyrannosaurus.recipes import Recipe
 from tyrannosaurus.sync import Sync
 from tyrannosaurus.update import Update
 
@@ -35,6 +35,7 @@ logger = logging.getLogger(__package__)
 
 
 def flag(name: str, desc: str, **kwargs) -> typer.Option:
+    """Generates a flag-like Typer Option."""
     return typer.Option(False, "--" + name, help=desc, show_default=False, **kwargs)
 
 
@@ -138,9 +139,9 @@ class CliCommands:
         status: Optional[str] = typer.Option(
             None,
             help=inspect.cleandoc(
-                rf"""
+                """
                 PyPi classifier for dev status.
-                One of: {", ".join(DevStatus)}
+                One of: planning, pre_alpha, alpha, beta, production, mature, inactive
                 [default: chosen by 'version']
                 """
             ),
@@ -151,7 +152,7 @@ class CliCommands:
         tyranno: str = typer.Option(
             "current",
             help=inspect.cleandoc(
-                r"""
+                """
                 Tyrannosaurus version to use as the template.
                 Choices: an exact version, 'current' (this version), 'stable', or 'latest'.
                 """

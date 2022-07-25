@@ -116,10 +116,9 @@ class Context:
         return self.data["tool.poetry.extras"]
 
     def destroy_tmp(self) -> bool:
-        if not self.dry_run:
-            if self.tmp_path.exists():
-                shutil.rmtree(str(self.tmp_path))
-                return True
+        if not self.dry_run and self.tmp_path.exists():
+            shutil.rmtree(str(self.tmp_path))
+            return True
         return False
 
     def back_up(self, path: Union[Path, str]) -> None:

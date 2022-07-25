@@ -2,10 +2,11 @@ from datetime import date
 
 import pytest
 
+from tests import TestResources
+
 # noinspection PyProtectedMember
 from tyrannosaurus.context import Context
 from tyrannosaurus.sync import Sync
-from tests import TestResources
 
 
 class TestSync:

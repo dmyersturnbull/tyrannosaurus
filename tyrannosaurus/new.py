@@ -15,13 +15,13 @@ import os
 import shutil
 import stat
 from pathlib import Path
-from subprocess import CalledProcessError, check_output, PIPE  # nosec
-from typing import Dict, Sequence, Union, Optional, List
+from subprocess import PIPE, CalledProcessError, check_output  # nosec
+from typing import Dict, List, Optional, Sequence, Union
 
 import typer
 
-from tyrannosaurus.parser import LiteralParser
 from tyrannosaurus.enums import DevStatus, License
+from tyrannosaurus.parser import LiteralParser
 
 tyranno_url = "https://github.com/dmyersturnbull/tyrannosaurus.git"
 logger = logging.getLogger(__package__)
@@ -223,7 +223,7 @@ class New:
         succeed: Optional[str] = None,
         fail: Union[None, str, BaseException] = None,
     ) -> Optional[str]:
-        kwargs: Dict[str, str] = {} if cwd is None else dict(cwd=str(cwd))
+        kwargs: Dict[str, str] = {} if cwd is None else {"cwd": str(cwd)}
         if not self.debug:
             kwargs["stderr"] = PIPE
         try:

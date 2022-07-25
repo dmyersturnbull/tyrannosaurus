@@ -23,10 +23,8 @@ or use ``--track`` and just modify the git remote afterward.
 Getting your first commit on GitHub
 +++++++++++++++++++++++++++++++++++
 
-1. **Create a repo:** Create an *non-initialized* repository under ``userororgname/projectname``.
-   (Don’t add a readme, etc.) Install `Probot Settings <https://github.com/apps/settings>`_:  in your repo.
-3. **Delete unwanted files:** Delete ``.github/labels.json``, ``.github/workflows/labels.yml``, ``.travis.yml``,
-   and ``.azure-pipelines.yml``, assuming you’re not using them. You might also not want ``codemeta.json``, ``CITATION.cff``, ``environment.yml``, or ``Vagrantfile``.
+1. **Create a repo:** Create an *non-initialized* repository under ``userororgname/projectname``. (Don’t add a readme, etc.) Install `Probot Settings <https://github.com/apps/settings>`_:  in your repo.
+3. **Delete unwanted files:** Delete ``.github/labels.json``, ``.github/workflows/labels.yml``, ``.travis.yml``, and ``.azure-pipelines.yml``, assuming you’re not using them. You might also not want ``codemeta.json``, ``CITATION.cff``, ``environment.yml``, or ``Vagrantfile``.
 4. Modify ``pyproject.toml`` and ``README.md``.
 5. Add an entry to ``CHANGELOG.md`` and run ``git commit -m "feat: initial code"`` (probably twice).
 
@@ -62,8 +60,7 @@ for discussion.
 5. **Readthedocs:** Set up readthedocs to track your repo.
 6. **Code quality / coverage (1):** Set up Code Climate, Scrutinizer, and either CodeCov or Coveralls.
 7. **Code quality / coverage (2):** Add ``CODECOV_TOKEN`` to your GitHub secrets, if you’re using CodeCov
-8. **Slack notifications:** For important success/failure notifications,
-   add ``SLACK_WEBHOOK`` as a GitHub secret and set ``use_slack=true`` in ``.github/action-options.json``.
+8. **Slack notifications:** For important success/failure notifications, add ``SLACK_WEBHOOK`` as a GitHub secret and set ``use_slack=true`` in ``.github/action-options.json``.
 
 .. tip::
 

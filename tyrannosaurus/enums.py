@@ -9,9 +9,10 @@ You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-
 """
 
 from __future__ import annotations
+
 import enum
-from pathlib import PurePath, Path
-from typing import Union, Mapping, Any, Optional
+from pathlib import Path, PurePath
+from typing import Any, Mapping, Optional, Union
 
 import requests
 import tomlkit
@@ -39,20 +40,20 @@ class DevStatus(str, enum.Enum):
         1 for planning, 2 for pre-alpha, ... .
         Same as for PyPi classifiers.
         """
-        return dict(
-            planning=1,
-            pre_alpha=2,
-            alpha=3,
-            beta=4,
-            production=5,
-            mature=6,
-            inactive=7,
-        )[self.name]
+        return {
+            "planning": 1,
+            "pre_alpha": 2,
+            "alpha": 3,
+            "beta": 4,
+            "production": 5,
+            "mature": 6,
+            "inactive": 7,
+        }[self.name]
 
     @property
     def description(self) -> str:
         """
-        A fragment like "a production state" or "an alpha state"
+        A fragment like "a production state" or "an alpha state".
         """
         name = self.true_name
         article = "an" if name[0] in ["a", "e", "i", "o", "u", "h"] else "a"
@@ -69,14 +70,16 @@ class DevStatus(str, enum.Enum):
     @property
     def dunder(self) -> str:
         """
-        A string that works for __status__
+        A string that works for ``__status__``.
         """
         return "Production" if self.true_value >= 5 else "Development"
 
     @classmethod
     def guess_from_version(cls, version: str) -> DevStatus:
         """
-        Makes a really rough guess for the status from a semantic version string::
+        Makes a really rough guess for the status from a semantic version string.
+
+        Behavior::
 
             - Guesses planning for 0.0.x (these are not semantic versions).
             - Guesses alpha for pre-1.0
@@ -198,48 +201,48 @@ class License(str, enum.Enum):
 
     @property
     def spdx(self) -> str:
-        return dict(
-            agpl3="AGPL-3.0-or-later",
-            apache2="Apache-2.0",
-            cc0="CC0-1.0",
-            ccby="CC-BY-4.0",
-            ccbync="CC-BY-NC-4.0",
-            gpl2="GPL-2.0-or-later",
-            gpl3="GPL-3.0-or-later",
-            lgpl3="LGPL-3.0-or-later",
-            mit="MIT",
-            mpl2="MPL-2.0",
-        )[self.name]
+        return {
+            "agpl3": "AGPL-3.0-or-later",
+            "apache2": "Apache-2.0",
+            "cc0": "CC0-1.0",
+            "ccby": "CC-BY-4.0",
+            "ccbync": "CC-BY-NC-4.0",
+            "gpl2": "GPL-2.0-or-later",
+            "gpl3": "GPL-3.0-or-later",
+            "lgpl3": "LGPL-3.0-or-later",
+            "mit": "MIT",
+            "mpl2": "MPL-2.0",
+        }[self.name]
 
     @property
     def full_name(self) -> str:
-        return dict(
-            apache2="Apache License 2.0",
-            cc0="CC0 1.0",
-            ccby="CC BY 4.0",
-            ccbync="CC BY NC 4.0",
-            gpl2="GNU General Public License 2.0",
-            gpl3="GNU General Public License 3.0",
-            lgpl3="GNU Lesser General Public License 3.0",
-            mit="MIT License",
-            mpl2="Mozilla Public License 2.0",
-            agpl3="GNU Affero General Public License 3.0",
-        )[self.name]
+        return {
+            "apache2": "Apache License 2.0",
+            "cc0": "CC0 1.0",
+            "ccby": "CC BY 4.0",
+            "ccbync": "CC BY NC 4.0",
+            "gpl2": "GNU General Public License 2.0",
+            "gpl3": "GNU General Public License 3.0",
+            "lgpl3": "GNU Lesser General Public License 3.0",
+            "mit": "MIT License",
+            "mpl2": "Mozilla Public License 2.0",
+            "agpl3": "GNU Affero General Public License 3.0",
+        }[self.name]
 
     @property
     def family(self) -> str:
-        return dict(
-            apache2="Apache",
-            cc0="CC",
-            ccby="CC",
-            ccbync="CC",
-            gpl2="GPL",
-            gpl3="GPL",
-            lgpl3="GPL",
-            mit="MIT",
-            mpl2="Mozilla",
-            agpl3="GPL",
-        )[self.name]
+        return {
+            "apache2": "Apache",
+            "cc0": "CC",
+            "ccby": "CC",
+            "ccbync": "CC",
+            "gpl2": "GPL",
+            "gpl3": "GPL",
+            "lgpl3": "GPL",
+            "mit": "MIT",
+            "mpl2": "Mozilla",
+            "agpl3": "GPL",
+        }[self.name]
 
     def download_license(self) -> str:
         return self._read_url(self.license_url)
@@ -261,17 +264,17 @@ class License(str, enum.Enum):
 
     @property
     def header_url(self) -> str:
-        name = dict(
-            apache2="apache",
-            ccby="cc_by",
-            ccbync="cc_by_nc",
-            gpl3="gpl3",
-            lgpl3="lgpl",
-            mit="mit",
-            mpl2="mpl",
-            cc0="cc0",
-            agpl3="agpl3",
-        )[self.name]
+        name = {
+            "apache2": "apache",
+            "ccby": "cc_by",
+            "ccbync": "cc_by_nc",
+            "gpl3": "gpl3",
+            "lgpl3": "lgpl",
+            "mit": "mit",
+            "mpl2": "mpl",
+            "cc0": "cc0",
+            "agpl3": "agpl3",
+        }[self.name]
         return f"https://raw.githubusercontent.com/licenses/license-templates/master/templates/{name}-header.txt"
 
 

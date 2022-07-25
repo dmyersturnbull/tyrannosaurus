@@ -13,7 +13,8 @@ class TestUpdate:
             context = Context(path, dry_run=True)
             update = Update(context)
             pkgs, devs = update.update()
-            assert list(sorted(pkgs.keys())) == ["requests", "tomlkit", "typer"]
+            # cheat flake8 here:
+            assert [x for x in sorted(pkgs.keys())] == ["requests", "tomlkit", "typer"]
             assert list(devs) == ["pytest"]
 
 
