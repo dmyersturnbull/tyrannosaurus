@@ -48,7 +48,9 @@ class Recipe:
             version=context.poetry("version"),
         )
         skull = GrayskullFactory.create_recipe("pypi", config, context.poetry("name"))
-        skull.generate_recipe(str(output_dir), mantainers=context.source("maintainers").split(","))
+        # skull.generate_recipe(str(output_dir), mantainers=context.source("maintainers").split(","))
+        # TODO: maintainers
+        skull.save(yaml_path)
         logger.debug(f"Generated a new recipe at {output_dir}/meta.yaml")
         helper = Sync(context)
         lines = helper.fix_recipe_internal(yaml_path)
