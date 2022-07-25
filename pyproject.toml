@@ -34,10 +34,10 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-	  "Intended Audience :: Developers",
+    "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Environment :: Console",
-	  "Framework :: tox",
+    "Framework :: tox",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Software Development :: Build Tools",
     "Topic :: Software Development :: Code Generators"
@@ -114,27 +114,26 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 [tool.poetry.dependencies]
 python                   = "^3.8"
 tomlkit                  = ">=0.10, <1"
-typer                    = ">=0.4, <1"
+typer                    = {version="^0.6", extras=["all"]}
 requests                 = "^2.27"
-grayskull                = "^1.1"
+grayskull                = "^1.4"
 
 [tool.poetry.dev-dependencies]
 bandit                   = "^1.7"
 flake8                   = "^4"
-flake8-bugbear           = ">=22.4"
-flake8-comprehensions    = "^3.8"
+flake8-bugbear           = ">=22"
+flake8-comprehensions    = "^3"
 flake8-docstrings        = "^1.6"
 flake8-simplify          = "^0.19"
-coverage                 = {extras = ["toml"], version = "^6"}
-nbqa                     = "^1.2"
-pre-commit               = "^2.17"
-pre-commit-hooks         = "^4.1"
+coverage                 = {version = "^6", extras = ["toml"]}
+nbqa                     = "^1.4"
+pre-commit               = "^2.20"
 pytest                   = "^7"
 pytest-cov               = "^3"
-sphinx                   = "^4.4"
+sphinx                   = "^5"
 sphinx-autoapi           = "^1.8"
-sphinx-copybutton        = "^0.4"
-sphinx-rtd-theme         = "^1.0"
+sphinx-copybutton        = "^0.5"
+sphinx-rtd-theme         = "^1"
 
 
 #########################################################################################

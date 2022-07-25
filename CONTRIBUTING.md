@@ -6,7 +6,7 @@ New issues and pull requests are welcome.
 Feel free to direct a question to the authors by creating an
 [issue with the _question_ tag](https://github.com/dmyersturnbull/tyrannosaurus/issues/new?assignees=&labels=kind%3A+question&template=question.md).
 Contributors are asked to abide by both the
-[GitHub community guidelines](https://docs.github.com/en/github/site-policy/github-community-guidelines)
+[GitHub community guidelines](https://docs.github.com/en/site-policy/github-terms/github-community-guidelines)
 and the [Contributor Code of Conduct, version 2.0](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).
 
 ### Commit messages
@@ -60,7 +60,7 @@ Feel free to make a draft pull request and solicit feedback from the authors.
 5. Check for a pull request from regro-cf-autotick-bot on the
    [feedstock](https://github.com/conda-forge/tyrannosaurus-feedstock).
    _If you have not changed the dependencies or version ranges_, go ahead and merge it.
-   Otherwise, [update the recipe](https://github.com/conda-forge/tyrannosaurus-feedstock/edit/master/recipe/meta.yaml)
+   Otherwise, [update the recipe](https://github.com/conda-forge/tyrannosaurus-feedstock/blob/main/recipe/meta.yaml)
    with those changes under `run:`, also updating `{% set version` and `sha256` with the
    changes from regro-cf-autotick-bot. You can alternatively re-run `tyrannosaurus recipe`
    to generate a new recipe and copy it to the feedstock.

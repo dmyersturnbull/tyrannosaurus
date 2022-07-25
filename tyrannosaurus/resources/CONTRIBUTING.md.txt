@@ -7,7 +7,7 @@ Feel free to direct a question to the authors by creating an
 [issue with the _question_ tag](
 https://github.com/$${user}/$${project}/issues/new?assignees=&labels=kind%3A+question&template=question.md).
 Contributors are asked to abide by both the
-[GitHub community guidelines](https://docs.github.com/en/github/site-policy/github-community-guidelines)
+[GitHub community guidelines](https://docs.github.com/en/site-policy/github-terms/github-community-guidelines)
 and the [Contributor Code of Conduct, version 2.0](
 https://www.contributor-covenant.org/version/2/0/code_of_conduct/).
 

@@ -87,7 +87,7 @@ _[this workflow](https://github.com/dmyersturnbull/tyrannosaurus/blob/b6a731464a
   _note:_ temporarily disabled (0.10.x) due to an issue.
 - Automatic attachment of [sdits](https://docs.python.org/3/distutils/sourcedist.html)
   and [wheels](https://pythonwheels.com/) to
-  [GitHub Releases](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-releases)
+  [GitHub Releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
 - Good default GitHub settings, synchronized via [Probot settings](https://github.com/probot/settings)
 - Documentation sent to [readthedocs](https://readthedocs.org/)
 - Nice documentation defaults with
@@ -116,9 +116,9 @@ _[this workflow](https://github.com/dmyersturnbull/tyrannosaurus/blob/b6a731464a
 - Slack notifications for CI/CD success and failure with [action-slack](https://github.com/8398a7/action-slack)
   _note:_ temporarily disabled (0.10.x) due to an issue.
 - Fancy GitHub-recognized readme, license,
-  [contributing guide](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/setting-guidelines-for-repository-contributors#adding-a-contributing-file),
-  [issue templates](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/configuring-issue-templates-for-your-repository), and
-  [pull request templates](https://docs.github.com/en/free-pro-team@latest/github/building-a-strong-community/creating-a-pull-request-template-for-your-repository)
+  [contributing guide](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors),
+  [issue templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/about-issue-and-pull-request-templates), and
+  [pull request templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/about-issue-and-pull-request-templates)
 - Nice gitignore, dockerignore, [ChangeLog](https://keepachangelog.com), and other misc files
 - [CodeMeta](https://codemeta.github.io/user-guide/) and [CITATION.cff](https://citation-file-format.github.io/)
 - Dependency updating with [Dependabot](https://dependabot.com/)
@@ -171,22 +171,22 @@ Here are features that other tools lack:
 
 #### 🏁 Feature table
 
-| Tool                                                                                     | Main techs                 | CD kickoff     | N int.† | modern‡ | | Docker | Conda | sync | any-OS |
-| ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | ------ | ----- | ---- | ------ | --- |
-| Tyranosaurus                                                                             | Actions, Poetry, Tox       | git, GitHub    | 30      | ✔️      | ✔️     | ✔️    | ✔️   | ✔️     |
-| [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)       | Actions, Poetry, Nox       | git, Poetry    | 20      | ✔️      |        |       |      | ✔️     |
-| [copier-poetry](https://github.com/pawamoy/copier-poetry)                                | Actions, Poetry, Make      | git, manual    | 15      |         | ✔️     |       | ✔️   |        |
-| [python-package-template](https://github.com/TezRomacH/python-package-template)          | Actions, Poetry, Tox, Make | git, Make      | 20      | ✔️      | ✔️     |       |      |        |
-| [pyscaffold](https://github.com/pyscaffold/pyscaffold)                                   | setuptools, Tox            | Gitlab, manual | 10      |         |        |       |      | ✔️     |
-| [wemake-python-package](https://github.com/wemake-services/wemake-python-package)        | Actions, Poetry, Make      | git, Poetry    | 10      | ✔️      |        |       |      |        |
-| [best-practices](https://github.com/sourcery-ai/python-best-practices-cookiecutter)      | Actions, pipenv            | git, pipenv    | 10      |         | ✔️     |       |      | ✔️     |
-| [python-blueprint](https://github.com/johnthagen/python-blueprint)                       | Actions, setuptools, Tox   | git, manual    | 5       |         | ✔️     |       |      | ✔️     |
-| [cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage)        | Travis, setuptools, Tox    | git, manual    | 10      |         |        |       |      |        |
-| [cookiecutter-pylibrary](https://github.com/ionelmc/cookiecutter-pylibrary)              | Travis, setuptools, Tox    | git, manual    | 20      |         |        |       |      |        | ✔️  |
-| [cookiecutter-django](https://github.com/pydanny/cookiecutter-django)                    | Actions, setuptools, Tox   | git, manual    | 15      |         | ✔️     |       |      | ✔️     |
-| [django-init](https://github.com/Fueled/django-init)                                     | Actions, setuptools, Make  | git, manual    | 15      |         | ✔️     |       |      | ✔️     |
-| [docker-science](https://github.com/docker-science/cookiecutter-docker-science)          | Make, Docker, setuptools   | no CI/CD       | 15      |         | ✔️     |       |      |        |
-| [science-notebook-template](https://github.com/dmyersturnbull/science-notebook-template) | Conda                      | no CI/CD       | 5       |         | ✔️     |       |      | ✔️     |
+| Tool                                                                                     | Main techs                 | CD kickoff     | N int.† | modern‡ |     | Docker | Conda | sync | any-OS |
+| ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | --- | ------ | ----- | ---- | ------ |
+| Tyranosaurus                                                                             | Actions, Poetry, Tox       | git, GitHub    | 30      | ✔️      | ✔️  | ✔️     | ✔️    | ✔️   |
+| [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)       | Actions, Poetry, Nox       | git, Poetry    | 20      | ✔️      |     |        |       | ✔️   |
+| [copier-poetry](https://github.com/pawamoy/copier-poetry)                                | Actions, Poetry, Make      | git, manual    | 15      |         | ✔️  |        | ✔️    |      |
+| [python-package-template](https://github.com/TezRomacH/python-package-template)          | Actions, Poetry, Tox, Make | git, Make      | 20      | ✔️      | ✔️  |        |       |      |
+| [pyscaffold](https://github.com/pyscaffold/pyscaffold)                                   | setuptools, Tox            | Gitlab, manual | 10      |         |     |        |       | ✔️   |
+| [wemake-python-package](https://github.com/wemake-services/wemake-python-package)        | Actions, Poetry, Make      | git, Poetry    | 10      | ✔️      |     |        |       |      |
+| [best-practices](https://github.com/sourcery-ai/python-best-practices-cookiecutter)      | Actions, pipenv            | git, pipenv    | 10      |         | ✔️  |        |       | ✔️   |
+| [python-blueprint](https://github.com/johnthagen/python-blueprint)                       | Actions, setuptools, Tox   | git, manual    | 5       |         | ✔️  |        |       | ✔️   |
+| [cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage)        | Travis, setuptools, Tox    | git, manual    | 10      |         |     |        |       |      |
+| [cookiecutter-pylibrary](https://github.com/ionelmc/cookiecutter-pylibrary)              | Travis, setuptools, Tox    | git, manual    | 20      |         |     |        |       |      | ✔️     |
+| [cookiecutter-django](https://github.com/pydanny/cookiecutter-django)                    | Actions, setuptools, Tox   | git, manual    | 15      |         | ✔️  |        |       | ✔️   |
+| [django-init](https://github.com/Fueled/django-init)                                     | Actions, setuptools, Make  | git, manual    | 15      |         | ✔️  |        |       | ✔️   |
+| [docker-science](https://github.com/docker-science/cookiecutter-docker-science)          | Make, Docker, setuptools   | no CI/CD       | 15      |         | ✔️  |        |       |      |
+| [science-notebook-template](https://github.com/dmyersturnbull/science-notebook-template) | Conda                      | no CI/CD       | 5       |         | ✔️  |        |       | ✔️   |
 
 **† _N int._**: Approximate number of built-in integrations with tools and standards. What counts is very roughly defined.  
 **‡ _Modern_**: Lacks legacy files and tools. I’m including Make, setuptools, pipenv, and some others.  
