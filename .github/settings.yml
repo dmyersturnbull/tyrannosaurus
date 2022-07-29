@@ -140,8 +140,7 @@ branches:
         require_code_owner_reviews: false
       required_status_checks:
         strict: true
-        contexts:
-          - "build (ubuntu-20.04, 3.9)"
+        contexts: []
       enforce_admins: false
       required_linear_history: true
       restrictions: null

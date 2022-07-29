@@ -2,13 +2,14 @@
 Utilities for tests.
 
 Original source: https://github.com/dmyersturnbull/tyrannosaurus
-Copyright 2020–2021 Douglas Myers-Turnbull
+Copyright 2020–2022 Douglas Myers-Turnbull
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 """
 # NOTE: If you modify this file, you should indicate your license and copyright as well.
 from __future__ import annotations
+
 import contextlib
 import io
 import logging
@@ -22,7 +23,6 @@ from datetime import datetime
 from pathlib import Path, PurePath
 from typing import Generator, Union
 from warnings import warn
-
 
 # Keeps created temp files; turn on for debugging
 KEEP = False

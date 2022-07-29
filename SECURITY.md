@@ -6,7 +6,7 @@ These versions of Tyrannosaurus are supported.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.10.0  | :white_check_mark: |
+| 0.11.x  | :white_check_mark: |
 
 ## How to report a vulnerability
 

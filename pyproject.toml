@@ -6,7 +6,7 @@ description-file = "README.md"
 # https://github.com/ContinuumIO/anaconda-issues/issues/12094
 # Poetry uses pip and setuptools (although they're not included as dependencies)
 # We don't need to list wheel here, but setting a min vr can avoid generating inferior wheels
-requires = ["poetry>=1.1,<2", "virtualenv==20.0.33", "wheel>=0.36,<1.0"]
+requires = ["poetry>=1.1,<2", "virtualenv==20.0.33", "wheel>=0.37,<1.0"]
 build-backend = "poetry.masonry.api"
 
 
@@ -47,11 +47,14 @@ classifiers = [
 CI = "https://github.com/dmyersturnbull/tyrannosaurus/actions"
 Issues = "https://github.com/dmyersturnbull/tyrannosaurus/issues"
 Download = "https://pypi.org/project/tyrannosaurus/"
+Changelog = "https://github.com/dmyersturnbull/tyrannosaurus/blob/main/CHANGELOG.md"
 
 
 #########################################################################################
 # Tyrannosaurus
 #########################################################################################
+
+# Only needed for using 'tyrannosaurus sync' -- you can remove otherwise!
 
 [tool.tyrannosaurus.options]
 align = true
@@ -65,7 +68,7 @@ date               = "'${today}'"
 version            = "tool.poetry.version"
 release            = "tool.poetry.version"
 linelength         = "tool.black.line-length"
-copyright          = "'Douglas Myers-Turnbull 2020–2021'"
+copyright          = "'Douglas Myers-Turnbull 2020–2022'"
 authors            = [
     "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
 ]
@@ -175,7 +178,7 @@ show_missing = true
 
 [tool.black]
 line-length = 100
-target-version = ["py39", "py310"]
+target-version = ["py38", "py39", "py310"]
 
 [tool.isort]
 line_length = 100

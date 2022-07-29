@@ -59,17 +59,17 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "attrs"
-version = "21.4.0"
+version = "22.1.0"
 description = "Classes Without Boilerplate"
 category = "dev"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+python-versions = ">=3.5"
 
 [package.extras]
-dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface", "furo", "sphinx", "sphinx-notfound-page", "pre-commit", "cloudpickle"]
+dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "mypy (>=0.900,!=0.940)", "pytest-mypy-plugins", "zope.interface", "furo", "sphinx", "sphinx-notfound-page", "pre-commit", "cloudpickle"]
 docs = ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"]
-tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface", "cloudpickle"]
-tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "cloudpickle"]
+tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "mypy (>=0.900,!=0.940)", "pytest-mypy-plugins", "zope.interface", "cloudpickle"]
+tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "mypy (>=0.900,!=0.940)", "pytest-mypy-plugins", "cloudpickle"]
 
 [[package]]
 name = "babel"
@@ -168,7 +168,7 @@ test = ["hypothesis (==3.55.3)", "flake8 (==3.7.8)"]
 
 [[package]]
 name = "conda-souschef"
-version = "2.2.0"
+version = "2.2.1"
 description = "Project to handle conda recipes"
 category = "main"
 optional = false
@@ -179,7 +179,7 @@ python-versions = ">=3.8"
 "ruamel.yaml.jinja2" = "*"
 
 [package.extras]
-testing = ["pytest-cov", "mock", "pytest"]
+testing = ["pytest", "mock", "pytest-cov"]
 
 [[package]]
 name = "coverage"
@@ -221,7 +221,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "executing"
-version = "0.8.3"
+version = "0.9.1"
 description = "Get the currently executing AST node of a frame, and other information"
 category = "dev"
 optional = false
@@ -292,7 +292,7 @@ pydocstyle = ">=2.1"
 
 [[package]]
 name = "flake8-simplify"
-version = "0.19.2"
+version = "0.19.3"
 description = "flake8 plugin which checks for code that can be simplified"
 category = "dev"
 optional = false
@@ -326,7 +326,7 @@ gitdb = ">=4.0.1,<5"
 
 [[package]]
 name = "grayskull"
-version = "1.4.1"
+version = "1.6.0"
 description = "Project to generate recipes for conda packages."
 category = "main"
 optional = false
@@ -334,7 +334,7 @@ python-versions = ">=3.8"
 
 [package.dependencies]
 colorama = "*"
-conda-souschef = ">=2.2.0"
+conda-souschef = ">=2.2.1"
 pkginfo = "*"
 progressbar2 = ">=3.53.0"
 rapidfuzz = ">=1.7.1"
@@ -346,7 +346,7 @@ tomli = "*"
 tomli-w = "*"
 
 [package.extras]
-testing = ["pytest", "mock", "pytest-cov", "pytest-console-scripts", "pytest-mock"]
+testing = ["pytest-mock", "pytest-console-scripts", "pytest-cov", "mock", "pytest"]
 
 [[package]]
 name = "identify"
@@ -612,8 +612,8 @@ optional = false
 python-versions = ">=3.6"
 
 [package.extras]
-dev = ["pre-commit", "tox"]
-testing = ["pytest", "pytest-benchmark"]
+testing = ["pytest-benchmark", "pytest"]
+dev = ["tox", "pre-commit"]
 
 [[package]]
 name = "pre-commit"
@@ -767,7 +767,7 @@ coverage = {version = ">=5.2.1", extras = ["toml"]}
 pytest = ">=4.6"
 
 [package.extras]
-testing = ["fields", "hunter", "process-tests", "six", "pytest-xdist", "virtualenv"]
+testing = ["virtualenv", "pytest-xdist", "six", "process-tests", "hunter", "fields"]
 
 [[package]]
 name = "python-utils"
@@ -914,7 +914,7 @@ python-versions = "*"
 
 [[package]]
 name = "sphinx"
-version = "5.0.2"
+version = "5.1.1"
 description = "Python documentation generator"
 category = "dev"
 optional = false
@@ -924,7 +924,7 @@ python-versions = ">=3.6"
 alabaster = ">=0.7,<0.8"
 babel = ">=1.3"
 colorama = {version = ">=0.3.5", markers = "sys_platform == \"win32\""}
-docutils = ">=0.14,<0.19"
+docutils = ">=0.14,<0.20"
 imagesize = "*"
 importlib-metadata = {version = ">=4.4", markers = "python_version < \"3.10\""}
 Jinja2 = ">=2.3"
@@ -941,16 +941,16 @@ sphinxcontrib-serializinghtml = ">=1.1.5"
 
 [package.extras]
 docs = ["sphinxcontrib-websupport"]
-lint = ["flake8 (>=3.5.0)", "isort", "mypy (>=0.950)", "docutils-stubs", "types-typed-ast", "types-requests"]
+lint = ["flake8 (>=3.5.0)", "flake8-comprehensions", "flake8-bugbear", "isort", "mypy (>=0.971)", "sphinx-lint", "docutils-stubs", "types-typed-ast", "types-requests"]
 test = ["pytest (>=4.6)", "html5lib", "cython", "typed-ast"]
 
 [[package]]
 name = "sphinx-autoapi"
-version = "1.8.4"
+version = "1.9.0"
 description = "Sphinx API documentation generator"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 astroid = ">=2.7"
@@ -976,8 +976,8 @@ python-versions = ">=3.6"
 sphinx = ">=1.8"
 
 [package.extras]
+rtd = ["sphinx-book-theme", "myst-nb", "ipython", "sphinx"]
 code_style = ["pre-commit (==2.12.1)"]
-rtd = ["sphinx", "ipython", "myst-nb", "sphinx-book-theme"]
 
 [[package]]
 name = "sphinx-rtd-theme"
@@ -992,7 +992,7 @@ docutils = "<0.18"
 sphinx = ">=1.6"
 
 [package.extras]
-dev = ["transifex-client", "sphinxcontrib-httpdomain", "bump2version"]
+dev = ["bump2version", "sphinxcontrib-httpdomain", "transifex-client"]
 
 [[package]]
 name = "sphinxcontrib-applehelp"
@@ -1003,8 +1003,8 @@ optional = false
 python-versions = ">=3.5"
 
 [package.extras]
-lint = ["flake8", "mypy", "docutils-stubs"]
 test = ["pytest"]
+lint = ["docutils-stubs", "mypy", "flake8"]
 
 [[package]]
 name = "sphinxcontrib-devhelp"
@@ -1015,8 +1015,8 @@ optional = false
 python-versions = ">=3.5"
 
 [package.extras]
-lint = ["flake8", "mypy", "docutils-stubs"]
 test = ["pytest"]
+lint = ["docutils-stubs", "mypy", "flake8"]
 
 [[package]]
 name = "sphinxcontrib-htmlhelp"
@@ -1027,8 +1027,8 @@ optional = false
 python-versions = ">=3.6"
 
 [package.extras]
-lint = ["flake8", "mypy", "docutils-stubs"]
-test = ["pytest", "html5lib"]
+test = ["html5lib", "pytest"]
+lint = ["docutils-stubs", "mypy", "flake8"]
 
 [[package]]
 name = "sphinxcontrib-jsmath"
@@ -1039,7 +1039,7 @@ optional = false
 python-versions = ">=3.5"
 
 [package.extras]
-test = ["pytest", "flake8", "mypy"]
+test = ["mypy", "flake8", "pytest"]
 
 [[package]]
 name = "sphinxcontrib-qthelp"
@@ -1050,8 +1050,8 @@ optional = false
 python-versions = ">=3.5"
 
 [package.extras]
-lint = ["flake8", "mypy", "docutils-stubs"]
 test = ["pytest"]
+lint = ["docutils-stubs", "mypy", "flake8"]
 
 [[package]]
 name = "sphinxcontrib-serializinghtml"
@@ -1192,7 +1192,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "urllib3"
-version = "1.26.10"
+version = "1.26.11"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 category = "main"
 optional = false
@@ -1205,21 +1205,20 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.15.1"
+version = "20.16.2"
 description = "Virtual Python Environment builder"
 category = "dev"
 optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+python-versions = ">=3.6"
 
 [package.dependencies]
 distlib = ">=0.3.1,<1"
 filelock = ">=3.2,<4"
 platformdirs = ">=2,<3"
-six = ">=1.9.0,<2"
 
 [package.extras]
 docs = ["proselint (>=0.10.2)", "sphinx (>=3)", "sphinx-argparse (>=0.2.5)", "sphinx-rtd-theme (>=0.4.3)", "towncrier (>=21.3)"]
-testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)", "packaging (>=20.0)"]
+testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", "packaging (>=20.0)", "pytest (>=4)", "pytest-env (>=0.6.2)", "pytest-freezegun (>=0.4.1)", "pytest-mock (>=2)", "pytest-randomly (>=1)", "pytest-timeout (>=1)"]
 
 [[package]]
 name = "wcwidth"
@@ -1279,8 +1278,8 @@ atomicwrites = [
     {file = "atomicwrites-1.4.1.tar.gz", hash = "sha256:81b2c9071a49367a7f770170e5eec8cb66567cfbbc8c73d20ce5ca4a8d71cf11"},
 ]
 attrs = [
-    {file = "attrs-21.4.0-py2.py3-none-any.whl", hash = "sha256:2d27e3784d7a565d36ab851fe94887c5eccd6a463168875832a1be79c82828b4"},
-    {file = "attrs-21.4.0.tar.gz", hash = "sha256:626ba8234211db98e869df76230a137c4c40a12d72445c45d5f5b716f076e2fd"},
+    {file = "attrs-22.1.0-py2.py3-none-any.whl", hash = "sha256:86efa402f67bf2df34f51a335487cf46b1ec130d02b8d39fd248abfd30da551c"},
+    {file = "attrs-22.1.0.tar.gz", hash = "sha256:29adc2665447e5191d0e7c568fde78b21f9672d344281d0c6e1ab085429b22b6"},
 ]
 babel = [
     {file = "Babel-2.10.3-py3-none-any.whl", hash = "sha256:ff56f4892c1c4bf0d814575ea23471c230d544203c7748e8c68f0089478d48eb"},
@@ -1319,8 +1318,8 @@ commonmark = [
     {file = "commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60"},
 ]
 conda-souschef = [
-    {file = "conda-souschef-2.2.0.tar.gz", hash = "sha256:5da91ab95cc33aea93b4d2d7b84c51dbc971865fb71cba683606ae82e01142e8"},
-    {file = "conda_souschef-2.2.0-py3-none-any.whl", hash = "sha256:e6281db0231672a1c557ae2aa8d0a954331f6c974a32fdeb8bda583efdde2f8a"},
+    {file = "conda-souschef-2.2.1.tar.gz", hash = "sha256:cfdf4463dbaf94314452accf67c5f60510b26f780ef89fcdf22e64d12219cf86"},
+    {file = "conda_souschef-2.2.1-py3-none-any.whl", hash = "sha256:16fff59ebfed492e97588c624c741570361e3d0ad559676124a64abc5402704c"},
 ]
 coverage = [
     {file = "coverage-6.4.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:a9032f9b7d38bdf882ac9f66ebde3afb8145f0d4c24b2e600bc4c6304aafb87e"},
@@ -1378,8 +1377,8 @@ docutils = [
     {file = "docutils-0.17.1.tar.gz", hash = "sha256:686577d2e4c32380bb50cbb22f575ed742d58168cee37e99117a854bcd88f125"},
 ]
 executing = [
-    {file = "executing-0.8.3-py2.py3-none-any.whl", hash = "sha256:d1eef132db1b83649a3905ca6dd8897f71ac6f8cac79a7e58a1a09cf137546c9"},
-    {file = "executing-0.8.3.tar.gz", hash = "sha256:c6554e21c6b060590a6d3be4b82fb78f8f0194d809de5ea7df1c093763311501"},
+    {file = "executing-0.9.1-py2.py3-none-any.whl", hash = "sha256:4ce4d6082d99361c0231fc31ac1a0f56979363cc6819de0b1410784f99e49105"},
+    {file = "executing-0.9.1.tar.gz", hash = "sha256:ea278e2cf90cbbacd24f1080dd1f0ac25b71b2e21f50ab439b7ba45dd3195587"},
 ]
 filelock = [
     {file = "filelock-3.7.1-py3-none-any.whl", hash = "sha256:37def7b658813cda163b56fc564cdc75e86d338246458c4c28ae84cabefa2404"},
@@ -1402,8 +1401,8 @@ flake8-docstrings = [
     {file = "flake8_docstrings-1.6.0-py2.py3-none-any.whl", hash = "sha256:99cac583d6c7e32dd28bbfbef120a7c0d1b6dde4adb5a9fd441c4227a6534bde"},
 ]
 flake8-simplify = [
-    {file = "flake8_simplify-0.19.2-py3-none-any.whl", hash = "sha256:9c1e96ba738f9057a561697d67df7a9058898ac6313a67eda09942255cba6d38"},
-    {file = "flake8_simplify-0.19.2.tar.gz", hash = "sha256:a30ef76bf1c0cb89a52a8a5cee37667688e61a66735e997c08d56cd002f9e3e9"},
+    {file = "flake8_simplify-0.19.3-py3-none-any.whl", hash = "sha256:1057320e9312d75849541fee822900d27bcad05b2405edc84713affee635629e"},
+    {file = "flake8_simplify-0.19.3.tar.gz", hash = "sha256:2fb083bf5142a98d9c9554755cf2f56f8926eb4a33eae30c0809041b1546879e"},
 ]
 gitdb = [
     {file = "gitdb-4.0.9-py3-none-any.whl", hash = "sha256:8033ad4e853066ba6ca92050b9df2f89301b8fc8bf7e9324d412a63f8bf1a8fd"},
@@ -1414,8 +1413,8 @@ gitpython = [
     {file = "GitPython-3.1.27.tar.gz", hash = "sha256:1c885ce809e8ba2d88a29befeb385fcea06338d3640712b59ca623c220bb5704"},
 ]
 grayskull = [
-    {file = "grayskull-1.4.1-py3-none-any.whl", hash = "sha256:915d0a0407332a81a5f786259b1c2d3bf420a5bbfc5b8166aac8e3a2abc7993a"},
-    {file = "grayskull-1.4.1.tar.gz", hash = "sha256:b5e345ee0a1b1e14d54c5afe63f54a878a9265b7c6a296d1e3a375dac8016afe"},
+    {file = "grayskull-1.6.0-py3-none-any.whl", hash = "sha256:c2541e7fe25cd425491d52891c44b08699e287b3b0120cb755679bffd4abc184"},
+    {file = "grayskull-1.6.0.tar.gz", hash = "sha256:43a34bae3bfd5bcac63cf087eaf08db6dcd7cdfe7a23100f288576882428d8f4"},
 ]
 identify = [
     {file = "identify-2.5.2-py2.py3-none-any.whl", hash = "sha256:feaa9db2dc0ce333b453ce171c0cf1247bbfde2c55fc6bb785022d411a1b78b5"},
@@ -1905,12 +1904,12 @@ snowballstemmer = [
     {file = "snowballstemmer-2.2.0.tar.gz", hash = "sha256:09b16deb8547d3412ad7b590689584cd0fe25ec8db3be37788be3810cbf19cb1"},
 ]
 sphinx = [
-    {file = "Sphinx-5.0.2-py3-none-any.whl", hash = "sha256:d3e57663eed1d7c5c50895d191fdeda0b54ded6f44d5621b50709466c338d1e8"},
-    {file = "Sphinx-5.0.2.tar.gz", hash = "sha256:b18e978ea7565720f26019c702cd85c84376e948370f1cd43d60265010e1c7b0"},
+    {file = "Sphinx-5.1.1-py3-none-any.whl", hash = "sha256:309a8da80cb6da9f4713438e5b55861877d5d7976b69d87e336733637ea12693"},
+    {file = "Sphinx-5.1.1.tar.gz", hash = "sha256:ba3224a4e206e1fbdecf98a4fae4992ef9b24b85ebf7b584bb340156eaf08d89"},
 ]
 sphinx-autoapi = [
-    {file = "sphinx-autoapi-1.8.4.tar.gz", hash = "sha256:8c4ec5fbedc1e6e8f4692bcc4fcd1abcfb9e8dfca8a4ded60ad811a743c22ccc"},
-    {file = "sphinx_autoapi-1.8.4-py2.py3-none-any.whl", hash = "sha256:007bf9e24cd2aa0ac0561f67e8bcd6a6e2e8911ef4b4fd54aaba799d8832c8d0"},
+    {file = "sphinx-autoapi-1.9.0.tar.gz", hash = "sha256:c897ea337df16ad0cde307cbdfe2bece207788dde1587fa4fc8b857d1fc5dcba"},
+    {file = "sphinx_autoapi-1.9.0-py2.py3-none-any.whl", hash = "sha256:d217953273b359b699d8cb81a5a72985a3e6e15cfe3f703d9a3c201ffc30849b"},
 ]
 sphinx-copybutton = [
     {file = "sphinx-copybutton-0.5.0.tar.gz", hash = "sha256:a0c059daadd03c27ba750da534a92a63e7a36a7736dcf684f26ee346199787f6"},
@@ -1993,12 +1992,12 @@ unidecode = [
     {file = "Unidecode-1.3.4.tar.gz", hash = "sha256:8e4352fb93d5a735c788110d2e7ac8e8031eb06ccbfe8d324ab71735015f9342"},
 ]
 urllib3 = [
-    {file = "urllib3-1.26.10-py2.py3-none-any.whl", hash = "sha256:8298d6d56d39be0e3bc13c1c97d133f9b45d797169a0e11cdd0e0489d786f7ec"},
-    {file = "urllib3-1.26.10.tar.gz", hash = "sha256:879ba4d1e89654d9769ce13121e0f94310ea32e8d2f8cf587b77c08bbcdb30d6"},
+    {file = "urllib3-1.26.11-py2.py3-none-any.whl", hash = "sha256:c33ccba33c819596124764c23a97d25f32b28433ba0dedeb77d873a38722c9bc"},
+    {file = "urllib3-1.26.11.tar.gz", hash = "sha256:ea6e8fb210b19d950fab93b60c9009226c63a28808bc8386e05301e25883ac0a"},
 ]
 virtualenv = [
-    {file = "virtualenv-20.15.1-py2.py3-none-any.whl", hash = "sha256:b30aefac647e86af6d82bfc944c556f8f1a9c90427b2fb4e3bfbf338cb82becf"},
-    {file = "virtualenv-20.15.1.tar.gz", hash = "sha256:288171134a2ff3bfb1a2f54f119e77cd1b81c29fc1265a2356f3e8d14c7d58c4"},
+    {file = "virtualenv-20.16.2-py2.py3-none-any.whl", hash = "sha256:635b272a8e2f77cb051946f46c60a54ace3cb5e25568228bd6b57fc70eca9ff3"},
+    {file = "virtualenv-20.16.2.tar.gz", hash = "sha256:0ef5be6d07181946891f5abc8047fda8bc2f0b4b9bf222c64e6e8963baee76db"},
 ]
 wcwidth = [
     {file = "wcwidth-0.2.5-py2.py3-none-any.whl", hash = "sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784"},

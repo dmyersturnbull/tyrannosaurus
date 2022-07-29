@@ -2,7 +2,7 @@
 Various support code / utils.
 
 Original source: https://github.com/dmyersturnbull/tyrannosaurus
-Copyright 2020–2021 Douglas Myers-Turnbull
+Copyright 2020–2022 Douglas Myers-Turnbull
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0
@@ -15,8 +15,9 @@ import os
 import re
 from pathlib import Path
 from subprocess import SubprocessError, check_output  # nosec
-from typing import Mapping, Optional, Sequence, Union
+from typing import Mapping, Optional, Sequence
 from typing import Tuple as Tup
+from typing import Union
 
 import requests
 import typer

@@ -3,57 +3,67 @@
 Adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.11.x] - 2022-07-24
+## [0.11.0] - 2022-07-28
+
+### Added
+
+- GitHub Container Registry push
+- 100% support for Python 3.10 _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Changed
 
-- Bumped Grayskull to v1 (1.4)
-- Bumped CI and dev deps
-- readthedocs, Docker, and Travis now use Python 3.10
-
-## [0.11.x] - 2021-10-05
-
-### Changed
-
-- Bumped some versions
-- Improved editorconfig, dockerignore, and gitignore
-- readthedocs now uses Python 3.9
-- Renamed `checks.yml` to `check.yml`
-- Renamed workflows (`name` in the YMLs)
+- Publish workflow now tests in all 3 platforms
+- Bumped Grayskull to v1 (1.4) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Bumped CI and dev deps _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- readthedocs, Docker, GitHub workflows, and Travis now use Python 3.10
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- GitHub workflows now use Ubuntu-22.04 and macOS-12 _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Bumped some versions _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Improved editorconfig, dockerignore, and gitignore _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Renamed `checks.yml` to `check.yml` _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Renamed workflows (`name` in the YMLs) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Removed
 
-- `NO_DEV` argument in Dockerfile
+- `NO_DEV` argument in Dockerfile _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Slack integration
+
+### Fixed
+
+- Made Python version range consistent in generated projects: 3.6 to < 4
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Redirects in Markdown links _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ## [0.10.0] - 2021-05-08
 
 ### Changed
 
-- Made files like CITATION.cff require a `--extras` flag
+- Made files like CITATION.cff require a `--extras` flag _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Fixed
 
-- Typer help
+- Typer help _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ## [0.9.x] - 2021-03-14
 
 ### Added
 
-- A code of conduct
-- More pre-commit hooks (esp. prettier and nbstripout)
+- A code of conduct _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- More pre-commit hooks (esp. prettier and nbstripout) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Changed
 
-- Improved the contributing guide
+- Improved the contributing guide _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Removed
 
-- Code of conduct file (a link is fine)
+- Code of conduct file (a link is fine) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Fixed
 
-- Added missing settings.yml file
+- Added missing settings.yml file _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Codemeta and citation.cff synced when missing if listed in `[tyrannosaurus.targets]`
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ## [0.9.0] - 2021-01-31
 
@@ -61,10 +71,11 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - A [probot](https://github.com/probot/settings) config file _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - [Commitizen](https://github.com/commitizen-tools/commitizen) config
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - A Vagrant stub file _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - A feature comparison table _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Colors to the CLI
-- Slack notifications and `actions-options.json`
+- Colors to the CLI _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Slack notifications and `actions-options.json` _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Changed
 
@@ -79,19 +90,22 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Improved the new-project guide _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - A few misc bugs _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Dockerfile labels and lint passing
-- Verbose and dry-run options
+- Dockerfile labels and lint passing _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Verbose and dry-run options _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ## [0.8.x] - 2021-01-08
 
 ### Added
 
-- A `--track` flag in `tyrannosaurus new` (to simplify the readme’s example) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- A `--track` flag in `tyrannosaurus new` (to simplify the readme’s example)
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Some currently unused items in [tool.tyrannosaurus.sources] _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Integration with [Safety](https://github.com/pyupio/safety) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- A `--tyranno` flag to new (deprecates `--newest`, which is now hidden) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- A `--tyranno` flag to new (deprecates `--newest`, which is now hidden)
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - `--version` and `--info` options (exit immediately) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Support for GitHub packages (technically should trigger a minor version bump) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Support for GitHub packages (technically should trigger a minor version bump)
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Stub and shields for scrutinizer _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Source license headers _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Link to license in default readme _―[dmyersturnbull](https://github.com/dmyersturnbull)_
@@ -101,11 +115,14 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Moved build to Python 3.9 (internal only) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Bumped and simplified a few dependencies _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Moved pre-commit run commands in tox to after poetry install, so versions are enforced _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Replaced flake8-bandit with `bandit -r .` call (the former is abandoned) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Made compatible with GitHub’s [master branch renaming](https://github.com/github/renaming) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Moved pre-commit run commands in tox to after poetry install, so versions are enforced
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Replaced flake8-bandit with `bandit -r .` call (the former is abandoned)
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Made compatible with GitHub’s [master branch renaming](https://github.com/github/renaming)
   (Because this external change broke backwards compatibility for newly generated projects,
   I consider this a fix, which won’t trigger a minor version bump)
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Deprecated
 
@@ -114,8 +131,8 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Removed
 
 - isort, which conflicted with black anyway _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- trailing-whitespace hook, which was unnecessary due to black and prettifier, _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-  and which incorrectly modified markdown files
+- trailing-whitespace hook, which was unnecessary due to black and prettifier,
+  and which incorrectly modified markdown files _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Fixed
 
@@ -123,11 +140,13 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Bad editorconfig settings for yaml and json _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Improved readme and docs _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Wrote better descriptions and names of workflows _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Missing 'feature' and 'security' labels in pull request templates _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Missing 'feature' and 'security' labels in pull request templates
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Added `.mypy_cache` to the trash list _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - `ccybync` instead of `ccbync` _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Incorrectly recognized license files _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Added `.git` to `.dockerignore`, and `*.tgz` and `!.npmignore` to `.gitignore` _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Added `.git` to `.dockerignore`, and `*.tgz` and `!.npmignore` to `.gitignore`
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Generated recipes, including Poetry, Python version, and URLs _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - `tyrannosaurus recipe` won’t fail on a non-empty directory _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
@@ -164,7 +183,8 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
-- Removed `poetry lock` from tox and added it to `tyrannosaurus sync`. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Removed `poetry lock` from tox and added it to `tyrannosaurus sync`.
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Removed tests from the release workflow. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Moved coveralls command from tox to the GitHub commit workflow. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Bumped versions of pre-commit and poetry. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
@@ -266,16 +286,7 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - GitHub actions _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
-## [0.0.3] - 2020-05-05
-
-### Fixed
-
-- Failing docs build _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Renamed changelog to `CHANGELOG.md` and added structure. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-
-## [0.0.2] - 2020-04-31
-
-Completely different project with a different purpose.
+## [0.0.x] - 2020-05-05
 
 ### Added
 
@@ -289,6 +300,11 @@ Completely different project with a different purpose.
 
 - `metadata.py`. Use `__init__.py` instead. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Various nonsense code _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+
+### Fixed
+
+- Failing docs build _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Renamed changelog to `CHANGELOG.md` and added structure. _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ## [0.0.1] - 2020-04-02
 

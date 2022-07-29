@@ -7,10 +7,10 @@ on:
 jobs:
   build:
     strategy:
-      max-parallel: 1
       matrix:
-        os: ["ubuntu-20.04", "windows-2022", "macos-11"]
+        os: ["ubuntu-22.04", "windows-2022", "macos-12"]
         python-version: ["3.10"]
+    name: "Test on ${{ matrix.os }} and ${{ matrix.python-version }}"
     runs-on: "${{ matrix.os }}"
     steps:
       - name: Checkout
@@ -18,7 +18,7 @@ jobs:
       - name: "Set up Python ${{ matrix.python-version }}"
         uses: actions/setup-python@v4
         with:
-          python-version: "${{ matrix.python-version }}"
+          python-version: "${{ matrix.python }}"
       - name: Install build meta-dependencies
         run: |
           pip install poetry tox 'wheel>=0.36,<1.0'

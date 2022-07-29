@@ -4,7 +4,7 @@ channels:
   - conda-forge
 dependencies:
   - python>=3.8,<4
-  - tomlkit>=0.7,<1
+  - tomlkit>=0.8,<1
   - typer>=0.6,<1
   - requests>=2.26,<3
   - grayskull>=1.4,<2.0

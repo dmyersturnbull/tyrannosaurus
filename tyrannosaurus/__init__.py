@@ -2,18 +2,16 @@
 Metadata for Tyrannosaurus.
 
 Original source: https://github.com/dmyersturnbull/tyrannosaurus
-Copyright 2020–2021 Douglas Myers-Turnbull
+Copyright 2020–2022 Douglas Myers-Turnbull
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0
 """
 import logging
-
 from datetime import datetime, timezone
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import metadata as __load
 from pathlib import Path
-
 
 pkg = Path(__file__).absolute().parent.name
 logger = logging.getLogger(pkg)
