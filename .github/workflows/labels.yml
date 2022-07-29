@@ -4,7 +4,7 @@ on:
     branches: [main, master]
 jobs:
   labels:
-    name: DefaultLabelsActions
+    name: sync issue labels
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

@@ -7,30 +7,34 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- GitHub Container Registry push
+- GitHub Container Registry push ([issue #29](https://github.com/dmyersturnbull/tyrannosaurus/issues/29))
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - 100% support for Python 3.10 _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Changed
 
-- Publish workflow now tests in all 3 platforms
-- Bumped Grayskull to v1 (1.4) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Workflows, including when they run and which platforms in matrix _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Moved to Grayskull to v1 (1.4) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Bumped CI and dev deps _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - readthedocs, Docker, GitHub workflows, and Travis now use Python 3.10
   _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- GitHub workflows now use Ubuntu-22.04 and macOS-12 _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Bumped some versions _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Improved editorconfig, dockerignore, and gitignore _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Renamed `checks.yml` to `check.yml` _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Renamed workflows (`name` in the YMLs) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Exactly when workflows run: branch `main`, `master`, `release/**`, or `releases/**`
+- Dockerfile no long has an explicit Poetry version
 
 ### Removed
 
+- Markdown link check in `checks.yml` workflow (commented);
+  it fails too often (e.g. 403s) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - `NO_DEV` argument in Dockerfile _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- Slack integration
+- Slack integration _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Fixed
 
+- Docker on Windows ([issue #33](https://github.com/dmyersturnbull/tyrannosaurus/issues/33))
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Coverage reports get sent once per build ([issue #32](https://github.com/dmyersturnbull/tyrannosaurus/issues/32))
+  _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Made Python version range consistent in generated projects: 3.6 to < 4
   _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Redirects in Markdown links _―[dmyersturnbull](https://github.com/dmyersturnbull)_
