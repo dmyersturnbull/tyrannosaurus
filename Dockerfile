@@ -27,10 +27,9 @@ ENV PYTHONHASHSEED=random
 ENV PIP_NO_CACHE_DIR=off
 ENV PIP_DISABLE_PIP_VERSION_CHECK=on
 ENV PIP_DEFAULT_TIMEOUT=120
-ENV POETRY_VERSION=1.1.14
 
 # Install system deps
-RUN pip install "poetry==$POETRY_VERSION"
+RUN pip install 'poetry>=1.1,<2'
 
 # Copy only requirements to cache them in docker layer
 WORKDIR /code

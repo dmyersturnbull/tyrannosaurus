@@ -4,31 +4,34 @@ name: publish
 on:
   release:
     types: [published]
-  repository_dispatch:
-    types: [release-made]
+    branches: [main, master, "release/**", "releases/**"]
 jobs:
   test:
-    name: Test on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-22.04", "windows-2022", "macos-12"]
-        python: ["3.10"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        python-version: ["3.10"]
+    name: "test on ${{ matrix.os }}/py${{ matrix.python-version }}"
+    runs-on: "${{ matrix.os }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Set up Python
+      - name: "Set up Python ${{ matrix.python-version }}"
         uses: actions/setup-python@v4
         with:
-          python-version: "${{ matrix.python }}"
+          python-version: "${{ matrix.python-version }}"
       - name: Install build meta-dependencies
         run: |
-          pip install poetry tox
+          pip install 'poetry>=1.1,<2' 'tox>=3,<4' 'wheel>=0.37,<1.0'
       - name: Test with tox
         run: |
           tox -v
+      - name: Test Docker build
+        if: ${{ ( runner.os == 'Linux' || runner.os == 'Windows' ) && matrix.python-version == '3.10' }}
+        run: |
+          docker build .
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     needs: ["test"]
     steps:
       - name: Checkout

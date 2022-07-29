@@ -22,6 +22,7 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Improved editorconfig, dockerignore, and gitignore _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Renamed `checks.yml` to `check.yml` _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Renamed workflows (`name` in the YMLs) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- Exactly when workflows run: branch `main`, `master`, `release/**`, or `releases/**`
 
 ### Removed
 
