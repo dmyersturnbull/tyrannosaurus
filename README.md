@@ -55,7 +55,7 @@ GitHub Actions are used by default, but config files for Travis and Azure Pipeli
 You can swap out, modify, or disable anything as you see fit.
 **[See the docs 📚](https://tyrannosaurus.readthedocs.io/en/stable/)** for more information.
 
-_By default_, here’s how your new project will behave:
+Here’s how your new project will behave when first set up:
 
 - **Commit** ⇒ Files are linted and verified for integrity
 - **Make a pull request** ⇒ Code is built and tested
@@ -64,15 +64,11 @@ _By default_, here’s how your new project will behave:
 - `tox` ⇒ Tests are run locally
 - `tyrannosaurus sync` ⇒ Project metadata is synced to pyproject.toml
 - `tyrannosaurus update` ⇒ New dependency versions from PyPi and/or Conda are listed
-- `tyrannosaurus clean` ⇒ Remove temp files (`--aggressive` for more)
-
-#### 📦 Need a little help!
-
-_Packages are currently not pushed to the GitHub Container Registry!_
-_If you know how to use QEMU and Dockerx, please take a look at_
-_[this workflow](https://github.com/dmyersturnbull/tyrannosaurus/blob/b6a731464a212ad851ea13c8b4ffaba3885813a6/.github/workflows/publish.yml)._
+- `tyrannosaurus [--aggressive] clean` ⇒ Remove temp files
 
 ### 🎁 Full features / integrations
+
+<details>
 
 - Packaging and dependency management with [Poetry](https://python-poetry.org/)
 - Python 3.6 thru 3.10 (probably 3.11 too)
@@ -84,7 +80,6 @@ _[this workflow](https://github.com/dmyersturnbull/tyrannosaurus/blob/b6a731464a
 - Continuous deployment to [PyPi](http://pypi.org/) and [Docker Hub](https://hub.docker.com/).
 - Deployment to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry);
   plus to any other desired container registries with a simple modification.
-  _note:_ temporarily disabled (0.10.x) due to an issue.
 - Automatic attachment of [sdits](https://docs.python.org/3/distutils/sourcedist.html)
   and [wheels](https://pythonwheels.com/) to
   [GitHub Releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
@@ -125,9 +120,14 @@ _[this workflow](https://github.com/dmyersturnbull/tyrannosaurus/blob/b6a731464a
 - `tyrannosaurus sync` to synchronize project metadata to pyproject.toml ‡
 
 † [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)  
-‡ This feature is experimental and does not yet support all [intended sync targets](https://github.com/dmyersturnbull/tyrannosaurus/issues/12).
+‡ This feature is experimental and does not yet support
+all [intended sync targets](https://github.com/dmyersturnbull/tyrannosaurus/issues/12).
+
+</details>
 
 ### ✏️ Syncing to pyproject.toml
+
+<details>
 
 _Note: This feature is only partly complete._
 
@@ -143,7 +143,11 @@ Running `tyrannosaurus build` will run poetry lock, synchronize project metadata
 install, and clean up.
 Target files can be disabled in `[tool.tyrannosaurus.targets]`.
 
+</details>
+
 ### 🔨 Building your project locally
+
+<details>
 
 You can test your project locally. Install [Poetry](https://github.com/python-poetry/poetry)
 and [Tox](https://tox.readthedocs.io/en/latest/) (`pip install tox`).
@@ -151,6 +155,8 @@ Then just type `tox` to build artifacts and run tests.
 You can install locally with `poetry install .` or just `pip install .`.
 To create an initial Anaconda recipe or environment file, run `tyrannosaurus recipe` or `tyrannosaurus env`.
 After that, you can use `sync` to keep them up-to-date with pyproject.toml.
+
+</details>
 
 ### 🎯 Similar templates and tools
 
@@ -167,7 +173,7 @@ Here are features that other tools lack:
 - Built-in optional support for **extra/alternative tools**, such as Travis and codemeta.
 - Complete **absence of legacy tools**, files, and Python 2 support.
 
-#### 🏁 Feature table
+### 🏁 Feature table
 
 | Tool                                                                                     | Main techs                 | CD kickoff     | N int.† | modern‡ | Docker | Conda | sync | any-OS |
 | ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | ------ | ----- | ---- | ------ |
@@ -186,6 +192,10 @@ Here are features that other tools lack:
 | [docker-science](https://github.com/docker-science/cookiecutter-docker-science)          | Make, Docker, setuptools   | no CI/CD       | 15      |         | ✔️     |       |      |        |
 | [science-notebook-template](https://github.com/dmyersturnbull/science-notebook-template) | Conda                      | no CI/CD       | 5       |         | ✔️     |       |      | ✔️     |
 
+**Notes:**
+
+<details>
+
 **† _N int._**: Approximate number of built-in integrations with tools and standards. What counts is very roughly defined.  
 **‡ _Modern_**: Lacks legacy files and tools. I’m including Make, setuptools, pipenv, and some others.  
 **Note:** [copier](https://github.com/copier-org/copier) syncs with a remote template. It’s a neat idea that Tyrannosaurus lacks.
@@ -200,7 +210,11 @@ Some of the packages in the table above need more explanation:
 - [Cookiecutter-docker-science](https://github.com/docker-science/cookiecutter-docker-science) is an interesting project
   that doesn’t quite fit in this list.
 
+</details>
+
 ### ✨ Projects made with Tyrannosaurus
+
+<details>
 
 These are some example projects that were generated with Tyrannosaurus:
 
@@ -215,6 +229,8 @@ These are some example projects that were generated with Tyrannosaurus:
 - [chemserve](https://github.com/dmyersturnbull/chemserve)
 - [pocketutils](https://github.com/dmyersturnbull/pocketutils)
 - [auth_capture_proxy](https://github.com/alandtse/auth_capture_proxy)
+
+</details>
 
 ### 🍁 Contributing
 
