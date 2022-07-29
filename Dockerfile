@@ -38,8 +38,8 @@ COPY poetry.lock pyproject.toml /code/
 # Install with poetry
 # pip install would probably work, too, but we'd have to make sure it's a recent enough pip
 # Don't bother creating a virtual env -- significant performance increase
-RUN poetry config virtualenvs.create false \
-  && poetry install --no-dev --no-interaction --no-ansi
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-dev --no-interaction --no-ansi
 
 # Copy to workdir
 COPY . /code
