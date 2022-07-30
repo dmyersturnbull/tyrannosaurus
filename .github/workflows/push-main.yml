@@ -8,9 +8,6 @@ jobs:
   test:
     strategy:
       matrix:
-        # the order matters: macOS is assumed to be the last,
-        # so coverage is only updated for that one on Python 3.10
-        # see below
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         python-version: ["3.10"]
     name: "test on ${{ matrix.os }}/py${{ matrix.python-version }}"
@@ -33,7 +30,7 @@ jobs:
         run: |
           docker build .
       - name: Update coveralls
-        if: runner.os == 'macOS'
+        if: runner.os == 'Linux'
         run: |
           pip install 'coveralls>=3,<4'
           coveralls --service=github || true
