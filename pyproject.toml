@@ -30,7 +30,6 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Natural Language :: English",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -115,13 +114,13 @@ environment  = false
 tyrannosaurus = "tyrannosaurus.cli:cli"
 
 [tool.poetry.dependencies]
-python                   = "^3.8"
-tomlkit                  = ">=0.10, <1"
+python                   = "^3.9"
+tomlkit                  = ">=0.11, <1"
 typer                    = {version="^0.6", extras=["all"]}
-requests                 = "^2.27"
-grayskull                = "^1.4"
+httpx                    = ">=0.23, <1"
+grayskull                = "^1.8"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.test.dependencies]
 bandit                   = "^1.7"
 flake8                   = "^5"
 flake8-bugbear           = ">=22"
@@ -133,6 +132,8 @@ nbqa                     = "^1.4"
 pre-commit               = "^2.20"
 pytest                   = "^7"
 pytest-cov               = "^3"
+
+[tool.poetry.group.docs.dependencies]
 sphinx                   = "^5"
 sphinx-autoapi           = "^1.8"
 sphinx-copybutton        = "^0.5"
@@ -178,7 +179,7 @@ show_missing = true
 
 [tool.black]
 line-length = 100
-target-version = ["py38", "py39", "py310"]
+target-version = ["py39", "py310", "py311"]
 
 [tool.isort]
 line_length = 100

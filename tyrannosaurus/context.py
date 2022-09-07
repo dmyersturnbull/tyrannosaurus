@@ -14,10 +14,9 @@ import logging
 import os
 import re
 import shutil
+from collections.abc import Mapping, Sequence
 from pathlib import Path
-from typing import Mapping, Optional, Sequence
-from typing import Tuple as Tup
-from typing import Union
+from typing import Optional, Union
 
 from tyrannosaurus import TyrannoInfo
 from tyrannosaurus.enums import DevStatus, License, Toml
@@ -130,12 +129,12 @@ class Context:
             shutil.copyfile(str(path), str(bak))
             logger.debug(f"Generated backup of {path} to {bak}")
 
-    def trash(self, path: str, hard_delete: bool) -> Tup[Optional[Path], Optional[Path]]:
+    def trash(self, path: str, hard_delete: bool) -> tuple[Optional[Path], Optional[Path]]:
         return self.delete_exact_path(self.path / path, hard_delete=hard_delete)
 
     def delete_exact_path(
         self, path: Path, hard_delete: bool
-    ) -> Tup[Optional[Path], Optional[Path]]:
+    ) -> tuple[Optional[Path], Optional[Path]]:
         if not path.exists():
             return None, None
         self.check_path(path)

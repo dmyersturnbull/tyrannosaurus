@@ -21,7 +21,7 @@ repository:
     ]
 
   has_issues: true
-  has_projects: true
+  has_projects: false
   has_wiki: false
   has_downloads: true
 

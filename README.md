@@ -4,15 +4,14 @@
 [![Version on PyPi](https://badgen.net/pypi/v/tyrannosaurus?label=PyPi)](https://pypi.org/project/tyrannosaurus)
 [![Version on GitHub](https://badgen.net/github/release/dmyersturnbull/tyrannosaurus/stable?label=GitHub)](https://github.com/dmyersturnbull/tyrannosaurus/releases)
 [![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyrannosaurus?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyrannosaurus)
-[![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/tyrannosaurus?label=Conda-Forge)](https://anaconda.org/conda-forge/tyrannosaurus)  
+[![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/tyrannosaurus?label=Conda-Forge)](https://anaconda.org/conda-forge/tyrannosaurus)\
 [![Build (Actions)](https://img.shields.io/github/workflow/status/dmyersturnbull/tyrannosaurus/maintest?label=Tests)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
-[![Build (Travis)](https://badgen.net/travis/dmyersturnbull/tyrannosaurus?label=Travis)](https://travis-ci.com/github/dmyersturnbull/tyrannosaurus)
 [![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge)](https://tyrannosaurus.readthedocs.io/en/stable/)
 [![Coverage (coveralls)](https://badgen.net/coveralls/c/github/dmyersturnbull/tyrannosaurus?label=Coveralls)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=main)
-[![Coverage (codecov)](https://badgen.net/codecov/c/github/dmyersturnbull/tyrannosaurus?label=CodeCov)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus)  
+[![Coverage (codecov)](https://badgen.net/codecov/c/github/dmyersturnbull/tyrannosaurus?label=CodeCov)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus)\
 [![Maintainability (Code Climate)](https://badgen.net/codeclimate/maintainability/dmyersturnbull/tyrannosaurus)](https://codeclimate.com/github/dmyersturnbull/tyrannosaurus/maintainability)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmyersturnbull/tyrannosaurus/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/dmyersturnbull/tyrannosaurus/?branch=main)
-[![CodeFactor](https://www.codefactor.io/repository/github/dmyersturnbull/tyrannosaurus/badge)](https://www.codefactor.io/repository/github/dmyersturnbull/tyrannosaurus)  
+[![CodeFactor](https://www.codefactor.io/repository/github/dmyersturnbull/tyrannosaurus/badge)](https://www.codefactor.io/repository/github/dmyersturnbull/tyrannosaurus)
 [![License](https://badgen.net/pypi/license/tyrannosaurus?label=License)](https://opensource.org/licenses/Apache-2.0)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4485186.svg)](https://doi.org/10.5281/zenodo.4485186)
 [![Created with Tyrannosaurus](https://img.shields.io/badge/Created_with-Tyrannosaurus-0000ff.svg)](https://github.com/dmyersturnbull/tyrannosaurus)
@@ -35,7 +34,7 @@ Also see Tyrannosaurus’s little sister
 [science-notebook-template 🧪](https://github.com/dmyersturnbull/science-notebook-template)
 for scientific publication repos.
 
-Don’t make 55 commits trying to configure CI/CD workflows.  
+Don’t make 55 commits trying to configure CI/CD workflows.
 After creating an empty GitHub repo called `myproject`:
 
 ```bash
@@ -60,7 +59,7 @@ Here’s how your new project will behave when first set up:
 - **Commit** ⇒ Files are linted and verified for integrity
 - **Make a pull request** ⇒ Code is built and tested
 - **Push to the main branch** ⇒ Code is built and tested; code quality, coverage, and security badges are updated
-- **Make a GitHub release** ⇒ Artifacts are sent to GitHub, PyPi, Docker Hub, the GitHub Container Registry, and readthedocs
+- **Make a GitHub release** ⇒ Artifacts are sent to GitHub, PyPi, Docker Hub, the GCR, and readthedocs
 - `tox` ⇒ Tests are run locally
 - `tyrannosaurus sync` ⇒ Project metadata is synced to pyproject.toml
 - `tyrannosaurus update` ⇒ New dependency versions from PyPi and/or Conda are listed
@@ -71,7 +70,7 @@ Here’s how your new project will behave when first set up:
 <details>
 
 - Packaging and dependency management with [Poetry](https://python-poetry.org/)
-- Python 3.6 thru 3.10 (probably 3.11 too)
+- Python 3.6 thru 3.11
 - Only modern files: _no_ manifest file, setup.py, requirements.txt, setup.cfg, or eggs
 - Continuous integration with [GitHub Actions](https://github.com/features/actions),
   [Travis](https://www.travis-ci.com/), or
@@ -119,7 +118,7 @@ Here’s how your new project will behave when first set up:
 - `tyrannosaurus update` that lists dependency versions to bump
 - `tyrannosaurus sync` to synchronize project metadata to pyproject.toml ‡
 
-† [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)  
+† [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)
 ‡ This feature is experimental and does not yet support
 all [intended sync targets](https://github.com/dmyersturnbull/tyrannosaurus/issues/12).
 
@@ -167,7 +166,7 @@ I designed Tyrannosaurus to solve issues with existing tools.
 Here are features that other tools lack:
 
 - An **elegant CI/CD workflow**: The workflow gets kicked off only via `git push` and GitHub releases.
-- **Interopability with Conda**, including recipes and environment files, by mapping dependencies and metadata.
+- **Interoperability with Conda**, including recipes and environment files, by mapping dependencies and metadata.
 - **Automated publishing** to PyPi, Conda-Forge, Docker Hub, the GitHub Container Registry, and readthedocs.
 - **No duplication** between project files. (Not 100%: some duplication remains.)
 - Built-in optional support for **extra/alternative tools**, such as Travis and codemeta.
@@ -196,8 +195,8 @@ Here are features that other tools lack:
 
 <details>
 
-**† _N int._**: Approximate number of built-in integrations with tools and standards. What counts is very roughly defined.  
-**‡ _Modern_**: Lacks legacy files and tools. I’m including Make, setuptools, pipenv, and some others.  
+**† _N int._**: Approximate number of built-in integrations with tools and standards. What counts is very roughly defined.
+**‡ _Modern_**: Lacks legacy files and tools. I’m including Make, setuptools, pipenv, and some others.
 **Note:** [copier](https://github.com/copier-org/copier) syncs with a remote template. It’s a neat idea that Tyrannosaurus lacks.
 
 Some of the packages in the table above need more explanation:
@@ -236,7 +235,7 @@ These are some example projects that were generated with Tyrannosaurus:
 
 [New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
 Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/CONTRIBUTING.md)
-and [security policy](https://github.com/dmyersturnbull/tyrannosaurus/blob/main/SECURITY.md).  
+and [security policy](https://github.com/dmyersturnbull/tyrannosaurus/blob/main/SECURITY.md).
 Generated with tyrannosaurus: `tyrannosaurus new tyrannosaurus`
 
 ```text

@@ -13,13 +13,12 @@ from __future__ import annotations
 import logging
 import os
 import re
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 from subprocess import SubprocessError, check_output  # nosec
-from typing import Mapping, Optional, Sequence
-from typing import Tuple as Tup
-from typing import Union
+from typing import Optional, Union
 
-import requests
+import httpx
 import typer
 
 logger = logging.getLogger(__package__)
@@ -98,7 +97,7 @@ class _Env:
 
 
 class PyPiHelper:
-    def new_versions(self, pkg_versions: Mapping[str, str]) -> Mapping[str, Tup[str, str]]:
+    def new_versions(self, pkg_versions: Mapping[str, str]) -> Mapping[str, tuple[str, str]]:
         logger.warning("Making a best effort to find new versions. Correctness is not guaranteed.")
         updated = {}
         for pkg, version in pkg_versions.items():
@@ -137,13 +136,13 @@ class PyPiHelper:
         pat = re.compile('"package-header__name">[ \n\t]*' + name + " ([0-9a-zA-Z_.-]+)")
         try:
             try:
-                r = requests.get(f"https://pypi.org/project/{name}")
+                r = httpx.get(f"https://pypi.org/project/{name}")
             except OSError:
                 logger.debug(f"Failed fetching PyPi vr for package {name}", exc_info=True)
                 r = None
             if r is None or r.status_code > 400:
                 # thanks to Sphinx and a couple of others
-                r = requests.get(f"https://pypi.org/project/{name.capitalize()}")
+                r = httpx.get(f"https://pypi.org/project/{name.capitalize()}")
                 if r.status_code > 400:
                     raise LookupError(f"Status code {r.status_code} from pypi for package {name}")
         except OSError:
@@ -164,7 +163,7 @@ class CondaForgeHelper:
     def has_pkg(self, name: str):
         # unfortunately, Anaconda returns 200 even if the page doesn't exist
         try:
-            r = requests.get(f"https://anaconda.org/conda-forge/{name}")
+            r = httpx.get(f"https://anaconda.org/conda-forge/{name}")
         except OSError:
             logger.error(
                 f"Failed fetching from anaconda.org. Assuming {name} is in Conda-Forge.",

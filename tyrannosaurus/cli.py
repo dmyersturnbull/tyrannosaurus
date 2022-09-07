@@ -13,10 +13,11 @@ import inspect
 import logging
 import os
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from subprocess import check_call  # nosec
-from typing import Optional, Sequence
+from typing import Optional
 
 import typer
 from typer.models import ArgumentInfo, OptionInfo

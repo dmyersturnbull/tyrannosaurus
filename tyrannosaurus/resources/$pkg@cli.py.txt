@@ -28,7 +28,7 @@ def info(n_seconds: float = 0.01, verbose: bool = False) -> None:
         verbose: Output more info
 
     Example:
-        To call this, run: ::
+        To call this, run::
 
             from testme import info
             info(0.02)

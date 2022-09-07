@@ -3,13 +3,13 @@
 Adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [0.11.0] - 2022-07-28
+## [0.11.0] - unreleased
 
 ### Added
 
 - GitHub Container Registry push ([issue #29](https://github.com/dmyersturnbull/tyrannosaurus/issues/29))
   _―[dmyersturnbull](https://github.com/dmyersturnbull)_
-- 100% support for Python 3.10 _―[dmyersturnbull](https://github.com/dmyersturnbull)_
+- 100% support for Python 3.10 and 3.11 _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 
 ### Changed
 
@@ -21,9 +21,11 @@ and [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Bumped some versions _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Improved editorconfig, dockerignore, and gitignore _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - Dockerfile no long has an explicit Poetry version
+- .editorconfig now trims Markdown lines; use `\\` instead.
 
 ### Removed
 
+- Running Tyrannosaurus from Python 3.7 or 3.8
 - Markdown link check in `checks.yml` workflow (commented);
   it fails too often (e.g. 403s) _―[dmyersturnbull](https://github.com/dmyersturnbull)_
 - `NO_DEV` argument in Dockerfile _―[dmyersturnbull](https://github.com/dmyersturnbull)_

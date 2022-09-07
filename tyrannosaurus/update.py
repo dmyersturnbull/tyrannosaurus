@@ -11,8 +11,7 @@ You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-
 from __future__ import annotations
 
 import logging
-from typing import Mapping
-from typing import Tuple as Tup
+from collections.abc import Mapping
 
 from tyrannosaurus.context import Context
 from tyrannosaurus.helpers import PyPiHelper
@@ -24,7 +23,7 @@ class Update:
     def __init__(self, context: Context):
         self.context = context
 
-    def update(self) -> Tup[Mapping[str, Tup[str, str]], Mapping[str, Tup[str, str]]]:
+    def update(self) -> tuple[Mapping[str, tuple[str, str]], Mapping[str, tuple[str, str]]]:
         helper = PyPiHelper()
         updates = helper.new_versions(self.context.deps)
         dev_updates = helper.new_versions(self.context.dev_deps)

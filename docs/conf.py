@@ -88,7 +88,3 @@ html_theme_options = {
 sphinx_enable_epub_build = False
 sphinx_enable_pdf_build = False
 exclude_patterns = ["_build", "Thumbs.db", ".*", "~*", "*~", "*#"]
-
-
-if __name__ == "__main__":
-    print(f"{project} v{version}\n© Copyright {copyright}")

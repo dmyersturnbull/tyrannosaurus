@@ -11,9 +11,9 @@ You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-
 from __future__ import annotations
 
 import logging
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Optional, Sequence
-from typing import Tuple as Tup
+from typing import Optional
 
 from tyrannosaurus.context import Context
 from tyrannosaurus.helpers import TrashList, scandir_fast
@@ -28,7 +28,7 @@ class Clean:
         self.hard_delete = hard_delete
         self.dry_run = dry_run
 
-    def clean(self, path: Path) -> Sequence[Tup[Path, Optional[Path]]]:
+    def clean(self, path: Path) -> Sequence[tuple[Path, Optional[Path]]]:
         context = Context(path, dry_run=self.dry_run)
         logger.info(f"Clearing {context.tmp_path}")
         trashed = []

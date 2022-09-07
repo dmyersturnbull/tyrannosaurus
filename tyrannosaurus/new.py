@@ -14,9 +14,10 @@ import logging
 import os
 import shutil
 import stat
+from collections.abc import Sequence
 from pathlib import Path
 from subprocess import PIPE, CalledProcessError, check_output  # nosec
-from typing import Dict, List, Optional, Sequence, Union
+from typing import Optional, Union
 
 import typer
 
@@ -218,12 +219,12 @@ class New:
 
     def _call(
         self,
-        cmd: List[str],
+        cmd: list[str],
         cwd: Optional[Path] = None,
         succeed: Optional[str] = None,
         fail: Union[None, str, BaseException] = None,
     ) -> Optional[str]:
-        kwargs: Dict[str, str] = {} if cwd is None else {"cwd": str(cwd)}
+        kwargs: dict[str, str] = {} if cwd is None else {"cwd": str(cwd)}
         if not self.debug:
             kwargs["stderr"] = PIPE
         try:

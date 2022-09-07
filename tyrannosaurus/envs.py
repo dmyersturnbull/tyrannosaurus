@@ -8,8 +8,8 @@ you may not use this file except in compliance with the License.
 You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0
 """
 import logging
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Sequence
 
 from tyrannosaurus.context import Context
 from tyrannosaurus.helpers import EnvHelper

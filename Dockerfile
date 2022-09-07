@@ -29,7 +29,7 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=on
 ENV PIP_DEFAULT_TIMEOUT=120
 
 # Install system deps
-RUN pip install 'poetry>=1.1,<2'
+RUN pip install 'poetry>=1.2,<2'
 
 # Copy only requirements to cache them in docker layer
 WORKDIR /code

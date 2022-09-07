@@ -12,8 +12,9 @@ from __future__ import annotations
 import logging
 import re
 import textwrap
+from collections.abc import Mapping, Sequence
 from pathlib import Path
-from typing import Mapping, Optional, Sequence, Union
+from typing import Optional, Union
 
 from tyrannosaurus.context import Context
 from tyrannosaurus.envs import CondaEnv

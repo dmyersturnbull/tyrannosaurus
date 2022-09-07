@@ -11,8 +11,9 @@ You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-
 from __future__ import annotations
 
 import logging
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Optional, Sequence
+from typing import Optional
 
 from grayskull.base.factory import GrayskullFactory
 from grayskull.config import Configuration

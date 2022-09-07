@@ -11,10 +11,11 @@ You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-
 from __future__ import annotations
 
 import enum
+from collections.abc import Mapping
 from pathlib import Path, PurePath
-from typing import Any, Mapping, Optional, Union
+from typing import Any, Optional, Union
 
-import requests
+import httpx
 import tomlkit
 
 
@@ -253,7 +254,7 @@ class License(str, enum.Enum):
         return self._read_url(self.header_url)
 
     def _read_url(self, url: str) -> str:
-        response = requests.get(url)
+        response = httpx.get(url)
         if response.status_code > 400:
             raise ValueError(f"Status code {response.status_code} for url {url}")
         return response.text
