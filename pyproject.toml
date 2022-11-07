@@ -116,7 +116,7 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 [tool.poetry.dependencies]
 python                   = "^3.9"
 tomlkit                  = ">=0.11, <1"
-typer                    = {version="^0.6", extras=["all"]}
+typer                    = {version=">=0.6,<0.8", extras=["all"]}
 httpx                    = ">=0.23, <1"
 grayskull                = "^1.8"
 
