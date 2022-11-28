@@ -1,6 +1,6 @@
 # https://stackoverflow.com/questions/53835198/integrating-python-poetry-with-docker/54763270#54763270
 
-FROM python:3.10
+FROM python:3.11
 
 
 # --------------------------------------
