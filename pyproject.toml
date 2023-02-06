@@ -118,7 +118,7 @@ python                   = "^3.9"
 tomlkit                  = ">=0.11, <1"
 typer                    = {version="^0.6", extras=["all"]}
 httpx                    = ">=0.23, <1"
-grayskull                = "^1.8"
+grayskull                = ">=1.8,<3.0"
 
 [tool.poetry.group.test.dependencies]
 bandit                   = "^1.7"
