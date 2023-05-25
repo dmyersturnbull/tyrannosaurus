@@ -21,12 +21,12 @@ jobs:
           python-version: "${{ matrix.python-version }}"
       - name: Install build meta-dependencies
         run: |
-          pip install 'poetry>=1.2,<2' 'tox>=3,<4' 'wheel>=0.37,<1.0'
+          pip install 'poetry>=1.4,<2' 'tox>=4,<5' 'wheel>=0.37,<1.0'
       - name: Test with tox
         run: |
           tox -v
       - name: Test Docker build
-        if: ${{ ( runner.os == 'Linux' || runner.os == 'Windows' ) && matrix.python-version == '3.10' }}
+        if: ${{ ( runner.os == 'Linux' || runner.os == 'Windows' ) && matrix.python-version == '3.11' }}
         run: |
           docker build .
       - name: Update coveralls

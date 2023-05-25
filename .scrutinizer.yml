@@ -1,12 +1,12 @@
 build:
   environment:
-    python: 3.10.5
+    python: 3.10.10
   nodes:
     my-tests:
       dependencies:
         before:
-          - "pip install --upgrade 'tox>=3.25,<4.0'"
-          - "pip install --upgrade 'poetry>=1.2,<2.0'"
+          - "pip install --upgrade 'tox>=4,<5'"
+          - "pip install --upgrade 'poetry>=1.4,<2.0'"
     analysis:
       tests:
         override:

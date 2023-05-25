@@ -1,0 +1,14 @@
+name: "🎁 Feature"
+about: Feature request
+title: ""
+labels: "kind: new feature"
+assignees: ""
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What is the feature request?
+      placeholder: Describe the feature you would like.
+    validations:
+      required: true

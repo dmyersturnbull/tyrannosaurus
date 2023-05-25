@@ -1,6 +1,6 @@
 # Check out https://pre-commit.com/ for documentation
 # and https://pre-commit.com/hooks.html for more hooks
-minimum_pre_commit_version: 2.20.0
+minimum_pre_commit_version: 3.3.2
 # Don't set language_version -- it's only useful if we have multiple
 # python versions or our build uses a different env than runtime
 repos:
@@ -35,21 +35,21 @@ repos:
       - id: check-yaml
         exclude: ^recipes/.*
     repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v4.4.0
 
   # --- Commit msg checks ---
   - hooks:
       - id: commitizen
         stages: ["commit-msg"]
     repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.32.0
+    rev: v3.2.2
 
   # --- Strip output from .ipynb files ---
   # - hooks:
   #     - id: nbstripout
   #       files: ".ipynb"
   #   repo: https://github.com/kynan/nbstripout
-  #   rev: 0.5.0
+  #   rev: 0.6.1
 
   # --- Linters ---
   - hooks:
@@ -57,7 +57,7 @@ repos:
     repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
     rev: v1.1.2
   - repo: https://github.com/pycqa/isort
-    rev: 5.10.1
+    rev: 5.12.0
     hooks:
       - id: isort
         args: ["--profile", "black"]
@@ -65,14 +65,14 @@ repos:
   - hooks:
       - id: black
     repo: https://github.com/psf/black
-    rev: 22.8.0
+    rev: 23.3.0
   - repo: https://github.com/asottile/blacken-docs
-    rev: v1.12.1
+    rev: 1.13.0
     hooks:
       - id: blacken-docs
   # run black on Jupyter notebooks
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.4.0
+    rev: 1.7.0
     hooks:
       - id: nbqa-black
   - repo: https://github.com/pre-commit/mirrors-prettier

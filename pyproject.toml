@@ -6,7 +6,7 @@ description-file = "README.md"
 # https://github.com/ContinuumIO/anaconda-issues/issues/12094
 # Poetry uses pip and setuptools (although they're not included as dependencies)
 # We don't need to list wheel here, but setting a min vr can avoid generating inferior wheels
-requires = ["poetry>=1.1,<2", "virtualenv==20.0.33", "wheel>=0.37,<1.0"]
+requires = ["poetry>=1.4,<2", "virtualenv==20.0.33", "wheel>=0.37,<1.0"]
 build-backend = "poetry.masonry.api"
 
 
@@ -116,26 +116,26 @@ tyrannosaurus = "tyrannosaurus.cli:cli"
 [tool.poetry.dependencies]
 python                   = "^3.9"
 tomlkit                  = ">=0.11, <1"
-typer                    = {version="^0.6", extras=["all"]}
-httpx                    = ">=0.23, <1"
-grayskull                = "^1.8"
+typer                    = {version="^0.9", extras=["all"]}
+httpx                    = ">=0.24, <1"
+grayskull                = "^2.3"
 
 [tool.poetry.group.test.dependencies]
 bandit                   = "^1.7"
-flake8                   = "^5"
-flake8-bugbear           = ">=22"
+flake8                   = "^6"
+flake8-bugbear           = ">=23"
 flake8-comprehensions    = "^3"
-flake8-docstrings        = "^1.6"
-flake8-simplify          = "^0.19"
-coverage                 = {version = "^6", extras = ["toml"]}
-nbqa                     = "^1.4"
-pre-commit               = "^2.20"
+flake8-docstrings        = "^1"
+flake8-simplify          = "^0.20"
+coverage                 = {version = "^7", extras = ["toml"]}
+nbqa                     = "^1.7"
+pre-commit               = "^3.3"
 pytest                   = "^7"
-pytest-cov               = "^3"
+pytest-cov               = "^4"
 
 [tool.poetry.group.docs.dependencies]
-sphinx                   = "^5"
-sphinx-autoapi           = "^1.8"
+sphinx                   = "^7"
+sphinx-autoapi           = "^2"
 sphinx-copybutton        = "^0.5"
 sphinx-rtd-theme         = "^1"
 

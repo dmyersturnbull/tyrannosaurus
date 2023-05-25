@@ -1,0 +1,62 @@
+name: "🔒 Security issue"
+about: Security issue
+title: ""
+labels: "kind: security 🔒"
+assignees: ""
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If this is a serious issue, please omit details and the developers will get in touch.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What is the security problem?
+      placeholder: Describe the issue, or leave blank.
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version are you running?
+  - type: dropdown
+    id: os
+    attributes:
+      label: What OS types are you seeing the problem on?
+      multiple: true
+      options:
+        - Windows
+        - Linux
+        - macOS
+    validations:
+      required: false
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Edge
+        - Safari
+        - Opera
+        - Samsung Internet
+    validations:
+      required: false
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you? (Not required.)
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output.
+      render: shell

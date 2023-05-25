@@ -1,0 +1,14 @@
+name: "🔧 Enhancement"
+about: Enhancement
+title: ""
+labels: "kind: enhancement"
+assignees: []
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What needs work?
+      placeholder: Describe the feature that could be improved.
+    validations:
+      required: true
