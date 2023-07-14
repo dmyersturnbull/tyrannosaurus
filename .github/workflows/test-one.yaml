@@ -1,0 +1,39 @@
+# Reusable test
+name: test
+on:
+  workflow_call:
+    inputs:
+      os:
+        required: true
+        type: string
+      py-vr:
+        required: true
+        type: string
+jobs:
+  test:
+    name: "test on ${{ os }}/py${{ py-vr }}"
+    runs-on: "${{ matrix.os }}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: "${{ py-vr }}"
+      - name: Install Tox
+        # :tyranno: run: pip install "${.build-test-deps.tox~|pep508(@)~}"
+        run: pip install "tox>=4,<5"
+      - name: Test with tox
+        run: tox -v
+      - name: Test Docker build
+        run: docker build .
+      - name: Upload sdist and wheels
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-${{ os }}-${{ py-vr }}
+          path: dist/*
+      - name: Upload coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-${{ os }}-${{ py-vr }}
+          path: .coverage

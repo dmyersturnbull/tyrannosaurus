@@ -1,76 +1,84 @@
-# Tyrannosaurus
+# Tyranno
 
-[![Version status](https://img.shields.io/pypi/status/tyrannosaurus?label=Status)](https://pypi.org/project/tyrannosaurus)
-[![Version on PyPi](https://badgen.net/pypi/v/tyrannosaurus?label=PyPi)](https://pypi.org/project/tyrannosaurus)
-[![Version on GitHub](https://badgen.net/github/release/dmyersturnbull/tyrannosaurus/stable?label=GitHub)](https://github.com/dmyersturnbull/tyrannosaurus/releases)
-[![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyrannosaurus?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyrannosaurus)
-[![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/tyrannosaurus?label=Conda-Forge)](https://anaconda.org/conda-forge/tyrannosaurus)\
-[![Build (Actions)](https://img.shields.io/github/workflow/status/dmyersturnbull/tyrannosaurus/maintest?label=Tests)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
-[![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge)](https://tyrannosaurus.readthedocs.io/en/stable/)
-[![Coverage (coveralls)](https://badgen.net/coveralls/c/github/dmyersturnbull/tyrannosaurus?label=Coveralls)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=main)
-[![Coverage (codecov)](https://badgen.net/codecov/c/github/dmyersturnbull/tyrannosaurus?label=CodeCov)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus)\
-[![Maintainability (Code Climate)](https://badgen.net/codeclimate/maintainability/dmyersturnbull/tyrannosaurus)](https://codeclimate.com/github/dmyersturnbull/tyrannosaurus/maintainability)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmyersturnbull/tyrannosaurus/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/dmyersturnbull/tyrannosaurus/?branch=main)
-[![CodeFactor](https://www.codefactor.io/repository/github/dmyersturnbull/tyrannosaurus/badge)](https://www.codefactor.io/repository/github/dmyersturnbull/tyrannosaurus)
-[![License](https://badgen.net/pypi/license/tyrannosaurus?label=License)](https://opensource.org/licenses/Apache-2.0)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4485186.svg)](https://doi.org/10.5281/zenodo.4485186)
-[![Created with Tyrannosaurus](https://img.shields.io/badge/Created_with-Tyrannosaurus-0000ff.svg)](https://github.com/dmyersturnbull/tyrannosaurus)
+[![Version status](https://img.shields.io/pypi/status/tyranno?label=Status)](https://pypi.org/project/tyranno)<!--<< :tyranno: [![Version status](https://img.shields.io/pypi/status/${.name}?label=Status)](https://pypi.org/project/${.name}) -->
+[![Version on PyPi](https://badgen.net/pypi/v/tyranno?label=PyPi)](https://pypi.org/project/tyranno)<!--<< :tyranno: [![Version on PyPi](https://badgen.net/pypi/v/${.name}?label=PyPi -->
+[![Version on GitHub](https://badgen.net/github/release/dmyersturnbull/tyranno/stable?label=GitHub)](https://github.com/dmyersturnbull/tyranno/releases)<!--<< :tyranno: [![Version on GitHub](https://badgen.net/github/release/${.frag}/stable?label=GitHub)](${.link.repo}/releases) -->
+[![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyranno?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyranno)<!--<< :tyranno: [![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyranno?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/${.frag}) -->
+[![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/tyranno?label=Conda-Forge)](https://anaconda.org/conda-forge/tyranno)<!--<< :tyranno: [![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/${.name}?label=Conda-Forge)](https://anaconda.org/conda-forge/${T.name})\ -->
 
-An opinionated, forwards-looking Python template for 2021+.
+[![Build (Actions)](https://img.shields.io/github/workflow/status/dmyersturnbull/tyranno/maintest?label=Tests)](https://github.com/dmyersturnbull/tyranno/actions)<!--<< :tyranno: [![Build (Actions)](https://img.shields.io/github/workflow/status/${T.name}/${.org}/maintest?label=Tests)](${.link.url}/actions) -->
+[![Documentation status](https://readthedocs.org/projects/tyranno/badge)](https://tyranno.readthedocs.io/en/stable/)<!--<< :tyranno: [![Documentation status](${.link.url}/badge)](${.link.docs}) -->
+[![Coverage (coveralls)](https://badgen.net/coveralls/c/github/dmyersturnbull/tyranno?label=Coveralls)](https://coveralls.io/github/dmyersturnbull/tyranno?branch=main)<!--<< :tyranno: [![Coverage (coveralls)](https://badgen.net/coveralls/c/github/${T.name}/${.name}?label=Coveralls)](https://coveralls.io/github/${.frag}?branch=main) -->
+[![Coverage (codecov)](https://badgen.net/codecov/c/github/dmyersturnbull/tyranno?label=CodeCov)](https://codecov.io/gh/dmyersturnbull/tyranno)<!--<< :tyranno: [![Coverage (codecov)](https://badgen.net/codecov/c/github/${.frag}?label=CodeCov)](https://codecov.io/gh/${.frag})\ -->
 
-Generate elegant, ready-to-use Python
-projects that have excellent continuous integration and deployment (CI/CD). Integrated with
-Docker Hub, the GitHub Container Registry, Azure, Conda-Forge, and an array of linting, static analysis,
-security testing, documentation, dependency management, and CI/CD tools, including an optional
-custom tool to keep all duplicate project metadata synchronized to pyproject.toml.
+[![Maintainability (Code Climate)](https://badgen.net/codeclimate/maintainability/dmyersturnbull/tyranno)](https://codeclimate.com/github/dmyersturnbull/tyranno/maintainability)<!--<< :tyranno: [![Maintainability (Code Climate)](https://badgen.net/codeclimate/maintainability/${.frag})](https://codeclimate.com/github/${.frag}/maintainability) -->
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmyersturnbull/tyranno/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/dmyersturnbull/tyranno/?branch=main)<!--<< :tyranno: [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/${.frag}/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/${.frag}/?branch=main) -->
+[![CodeFactor](https://www.codefactor.io/repository/github/dmyersturnbull/tyranno/badge)](https://www.codefactor.io/repository/github/dmyersturnbull/tyranno)<!--<< :tyranno: [![CodeFactor](https://www.codefactor.io/repository/github/${.frag}/badge)](https://www.codefactor.io/repository/github/${.frag}) -->
 
-### 🎨 Design / generating a new project
+[![License](https://badgen.net/pypi/license/tyranno?label=License)](https://opensource.org/licenses/Apache-2.0)<!--<< :tyranno: [![License](https://badgen.net/pypi/license/${.name}?label=License)](${.license.url}) -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4485186.svg)](https://doi.org/10.5281/zenodo.4485186)<!--<< :tyranno: [![DOI](https://zenodo.org/badge/DOI/${.doi}.svg)](https://doi.org/${.doi}) -->
+[![Created with Tyranno](https://img.shields.io/badge/Created_with-Tyranno-0000ff.svg)](https://github.com/dmyersturnbull/tyranno)<!--<< :tyranno: [![Created with ${.Name}](https://img.shields.io/badge/Created_with-${.Name}-0000ff.svg)](https://github.com/${.frag}) -->
 
-This is a modern template built with [Poetry](https://python-poetry.org/),
-[GitHub Actions](https://github.com/features/actions), and
-[no legacy files](https://dmyersturnbull.github.io/#-the-python-build-landscape) or tools.
-See below for a [comparison to other tools](https://github.com/dmyersturnbull/tyrannosaurus#-similar-templates-and-tools).
-Also see Tyrannosaurus’s little sister
+Tyranno is an ultra-modern Python project generator and tool to sync project metadata to `pyproject.toml`.
+
+Run `tyranno new my-org/my-project`.
+Add `:tyranno:` comments where wanted and run `git commit` to sync and lint.
+To test, run `tox` or open a pull request against the _main_ branch.
+Merge or rebase to run final tests and update coveralls or codecov.
+Push a semver tag to publish to PyPi, GitHub, GHCR, and Docker Hub.
+
+Follow conventional commits to have pull requests auto-labeled and consistent release notes
+generated to `CHANGELOG.md` and your GitHub Releases.
+Generate Conda-Forge recipes with `tyranno recipe` and `environment.yaml` with `tyranno env`.
+Run `tyranno reqs` to list or accept Poetry updates.
+
+[📚 See the docs](https://readthedocs.org/projects/tyranno) for details.
+
+## 🎨 Design / generating a new project
+
+Don’t make 150 commits trying to configure CI/CD workflows. Tyranno's just works.
+
+`tyranno new` generates ready-to-use Python projects with outstanding CI/CD.
+Integrated with Docker Hub, the GitHub Container Registry, Azure, Conda-Forge,
+and an array of linting, static analysis, security testing, documentation, dependency management, CI/CD tools,
+and `:tyranno:` substitutions that reduce headaches.
+
+It uses [Poetry](https://python-poetry.org/), [GitHub Actions](https://github.com/features/actions), and
+[no legacy files and tools](https://dmyersturnbull.github.io/#-the-python-build-landscape).
+See below for a [comparison to other tools](https://github.com/dmyersturnbull/tyranno#-similar-templates-and-tools).
+Also see Tyranno’s little sister
 [science-notebook-template 🧪](https://github.com/dmyersturnbull/science-notebook-template)
 for scientific publication repos.
 
-Don’t make 55 commits trying to configure CI/CD workflows.
-After creating an empty GitHub repo called `myproject`:
-
 ```bash
-pip install tyrannosaurus
-tyrannosaurus new myproject --track
-# if on a GitHub organization, pass --user my-org-name
+pip install tyranno
+tyranno new https://github.com/myorg/myproject.git
+
+# Cloned https://github.com/myorg/myproject.git
+# See https://tyranno.readthedocs.io/en/latest/guide.html
 ```
 
-After initializing your project, Tyrannosaurus will list manual steps like adding API keys.
-Just delete files you don’t want. Or pass `--extras` to include extra files like
-azure-pipelines config and `codemeta.json`.
+### 💡 New project behavior
 
-### 💡 Main behavior / features
+This section describes how freshly `tyranno new`-ed projects work.
+However, you can swap out, modify, or disable anything as you see fit.
+**[See the docs 📚](https://tyranno.readthedocs.io/en/stable/)** for more information.
 
-Generated projects are integrated with various tools (from PyPi) and external CI/CD/code-quality systems.
-GitHub Actions are used by default, but config files for Travis and Azure Pipelines are also provided.
-You can swap out, modify, or disable anything as you see fit.
-**[See the docs 📚](https://tyrannosaurus.readthedocs.io/en/stable/)** for more information.
+Here’s how your new project will behave when first set up, if appropriate secrets are set.
 
-Here’s how your new project will behave when first set up:
-
-- **Commit** ⇒ Files are linted and verified for integrity
-- **Make a pull request** ⇒ Code is built and tested
+- **Commit** ⇒ Files are linted and verified for integrity.
+- **Make a pull request** ⇒ Code is built and tested.
 - **Push to the main branch** ⇒ Code is built and tested; code quality, coverage, and security badges are updated
-- **Make a GitHub release** ⇒ Artifacts are sent to GitHub, PyPi, Docker Hub, the GCR, and readthedocs
+- **Push a `v.*` tag** ⇒ Artifacts are sent to GitHub, PyPi, Docker Hub, the GCR, and readthedocs.
 - `tox` ⇒ Tests are run locally
-- `tyrannosaurus sync` ⇒ Project metadata is synced to pyproject.toml
-- `tyrannosaurus update` ⇒ New dependency versions from PyPi and/or Conda are listed
-- `tyrannosaurus [--aggressive] clean` ⇒ Remove temp files
+- `tyranno sync` ⇒ Project metadata is synced to pyproject.toml
+- `tyranno reqs` ⇒ New dependency versions from PyPi and/or Conda are listed
+- `tyranno clean` ⇒ Remove temp files
 
-### 🎁 Full features / integrations
-
-<details>
+## 🎁 Features & integrations
 
 - Packaging and dependency management with [Poetry](https://python-poetry.org/)
-- Python 3.6 thru 3.11
+- Python 3.7 thru 3.12
 - Only modern files: _no_ manifest file, setup.py, requirements.txt, setup.cfg, or eggs
 - Continuous integration with [GitHub Actions](https://github.com/features/actions),
   [Travis](https://www.travis-ci.com/), or
@@ -99,12 +107,12 @@ Here’s how your new project will behave when first set up:
   and [markdown-lint-check](https://github.com/gaurav-nelson/github-action-markdown-link-check)
 - Security analysis with [Bandit](https://github.com/PyCQA/bandit),
   [CodeQL](https://github.com/github/codeql-action),
-  and [safety](https://github.com/pyupio/safety) †
+  and [safety](https://github.com/pyupio/safety)
 - Static type analysis with [mypy](https://mypy.readthedocs.io)
 - [Conda-Forge](https://conda-forge.org/) [recipes](https://conda-forge.org/docs/maintainer/adding_pkgs.html#the-recipe-meta-yaml)
   and [environment YML](https://medium.com/@balance1150/how-to-build-a-conda-environment-through-a-yaml-file-db185acf5d22)
   with [Grayskull](https://github.com/conda-incubator/grayskull)
-  and [Tyrannosaurus](https://tyrannosaurus.readthedocs.io/)
+  and [Tyranno](https://tyranno.readthedocs.io/)
 - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
 - Fancy [issue labels](https://github.com/crazy-max/ghaction-github-labeler)
 - Fancy GitHub-recognized readme, license,
@@ -114,55 +122,16 @@ Here’s how your new project will behave when first set up:
 - Nice gitignore, dockerignore, [ChangeLog](https://keepachangelog.com), and other misc files
 - [CodeMeta](https://codemeta.github.io/user-guide/) and [CITATION.cff](https://citation-file-format.github.io/)
 - Dependency updating with [Dependabot](https://dependabot.com/)
-- `tyrannosaurus clean` to clean temp files
-- `tyrannosaurus update` that lists dependency versions to bump
-- `tyrannosaurus sync` to synchronize project metadata to pyproject.toml ‡
-
-† [Temporary issue in safety](https://github.com/pyupio/safety/issues/201)
-‡ This feature is experimental and does not yet support
-all [intended sync targets](https://github.com/dmyersturnbull/tyrannosaurus/issues/12).
-
-</details>
-
-### ✏️ Syncing to pyproject.toml
-
-<details>
-
-_Note: This feature is only partly complete._
-
-Tyrannosaurus has an optional `sync` command that synchronizes metadata from `pyproject.toml` to other files,
-so that **all of your metadata is in pyproject.toml**.
-There are 16 available target files, including `docs/conf.py`, `tox.ini`, `.pre-commit-config.yaml`, `readthedocs.yml`,
-`.travis.yml`, and `__init__.py`.
-Settings like dev dependencies, project version, license headers, and preferred line length can be listed exactly once,
-in pyproject.toml.
-
-Tyrannosaurus itself can be included as a dependency (but is not by default).
-Running `tyrannosaurus build` will run poetry lock, synchronize project metadata (via `sync`), build, run tests,
-install, and clean up.
-Target files can be disabled in `[tool.tyrannosaurus.targets]`.
-
-</details>
-
-### 🔨 Building your project locally
-
-<details>
-
-You can test your project locally. Install [Poetry](https://github.com/python-poetry/poetry)
-and [Tox](https://tox.readthedocs.io/en/latest/) (`pip install tox`).
-Then just type `tox` to build artifacts and run tests.
-You can install locally with `poetry install .` or just `pip install .`.
-To create an initial Anaconda recipe or environment file, run `tyrannosaurus recipe` or `tyrannosaurus env`.
-After that, you can use `sync` to keep them up-to-date with pyproject.toml.
-
-</details>
+- `tyranno clean` to clean temp files
+- `tyranno reqs` that lists dependency versions to bump
+- `tyranno sync` to synchronize project metadata to pyproject.toml
 
 ### 🎯 Similar templates and tools
 
 There are various other templates based on [cookiecutter](https://github.com/cookiecutter/cookiecutter)
 and [copier](https://github.com/copier-org/copier). See which best suits your needs and style.
 
-I designed Tyrannosaurus to solve issues with existing tools.
+I designed Tyranno to solve issues with existing tools.
 Here are features that other tools lack:
 
 - An **elegant CI/CD workflow**: The workflow gets kicked off only via `git push` and GitHub releases.
@@ -193,11 +162,9 @@ Here are features that other tools lack:
 
 **Notes:**
 
-<details>
-
 **† _N int._**: Approximate number of built-in integrations with tools and standards. What counts is very roughly defined.
 **‡ _Modern_**: Lacks legacy files and tools. I’m including Make, setuptools, pipenv, and some others.
-**Note:** [copier](https://github.com/copier-org/copier) syncs with a remote template. It’s a neat idea that Tyrannosaurus lacks.
+**Note:** [copier](https://github.com/copier-org/copier) syncs with a remote template. It’s a neat idea that Tyranno lacks.
 
 Some of the packages in the table above need more explanation:
 
@@ -209,34 +176,23 @@ Some of the packages in the table above need more explanation:
 - [Cookiecutter-docker-science](https://github.com/docker-science/cookiecutter-docker-science) is an interesting project
   that doesn’t quite fit in this list.
 
-</details>
+### ✨ Projects made with Tyranno
 
-### ✨ Projects made with Tyrannosaurus
+These are some example projects that were generated with Tyranno:
 
-<details>
-
-These are some example projects that were generated with Tyrannosaurus:
-
-- [Tyrannosaurus](https://github.com/dmyersturnbull/tyrannosaurus)
-- [Mandos](https://github.com/dmyersturnbull/mandos)
+- [Tyranno](https://github.com/dmyersturnbull/tyranno)
+- [Realized](https://github.com/dmyersturnbull/realized)
+- [SmartIo](https://github.com/dmyersturnbull/smartio)
 - [typed-dfs](https://github.com/dmyersturnbull/typed-dfs)
-- [Valarpy](https://github.com/dmyersturnbull/valarpy)
-- [Sauronlab](https://github.com/dmyersturnbull/sauronlab)
-- [SauronX](https://github.com/dmyersturnbull/sauronx)
 - [suretime](https://github.com/dmyersturnbull/suretime)
-- [service-it](https://github.com/dmyersturnbull/service-it)
-- [chemserve](https://github.com/dmyersturnbull/chemserve)
-- [pocketutils](https://github.com/dmyersturnbull/pocketutils)
 - [auth_capture_proxy](https://github.com/alandtse/auth_capture_proxy)
-
-</details>
 
 ### 🍁 Contributing
 
-[New issues](https://github.com/dmyersturnbull/tyrannosaurus/issues) and pull requests are welcome.
-Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyrannosaurus/blob/master/CONTRIBUTING.md)
-and [security policy](https://github.com/dmyersturnbull/tyrannosaurus/blob/main/SECURITY.md).
-Generated with tyrannosaurus: `tyrannosaurus new tyrannosaurus`
+[New issues](https://github.com/dmyersturnbull/tyranno/issues) and pull requests are welcome.
+Please refer to the [contributing guide](https://github.com/dmyersturnbull/tyranno/blob/master/CONTRIBUTING.md)
+and [security policy](https://github.com/dmyersturnbull/tyranno/blob/main/SECURITY.md).
+Generated with tyranno: `tyranno new tyranno`
 
 ```text
                                               .++++++++++++.

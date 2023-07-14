@@ -1,0 +1,22 @@
+# Build, test, and publish to releases, packages, PyPi, etc.
+# Runs when creating a GitHub release
+name: on-release-deploy
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  deploy:
+    name: "Test ${{ github.ref_type }}:${{ github.ref_name }}"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Test ${{ github.ref_type }}:${{ github.ref_name }}"
+        uses: ./.github/workflows/test-matrix.yaml
+      - name: Publish
+        uses: ./.github/workflows/deploy.yaml
+      - name: Notify on Slack
+        uses: ./.github/workflows/slack-notify.yaml
+        with:
+          job_status: ${{ job.status }}
+        if: ${{ always() }}

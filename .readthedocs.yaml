@@ -1,0 +1,21 @@
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+version: 2
+formats: all
+sphinx:
+  configuration: docs/conf.py
+build:
+  os: "ubuntu-22.04"
+  tools:
+    # :tyranno: python: '${.deps.python~|semver_max(@).semver_minor(@)~}'
+    python: "3.11"
+python:
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        # :tyranno: ${ .doc-deps~|sort(@)[*].pep508(@).yaml(@)~}
+        - furo>=2023
+        - sphinx-copybutton>=0.4,<1.0
+        - Sphinx>=7,<8
+        - sphinx-autoapi>=2,<3
+        - tomlkit>=0.7,<1.0

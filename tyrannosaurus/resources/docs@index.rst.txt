@@ -1,7 +1,0 @@
-$${Project}
-====================================
-
-.. toctree::
-    :maxdepth: 1
-
-$${Project} is under the terms of the `$${license.name} <$${license.url}>`_.

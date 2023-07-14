@@ -1,11 +1,7 @@
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
 """
 Utilities for tests.
-
-Original source: https://github.com/dmyersturnbull/tyrannosaurus
-Copyright 2020–2022 Douglas Myers-Turnbull
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 """
 # NOTE: If you modify this file, you should indicate your license and copyright as well.
 from __future__ import annotations
@@ -13,7 +9,6 @@ from __future__ import annotations
 import contextlib
 import io
 import logging
-import os
 import random
 import shutil
 import stat
@@ -21,8 +16,12 @@ import tempfile
 import time
 from datetime import datetime
 from pathlib import Path, PurePath
-from typing import Generator, Union
+from typing import TYPE_CHECKING
 from warnings import warn
+from zoneinfo import ZoneInfo
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 
 # Keeps created temp files; turn on for debugging
 KEEP = False
@@ -73,7 +72,7 @@ class TestResources:
 
     logger = _logger
 
-    _start_dt = datetime.now()
+    _start_dt = datetime.now(ZoneInfo("Etc/UTC")).astimezone()
     _start_ns = time.monotonic_ns()
     if KEEP:
         _tempfile_dir = None
@@ -98,7 +97,7 @@ class TestResources:
             yield cap
 
     @classmethod
-    def resource(cls, *nodes: Union[PurePath, str]) -> Path:
+    def resource(cls, *nodes: PurePath | str) -> Path:
         """
         Gets a path of a test resource file under ``resources/``.
 
@@ -114,7 +113,7 @@ class TestResources:
     @contextlib.contextmanager
     def temp_dir(
         cls,
-        copy_resource: Union[None, str, Path] = None,
+        copy_resource: PurePath | str | None = None,
         force_delete: bool = True,
     ) -> Generator[Path, None, None]:
         """
@@ -179,17 +178,19 @@ class TestResources:
 
     @classmethod
     def _delete_tree(cls, path: Path, surefire: bool = False) -> None:
-        def on_rm_error(func, pth, exc_info):
-            # from: https://stackoverflow.com/questions/4829043/how-to-remove-read-only-attrib-directory-with-python-in-windows
-            os.chmod(pth, stat.S_IWRITE)
-            os.unlink(pth)
-
-        kwargs = dict(onerror=on_rm_error) if surefire else {}
+        kwargs = {"onerror": cls._on_rm_error} if surefire else {}
         if path.exists():
             try:
                 shutil.rmtree(str(path), **kwargs)
             except OSError:
                 warn(f"Testing dir {path} could not be deleted")
+
+    @classmethod
+    def on_rm_error(cls, func, pth, exc_info):
+        # from:
+        # https://stackoverflow.com/questions/4829043/how-to-remove-read-only-attrib-directory-with-python-in-windows
+        pth.chmod(stat.S_IWRITE)
+        pth.unlink()
 
 
 __all__ = ["TestResources"]

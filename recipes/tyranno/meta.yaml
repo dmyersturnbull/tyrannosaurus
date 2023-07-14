@@ -1,0 +1,63 @@
+package:
+  # :tyranno: name: "${.name}"
+  name: {{ name|lower }}
+  # :tyranno: version: "${.version}"
+  version: {{ version }}
+
+source:
+  # :tyranno: ${.~|pypi_data(name).urls[?packagetype="sdist"&contains(filename,version)].url~}
+  url: https://files.pythonhosted.org/packages/c0/b3/9f3379cd4095a7fe7bb5ed5b8a20b6805ce6a33ba72051f8e3db1aab2ee7/tyranno-0.10.4.tar.gz
+  # :tyranno: ${.~|pypi_data(name).urls[?packagetype="sdist"&contains(filename,version)].digests.sha256~}
+  sha256: ae4885acdcc07ac134e83ac883ad628694022b44819fa473fac396994e045167
+
+build:
+  number: 0
+  noarch: python
+  entry_points:
+    # :tyranno: ${tool.poetry.scripts~|yaml(@)~}
+    - tyranno = tyranno.cli:cli
+  script: {{ PYTHON }} -m pip install . -vv
+
+requirements:
+  # :tyranno: host: ${.main-host-deps~.pep508(@)[?!@.virtualenv]~}
+  host: ['python>=3.11,<4', 'poetry-core>=1.6,<2', 'wheel>=0.37,<1']
+  # :tyranno: run: ${.deps~.pep508(@)~}
+  run: [python>=3.8,<4, grayskull>=0.8.5,<1, requests>=2.24,<3, tomlkit>=0.7,<1, typer>=0.3,<1]
+
+test:
+  imports:
+    - tyranno
+  commands:
+    # :tyranno: - ${.name} --help
+    - tyranno --help
+  # :tyranno: run: ${.test-deps~.pep508(@)~}
+  requires: [pytest>=7,<8, hypothesis>=6,<7, pytest-cov>=3,<4, 'coverage[toml]>=7,<8', ruff>=0.0.28, pytest-cov>=3,<4]
+
+about:
+  # :tyranno: summary: ${.link.main}
+  home: https://github.com/dmyersturnbull/tyranno
+  # :tyranno: summary: ${.description}
+  summary: Generate elegant, bleeding-edge, ready-to-use Python projects with seamless CI/CD, fit for 2021+.
+  # :tyranno: license_family: ${.license.family}
+  license_family: Apache
+  # :tyranno: license: ${.license.id}
+  license: Apache-2.0
+  # :tyranno: license_file: ${.license.path}
+  license_file: LICENSE.txt
+  # :tyranno: description: ${.long-description~|format_yaml(@)~}
+  description: |
+    An opinionated, forwards-looking Python template for 2021. Generate elegant, ready-to-use Python
+    projects that have excellent continuous integration and deployment (CI/CD). Integrated with
+    Docker Hub, the GitHub Container Registry, Azure, Conda-Forge, and an array of linting, static analysis,
+    security testing, documentation, dependency management, and CI/CD tools, including a custom tool
+    to keep all duplicate project metadata synchronized to a single pyproject.toml. You only need to
+    interact with your project via git, tyranno, and GitHub releases – all other integrations
+    kick off from there.
+  # :tyranno: doc_url: ${.link.docs}
+  doc_url: https://tyranno.readthedocs.io
+  # :tyranno: dev_url: ${.link.repo}
+  dev_url: https://github.com/dmyersturnbull/tyranno
+
+extra:
+  # :tyranno: recipe-maintainers: ${.maintainers}
+  recipe-maintainers: [dmyersturnbull]

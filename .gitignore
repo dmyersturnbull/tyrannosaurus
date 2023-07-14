@@ -60,14 +60,25 @@ deps/deps.jl
 
 # Keep these config files
 !/.gitignore
+!/.git/config
+!/.prettierignore
 !/.travis.yml
+!/.travis.yaml
+!/.circleci/config.yaml
 !/.circleci/config.yml
 !/.github
+!.gitattributes
+!/.appveyor.yaml
 !/.appveyor.yml
 !/.flake8
+!/.readthedocs.yaml
 !/.readthedocs.yml
 !/.dockerignore
 !/.editorconfig
 !/.pre-commit-config.yaml
+!/.pre-commit-config.yml
+!/.pre-commit-hooks.yaml
+!/.pre-commit-hooks.yml
 !.npmignore
+!/.scrutinizer.yaml
 !/.scrutinizer.yml

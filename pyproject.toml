@@ -1,205 +1,301 @@
+###################
+# metadata
+###################
 [metadata]
+# :tyranno: description-file = "${tool.poetry.readme}"
 description-file = "README.md"
 
+
+###################
+# build-system
+###################
 [build-system]
-# virtualenv 20.0.34 partly breaks pre-commit under conda
-# https://github.com/ContinuumIO/anaconda-issues/issues/12094
-# Poetry uses pip and setuptools (although they're not included as dependencies)
-# We don't need to list wheel here, but setting a min vr can avoid generating inferior wheels
-requires = ["poetry>=1.4,<2", "virtualenv==20.0.33", "wheel>=0.37,<1.0"]
-build-backend = "poetry.masonry.api"
+# :tyranno: ${.main-host-deps~.pep508(@)[?!@.python]~}
+requires = ["poetry-core>=1.6,<2", "virtualenv>=20.0.33", "wheel>=0.37,<1.0"]
+build-backend = "poetry.core.masonry.api"
 
 
-#########################################################################################
-# Poetry metadata
-#########################################################################################
+###################
+# Poetry
+###################
 
+#===== Main data =====#
 [tool.poetry]
-name = "tyrannosaurus"
-version = "0.11.0"
+name = "tyranno"  #<< :tyranno-new:
+version = "1.0.0"  #<< :tyranno-new:
 description = "Generate beautifully modern Python projects with seamless, GitHub-based CI/CD and loads of integrations."
-authors = ["Douglas Myers-Turnbull"]
-maintainers = ["Douglas Myers-Turnbull"]
-license = "Apache-2.0"
+maintainers = ["Douglas Myers-Turnbull <dmyersturnbull@gmail.com>"]  #<< :tyranno-new:
+# :tyranno: authors = ${.authors~|@[*].[join('',[family-names,' ',given-names])]~}
+authors = ["Douglas Myers-Turnbull <dmyersturnbull@gmail.com>"]
+license = "Apache-2.0"  #<< :tyranno-new:
 readme = "README.md"
-keywords = ["python", "template", "pyproject-toml", "python-poetry", "conda-build"]
-homepage = "https://github.com/dmyersturnbull/tyrannosaurus"
-repository = "https://github.com/dmyersturnbull/tyrannosaurus"
-documentation = "https://tyrannosaurus.readthedocs.io"
+keywords = ["python", "template", "pyproject-toml", "python-poetry", "conda-build"]  #<< :tyranno-new:
+# :tyranno: repository = "https://github.com/${.frag}"
+homepage = "https://github.com/dmyersturnbull/tyranno"
+# :tyranno: repository = "https://github.com/${.frag}"
+repository = "https://github.com/dmyersturnbull/tyranno"
+# :tyranno: repository = "https://${.frag}.readthedocs.io"
+documentation = "https://tyranno.readthedocs.io"
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 3 - Alpha",  #<< :tyranno-new: "Development Status :: 2 - Pre-Alpha",
     "Natural Language :: English",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
+    #<< :tyranno: ${.deps.python ~ | @[*].join('', ['Programming Language :: Python :: ', @])" ~}
     "Programming Language :: Python :: 3.11",
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
-    "Environment :: Console",
-    "Framework :: tox",
+    "Environment :: Console",  #<< :tyranno-delete:
+    "Framework :: tox",  #<< :tyranno-delete:
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: Build Tools",
-    "Topic :: Software Development :: Code Generators"
+    "Topic :: Software Development :: Build Tools",  #<< :tyranno-delete:
+    "Topic :: Software Development :: Code Generators"  #<< :tyranno-delete:
 ]
 
+#===== URLs =====#
 [tool.poetry.urls]
-CI = "https://github.com/dmyersturnbull/tyrannosaurus/actions"
-Issues = "https://github.com/dmyersturnbull/tyrannosaurus/issues"
-Download = "https://pypi.org/project/tyrannosaurus/"
-Changelog = "https://github.com/dmyersturnbull/tyrannosaurus/blob/main/CHANGELOG.md"
+# :tyranno: CI = "https://github.com/${.frag}/actions"
+CI = "https://github.com/dmyersturnbull/tyranno/actions"
+# :tyranno: "Bug Tracker" = "https://github.com/${.frag}/issues"
+"Bug Tracker" = "https://github.com/dmyersturnbull/tyranno/issues"
+# :tyranno: Download = "https://pypi.org/project/${.name}"
+Download = "https://pypi.org/project/tyranno/"
+# :tyranno: Changelog = "https://github.com/${.frag}/blob/main/CHANGELOG.md"
+Changelog = "https://github.com/dmyersturnbull/tyranno/blob/main/CHANGELOG.md"
 
-
-#########################################################################################
-# Tyrannosaurus
-#########################################################################################
-
-# Only needed for using 'tyrannosaurus sync' -- you can remove otherwise!
-
-[tool.tyrannosaurus.options]
-align = true
-sort  = true
-
-[tool.tyrannosaurus.sources]
-doc_license        = "'CC BY 4.0'"
-doc_license_url    = "'https://creativecommons.org/licenses/by/4.0'"
-status             = "'Development'"
-date               = "'${today}'"
-version            = "tool.poetry.version"
-release            = "tool.poetry.version"
-linelength         = "tool.black.line-length"
-copyright          = "'Douglas Myers-Turnbull 2020–2022'"
-authors            = [
-    "Douglas Myers-Turnbull <github:dmyersturnbull,orcid:0000-0003-3610-4808>"
-]
-maintainers        = "tool.tyrannosaurus.sources.authors"
-long_description   = """'
-    An opinionated, forwards-looking Python template for 2021. Generate elegant, ready-to-use Python projects that have
-    excellent continuous integration and deployment (CI/CD). Integrated with Docker Hub, the GitHub Container Registry, Azure,
-    Conda-Forge, and an array of linting, static analysis, security testing, documentation, dependency management, and
-    CI/CD tools, including a custom tool to keep all duplicate project metadata synchronized to a single pyproject.toml.
-    You only need to interact with your project via git, tyrannosaurus, and GitHub releases – all other integrations
-    kick off from there.
-    '"""
-
-[tool.tyrannosuarus.paths]
-recipe             = "'recipes/${name}/meta.yaml'"
-environment        = "'environment.yml'"
-
-[tool.tyrannosaurus.targets]
-pyproject    = true
-init         = true
-precommit    = true
-tox          = true
-docs         = true
-recipes      = true
-license      = true
-authors      = true
-github       = true
-travis       = true
-scrutinizer  = true
-dockerfile   = true
-readme       = true
-changelog    = true
-citation     = true
-codemeta     = true
-headers      = false
-environment  = false
-
-
-#########################################################################################
-# Poetry build & dependencies
-#########################################################################################
-
+#===== Scripts =====#
 [tool.poetry.scripts]
-tyrannosaurus = "tyrannosaurus.cli:cli"
+# :tyranno: ${.name} = "${.name}.cli:cli"
+tyranno                 = "tyranno.__main__:cli"
 
+#===== Main dependencies =====#
 [tool.poetry.dependencies]
-python                   = "^3.9"
+python                   = "^3.11"
+jmespath                 = "^1"
+grayskull                = "^2.3"
+httpx                    = ">=0.24, <1"
+loguru                   = ">=0.7, <1"
+platformdirs             = "^3.8"
+pypi-simple              = "^1.1"
+rich                     = ">=13"
+"ruamel.yaml"            = ">=0.17, <1"
+spdx-license-list        = ">=3"
 tomlkit                  = ">=0.11, <1"
 typer                    = {version="^0.9", extras=["all"]}
-httpx                    = ">=0.24, <1"
-grayskull                = "^2.3"
 
+#===== Test dependencies =====#
 [tool.poetry.group.test.dependencies]
-bandit                   = "^1.7"
-flake8                   = "^6"
-flake8-bugbear           = ">=23"
-flake8-comprehensions    = "^3"
-flake8-docstrings        = "^1"
-flake8-simplify          = "^0.20"
-coverage                 = {version = "^7", extras = ["toml"]}
-nbqa                     = "^1.7"
 pre-commit               = "^3.3"
+bandit                   = "^1.7"
+hypothesis               = "^6"
 pytest                   = "^7"
-pytest-cov               = "^4"
+coverage                 = {extras = ["toml"], version = "^7"}
+pytest-cov               = "^3"
+ruff                     = ">=0.0.28"
 
+#===== Doc dependencies =====#
 [tool.poetry.group.docs.dependencies]
-sphinx                   = "^7"
-sphinx-autoapi           = "^2"
-sphinx-copybutton        = "^0.5"
-sphinx-rtd-theme         = "^1"
+sphinx                    = "^7"
+sphinx-autoapi            = "^2"
+sphinx-copybutton         = ">=0.5"
+furo                      = ">=2023"
+
+#===== Dev dependencies =====#
+[tool.poetry.group.main-host.dependencies]
+python                   = "^3.11"
+poetry-core              = "^1.6"
+wheel                    = "^0.37"
+virtualenv               = ">=20.0.33"
+
+#===== Dev dependencies for test =====#
+[tool.poetry.group.test-host.dependencies]
+python                   = "^3.11"
+poetry-core              = "^1.6"
+wheel                    = "^0.37"
+virtualenv               = ">=20.0.33"
+tox                      = "^4"
 
 
-#########################################################################################
-# Testing
-#########################################################################################
-
-# This will be used in a future version of pytest:
-#[tool.pytest]
-
+###################
+# pytest
+###################
+#[tool.pytest]  # in a future version of pytest
 [tool.pytest.ini_options]
 log_cli = true
 log_cli_level = "INFO"
 log_cli_format = "%(asctime)s [%(levelname)8s] %(name)s: %(message)s (%(filename)s:%(lineno)s)"
 log_cli_date_format = "%Y-%m-%d %H:%M:%S"
-
-#########################################################################################
-# Changelog generation
-#########################################################################################
-
-[tool.commitizen]
-name = "cz_conventional_commits"
-
-[tool.towncrier]
-filename = "NEWS.md"
+# :tyranno: source = addopts = "--cov ${.name} --cov-report term-missing"
+addopts = "--cov tyranno --cov-report term-missing"
 
 
-#########################################################################################
-# Style checking
-#########################################################################################
-
-[tool.coverage.paths]
-source = ["tyrannosaurus"]
+###################
+# coverage
+###################
 
 [tool.coverage.run]
-source = ["tyrannosaurus"]
+source = "tyranno"  #<< :tyranno: source = "${.name}"
+
+[tool.coverage.html]
+directory = ".coverage_report"
+
+[tool.coverage.paths]
+source = ["tyranno"]  #<< :tyranno: source = ["${.name}"]
 
 [tool.coverage.report]
 show_missing = true
 
+
+###################
+# Commitizen
+###################
+[tool.commitizen]
+annotated_tag = true
+
+
+###################
+# Black
+###################
 [tool.black]
 line-length = 100
-target-version = ["py39", "py310", "py311"]
 
-[tool.isort]
-line_length = 100
-profile = "black"
 
-[mypy]
-check_untyped_defs = true
-strict_optional = true
+###################
+# Ruff
+###################
+[tool.ruff]
+# :tyranno: line-length = ${tool.black.line-length}
+line-length = 100
+# :tyranno: target-version = "py${.deps.python~|semver_min(@).semver_minor(@).replace(@, '.', '')~}"
+target-version = "py311"
+include = ["*.py", "*.pyi", "**/pyproject.toml", "*.ipynb"]
+select = [
+  #"F",           # pyflakes
+  "I",           # isort
+  "UP",          # pyupgrade
+  "S",           # bandit
+  "C",           # flake8-comprehensions
+  "DTZ",         # flake8-datetimez
+  "FA",          # flake8-future-annotations
+  "INP",         # flake8-no-pep420
+  "PIE",         # flake8-pie
+  "Q",           # flake8-quotes
+  "SLOT",        # flake8-slots
+  "SIM",         # flake8-simplify
+  "TCH",         # flake8-type-checking
+  "PTH",         # flake8-use-pathlib
+  "PGH",         # pygrep-hooks
+  "NPY",         # numpy-specific rules
+  "PERF",        # perflint
+  "RUF"          # Ruff-specific rules
+]
+unfixable = ["RUF100"]
+extend-ignore = [
+  "D107",        # Missing docstring in __init__ (put in class docstring)
+  "D212",        # Multi-line docstring start (contradictory)
+  "E203",        # Colons with space before (sometimes useful expand)
+  "E225",        # Missing whitespace around operator (sometimes useful to condense)
+  "E501",        # Line > 79 chars (we use black)
+  "S101",        # Assertion (totally not a problem; needed in tests, too)
+  "RUF100",
+  "S603",
+  "S607"
+]
 
-# ------- THE FOLLOWING ARE NOT USED BY THEIR RESPECTIVE TOOLS  --------
-# --- There are open discussions about supporting pyproject for each ---
-# https://github.com/python/mypy/issues/5205
-# https://github.com/PyCQA/bandit/issues/606
-# https://github.com/PyCQA/pycodestyle/issues/813
-# https://github.com/PyCQA/pydocstyle/issues/447
+[tool.ruff.flake8-bandit]
+check-typed-exception = true
 
-[tool.bandit]
+[tool.ruff.pycodestyle]
+# :tyranno: max-doc-length = ${tool.black.line-length}
+max-doc-length = 100
 
-[tool.pycodestyle]
-max-line-length = 100
-statistics = true
+[tool.ruff.pydocstyle]
+convention = "google"
 
-[tool.pydocstyle]
+
+###################
+# Tyranno
+###################
+
+#===== Tyranno sync targets =====#
+[tool.tyranno.targets]
+add-defaults          = true
+add                   = []
+exclude               = []
+
+#===== Tyranno auto-fix =====#
+[tool.tyranno.auto-fix]
+license               = true
+headers               = true
+
+#===== Tyranno 'clean' command patterns =====#
+[tool.tyranno.trash]
+add-defaults          = true
+add                   = []
+exclude               = []
+
+#===== Tyranno main data =====#
+[tool.tyranno.data]
+P                          = "${tool.poetry}"
+vendor                     = "dmyersturnbull"  #<< :tyranno-new
+deps                       = "${.P.dependencies}"
+test-deps                  = "${.P.group.test.dependencies}"
+doc-deps                   = "${.P.group.doc.dependencies}"
+main-host-deps             = "${.P.group.main-host.dependencies}"
+test-host-deps             = "${.P.group.test-host.dependencies}"
+name                       = "${.P.name}"
+frag                       = "${.vendor}/${.name}"
+description                = "${.P.description}"
+keywords                   = "${.P.keywords}"
+dunder-status              = "Development"
+start-year                 = "2020"  #<< :tyranno-new:${~year(now_utc())~}
+copyright                  = "${.start-year}–${~|year(now_utc())~} Contributors to ${.name}"
+# :tyranno-new:
+long_description           = """
+    An opinionated, forwards-looking Python template for ${year(now_utc())}. Generate ready-to-go Python projects with
+    superb continuous integration and deployment (CI/CD). Integrated with Docker Hub, the GitHub Container Registry,
+    Conda-Forge, and an array of linting, static analysis, security testing, documentation, dependency management, and
+    CI/CD tools, including a custom tool to synchronize project metadata like copyright, etc. to your pyproject.toml.
+    You only need to interact with your project via git, tyranno, and GitHub releases – all other integrations
+    kick off from there.
+    """
+
+[tool.tyranno.data.link]
+main                       = "${.P.homepage}"
+repo                       = "${.P.repository}"
+docs                       = "${.P.documentation}"
+issues                     = "${.P.urls.Bug Tracker}"
+changelog                  = "${.P.urls.Changelog}"
+download                   = "${.P.urls.Download}"
+ci                         = "${.P.urls.CI}"
+
+[tool.tyranno.data.license]
+path                       = "LICENSE.txt"
+id                         = "${.P.license}"
+name                       = "${.P.license~|spdx_license(@).name~}"
+family                     = "${.P.license~|spdx_license(@).family~}"
+url                        = "${.P.license~|spdx_license(@).url~}"
+source-header              = """
+  SPDX-License-Identifier: ${.license.id}
+  From ${.link.repo}
+  """
+
+#===== Tyranno documentation license =====#
+[tool.tyranno.data.doc-license]
+# :tyranno-new: License for documentation [CC-BY-4.0]
+path                       = "docs/LICENSE.txt"
+id                         = "CC-BY-4.0"  #<< :tyranno-new:
+name                       = "${.doc-license.id~|spdx_license(@).name~}"
+family                     = "${.doc-license.id~|spdx_license(@).family~}"
+url                        = "${.doc-license.id~|spdx_license(@).url~}"
+source-header              = """
+  SPDX-License-Identifier: ${.doc-license.id}
+  From ${.link.docs}
+  """
+
+#===== Tyranno author data =====#
+[[tool.tyranno.data.authors]]
+given-names                = "Douglas"  #<< :tyranno-new: ${~first_word(git_config('user.name'))~}
+family-names               = "Myers-Turnbull"  #<< :tyranno-new: ${~second_word(git_config('user.name'))~}
+orcid                      = "0000-0003-3610-4808"  #<< :tyranno-new:
+github                     = "dmyersturnbull"  #<< :tyranno-new:
+email                      = ""  #<< :tyranno-new: ${~git_config('user.email')~}

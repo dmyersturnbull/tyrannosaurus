@@ -1,0 +1,13 @@
+name: "Question"
+title: "❓ Question"
+description: "Question"
+labels: ["kind: question"]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What is the question?
+      placeholder: Ask the developers here.
+    validations:
+      required: true

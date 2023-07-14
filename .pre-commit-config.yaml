@@ -1,83 +1,81 @@
 # Check out https://pre-commit.com/ for documentation
-# and https://pre-commit.com/hooks.html for more hooks
-minimum_pre_commit_version: 3.3.2
-# Don't set language_version -- it's only useful if we have multiple
-# python versions or our build uses a different env than runtime
+# :tyranno: minimum_pre_commit_version: ${.test-deps.pre-commit}
+minimum_pre_commit_version: 3.3.3
 repos:
-  # --- Meta hooks ---
-  #- hooks:
-  # This one is useful, but it will fail if, e.g., you don't have a single yaml file
-  #  - id: check-hooks-apply
-  # This one will fail, e.g., if you don't have a recipes/ file, which is excluded here
-  #   - id: check-useless-excludes
-  #  repo: meta
-
-  # --- Built-in hooks --
-  - hooks:
-      - id: check-symlinks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
       - id: check-case-conflict
-      - id: fix-byte-order-marker
-      - id: end-of-file-fixer
-        exclude: "^tests/resources/"
       - id: check-merge-conflict
       - id: check-toml
       - id: check-json
-      - id: fix-encoding-pragma
-        args: ["--remove"]
-      - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
-      - id: trailing-whitespace
-      # This one is slow and doesn't check for much
-      # - detect-private-key
-      # This is very slow, so I recommend disabling it.
-      #- id: check-added-large-files
-      # The Conda recipe meta.yaml files are actually templates, not valid YAML
+      - id: check-symlinks
       - id: check-yaml
         exclude: ^recipes/.*
-    repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+        exclude: "^tests/(?:resources|data)/"
+      - id: fix-encoding-pragma
+        args: [--remove]
+      - id: trailing-whitespace
 
   # --- Commit msg checks ---
   - hooks:
       - id: commitizen
         stages: ["commit-msg"]
     repo: https://github.com/commitizen-tools/commitizen
-    rev: v3.2.2
+    rev: v3.5.2
 
-  # --- Strip output from .ipynb files ---
-  # - hooks:
-  #     - id: nbstripout
-  #       files: ".ipynb"
-  #   repo: https://github.com/kynan/nbstripout
-  #   rev: 0.6.1
+  - repo: https://github.com/python-poetry/poetry
+    rev: 1.5.1
+    hooks:
+      - id: poetry-check
+      - id: poetry-lock
 
   # --- Linters ---
-  - hooks:
-      - id: dockerfile_lint
-    repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
-    rev: v1.1.2
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.0.278
     hooks:
-      - id: isort
-        args: ["--profile", "black"]
-  # make sure to run black *after* isort
-  - hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+        types_or: [python, pyi, jupyter]
+
+  - repo: https://github.com/psf/black
+    rev: 23.7.0
+    hooks:
       - id: black
-    repo: https://github.com/psf/black
-    rev: 23.3.0
+
   - repo: https://github.com/asottile/blacken-docs
-    rev: 1.13.0
+    rev: 1.14.0
     hooks:
       - id: blacken-docs
+
+  # --- Strip output from .ipynb files ---
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.6.1
+    hooks:
+      - id: nbstripout
+
   # run black on Jupyter notebooks
   - repo: https://github.com/nbQA-dev/nbQA
     rev: 1.7.0
     hooks:
       - id: nbqa-black
+        additional_dependencies: [black]
+        #additional_dependencies: [black, jupytext]
+
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.7.1
     hooks:
       - id: prettier
         stages: [commit]
+        # :tyranno: [--print-width, "${tool.black.line-length}"]
+        args: [--print-width, "100"]
         exclude: ^recipes/.*
+
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.9.0
+    hooks:
+      - id: pretty-format-ini
+        args: [--autofix]

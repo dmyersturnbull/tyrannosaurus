@@ -1,0 +1,95 @@
+# Publish to releases, packages, PyPi, etc.
+name: deploy
+on:
+  workflow_call:
+    inputs:
+      os:
+        required: true
+        type: string
+      py-vr:
+        required: true
+        type: string
+    secrets:
+      GITHIB_TOKEN:
+        description: GitHub token
+        required: false
+      PYPI_TOKEN:
+        description: PyPi token
+        required: false
+      DOCKERHUB_USERNAME:
+        description: Docker Hub username
+        required: false
+      DOCKERHUB_TOKEN:
+        description: Docker Hub token
+        required: false
+
+jobs:
+  publish-github-release:
+    runs-on: ${{ os }}
+    steps:
+      - name: Download sdist and wheels
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: dist/*
+
+  publish-pypi-package:
+    runs-on: ${{ os }}
+    steps:
+      - name: Download sdist and wheels
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+      - name: Publish to PyPi
+        run: poetry publish -vv --username __token__ --password ${{ env.pypi_token }}
+        env:
+          pypi_token: ${{ secrets.PYPI_TOKEN }}
+        if: ${{ env.pypi_token }} != ''
+
+  publish-docker-image:
+    runs-on: ${{ os }}
+    steps:
+      - name: Download Docker image
+        uses: actions/download-artifact@v3
+        with:
+          name: docker
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ GITHUB_REPOSITORY }}
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        env:
+          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+        with:
+          username: ${{ env.dockerhub_username }}
+          password: ${{ env.dockerhub_token }}
+        if: ${{ env.dockerhub_username }} != ''
+      - name: Log in to GHCR
+        uses: docker/login-action@v2
+        env:
+          ghcr_username: ${{ github.actor }}
+          ghcr_password: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          registry: ghcr.io
+      - name: Push the Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

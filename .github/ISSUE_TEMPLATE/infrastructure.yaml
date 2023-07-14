@@ -1,0 +1,13 @@
+name: "Infrastructure"
+title: "🔩 Infrastructure"
+description: "Infrastructure issue"
+labels: ["kind: infrastructure"]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What needs work?
+      placeholder: Describe the infrastructure problem.
+    validations:
+      required: true

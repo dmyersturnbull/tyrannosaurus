@@ -1,0 +1,18 @@
+name: on-pull-test
+
+on:
+  pull_request:
+    types: [ready_for_review]
+    branches: [main]
+    paths-ignore: ["**/*.md", "**/*.rst"]
+
+jobs:
+  test:
+    name: "Test ${{ github.ref_type }}:${{ github.ref_name }} on ${{ matrix.os }}/py${{ matrix.python-version }}"
+    uses: ./.github/workflows/test-matrix.yaml
+  generate-changelog:
+    name: ""
+    uses: rhysd/changelog-from-release/action@v3
+    with:
+      file: CHANGELOG.md
+      github_token: ${{ secrets.GITHUB_TOKEN }}

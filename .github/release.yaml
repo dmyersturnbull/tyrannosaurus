@@ -1,0 +1,32 @@
+changelog:
+  exclude:
+    labels:
+      - "type: style"
+      - "type: refactor"
+      - "type: chore"
+      - "type: ci"
+  categories:
+    - title: ⚠ BREAKING CHANGES
+      labels:
+        - "breaking"
+    - title: ✨ Features
+      labels:
+        - "type: feature"
+    - title: 🐛 Bug fixes
+      labels:
+        - "type: fix"
+    - title: 🛠 Build System
+      labels:
+        - "type: build"
+    - title: 🚨 Tests
+      labels:
+        - "type: tests"
+    - title: 🔒 Security
+      labels:
+        - "security"
+    - title: 📝 Documentation
+      labels:
+        - "type: docs"
+    - title: 🚀 Performance
+      labels:
+        - "type: performance"

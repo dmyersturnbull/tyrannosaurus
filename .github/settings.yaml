@@ -1,0 +1,139 @@
+# These settings are synced to GitHub by https://probot.github.io/apps/settings/
+
+repository:
+  # See https://developer.github.com/v3/repos/#edit for all available settings.
+
+  # The name of the repository. Changing this will rename the repository
+  # :tyranno: ${.name}
+  name: tyranno
+
+  # A short description of the repository that will show up on GitHub
+  # :tyranno: ${.description}
+  description:
+    Generate beautifully modern Python projects with seamless, GitHub-based CI/CD and loads of integrations.
+
+    # :tyranno: ${.link.main}
+  homepage: https://github.com/dmyersturnbull/tyranno
+
+  # :tyranno: topics: ${.keywords~|yaml(@)~}
+  topics: [cookiecutter-python, template, pyproject-toml, poetry, conda-build]
+
+  has_issues: true
+  has_projects: false
+  has_wiki: false
+  has_downloads: true
+
+  default_branch: main
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: true
+
+  enable_automated_security_fixes: true
+  enable_vulnerability_alerts: true
+
+# Adapted from https://opensource.creativecommons.org/contributing-code/repo-labels/
+labels:
+  - name: "breaking"
+    description: "🔨 Breaking change"
+    color: "#000000"
+  - name: "revert"
+    description: "🗑 Reversion"
+    color: "#000000"
+  - name: "highlight"
+    description: "✨ Highlight"
+    color: "#004026"
+  - name: "sticky note"
+    description: "🔖 Important for reference"
+    color: "#ffee00"
+  - name: "security"
+    description: "🔒 Security"
+    color: "#ffffff"
+  - name: "type: test"
+    description: "🚨 Adding missing tests or correcting existing tests"
+    color: "#ffffff"
+  - name: "type: performance"
+    description: "🚀 A code change that improves performance"
+    color: "#ffffff"
+  - name: "type: feature"
+    description: "✨ A new feature"
+    color: "#ffffff"
+  - name: "type: fix"
+    description: "🐛 A bug fix"
+    color: "#ffffff"
+  - name: "type: docs"
+    description: "📚 Documentation only changes"
+    color: "#ffffff"
+  - name: "type: build"
+    description: "🛠 Changes that affect the build system or external dependencies"
+    color: "#ffffff"
+  - name: "type: question"
+    description: "❓ Can be resolved with an answer"
+    color: "#f9bbe5"
+  - name: "type: discussion"
+    description: "💬 Open for discussions and feedback"
+    color: "#f9bbe5"
+  - name: "priority: critical"
+    description: "🟥 Must be fixed ASAP"
+    color: "#b60205"
+  - name: "priority: high"
+    description: "🟧 Stalls work on the project or its dependents"
+    color: "#ff9f1c"
+  - name: "priority: medium"
+    description: "🟨 Not blocking but should be fixed soon"
+    color: "#ffcc00"
+  - name: "🟩 priority: low"
+    description: "Low priority and doesn't need to be rushed"
+    color: "#cfda2c"
+  - name: "⬜ priority: none"
+    description: "Too minor to fix"
+    color: "#ffffff"
+  - name: "status: ready for dev"
+    description: "🏁 Ready for work"
+    color: "#cccccc"
+  - name: "status: blocked"
+    description: "🚧 Blocked & therefore not ready for work"
+    color: "#999999"
+  - name: "status: ticket work required"
+    description: "🧹 Needs more details before it can be worked on"
+    color: "#666666"
+  - name: "status: label work required"
+    description: "🔖 Needs proper labelling before it can be worked on"
+    color: "#666666"
+  - name: "status: discarded"
+    description: "⛔️ Will not be worked on"
+    color: "#eeeeee"
+  - name: "status: discontinued"
+    description: "🙅 Not suitable for work as repo is in maintenance"
+    color: "#eeeeee"
+  - name: "status: awaiting triage"
+    description: "🚦 Has not been triaged & therefore, not ready for work"
+    color: "#333333"
+  - name: "effort: 1"
+    description: "1️⃣ trivial"
+    color: "#400040"
+  - name: "effort: 2"
+    description: "2️⃣ easy"
+    color: "#600040"
+  - name: "effort: 3"
+    description: "3️⃣ moderate"
+    color: "#800040"
+  - name: "effort: 4"
+    description: "4️⃣ hard"
+    color: "#a00040"
+  - name: "effort: 5"
+    description: "5️⃣ severe"
+    color: "#c00040"
+
+branches:
+  - name: main
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: false
+      required_status_checks:
+        strict: true
+        contexts: []
+      enforce_admins: false
+      required_linear_history: true
+      restrictions: null

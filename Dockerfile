@@ -1,19 +1,24 @@
 # https://stackoverflow.com/questions/53835198/integrating-python-poetry-with-docker/54763270#54763270
 
-FROM python:3.10
-
+# :tyranno: FROM python:${.deps.python~|semver_max(@).semver_minor(@)~}
+FROM python:3.11
 
 # --------------------------------------
 # ------------- Set labels -------------
 
 # See https://github.com/opencontainers/image-spec/blob/master/annotations.md
-LABEL name="tyrannosaurus"
-LABEL version="0.11.0"
-LABEL vendor="dmyersturnbull"
-LABEL org.opencontainers.image.title="tyrannosaurus"
+# :tyranno: LABEL org.opencontainers.image.version="${.version}"
 LABEL org.opencontainers.image.version="0.11.0"
-LABEL org.opencontainers.image.url="https://github.com/dmyersturnbull/tyrannosaurus"
-LABEL org.opencontainers.image.documentation="https://github.com/dmyersturnbull/tyrannosaurus"
+# :tyranno: LABEL org.opencontainers.image.vendor="${.vendor}"
+LABEL org.opencontainers.image.vendor="dmyersturnbull"
+# :tyranno: LABEL org.opencontainers.image.title="${.name}"
+LABEL org.opencontainers.image.title="tyranno"
+# :tyranno: tool.poetry.version= 0.11.0
+LABEL org.opencontainers.image.version="0.11.0"
+# :tyranno: LABEL org.opencontainers.image.url="${.homepage}"
+LABEL org.opencontainers.image.url="https://github.com/dmyersturnbull/tyranno"
+# :tyranno: LABEL org.opencontainers.image.documentation="${.link.docs}"
+LABEL org.opencontainers.image.documentation="https://github.com/dmyersturnbull/tyranno"
 
 
 # --------------------------------------
@@ -29,11 +34,13 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=on
 ENV PIP_DEFAULT_TIMEOUT=120
 
 # Install system deps
-RUN pip install 'poetry>=1.4,<2'
+# :tyranno: RUN pip install '${build-system.requires~[?contains('poetry-core')]~}'
+RUN pip install 'poetry-core>=1.6,<2'
 
 # Copy only requirements to cache them in docker layer
-WORKDIR /code
-COPY poetry.lock pyproject.toml /code/
+WORKDIR /app
+COPY pyproject.toml /app/
+COPY poetry.lock /app/
 
 # Install with poetry
 # pip install would probably work, too, but we'd have to make sure it's a recent enough pip
@@ -42,6 +49,6 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev --no-interaction --no-ansi
 
 # Copy to workdir
-COPY . /code
+COPY . /app
 
-CMD tyrannosaurus --help
+CMD tyranno --help

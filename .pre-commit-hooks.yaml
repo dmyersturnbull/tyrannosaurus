@@ -1,0 +1,29 @@
+- id: tyranno-sync
+  name: tyranno sync
+  description: keeps metadata synced across project files
+  entry: tyranno sync
+  language: python
+  types: [text]
+  always_run: true
+  stages: [commit, merge-commit, manual]
+- id: tyranno-clean
+  name: tyranno clean
+  description: removes trash files
+  entry: tyranno clean
+  language: python
+  always_run: true
+  stages: [push, manual]
+- id: tyranno-update
+  name: tyranno update
+  description: lists updates that can be made in poetry, pre-commit, and GitHub Workflows
+  entry: tyranno update
+  language: python
+  always_run: true
+  stages: [manual]
+- id: tyranno-recipe
+  name: tyranno recipe
+  description: lists updates that can be made in poetry, pre-commit, and GitHub Workflows
+  entry: tyranno recipe
+  language: python
+  always_run: true
+  stages: [manual]

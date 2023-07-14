@@ -1,0 +1,57 @@
+# Build, test, and run static analyses, and send reports to external services
+# Runs only on pushing to main
+name: on-push-test
+
+on:
+  push:
+    branches: [main]
+
+env:
+  main_os: ubuntu-latest
+  main_py_vr: "3.11"
+
+jobs:
+  test:
+    name: "Test ${{ github.ref_type }}:${{ github.ref_name }}"
+    uses: ./.github/workflows/test-matrix.yaml
+    secrets: inherit
+
+  send-to-coveralls:
+    name: Send results to coveralls
+    runs-on: ${{ main_os }}
+    needs: [test]
+    steps:
+      - name: Download coverage
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-${{ main_os }}-${{ main_py_vr }}
+      - name: Submit to coveralls
+        if: ${{ GITHUB_TOKEN }}
+        uses: coverallsapp/github-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  send-to-codecov:
+    name: Send results to codecov
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - name: Download coverage
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-${{ main_os }}-${{ main_py_vr }}
+      - name: Submit to codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage
+          fail_ci_if_error: true
+    env:
+      codecov_token: ${{ secrets.CODECOV_TOKEN }}
+    if: ${{ codecov_token }} != ''
+
+  notify-on-slack:
+    name: Notify on Slack
+    needs: [test]
+    uses: ./github/workflows/slack-notify.yaml
+    secrets: inherit

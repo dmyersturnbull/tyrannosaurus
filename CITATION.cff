@@ -1,16 +1,15 @@
+# :tyranno: abstract: "${.description}"
 abstract: "Generate beautifully modern Python projects with seamless, GitHub-based CI/CD and loads of integrations."
+# :tyranno: authors: ${.authors}
 authors:
-  - family-names: Myers-Turnbull
-    given-names: Douglas
-    orcid: 0000-0003-3610-4808
+  { "family-names": "Myers-Turnbull", "given-names": "Douglas", "orcid": "0000-0003-3610-4808" }
 cff-version: 1.2.0
+# :tyranno: date-released: ${~year(now_utc())~}
 date-released: 2020-05-10 20:06:00.00:00Z
-keywords:
-  - cookiecutter
-  - conda-build
-  - pyproject-toml
-  - python-poetry
-  - python-template
+# :tyranno: keywords: ${.keywords}
+keywords: ["cookiecutter", "conda-build", "pyproject-toml", "python-poetry", "python-template"]
 message: Software reference
+# :tyranno: title: ${.name}
 title: Tyrannosaurus
-version: 0.11.0
+# :tyranno: version: ${.version}
+version: 1.0.0

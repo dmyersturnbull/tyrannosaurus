@@ -1,0 +1,8 @@
+*                   text=auto  eol=lf
+*.lock              text       eol=lf    -diff
+package.json        text       eol=lf
+package-lock.json   text       eol=lf    -diff
+pnpm-lock.yaml      text       eol=lf    -diff
+environment.yaml    text       eol=lf    -diff
+*.ipynb             text       eol=lf    -diff
+*.gitattributes     text       eol=lf    linguist-language=gitattributes

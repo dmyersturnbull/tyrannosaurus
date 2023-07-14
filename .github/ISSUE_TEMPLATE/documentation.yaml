@@ -1,0 +1,13 @@
+name: "Documentation"
+title: "📚 Documentation"
+description: "Documentation issue"
+labels: ["kind: documentation"]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What needs work?
+      placeholder: Describe the documentation issue.
+    validations:
+      required: true

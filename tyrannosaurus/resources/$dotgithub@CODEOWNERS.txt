@@ -1,8 +1,0 @@
-# This allows you to auto-assign reviewers for pull requests on matching code branches
-# https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
-
-# This works around this security issue
-# https://github.com/probot/settings#security-implications
-.github/settings.yml $${user}
-
-# You can add other lines here to auto-assign reviewers
