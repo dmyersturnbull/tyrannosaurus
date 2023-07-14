@@ -186,7 +186,7 @@ class TestResources:
                 warn(f"Testing dir {path} could not be deleted")
 
     @classmethod
-    def on_rm_error(cls, func, pth, exc_info):
+    def _on_rm_error(cls, func, pth, exc_info):
         # from:
         # https://stackoverflow.com/questions/4829043/how-to-remove-read-only-attrib-directory-with-python-in-windows
         pth.chmod(stat.S_IWRITE)

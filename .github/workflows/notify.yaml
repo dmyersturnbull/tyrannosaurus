@@ -1,4 +1,6 @@
-name: slack-notify
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
+name: notify
 
 on:
   workflow_call:
@@ -13,8 +15,8 @@ on:
         required: false
 
 jobs:
-  notify-on-slack:
-    name: Notify on Slack
+  notify:
+    name: Notify
     runs-on: ubuntu-latest
     steps:
       - name: Send Slack notification

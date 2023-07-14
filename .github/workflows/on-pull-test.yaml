@@ -1,3 +1,5 @@
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
 name: on-pull-test
 
 on:
@@ -8,11 +10,5 @@ on:
 
 jobs:
   test:
-    name: "Test ${{ github.ref_type }}:${{ github.ref_name }} on ${{ matrix.os }}/py${{ matrix.python-version }}"
+    name: Test
     uses: ./.github/workflows/test-matrix.yaml
-  generate-changelog:
-    name: ""
-    uses: rhysd/changelog-from-release/action@v3
-    with:
-      file: CHANGELOG.md
-      github_token: ${{ secrets.GITHUB_TOKEN }}

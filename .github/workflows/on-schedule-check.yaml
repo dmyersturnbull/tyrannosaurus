@@ -1,9 +1,12 @@
-# Various static code analysis and checks
-# Runs on a schedule (weekly)
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
+
 name: check
+
 on:
   schedule:
     - cron: 0 7 * * 6
+
 jobs:
   analyze:
     name: Analyze with CodeQL

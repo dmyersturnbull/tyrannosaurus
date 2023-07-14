@@ -1,5 +1,5 @@
-# Build, test, and run static analyses, and send reports to external services
-# Runs only on pushing to main
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
 name: on-push-test
 
 on:
@@ -12,12 +12,12 @@ env:
 
 jobs:
   test:
-    name: "Test ${{ github.ref_type }}:${{ github.ref_name }}"
+    name: Test
     uses: ./.github/workflows/test-matrix.yaml
     secrets: inherit
 
   send-to-coveralls:
-    name: Send results to coveralls
+    name: Update coveralls
     runs-on: ${{ main_os }}
     needs: [test]
     steps:
@@ -25,14 +25,14 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: coverage-${{ main_os }}-${{ main_py_vr }}
-      - name: Submit to coveralls
+      - name: Send to coveralls
         if: ${{ GITHUB_TOKEN }}
         uses: coverallsapp/github-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   send-to-codecov:
-    name: Send results to codecov
+    name: Update codecov
     runs-on: ubuntu-latest
     needs: [test]
     steps:
@@ -40,7 +40,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: coverage-${{ main_os }}-${{ main_py_vr }}
-      - name: Submit to codecov
+      - name: Send to codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -51,7 +51,7 @@ jobs:
     if: ${{ codecov_token }} != ''
 
   notify-on-slack:
-    name: Notify on Slack
+    name: Notify
     needs: [test]
-    uses: ./github/workflows/slack-notify.yaml
+    uses: ./github/workflows/notify.yaml
     secrets: inherit

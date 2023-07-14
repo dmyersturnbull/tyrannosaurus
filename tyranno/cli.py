@@ -5,9 +5,7 @@ CLI for Tyranno.
 """
 from __future__ import annotations
 
-import inspect
 import logging
-import os
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -16,11 +14,6 @@ import typer
 from tyranno.model.context import Context
 
 logger = logging.getLogger(__package__)
-
-
-def flag(name: str, desc: str, **kwargs) -> typer.Option:
-    """Generates a flag-like Typer Option."""
-    return typer.Option(False, "--" + name, help=desc, show_default=False, **kwargs)
 
 
 class Msg:
@@ -55,21 +48,7 @@ class CliState:
             logger.setLevel(logging.DEBUG)
 
 
-def tyranno_main(
-    version: bool = flag("version", "Write version and exit"),
-    info: bool = flag("info", "Write info and exit (same as 'tyranno info')"),
-):
-    """
-    Tyranno.
-    Tyranno can create new modern Python projects from a template
-    and synchronize metadata across the project.
-    """
-    if version or info:
-        Msg.write_info()
-        raise typer.Exit()
-
-
-cli = typer.Typer(callback=tyranno_main, add_completion=True)
+cli = typer.Typer(add_completion=True)
 
 
 class CliCommands:
@@ -81,22 +60,10 @@ class CliCommands:
     @cli.command()
     def new(
         name: str = typer.Argument("name", help="org/name"),
-        track: bool = flag("track", "Track an empty remote repo"),
-        tyranno: str = typer.Option(
-            "current",
-            help=inspect.cleandoc(
-                """
-                Tyranno version to use as the template.
-                Choices: an exact version, 'current' (this version), 'stable', or 'latest'.
-                """
-            ),
-        ),
-        prompt: bool = flag("prompt", "Prompt for info"),
-        verbose: bool = flag("verbose", "Output more info"),
-    ) -> None:  # pragma: no cover
-        """
-        Create a new project.
-        """
+        track: bool = typer.Option(False, help="Track a remote repo"),
+        prompt: bool = typer.Option(False, help="Prompt for info"),
+        verbose: bool = typer.Option(False, "verbose", help="Output more info"),
+    ) -> None:
         CliState(verbose=verbose)
         Msg.success(f"Done! Created a new repository under {name}")
         Msg.success("See https://tyranno.readthedocs.io/en/latest/guide.html")
@@ -104,9 +71,9 @@ class CliCommands:
     @staticmethod
     @cli.command()
     def sync(
-        dry_run: bool = flag("dry-run", "Don't write; just output"),
-        verbose: bool = flag("verbose", "Output more info"),
-    ) -> None:  # pragma: no cover
+        dry_run: bool = typer.Option(False, help="Don't write; just output"),
+        verbose: bool = typer.Option(False, help="Output more info"),
+    ) -> None:
         """
         Sync project metadata between configured files.
         """
@@ -120,19 +87,15 @@ class CliCommands:
     @staticmethod
     @cli.command()
     def env(
-        path: Path = typer.Option(help="Write to this path"),
-        name: str
-        | None = typer.Option(
-            None, help="Name of the environment. [default: project name]", show_default=False
+        path: Path = typer.Option("environment.yaml", help="Write to this path"),
+        name: str = typer.Option("${.name}", help="Name of the environment"),
+        dependency_groups: list[str] = typer.Option([], help="Poetry dependency groups to include"),
+        dependency_extras: list[str] = typer.Option(
+            [], help="Poetry extra dependencies to include"
         ),
-        dev: bool = flag("dev", "Include dev/build dependencies"),
-        extras: bool = flag("extras", "Include optional dependencies"),
-        dry_run: bool = flag("dry-run", "Don't write; just output"),
-        verbose: bool = flag("verbose", "Output more info"),
-    ) -> None:  # pragma: no cover
-        """
-        Generate an Anaconda environment file.
-        """
+        dry_run: bool = typer.Option(False, help="Don't write; just output"),
+        verbose: bool = typer.Option(False, help="Output more info"),
+    ) -> None:
         CliState(dry_run=dry_run, verbose=verbose)
         typer.echo("Writing environment file...")
         Msg.success(f"Wrote environment file {path}")
@@ -140,64 +103,34 @@ class CliCommands:
     @staticmethod
     @cli.command()
     def recipe(
-        dry_run: bool = flag("dry-run", "Don't write; just output"),
-        verbose: bool = flag("verbose", "Output more info"),
-    ) -> None:  # pragma: no cover
-        """
-        Generate a Conda recipe using grayskull.
-        """
+        dry_run: bool = typer.Option(False, help="Don't write; just output"),
+        verbose: bool = typer.Option(False, help="Output more info"),
+    ) -> None:
         CliState(dry_run=dry_run, verbose=verbose)
 
     @staticmethod
     @cli.command()
-    def update(
-        auto_fix=flag("auto-fix", "Update dependencies in place (not supported yet)", hidden=True),
-        verbose: bool = flag("verbose", "Output more information"),
-    ) -> None:  # pragma: no cover
-        """
-        Find and list dependencies that could be updated.
-
-        Args:
-            auto_fix: Update dependencies in place (not supported yet)
-            verbose: Output more information
-        """
+    def reqs(
+        dry_run: bool = typer.Option(False, help="Don't write; just output"),
+        verbose: bool = typer.Option(False, help="Output more info"),
+    ) -> None:
         state = CliState(verbose=verbose)
-        Context(Path.cwd(), dry_run=not auto_fix)
+        Context(Path.cwd())
         # updates, dev_updates = Update(context).update()
         updates = None
         Msg.info("Main updates:")
         for pkg, (old, up) in updates.items():
             Msg.info(f"    {pkg}:  {old} --> {up}")
-        if not state.dry_run:
-            Msg.failure("Auto-fixing is not supported yet!")
 
     @staticmethod
-    @cli.command()
+    @cli.command(help="Removes unwanted files")
     def clean(
-        dists: bool = flag("dists", "Remove dists"),
-        aggressive: bool = flag(
-            "aggressive", "Delete additional files, including .swp and .ipython_checkpoints"
-        ),
-        hard_delete: bool = flag("hard-delete", "Use shutil.rmtree instead of moving to .tyranno"),
-        dry_run: bool = flag("dry-run", "Don't write; just output"),
-        verbose: bool = flag("verbose", "Output more information"),
-    ) -> None:  # pragma: no cover
-        """
-        Remove unwanted files.
-        Deletes the contents of ``.tyranno``.
-        Then trashes temporary and unwanted files and directories to a tree under ``.tyranno``.
-        """
+        dry_run: bool = typer.Option(False, help="Don't write; just output"),
+        verbose: bool = typer.Option(False, help="Output more info"),
+    ) -> None:
         CliState(verbose=verbose, dry_run=dry_run)
         # trashed = Clean(dists, aggressive, hard_delete, dry_run).clean(Path(os.getcwd()))
         # Msg.info(f"Trashed {len(trashed)} paths.")
-
-    @staticmethod
-    @cli.command()
-    def info() -> None:  # pragma: no cover
-        """
-        Print Tyranno info.
-        """
-        Msg.write_info()
 
 
 if __name__ == "__main__":

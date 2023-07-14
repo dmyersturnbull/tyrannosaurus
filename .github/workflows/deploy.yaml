@@ -1,5 +1,7 @@
-# Publish to releases, packages, PyPi, etc.
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
 name: deploy
+
 on:
   workflow_call:
     inputs:
@@ -24,10 +26,10 @@ on:
         required: false
 
 jobs:
-  publish-github-release:
+  github-publish:
     runs-on: ${{ os }}
     steps:
-      - name: Download sdist and wheels
+      - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
           name: dist
@@ -41,10 +43,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: dist/*
 
-  publish-pypi-package:
+  pypi-publish:
     runs-on: ${{ os }}
     steps:
-      - name: Download sdist and wheels
+      - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
           name: dist
@@ -54,7 +56,7 @@ jobs:
           pypi_token: ${{ secrets.PYPI_TOKEN }}
         if: ${{ env.pypi_token }} != ''
 
-  publish-docker-image:
+  docker-publish:
     runs-on: ${{ os }}
     steps:
       - name: Download Docker image
@@ -65,7 +67,7 @@ jobs:
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - name: Extract metadata (tags, labels) for Docker
+      - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v4
         with:
@@ -86,7 +88,7 @@ jobs:
           ghcr_password: ${{ secrets.GITHUB_TOKEN }}
         with:
           registry: ghcr.io
-      - name: Push the Docker image
+      - name: Push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .

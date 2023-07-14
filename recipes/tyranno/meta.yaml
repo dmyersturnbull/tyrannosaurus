@@ -1,7 +1,7 @@
 package:
-  # :tyranno: name: "${.name}"
+  # :tyranno: name: ${.name}
   name: {{ name|lower }}
-  # :tyranno: version: "${.version}"
+  # :tyranno: version: ${.version}
   version: {{ version }}
 
 source:
@@ -13,16 +13,15 @@ source:
 build:
   number: 0
   noarch: python
-  entry_points:
-    # :tyranno: ${tool.poetry.scripts~|yaml(@)~}
-    - tyranno = tyranno.cli:cli
+  # :tyranno: entry_points: ${tool.poetry.scripts~|array(@)|yaml(@)~}
+  entry_points: [tyranno = tyranno.cli:cli]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   # :tyranno: host: ${.main-host-deps~.pep508(@)[?!@.virtualenv]~}
   host: ['python>=3.11,<4', 'poetry-core>=1.6,<2', 'wheel>=0.37,<1']
   # :tyranno: run: ${.deps~.pep508(@)~}
-  run: [python>=3.8,<4, grayskull>=0.8.5,<1, requests>=2.24,<3, tomlkit>=0.7,<1, typer>=0.3,<1]
+  run: ['python>=3.8,<4', 'grayskull>=0.8.5,<1', 'requests>=2.24,<3', 'tomlkit>=0.7,<1', 'typer>=0.3,<1']
 
 test:
   imports:
@@ -31,7 +30,7 @@ test:
     # :tyranno: - ${.name} --help
     - tyranno --help
   # :tyranno: run: ${.test-deps~.pep508(@)~}
-  requires: [pytest>=7,<8, hypothesis>=6,<7, pytest-cov>=3,<4, 'coverage[toml]>=7,<8', ruff>=0.0.28, pytest-cov>=3,<4]
+  requires: ['pytest>=7,<8', 'hypothesis>=6,<7', 'pytest-cov>=3,<4', 'coverage[toml]>=7,<8', 'ruff>=0.0.28', 'pytest-cov>=3,<4']
 
 about:
   # :tyranno: summary: ${.link.main}

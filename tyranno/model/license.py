@@ -1,3 +1,8 @@
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
+"""
+
+"""
 from tyranno.model import TYRANNO_CACHE
 
 EXPIRE_SEC = 24 * 60 * 60

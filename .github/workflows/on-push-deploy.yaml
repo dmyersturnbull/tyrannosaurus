@@ -1,6 +1,7 @@
-# Build, test, and publish to releases, packages, PyPi, etc.
-# Runs when creating a GitHub release
-name: on-release-deploy
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
+name: on-push-deploy
+
 on:
   push:
     tags:
@@ -8,15 +9,15 @@ on:
 
 jobs:
   deploy:
-    name: "Test ${{ github.ref_type }}:${{ github.ref_name }}"
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: "Test ${{ github.ref_type }}:${{ github.ref_name }}"
+      - name: Test
         uses: ./.github/workflows/test-matrix.yaml
       - name: Publish
         uses: ./.github/workflows/deploy.yaml
-      - name: Notify on Slack
-        uses: ./.github/workflows/slack-notify.yaml
+      - name: Notify
+        uses: ./.github/workflows/notify.yaml
         with:
           job_status: ${{ job.status }}
         if: ${{ always() }}
