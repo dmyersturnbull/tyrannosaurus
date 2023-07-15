@@ -1,7 +1,7 @@
 name: "Documentation"
 title: "📚 Documentation"
 description: "Documentation issue"
-labels: ["kind: documentation"]
+labels: ["type: docs"]
 
 body:
   - type: textarea

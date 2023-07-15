@@ -1,7 +1,7 @@
 name: "Feature"
-title: "🎁 Feature"
+title: "✨ Feature"
 description: "Feature request"
-labels: ["kind: new feature"]
+labels: ["type: feature"]
 
 body:
   - type: textarea

@@ -1,7 +1,7 @@
 name: "Performance"
 title: "🐢 Performance"
 description: "Performance issue"
-labels: ["kind: performance"]
+labels: ["type: performance"]
 
 body:
   - type: textarea

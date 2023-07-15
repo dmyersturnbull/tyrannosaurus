@@ -1,7 +1,7 @@
 name: "Question"
 title: "❓ Question"
 description: "Question"
-labels: ["kind: question"]
+labels: ["type: question"]
 
 body:
   - type: textarea

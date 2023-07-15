@@ -542,13 +542,13 @@ socks = ["socksio (==1.*)"]
 
 [[package]]
 name = "hypothesis"
-version = "6.81.1"
+version = "6.81.2"
 description = "A library for property-based testing"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "hypothesis-6.81.1-py3-none-any.whl", hash = "sha256:f370dc76c2c036298e345dc207ec80f2ce695f95166a5d358988464b34a53e0f"},
-    {file = "hypothesis-6.81.1.tar.gz", hash = "sha256:89c1afad5000a1cc89409fff4187e6118816a6cac80195c8c719efda14a8ce52"},
+    {file = "hypothesis-6.81.2-py3-none-any.whl", hash = "sha256:4dafc0d3fc0e802ee5fa863e05e2cde54b9336e300d6c46f4e78b23b00cfa67a"},
+    {file = "hypothesis-6.81.2.tar.gz", hash = "sha256:e35165a73064370d30d476d7218f600d2bf861ff218192c9e994cb36aa190ae7"},
 ]
 
 [package.dependencies]
@@ -855,13 +855,13 @@ files = [
 
 [[package]]
 name = "pip"
-version = "23.1.2"
+version = "23.2"
 description = "The PyPA recommended tool for installing Python packages."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "pip-23.1.2-py3-none-any.whl", hash = "sha256:3ef6ac33239e4027d9a5598a381b9d30880a1477e50039db2eac6e8a8f6d1b18"},
-    {file = "pip-23.1.2.tar.gz", hash = "sha256:0e7c86f486935893c708287b30bd050a36ac827ec7fe5e43fe7cb198dd835fba"},
+    {file = "pip-23.2-py3-none-any.whl", hash = "sha256:78e5353a9dda374b462f2054f83a7b63f3f065c98236a68361845c1b0ee7e35f"},
+    {file = "pip-23.2.tar.gz", hash = "sha256:a160a170f3331d9ca1a0247eb1cd79c758879f1f81158f9cd05bbb5df80bea5c"},
 ]
 
 [[package]]
@@ -1843,13 +1843,13 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.23.1"
+version = "20.24.0"
 description = "Virtual Python Environment builder"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "virtualenv-20.23.1-py3-none-any.whl", hash = "sha256:34da10f14fea9be20e0fd7f04aba9732f84e593dac291b757ce42e3368a39419"},
-    {file = "virtualenv-20.23.1.tar.gz", hash = "sha256:8ff19a38c1021c742148edc4f81cb43d7f8c6816d2ede2ab72af5b84c749ade1"},
+    {file = "virtualenv-20.24.0-py3-none-any.whl", hash = "sha256:18d1b37fc75cc2670625702d76849a91ebd383768b4e91382a8d51be3246049e"},
+    {file = "virtualenv-20.24.0.tar.gz", hash = "sha256:e2a7cef9da880d693b933db7654367754f14e20650dc60e8ee7385571f8593a3"},
 ]
 
 [package.dependencies]

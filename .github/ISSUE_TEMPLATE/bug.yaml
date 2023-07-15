@@ -1,7 +1,7 @@
 name: "Bug"
 title: "🐛 Bug"
 description: "Bug report"
-labels: ["kind: bug"]
+labels: ["type: fix"]
 
 body:
   - type: textarea

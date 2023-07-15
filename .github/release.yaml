@@ -5,28 +5,23 @@ changelog:
       - "type: refactor"
       - "type: chore"
       - "type: ci"
+      - "type: discussion"
+      - "type: question"
+      - "reverts"
+      - "reverted"
+      - "exclude"
   categories:
     - title: ⚠ BREAKING CHANGES
-      labels:
-        - "breaking"
+      labels: ["breaking"]
     - title: ✨ Features
-      labels:
-        - "type: feature"
-    - title: 🐛 Bug fixes
-      labels:
-        - "type: fix"
-    - title: 🛠 Build System
-      labels:
-        - "type: build"
-    - title: 🚨 Tests
-      labels:
-        - "type: tests"
+      labels: ["type: feature"]
     - title: 🔒 Security
-      labels:
-        - "security"
+      labels: ["security"]
+    - title: 🐛 Bug fixes
+      labels: ["type: fix"]
+    - title: 🔧 Build System
+      labels: ["type: build"]
     - title: 📝 Documentation
-      labels:
-        - "type: docs"
+      labels: ["type: docs"]
     - title: 🚀 Performance
-      labels:
-        - "type: performance"
+      labels: ["type: performance"]
