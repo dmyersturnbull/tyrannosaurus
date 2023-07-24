@@ -9,6 +9,11 @@ from importlib.metadata import PackageNotFoundError
 from importlib.metadata import metadata as __load
 from pathlib import Path
 
+import platformdirs
+
+TYRANNO_CACHE = platformdirs.user_cache_path("tyranno")
+TYRANNO_CONFIG = platformdirs.user_cache_path("tyranno")
+
 pkg = Path(__file__).parent.name
 logger = logging.getLogger(pkg)
 metadata = None
