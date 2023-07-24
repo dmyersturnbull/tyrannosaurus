@@ -47,10 +47,10 @@ and [copier](https://github.com/copier-org/copier). See which best suits your ne
 I designed Tyranno to solve issues with existing tools.
 I wanted:
 
-[x] An **elegant CI/CD workflow**: Workflows are kicked off only by `git push`.
-[x] **Automated publishing** to PyPi and container registries.
-[x] _No duplication_ between project files.
-[x] Complete **absence of legacy tools**, files, and Python 2 support.
+- [x] An **elegant CI/CD workflow**: Workflows are kicked off only by `git push`.
+- [x] **Automated publishing** to PyPi and container registries.
+- [x] _No duplication_ between project files.
+- [x] Complete **absence of legacy tools**, files, and Python 2 support.
 
 ### 🏁 Feature table
 
