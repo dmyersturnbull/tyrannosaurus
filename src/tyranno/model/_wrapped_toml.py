@@ -1,4 +1,4 @@
-# SPDX-License-Identifier Apache-2.0
+# SPDX-License-Identifier: Apache-2.0
 # Source: https://github.com/dmyersturnbull/tyranno
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ class WrappedToml(UserDict):
 
     Keys must be strings that do not contain a dot (.).
     A dot is reserved for splitting values to traverse the tree.
-    For example, ``wrapped["pet.species.name"]``.
+    For example, `wrapped["pet.species.name"]`.
     """
 
     @classmethod
@@ -70,13 +70,16 @@ class WrappedToml(UserDict):
         """
         super().__init__(x)
         if not (hasattr(x, "items") and hasattr(x, "keys") and hasattr(x, "values")):
-            raise TypeError(f"Type {type(x)} for value {x} appears not to be dict-like")
+            msg = f"Type {type(x)} for value {x} appears not to be dict-like"
+            raise TypeError(msg)
         bad = [k for k in x if not isinstance(k, str)]
         if len(bad) > 0:
-            raise ValueError(f"Keys were not strings for values {bad}")
+            msg = f"Keys were not strings for values {bad}"
+            raise ValueError(msg)
         bad = [k for k in x if "." in k]
         if len(bad) > 0:
-            raise ValueError(f"Keys contains '.' for values {bad}")
+            msg = f"Keys contains '.' for values {bad}"
+            raise ValueError(msg)
         # Let's make sure this constructor gets called on sub-dicts:
         self.leaves()
 
@@ -89,10 +92,10 @@ class WrappedToml(UserDict):
         Maps each lowest-level branch to a dict of its values.
 
         Note:
-            Leaves directly under the root are assigned to key ``''``.
+            Leaves directly under the root are assigned to key `''`.
 
         Returns:
-            ``dotted-key:str -> (non-dotted-key:str -> value)``
+            `dotted-key:str -> (non-dotted-key:str -> value)`
         """
         dicts = defaultdict()
         for k, v in self.leaves():
@@ -105,7 +108,7 @@ class WrappedToml(UserDict):
         Gets the leaves in this tree.
 
         Returns:
-            ``dotted-key:str -> value``
+            `dotted-key:str -> value`
         """
         dct = {}
         for key, value in self.items():
@@ -117,48 +120,50 @@ class WrappedToml(UserDict):
 
     def sub(self, items: str) -> Self:
         """
-        Returns the dictionary under (dotted) keys ``items``.
+        Returns the dictionary under (dotted) keys `items`.
         """
         # noinspection PyTypeChecker
         return self.__class__(self[items])
 
     def get_as(self, items: str, as_type: type[T], default: T | None = None) -> T:
         """
-        Gets the key ``items`` from the dict, or ``default`` if it does not exist
+        Gets the key `items` from the dict, or `default` if it does not exist
 
         Args:
             items: The key hierarchy, with a dot (.) as a separator
-            as_type: The type, which will be checked using ``isinstance``
+            as_type: The type, which will be checked using `isinstance`
             default: Default to return the key is not found
 
         Returns:
             The value in the required type
 
         Raises:
-            XTypeError: If not ``isinstance(value, as_type)``
+            XTypeError: If not `isinstance(value, as_type)`
         """
         z = self.get(items, default)
         if not isinstance(z, as_type):
-            raise TypeError(f"Value {z} from {items} is a {type(z)}, not {as_type}")
+            msg = f"Value {z} from {items} is a {type(z)}, not {as_type}"
+            raise TypeError(msg)
         return z
 
     def req_as(self, items: str, as_type: type[T]) -> T | None:
         """
-        Gets the key ``items`` from the dict.
+        Gets the key `items` from the dict.
 
         Args:
             items: The key hierarchy, with a dot (.) as a separator
-            as_type: The type, which will be checked using ``isinstance``
+            as_type: The type, which will be checked using `isinstance`
 
         Returns:
             The value in the required type
 
         Raises:
-            XTypeError: If not ``isinstance(value, as_type)``
+            XTypeError: If not `isinstance(value, as_type)`
         """
         z = self[items]
         if not isinstance(z, as_type):
-            raise TypeError(f"Value {z} from {items} is a {type(z)}, not {as_type}")
+            msg = f"Value {z} from {items} is a {type(z)}, not {as_type}"
+            raise TypeError(msg)
         return z
 
     def get_list_as(self, items: str, as_type: type[T], default: list[T] | None = None) -> list[T]:
@@ -167,9 +172,11 @@ class WrappedToml(UserDict):
         """
         x = self.get(items, default)
         if not isinstance(x, list) or isinstance(x, str):
-            raise TypeError(f"Value {x} is not a list for lookup {items}")
+            msg = f"Value {x} is not a list for lookup {items}"
+            raise TypeError(msg)
         if not all(isinstance(y, as_type) for y in x):
-            raise TypeError(f"Value {x} from {items} is a {type(x)}, not {as_type}")
+            msg = f"Value {x} from {items} is a {type(x)}, not {as_type}"
+            raise TypeError(msg)
         return x
 
     def req_list_as(self, items: str, as_type: type[T]) -> list[T]:
@@ -178,9 +185,11 @@ class WrappedToml(UserDict):
         """
         x = self[items]
         if not isinstance(x, list) or isinstance(x, str):
-            raise TypeError(f"Value {x} is not a list for lookup {items}")
+            msg = f"Value {x} is not a list for lookup {items}"
+            raise TypeError(msg)
         if not all(isinstance(y, as_type) for y in x):
-            raise TypeError(f"Value {x} from {items} is a {type(x)}, not {as_type}")
+            msg = f"Value {x} from {items} is a {type(x)}, not {as_type}"
+            raise TypeError(msg)
         return x
 
     def req(self, items: str) -> TomlLeaf | dict:
@@ -189,7 +198,7 @@ class WrappedToml(UserDict):
     def get(self, items: str, default: TomlLeaf | dict = None) -> TomlLeaf | dict:
         """
         Gets a value from an optional key.
-        Also see ``__getitem__``.
+        Also see `__getitem__`.
         """
         try:
             return self[items]
@@ -198,7 +207,7 @@ class WrappedToml(UserDict):
 
     def __getitem__(self, items: str) -> TomlLeaf | dict:
         """
-        Gets a value from a required key, operating on ``.``-joined strings.
+        Gets a value from a required key, operating on `.`-joined strings.
 
         Example:
             d = WrappedToml(dict(a=dict(b=1)))
@@ -207,13 +216,14 @@ class WrappedToml(UserDict):
         at = self
         for item in items.split("."):
             if item not in at:
-                raise KeyError(f"{items} not found: {item} does not exist")
+                msg = f"{items} not found: {item} does not exist"
+                raise KeyError(msg)
             at = at[item]
         return self.__class__(at) if isinstance(at, dict) else copy(at)
 
     def __rich_repr__(self) -> str:
         """
-        Pretty-prints the leaves of this dict using ``json.dumps``.
+        Pretty-prints the leaves of this dict using `json.dumps`.
 
         Returns:
             A multi-line string
@@ -228,7 +238,8 @@ class WrappedToml(UserDict):
             # This is MUCH faster than tomlkit's
             return date.fromisoformat(s)
         else:
-            raise TypeError(f"Invalid type {type(s)} for {s}")
+            msg = f"Invalid type {type(s)} for {s}"
+            raise TypeError(msg)
 
     def _to_datetime(self, s) -> datetime:
         if isinstance(s, datetime):
@@ -236,10 +247,12 @@ class WrappedToml(UserDict):
         elif isinstance(s, str):
             # This is MUCH faster than tomlkit's
             if s.count(":") < 2:
-                raise ValueError(f"Datetime {s} does not contain hours, minutes, and seconds")
+                msg = f"Datetime {s} does not contain hours, minutes, and seconds"
+                raise ValueError(msg)
             return datetime.fromisoformat(s.upper().replace("Z", "+00:00"))
         else:
-            raise TypeError(f"Invalid type {type(s)} for {s}")
+            msg = f"Invalid type {type(s)} for {s}"
+            raise TypeError(msg)
 
 
 __all__ = ["WrappedToml", "TomlLeaf", "TomlBranch"]

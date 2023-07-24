@@ -1,0 +1,87 @@
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
+name: Test
+
+on:
+  workflow_call:
+
+env:
+  main_os: ubuntu-latest
+  main_python: "3.11"
+
+jobs:
+  # Make sure at least one test passes before spawning a ton of workers
+  test-first:
+    name: Test first
+    uses: ./.github/workflows/test-one.yaml
+    with:
+      os: ${{ main_os }}
+      python: ${{ main_python }}
+    secrets: inherit
+
+  # Now test on a full matrix
+  test-matrix:
+    name: Test matrix
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        # :tyranno: python-version: ${project.requires-python|.semver_minor(@)~}
+        python: ["3.11"]
+    uses: ./.github/workflows/test-one.yaml
+    with:
+      os: ${{ os }}
+      python: ${{ python }}
+    secrets: inherit
+    needs: [test-first]
+
+  test-docker:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: "docker build on ${{ matrix.os }}"
+        run: docker build .
+
+  codeql:
+    name: Analyze with CodeQL
+    runs-on: ${{ main_os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+      - name: Autobuild with CodeQL
+        uses: github/codeql-action/autobuild@v2
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+
+  ruff:
+    name: Run Bandit with Ruff
+    runs-on: ${{ main_os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: "${{ main-python }}"
+      - name: Install Ruff
+        run: pip install ruff>=0.278,<1.0
+      - name: Run Ruff
+        run: ruff --select S
+
+  docs:
+    name: Build docs
+    runs-on: ${{ main_os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "${{ main-python }}"
+      - name: Install
+        run: pip install .[docs]
+      - name: Build docs
+        run: sphinx-build -b html docs docs/html

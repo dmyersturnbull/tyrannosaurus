@@ -4,18 +4,18 @@ repository:
   # See https://developer.github.com/v3/repos/#edit for all available settings.
 
   # The name of the repository. Changing this will rename the repository
-  # :tyranno: ${.name}
+  # :tyranno: ${project.name}
   name: tyranno
 
   # A short description of the repository that will show up on GitHub
-  # :tyranno: ${.description}
+  # :tyranno: ${project.description}
   description:
     Generate beautifully modern Python projects with seamless, GitHub-based CI/CD and loads of integrations.
 
-    # :tyranno: ${.link.main}
+    # :tyranno: ${project.urls.main}
   homepage: https://github.com/dmyersturnbull/tyranno
 
-  # :tyranno: topics: ${.keywords~|yaml(@)~}
+  # :tyranno: topics: ${project.keywords}
   topics: [cookiecutter-python, template, pyproject-toml, poetry, conda-build]
 
   has_issues: true

@@ -1,89 +1,92 @@
 # Tyranno
 
-[![Version status](https://img.shields.io/pypi/status/tyranno?label=Status)](https://pypi.org/project/tyranno)<!--<< :tyranno: [![Version status](https://img.shields.io/pypi/status/${.name}?label=Status)](https://pypi.org/project/${.name}) -->
-[![Version on PyPi](https://badgen.net/pypi/v/tyranno?label=PyPi)](https://pypi.org/project/tyranno)<!--<< :tyranno: [![Version on PyPi](https://badgen.net/pypi/v/${.name}?label=PyPi -->
-[![Version on GitHub](https://badgen.net/github/release/dmyersturnbull/tyranno/stable?label=GitHub)](https://github.com/dmyersturnbull/tyranno/releases)<!--<< :tyranno: [![Version on GitHub](https://badgen.net/github/release/${.frag}/stable?label=GitHub)](${.link.repo}/releases) -->
-[![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyranno?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyranno)<!--<< :tyranno: [![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyranno?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/${.frag}) -->
-[![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/tyranno?label=Conda-Forge)](https://anaconda.org/conda-forge/tyranno)<!--<< :tyranno: [![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/${.name}?label=Conda-Forge)](https://anaconda.org/conda-forge/${T.name})\ -->
+<!--<< :tyranno: [![Version status](https://img.shields.io/pypi/status/${project.name}?label=Status)](https://pypi.org/project/${project.name}) -->
 
-[![Build (Actions)](https://img.shields.io/github/workflow/status/dmyersturnbull/tyranno/maintest?label=Tests)](https://github.com/dmyersturnbull/tyranno/actions)<!--<< :tyranno: [![Build (Actions)](https://img.shields.io/github/workflow/status/${T.name}/${.org}/maintest?label=Tests)](${.link.url}/actions) -->
-[![Documentation status](https://readthedocs.org/projects/tyranno/badge)](https://tyranno.readthedocs.io/en/stable/)<!--<< :tyranno: [![Documentation status](${.link.url}/badge)](${.link.docs}) -->
-[![Coverage (coveralls)](https://badgen.net/coveralls/c/github/dmyersturnbull/tyranno?label=Coveralls)](https://coveralls.io/github/dmyersturnbull/tyranno?branch=main)<!--<< :tyranno: [![Coverage (coveralls)](https://badgen.net/coveralls/c/github/${T.name}/${.name}?label=Coveralls)](https://coveralls.io/github/${.frag}?branch=main) -->
-[![Coverage (codecov)](https://badgen.net/codecov/c/github/dmyersturnbull/tyranno?label=CodeCov)](https://codecov.io/gh/dmyersturnbull/tyranno)<!--<< :tyranno: [![Coverage (codecov)](https://badgen.net/codecov/c/github/${.frag}?label=CodeCov)](https://codecov.io/gh/${.frag})\ -->
+[![Version status](https://img.shields.io/pypi/status/tyranno?label=Status)](https://pypi.org/project/tyranno)
 
-[![Maintainability (Code Climate)](https://badgen.net/codeclimate/maintainability/dmyersturnbull/tyranno)](https://codeclimate.com/github/dmyersturnbull/tyranno/maintainability)<!--<< :tyranno: [![Maintainability (Code Climate)](https://badgen.net/codeclimate/maintainability/${.frag})](https://codeclimate.com/github/${.frag}/maintainability) -->
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmyersturnbull/tyranno/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/dmyersturnbull/tyranno/?branch=main)<!--<< :tyranno: [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/${.frag}/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/${.frag}/?branch=main) -->
-[![CodeFactor](https://www.codefactor.io/repository/github/dmyersturnbull/tyranno/badge)](https://www.codefactor.io/repository/github/dmyersturnbull/tyranno)<!--<< :tyranno: [![CodeFactor](https://www.codefactor.io/repository/github/${.frag}/badge)](https://www.codefactor.io/repository/github/${.frag}) -->
+<!--<< :tyranno: [![Version on PyPi](https://badgen.net/pypi/v/${project.name}?label=PyPi -->
 
-[![License](https://badgen.net/pypi/license/tyranno?label=License)](https://opensource.org/licenses/Apache-2.0)<!--<< :tyranno: [![License](https://badgen.net/pypi/license/${.name}?label=License)](${.license.url}) -->
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4485186.svg)](https://doi.org/10.5281/zenodo.4485186)<!--<< :tyranno: [![DOI](https://zenodo.org/badge/DOI/${.doi}.svg)](https://doi.org/${.doi}) -->
-[![Created with Tyranno](https://img.shields.io/badge/Created_with-Tyranno-0000ff.svg)](https://github.com/dmyersturnbull/tyranno)<!--<< :tyranno: [![Created with ${.Name}](https://img.shields.io/badge/Created_with-${.Name}-0000ff.svg)](https://github.com/${.frag}) -->
+[![Version on PyPi](https://badgen.net/pypi/v/tyranno?label=PyPi)](https://pypi.org/project/tyranno)
 
-Tyranno is an ultra-modern Python project generator and tool to sync project metadata to `pyproject.toml`.
+<!--<< :tyranno: [![Version on GitHub](https://badgen.net/github/release/${.frag}/stable?label=GitHub)](${project.urls.repo}/releases) -->
 
-Run `tyranno new my-org/my-project`.
-Add `:tyranno:` comments where wanted and run `git commit` to sync and lint.
-To test, run `tox` or open a pull request against the _main_ branch.
-Merge or rebase to run final tests and update coveralls or codecov.
-Push a semver tag to publish to PyPi, GitHub, GHCR, and Docker Hub.
+[![Version on GitHub](https://badgen.net/github/release/dmyersturnbull/tyranno/stable?label=GitHub)](https://github.com/dmyersturnbull/tyranno/releases)
 
-Follow conventional commits to have pull requests auto-labeled and consistent release notes
-generated to `CHANGELOG.md` and your GitHub Releases.
-Generate Conda-Forge recipes with `tyranno recipe` and `environment.yaml` with `tyranno env`.
-Run `tyranno reqs` to list or accept Poetry updates.
+<!--<< :tyranno: [![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyranno?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/${.frag}) -->
 
+[![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyranno?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyranno)
+
+<!--<< :tyranno: [![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/${project.name}?label=Conda-Forge)](https://anaconda.org/conda-forge/${project.name})\ -->
+
+[![Version on Conda-Forge](https://img.shields.io/conda/vn/conda-forge/tyranno?label=Conda-Forge)](https://anaconda.org/conda-forge/tyranno)
+
+[![Build (Actions)](https://img.shields.io/github/workflow/status/dmyersturnbull/tyranno/maintest?label=Tests)](https://github.com/dmyersturnbull/tyranno/actions)
+
+<!--<< :tyranno: [![Documentation status](${project.urls.docs}/badge)]($project.urls.docs}) -->
+
+[![Documentation status](https://readthedocs.org/projects/tyranno/badge)](https://tyranno.readthedocs.io/en/stable/)
+
+<!--<< :tyranno: [![Coverage (coveralls)](https://badgen.net/coveralls/c/github/${project.name}/${project.name}?label=Coveralls)](https://coveralls.io/github/${.frag}?branch=main) -->
+
+[![Coverage (coveralls)](https://badgen.net/coveralls/c/github/dmyersturnbull/tyranno?label=Coveralls)](https://coveralls.io/github/dmyersturnbull/tyranno?branch=main)
+
+<!--<< :tyranno: [![Coverage (codecov)](https://badgen.net/codecov/c/github/${.frag}?label=CodeCov)](https://codecov.io/gh/${.frag})\ -->
+
+[![Coverage (codecov)](https://badgen.net/codecov/c/github/dmyersturnbull/tyranno?label=CodeCov)](https://codecov.io/gh/dmyersturnbull/tyranno)
+
+<!--<< :tyranno: [![Maintainability (Code Climate)](https://badgen.net/codeclimate/maintainability/${.frag})](https://codeclimate.com/github/${.frag}/maintainability) -->
+
+[![Maintainability (Code Climate)](https://badgen.net/codeclimate/maintainability/dmyersturnbull/tyranno)](https://codeclimate.com/github/dmyersturnbull/tyranno/maintainability)
+
+<!--<< :tyranno: [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/${.frag}/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/${.frag}/?branch=main) -->
+
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dmyersturnbull/tyranno/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/dmyersturnbull/tyranno/?branch=main)
+
+<!--<< :tyranno: [![CodeFactor](https://www.codefactor.io/repository/github/${.frag}/badge)](https://www.codefactor.io/repository/github/${.frag}) -->
+
+[![CodeFactor](https://www.codefactor.io/repository/github/dmyersturnbull/tyranno/badge)](https://www.codefactor.io/repository/github/dmyersturnbull/tyranno)
+
+<!--<< :tyranno: [![License](https://badgen.net/pypi/license/${project.name}?label=License)](${.license.url}) -->
+
+[![License](https://badgen.net/pypi/license/tyranno?label=License)](https://opensource.org/licenses/Apache-2.0)
+
+<!--<< :tyranno: [![DOI](https://zenodo.org/badge/DOI/${.doi}.svg)](https://doi.org/${.doi}) -->
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4485186.svg)](https://doi.org/10.5281/zenodo.4485186)
+
+<!--<< :tyranno: [![Created with ${project.name}](https://img.shields.io/badge/Created_with-${project.name}-0000ff.svg)](https://github.com/${.frag}) -->
+
+[![Created with Tyranno](https://img.shields.io/badge/Created_with-Tyranno-0000ff.svg)](https://github.com/dmyersturnbull/tyranno)
+
+Tyranno is a highly streamlined modern Python template
+backed by [Hatch](https://hatch.pypa.io/), pre-commit, commitizen, static analysis tools, and GitHub Actions.
+Automagically works with Docker, container registries, Conda, readthedocs, GitHub Pages.
+Optionally add `:tyranno:` comments to sync project metadata like versions every time you commit.
+
+The focus is on automation and modern tooling.
+Clone this repo to get started. Installing [Probot settings](https://github.com/probot/settings) is also recommended.
+
+- `git commit` will format and run basic linting via pre-commit.
+- Run `hatch test` to test locally. Use `hatch lint` to lint.
+- Open a pull request, and it'll get labeled automatically (assuming conventional commits),
+  and tested in the cloud.
+- Squash that request into _main_ to deploy docs and update coverage reports.
+- `hatch bump` to bump the version automatically, tag the commit, and update `CHANGELOG.md`.
+- Push a new `v*` tag to deploy to GitHub, PyPi, Docker Hub, the GCR, GitHub Pages, and readthedocs.
+  GitHub release notes are automatically generated, and Docker images are fully tagged.
+
+Your responsibilities are only to write decent commit messages, especially when squashing into _main_.
+That and to run a few commands and otherwise focus on coding.
+Everything else happens automagically through a bunch of great third-party tools.
+Don’t make 150 commits for CI/CD. This one works probably works better.
 [📚 See the docs](https://readthedocs.org/projects/tyranno) for details.
-
-## 🎨 Design / generating a new project
-
-Don’t make 150 commits trying to configure CI/CD workflows. Tyranno's just works.
-
-`tyranno new` generates ready-to-use Python projects with outstanding CI/CD.
-Integrated with Docker Hub, the GitHub Container Registry, Azure, Conda-Forge,
-and an array of linting, static analysis, security testing, documentation, dependency management, CI/CD tools,
-and `:tyranno:` substitutions that reduce headaches.
-
-It uses [Poetry](https://python-poetry.org/), [GitHub Actions](https://github.com/features/actions), and
-[no legacy files and tools](https://dmyersturnbull.github.io/#-the-python-build-landscape).
-See below for a [comparison to other tools](https://github.com/dmyersturnbull/tyranno#-similar-templates-and-tools).
-Also see Tyranno’s little sister
-[science-notebook-template 🧪](https://github.com/dmyersturnbull/science-notebook-template)
-for scientific publication repos.
-
-```bash
-pip install tyranno
-tyranno new https://github.com/myorg/myproject.git
-
-# Cloned https://github.com/myorg/myproject.git
-# See https://tyranno.readthedocs.io/en/latest/guide.html
-```
-
-### 💡 New project behavior
-
-This section describes how freshly `tyranno new`-ed projects work.
-However, you can swap out, modify, or disable anything as you see fit.
-**[See the docs 📚](https://tyranno.readthedocs.io/en/stable/)** for more information.
-
-Here’s how your new project will behave when first set up, if appropriate secrets are set.
-
-- **Commit** ⇒ Files are linted and verified for integrity.
-- **Make a pull request** ⇒ Code is built and tested.
-- **Push to the main branch** ⇒ Code is built and tested; code quality, coverage, and security badges are updated
-- **Push a `v.*` tag** ⇒ Artifacts are sent to GitHub, PyPi, Docker Hub, the GCR, and readthedocs.
-- `tox` ⇒ Tests are run locally
-- `tyranno sync` ⇒ Project metadata is synced to pyproject.toml
-- `tyranno reqs` ⇒ New dependency versions from PyPi and/or Conda are listed
-- `tyranno clean` ⇒ Remove temp files
 
 ## 🎁 Features & integrations
 
 - Packaging and dependency management with [Poetry](https://python-poetry.org/)
 - Python 3.7 thru 3.12
 - Only modern files: _no_ manifest file, setup.py, requirements.txt, setup.cfg, or eggs
-- Continuous integration with [GitHub Actions](https://github.com/features/actions),
-  [Travis](https://www.travis-ci.com/), or
-  [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/)
-- Docker and Vagrant configuration
+- Continuous integration with [GitHub Actions](https://github.com/features/actions)
 - Continuous deployment to [PyPi](http://pypi.org/) and [Docker Hub](https://hub.docker.com/).
 - Deployment to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry);
   plus to any other desired container registries with a simple modification.
@@ -92,7 +95,7 @@ Here’s how your new project will behave when first set up, if appropriate secr
   [GitHub Releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases)
 - Good default GitHub settings, synchronized via [Probot settings](https://github.com/probot/settings)
 - Documentation sent to [readthedocs](https://readthedocs.org/)
-- Nice documentation defaults with
+- Nice documentation defaults via CommonMark and
   [Sphinx extensions](https://www.sphinx-doc.org/en/master/usage/extensions/index.html)
 - Test automation with [Tox](https://tox.readthedocs.io)
 - Commit linting and changelog generation with [Commitizen](https://github.com/commitizen-tools/commitizen)
@@ -103,7 +106,7 @@ Here’s how your new project will behave when first set up, if appropriate secr
   and [Scrutinizer](https://scrutinizer-ci.com/)
   that reflect the main branch
 - Code linting with [pre-commit](https://pre-commit.com/), [Black](https://pypi.org/project/black/),
-  [Prettifier](https://prettier.io/), [Dockerfile-lint](https://github.com/Lucas-C/pre-commit-hooks-nodejs),
+  [Prettifier](https://prettier.io/),
   and [markdown-lint-check](https://github.com/gaurav-nelson/github-action-markdown-link-check)
 - Security analysis with [Bandit](https://github.com/PyCQA/bandit),
   [CodeQL](https://github.com/github/codeql-action),
@@ -112,9 +115,8 @@ Here’s how your new project will behave when first set up, if appropriate secr
 - [Conda-Forge](https://conda-forge.org/) [recipes](https://conda-forge.org/docs/maintainer/adding_pkgs.html#the-recipe-meta-yaml)
   and [environment YML](https://medium.com/@balance1150/how-to-build-a-conda-environment-through-a-yaml-file-db185acf5d22)
   with [Grayskull](https://github.com/conda-incubator/grayskull)
-  and [Tyranno](https://tyranno.readthedocs.io/)
 - IDE hints via [EditorConfig](https://editorconfig.org/) with good defaults for most languages
-- Fancy [issue labels](https://github.com/crazy-max/ghaction-github-labeler)
+- Fancy issue labels
 - Fancy GitHub-recognized readme, license,
   [contributing guide](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors),
   [issue templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/about-issue-and-pull-request-templates), and
@@ -134,18 +136,17 @@ and [copier](https://github.com/copier-org/copier). See which best suits your ne
 I designed Tyranno to solve issues with existing tools.
 Here are features that other tools lack:
 
-- An **elegant CI/CD workflow**: The workflow gets kicked off only via `git push` and GitHub releases.
-- **Interoperability with Conda**, including recipes and environment files, by mapping dependencies and metadata.
-- **Automated publishing** to PyPi, Conda-Forge, Docker Hub, the GitHub Container Registry, and readthedocs.
-- **No duplication** between project files. (Not 100%: some duplication remains.)
-- Built-in optional support for **extra/alternative tools**, such as Travis and codemeta.
-- Complete **absence of legacy tools**, files, and Python 2 support.
+[x] An **elegant CI/CD workflow**: Workflows are kicked off only by `git push`.
+[x] **Interoperability with Conda**, including recipes and environment files, by mapping dependencies and metadata.
+[x] **Automated publishing** to PyPi, Conda-Forge, Docker Hub, the GitHub Container Registry, and readthedocs.
+[x] **No duplication** between project files.
+[x] Complete **absence of legacy tools**, files, and Python 2 support.
 
 ### 🏁 Feature table
 
 | Tool                                                                                     | Main techs                 | CD kickoff     | N int.† | modern‡ | Docker | Conda | sync | any-OS |
 | ---------------------------------------------------------------------------------------- | -------------------------- | -------------- | ------- | ------- | ------ | ----- | ---- | ------ |
-| Tyranosaurus                                                                             | Actions, Poetry, Tox       | git, GitHub    | 30      | ✔️      | ✔️     | ✔️    | ✔️   | ✔️     |
+| Tyranno                                                                                  | Actions, Hatch             | git, GitHub    | 25      | ✔️      | ✔️     | ✔️    | ✔️   | ✔️     |
 | [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)       | Actions, Poetry, Nox       | git, Poetry    | 20      | ✔️      |        |       |      | ✔️     |
 | [copier-poetry](https://github.com/pawamoy/copier-poetry)                                | Actions, Poetry, Make      | git, manual    | 15      |         | ✔️     |       | ✔️   |        |
 | [python-package-template](https://github.com/TezRomacH/python-package-template)          | Actions, Poetry, Tox, Make | git, Make      | 20      | ✔️      | ✔️     |       |      |        |

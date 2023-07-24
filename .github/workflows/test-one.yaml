@@ -1,6 +1,6 @@
 # SPDX-License-Identifier Apache-2.0
 # Source: https://github.com/dmyersturnbull/tyranno
-name: test-one
+name: Test one
 
 on:
   workflow_call:
@@ -8,35 +8,30 @@ on:
       os:
         required: true
         type: string
-      py-vr:
+      python:
         required: true
         type: string
 
 jobs:
   test:
-    name: "test on ${{ os }}/py${{ py-vr }}"
+    name: Run tests for ${{ os }}/py${{ python }}
     runs-on: "${{ matrix.os }}"
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
-          python-version: "${{ py-vr }}"
-      - name: Install Tox
-        # :tyranno: run: pip install "${.build-test-deps.tox~|pep508(@)~}"
-        run: pip install "tox>=4,<5"
-      - name: Test with tox
-        run: tox -v
-      - name: Test Docker build
-        run: docker build .
-      - name: Upload sdist and wheels
+          python-version: "${{ python }}"
+      - name: Install on ${{ os }}/py${{ python }}
+        run: pip install .[test]
+      - name: Test on ${{ os }}/py${{ python }}
+        run: pytest tests/
+      - name: Upload wheels for ${{ os }}/py${{ python }}
         uses: actions/upload-artifact@v3
         with:
-          name: dist-${{ os }}-${{ py-vr }}
+          name: dist-${{ os }}-${{ python }}
           path: dist/*
-      - name: Upload coverage
+      - name: Upload coverage for ${{ os }}/py${{ python }}
         uses: actions/upload-artifact@v3
         with:
-          name: coverage-${{ os }}-${{ py-vr }}
+          name: coverage-${{ os }}-${{ python }}
           path: .coverage

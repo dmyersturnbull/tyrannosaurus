@@ -1,0 +1,60 @@
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
+name: Push
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test
+    uses: ./.github/workflows/test.yaml
+    secrets: inherit
+
+  send-coverage:
+    name: Update coveralls and codecov
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        # :tyranno: python-version: ${project.requires-python|.semver_minor(@)~}
+        python: ["3.11"]
+    runs-on: ${{ main_os }}
+    steps:
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-${{ main_os }}-${{ main_python }}
+      - name: Send to coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          flag-name: run-${{ join(matrix.*, '-') }}
+          parallel: true
+      - name: Send to codecov
+        uses: codecov/codecov-action@v3
+        with:
+          env_vars: main_os,main_python
+          fail_ci_if_error: true
+    needs: [test]
+
+  finish:
+    needs: [send-coverage]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls finished
+        uses: coverallsapp/github-action@v2
+        with:
+          parallel-finished: true
+
+  make-changelog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - run: cz changelog
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "chore: auto-generate changelog"
+          file_pattern: CHANGELOG.md

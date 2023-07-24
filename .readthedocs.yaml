@@ -6,16 +6,17 @@ sphinx:
 build:
   os: "ubuntu-22.04"
   tools:
-    # :tyranno: python: '${.deps.python~|semver_max(@).semver_minor(@)~}'
+    # :tyranno: python: '${project.requires-python~.semver_max(@).semver_minor(@)~}'
     python: "3.11"
 python:
   install:
     - method: pip
       path: .
       extra_requirements:
-        # :tyranno: ${ .doc-deps~|sort(@)[*].pep508(@).yaml(@)~}
         - furo>=2023
         - sphinx-copybutton>=0.4,<1.0
-        - Sphinx>=7,<8
-        - sphinx-autoapi>=2,<3
+        - Sphinx~=7.0
+        - sphinx-autoapi~=2.0
         - tomlkit>=0.7,<1.0
+        - myst-parser~=2.0
+        - sphinx-autodoc2>=0.4,<1.0

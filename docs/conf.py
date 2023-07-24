@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
 """
 Sphinx config file.
 
@@ -5,12 +7,13 @@ Uses several extensions to get API docs and sourcecode.
 https://www.sphinx-doc.org/en/master/usage/configuration.html
 """
 
-import tomllib as toml
 from pathlib import Path
 from typing import TypeVar
 
+import tomllib as toml
+
 # This assumes that we have the full project root above, containing pyproject.toml
-_root = Path(__file__).parent.parent.absolute()
+_root = Path(__file__).parent.parent.resolve()
 _toml = toml.loads((_root / "pyproject.toml").read_text(encoding="utf8"))
 
 T = TypeVar("T")
@@ -21,12 +24,12 @@ def find(key: str, default: T | None = None, as_type: type[T] = str) -> T | None
     Gets a value from pyproject.toml, or a default.
 
     Args:
-        key: A period-delimited TOML key; e.g. ``tools.poetry.name``
+        key: A period-delimited TOML key; e.g. `tools.poetry.name`
         default: Default value if any node in the key is not found
-        as_type: Convert non-``None`` values to this type before returning
+        as_type: Convert non-`None` values to this type before returning
 
     Returns:
-        The value converted to ``as_type``, or ``default`` if it was not found
+        The value converted to `as_type`, or `default` if it was not found
     """
     at = _toml
     for k in key.split("."):
@@ -39,10 +42,11 @@ def find(key: str, default: T | None = None, as_type: type[T] = str) -> T | None
 # Basic information, used by Sphinx
 # Leave language as None unless you have multiple translations
 language = None
-project = find("tool.poetry.name")
-version = find("tool.poetry.version")
+project = find("project.name")
+version = find("project.version")
 release = version
-author = ", ".join(find("tool.poetry.authors", as_type=list))
+# TODO: broken:
+author = ", ".join(find("project.authors", as_type=list))
 
 # Copyright string (for documentation)
 # It's not clear whether we're supposed to, but we'll add the license
@@ -50,6 +54,9 @@ author = ", ".join(find("tool.poetry.authors", as_type=list))
 copyright = find("tool.tyranno.data.copyright")
 _license = find("tool.tyranno.data.doc_license")
 _license_url = find("tool.tyranno.data.doc_license_url")
+
+source_suffix = [".rst", ".md"]
+
 
 # Load extensions
 # These should be in docs/requirements.txt
@@ -60,16 +67,14 @@ extensions = [
     "autoapi.extension",
     "sphinx.ext.napoleon",
     "sphinx_copybutton",
+    "myst_parser",
+    "autodoc2",
 ]
+# myst_gfm_only = True
 master_doc = "index"
 napoleon_include_special_with_doc = True
-autoapi_type = "python"
-autoapi_dirs = [str(_root / project)]
-autoapi_keep_files = True
-autoapi_python_class_content = "both"
-autoapi_member_order = "groupwise"
-autoapi_options = ["private-members", "undoc-members", "special-members"]
-
+autodoc2_packages = [str(_root / project)]
+autodoc2_render_plugin = "myst"
 # The vast majority of Sphinx themes are unmaintained
 # This includes alabaster and readthedocs
 # Furo is well-maintained as of 2023

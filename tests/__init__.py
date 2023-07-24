@@ -1,4 +1,4 @@
-# SPDX-License-Identifier Apache-2.0
+# SPDX-License-Identifier: Apache-2.0
 # Source: https://github.com/dmyersturnbull/tyranno
 """
 Utilities for tests.
@@ -31,7 +31,7 @@ _logger = logging.getLogger(logger_name)
 
 
 class Capture(contextlib.ExitStack):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self._stdout = io.StringIO()
         self._stderr = io.StringIO()
@@ -62,12 +62,12 @@ class Capture(contextlib.ExitStack):
 class TestResources:
     """
     A static singleton with utilities for filesystem operations in tests.
-    Use ``TestResources.resource`` to get a file under ``tests/resources/``.
+    Use `TestResources.resource` to get a file under `tests/resources/`.
 
-    Initializes a temporary directory with ``tempfile.TemporaryDirectory``
-    and populates it with a single subdirectory, ``TestResources.global_temp_dir``.
+    Initializes a temporary directory with `tempfile.TemporaryDirectory`
+    and populates it with a single subdirectory, `TestResources.global_temp_dir`.
     Temp directories for independent tests can be created underneath using
-    ``TestResources.temp_dir``.
+    `TestResources.temp_dir`.
     """
 
     logger = _logger
@@ -87,11 +87,11 @@ class TestResources:
     @contextlib.contextmanager
     def capture(cls) -> Capture:
         """
-        Context manager that captures stdout and stderr in a ``Capture`` object that contains both.
+        Context manager that captures stdout and stderr in a `Capture` object that contains both.
         Useful for testing code that prints to stdout and/or stderr.
 
         Yields:
-            A ``Capture`` instance, which contains ``.stdout`` and ``.stderr``
+            A `Capture` instance, which contains `.stdout` and `.stderr`
         """
         with Capture() as cap:
             yield cap
@@ -99,13 +99,13 @@ class TestResources:
     @classmethod
     def resource(cls, *nodes: PurePath | str) -> Path:
         """
-        Gets a path of a test resource file under ``resources/``.
+        Gets a path of a test resource file under `resources/`.
 
         Arguments:
-            nodes: Path nodes under the ``resources/`` dir
+            nodes: Path nodes under the `resources/` dir
 
         Returns:
-            The Path ``resources``/``<node-1>``/``<node-2>``/.../``<node-n>``
+            The Path `resources`/`<node-1>`/`<node-2>`/.../`<node-n>`
         """
         return Path(Path(__file__).parent, "resources", *nodes).resolve()
 
@@ -118,7 +118,7 @@ class TestResources:
     ) -> Generator[Path, None, None]:
         """
         Context manager.
-        Creates a new temporary directory underneath ``global_temp_dir``.
+        Creates a new temporary directory underneath `global_temp_dir`.
         Note that it deletes the directory if it already exists,
         then deletes (if the path exists) when the context closes.
 
@@ -127,7 +127,7 @@ class TestResources:
             force_delete: If necessary, change the permissions to delete
 
         Yields:
-            The created directory as a ``pathlib.Path``
+            The created directory as a `pathlib.Path`
         """
         path = TestResources._temp_dir / ("%0x" % random.getrandbits(64))
         if path.exists():
@@ -148,23 +148,23 @@ class TestResources:
     @classmethod
     def global_temp_dir(cls) -> Path:
         """
-        The global temporary directory, which is underneath ``tempfile.TemporaryDirectory``.
+        The global temporary directory, which is underneath `tempfile.TemporaryDirectory`.
         The parent directory will be destroyed, along with all of its components,
-        as specified by ``tempfile``.
+        as specified by `tempfile`.
         """
         return cls._temp_dir
 
     @classmethod
     def start_datetime(cls) -> datetime:
         """
-        The datetime that ``tests/__init__.py`` was imported.
+        The datetime that `tests/__init__.py` was imported.
         """
         return cls._start_dt
 
     @classmethod
     def start_monotonic_ns(cls) -> int:
         """
-        The nanosecond value of the ``time.monotonic`` clock at which ``tests/__init__.py`` was imported.
+        The nanosecond value of the `time.monotonic` clock at which `tests/__init__.py` was imported.
         """
         return cls._start_ns
 

@@ -1,4 +1,4 @@
-# SPDX-License-Identifier Apache-2.0
+# SPDX-License-Identifier: Apache-2.0
 # Source: https://github.com/dmyersturnbull/tyranno
 """
 CLI for Tyranno.
@@ -88,10 +88,11 @@ class CliCommands:
     @cli.command()
     def env(
         path: Path = typer.Option("environment.yaml", help="Write to this path"),
-        name: str = typer.Option("${.name}", help="Name of the environment"),
+        name: str = typer.Option("${project.name}", help="Name of the environment"),
         dependency_groups: list[str] = typer.Option([], help="Poetry dependency groups to include"),
         dependency_extras: list[str] = typer.Option(
-            [], help="Poetry extra dependencies to include"
+            [],
+            help="Poetry extra dependencies to include",
         ),
         dry_run: bool = typer.Option(False, help="Don't write; just output"),
         verbose: bool = typer.Option(False, help="Output more info"),
@@ -114,7 +115,7 @@ class CliCommands:
         dry_run: bool = typer.Option(False, help="Don't write; just output"),
         verbose: bool = typer.Option(False, help="Output more info"),
     ) -> None:
-        state = CliState(verbose=verbose)
+        CliState(verbose=verbose)
         Context(Path.cwd())
         # updates, dev_updates = Update(context).update()
         updates = None

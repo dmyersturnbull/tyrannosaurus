@@ -1,15 +1,12 @@
 build:
   environment:
-    # :tyranno: python: "{.deps.python~|semver_max(@)~}"
+    # :tyranno: python: "${.project.requires-python~.semver_max(@)~}"
     python: "3.11.4"
   nodes:
     my-tests:
       dependencies:
         before:
-          # :tyranno: - "pip install --upgrade 'tox${.build-test-deps.tox~|pep508(@)~}'"
-          - "pip install --upgrade 'tox>=4,<5'"
-          # :tyranno: - "pip install --upgrade '${specs.poetry}'"
-          - "pip install --upgrade 'poetry>=1.5,<2.0'"
+          - "pip install 'hatchling~=1.7'"
     analysis:
       tests:
         override:

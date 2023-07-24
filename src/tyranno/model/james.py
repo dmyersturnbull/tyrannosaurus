@@ -1,10 +1,15 @@
-# SPDX-License-Identifier Apache-2.0
-# Source: https://github.com/dmyersturnbull/tyranno
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: https://github.com/dmyersturnbull/tyranno
 """
 
 """
 from datetime import datetime
-from typing import Any
+from operator import itemgetter
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Any
+
 from zoneinfo import ZoneInfo
 
 import httpx
@@ -39,24 +44,29 @@ class TyrannoFunctions(functions.Functions):
         return list(versions)  # TODO
 
     @functions.signature({"types": ["string"]})
-    def _func_pep508(self, versions: list[str] | str) -> str:
-        return str(versions)  # TODO
-
-    @functions.signature({"types": ["string"]})
-    def _func_tox_env_list(self, spec: str) -> str:
-        return spec  # TODO
-
-    @functions.signature({"types": ["boolean", "array", "object", "null", "string"]})
-    def _func_yaml(self, data: Any) -> str:
-        return str(data)  # TODO
-
-    @functions.signature({"types": ["string"]})
     def _func_spdx_license(self, short: str) -> dict[str, str]:
-        return {"id": short, "name": short}  # TODO
-
-    @functions.signature({"types": ["string"]})
-    def _func_spdx_license(self, short: str) -> dict[str, str]:
-        return {"id": short, "name": short}  # TODO
+        url = (
+            "https://raw.githubusercontent.com/spdx/license-list-data/main/json/details/"
+            + short
+            + ".json"
+        )
+        response = httpx.get(url)
+        if response.status_code != 200:
+            msg = f"Failed to get {url} (status code {response.status_code})"
+            raise OSError(msg)
+        data = orjson.loads(response.content)
+        urls = (u for u in data["crossRef"] if u.get("isValid") and u.get("isLive"))
+        urls = sorted(urls, itemgetter("order"))
+        # noinspection HttpUrlsUsage
+        urls = [u.url.replace("http://", "https://") for u in urls]
+        return {
+            "id": short,
+            "name": data["name"],
+            "url": f"https://spdx.org/licenses/${short}.html",
+            "urls": urls,
+            "header": f"SPDX-License-Identifier: ${short}",
+            "text": data["licenseText"],
+        }
 
     @functions.signature({"types": []})
     def _func_now_local(self) -> str:
@@ -82,6 +92,7 @@ class TyrannoFunctions(functions.Functions):
     def _func_pypi_data(self, obj: dict[str, str]) -> dict:
         name, version = obj["name"], obj["version"]
         response = httpx.get(f"https://pypi.org/pypi/${name}/json")
-        if 200 <= response.status_code <= 300:
+        if response.status_code != 200:
             return orjson.loads(response.text)
-        raise OSError(f"Failed with {response}")
+        msg = f"Failed with {response}"
+        raise OSError(msg)

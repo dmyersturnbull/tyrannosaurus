@@ -1,0 +1,48 @@
+# SPDX-License-Identifier Apache-2.0
+# Source: https://github.com/dmyersturnbull/tyranno
+name: Pull
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches: [main]
+
+jobs:
+  check-title:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  triage:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v4
+
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label pull request
+        uses: bcoe/conventional-release-labels@v1
+        with:
+          type_labels: |
+            {
+              "feat": "type: feature",
+              "fix": "type: fix",
+              "build": "type: build",
+              "test": "type: test",
+              "perf": "type: performance",
+              "docs": "type: docs",
+              "breaking": "breaking"
+            }
+
+  test:
+    name: Test
+    uses: ./.github/workflows/test.yaml
+    secrets: inherit
+    if: ${{ !github.event.pull_request.draft }}

@@ -1,4 +1,4 @@
-# SPDX-License-Identifier Apache-2.0
+# SPDX-License-Identifier: Apache-2.0
 # Source: https://github.com/dmyersturnbull/tyranno
 """
 Main magic for Tyranno.

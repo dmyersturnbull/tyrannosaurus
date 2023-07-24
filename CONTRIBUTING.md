@@ -1,28 +1,25 @@
 # Contributing
 
-# Tyranno <!--<< :tyranno: ${.name~.title(@)~} -->
+<!-- :tyranno: ${project.name~|sentence(@)~} -->
 
-<!-- :tyranno: [${tool.poetry.license.name}](${tool.poetry.license.url}) -->
+# Tyranno
 
 [Apache License, version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
-New issues and pull requests are welcome.
-Feel free to direct a question to the authors by creating an
 
-[issue with the *question* tag](
-https://github.com/dmyersturnbull/tyranno/issues/new?assignees=&labels=kind%3A+question&template=question.md <!--<< :tyranno: ${.source}/issues/new?assignees=&labels=kind%3A+question&template=question.md -->
-).
-Contributors are asked to abide by both the
+New issues and pull requests are welcome.
+Feel free to direct a question to the authors by submitting a
+[_question_ issue](https://github.com/dmyersturnbull/tyranno/issues/new?template=question.md).
+Contributors are asked to abide by the
 [GitHub community guidelines](https://docs.github.com/en/site-policy/github-terms/github-community-guidelines)
 and the [Contributor Code of Conduct, version 2.0](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).
 
-### Commit messages
+## Commit messages
 
-Don’t worry about this too much.
-Follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/),
+Follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/),
 the [Angular commit guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md),
 and [Semantic Versioning 2](https://semver.org/spec/v2.0.0.html).
-It follows the "Guiding Principles" of [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)
-but not the "Types of changes", which contradict the Angular commit types.
+We follow the “Guiding Principles” of [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)
+but not the “Types of changes”, which contradict the Angular commit types.
 
 Angular-style commit messages should get mapped to changelog sections and issue labels.
 In this table, _BREAKING_ refers to the `BREAKING CHANGE` prefix in the commit body.
@@ -46,72 +43,100 @@ We allow most to trigger minor version bumps. and do not require the _BREAKING_ 
 | `ci:`          | none                 | none        | none                |
 | `revert:`      | none                 | none        | none                |
 
-### Pull requests
+## Pull requests
 
-Please update `CHANGELOG.md` and add your name to the contributors in `pyproject.toml`
-so that you’re credited. Run `poetry lock` and `tyranno sync` to sync metadata.
-Feel free to make a draft pull request and solicit feedback from the authors.
+Please update `CHANGELOG.md` and add your name to the contributors in `pyproject.toml` so that you’re credited.
+Then make a draft pull request and solicit feedback.
 
-### Publishing a new version
+## Publishing a new version
 
-1. Bump the version in `tool.poetry.version` in `pyproject.toml`, following the rules described below.
-2. Run `tyranno sync` so that the Poetry lock file is up-to-date
-   and metadata are synced to pyproject.toml.
-3. Create a [new release](https://github.com/dmyersturnbull/tyranno/releases/new)
-   with both the name and tag set to something like `v1.4.13` (keep the _v_).
-4. An hour later, check that the _publish on release creation_
-   [workflow](https://github.com/dmyersturnbull/tyranno/actions) passes
-   and that the PyPi, Docker Hub, and GitHub Package versions are updated as shown in the
-   shields on the readme.
-5. Check for a pull request from regro-cf-autotick-bot on the
-   [feedstock](https://github.com/conda-forge/tyranno-feedstock).
-   _If you have not changed the dependencies or version ranges_, go ahead and merge it.
-   Otherwise, [update the recipe](https://github.com/conda-forge/tyranno-feedstock/blob/main/recipe/meta.yaml)
-   with those changes under `run:`, also updating `{% set version` and `sha256` with the
-   changes from regro-cf-autotick-bot. You can alternatively re-run `tyranno recipe`
-   to generate a new recipe and copy it to the feedstock.
-6. Twenty minutes later, verify that the Conda-Forge shield is updated.
+1. On the _main_ branch, run `cz bump`.
+2. Wait a few minutes, then pull the main branch back.
+3. Run, e.g., `git tag -s v1.13.2` (note the `v`). Push the tag.
+   20 minutes later, verify that the _deploy_ workflow completed successfully.
+4. Copy `recipes/` to the [feedstock](https://github.com/conda-forge/tyranno-feedstock).
+   20 minutes later, verify that the Conda-Forge shield updated.
 
-#### Versioning
+## Versioning
 
 Versioning is a subset of [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-Git tags and GitHub releases use this notation, prefixed with `v` (e.g. `v0.1.1`).
+Git tags and GitHub releases are prefixed with `v` (e.g. `v0.1.1`).
 
 - Stable releases MUST use: `major "." minor "." patch ["+" platform]`.
 - Pre-alpha releases MUST use: `major "." minor "." patch "-" build "+" [platform "."]`,
   where `build` increments per tag starting at _0_.
 - Alpha, beta, and RC releases, if used, increment per tag starting at 1 (e.g. `alpha1`).
-  Alpha/beta/RC MUST NOT be used out of order (e.g. NOT `alpha1`, `beta1`, `alpha2`).
-  If major version > 0, releases lacking a build tag SHOULD be preceded by at least one
-  alpha, beta, or RC release.
+  Alpha/beta/RC MUST NOT be used out of order (e.g. **not** `alpha1`, `beta1`, `alpha2`).
+  If major version > 0, releases lacking a build tag SHOULD be preceded by at least one alpha, beta, or RC release.
 - If major version = 0, unstable releases MAY include a build tag.
 
-**In EBNF:**
+## Conventions
 
+### Filesystem, URL, URI, and IRI node naming
+
+See [Google’s filename conventions](https://developers.google.com/style/filenames).
+Prefer kebab-case with one or more filename extensions: `[a-z0-9-]+(\.[a-z0-9]+)+`.
+Always use a filename extension, and prefer `.yaml` for YAML and `.html` for HTML.
+If necessary, `,`, `+`, and `~` can be used as word separators with reserved meanings.
+Always use `/` as a path separator in documentation.
+
+### Python classes
+
+Use [pydantic](https://pydantic-docs.helpmanual.io/) or
+[dataclasses](https://docs.python.org/3/library/dataclasses.html).
+Use immutable typesunless there’s a compelling reason otherwise.
+
+#### With pydantic
+
+```python
+import orjson
+from pydantic import BaseModel
+
+
+def to_json(v) -> str:
+    return orjson.dumps(v).decode(encoding="utf8")
+
+
+def from_json(v: str):
+    return orjson.loads(v).encode(encoding="utf8")
+
+
+class Cat(BaseModel):
+    breed: str | None
+    age: int
+    names: frozenset[str]
+
+    class Config:
+        frozen = True
+        json_loads = from_json
+        json_dumps = to_json
 ```
-version    = major , "." , minor , "." , patch , ["-" , build] , ["+" , platform] ;
-major      = number ;
-minor      = number ;
-patch      = number ;
-build      = number | (("alpha" | "beta" | "rc") , positive) ;
-platform   = os | arch | (os , "." , arch) ;
-os         = tag ;
-arch       = tag ;
 
--- where (with regex):
-tag        = [a-z]+ [a-z0-9]+
-positive   = [1-9]  [0-9]+
-number     = [0-9]+
+#### With dataclasses
+
+Use, wherever possible: `slots=True, frozen=True, order=True`
+Use `KW_ONLY` in favor of `kwonly=True` (for consistency).
+
+```python
+import orjson
+from dataclasses import dataclass, KW_ONLY
+
+
+def to_json(v) -> str:
+    return orjson.dumps(v).decode(encoding="utf8")
+
+
+def from_json(v: str):
+    return orjson.loads(v).encode(encoding="utf8")
+
+
+@dataclass(slots=True, frozen=True, order=True)
+class Cat:
+    breed: str | None
+    age: int
+    _: KW_ONLY
+    names: frozenset[str]
+
+    def json(self) -> str:
+        return to_json(self)
 ```
-
-**Illustration – example release history:**
-
-1. `0.1.0`
-2. `0.1.1`
-3. `0.2.0-0 +1ca8da40`
-4. `0.2.0-1 +f1c045ae`
-5. `0.2.0`
-6. `1.0.0-0 +10f011ca`
-7. `0.2.1`
-8. `1.0.0-rc1+aa40c1cf`
-9. `1.0.0 +win11.1ca8da40`

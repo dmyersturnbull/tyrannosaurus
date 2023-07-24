@@ -12,23 +12,51 @@ Thumbs.db
 *.swp
 tmp/
 null
-
-# Log files and binary files
 *.log
+*.pid
+
+# Archives
+*.gz
+*.xz
+*.lzma
+*.lz4
+*.zstd
 *.zip
+*.7z
+*.rar
+*.tar
 *.tar.gz
 *.tgz
-*.gz
-*.tar
-*.z7
+*.jar
+*.war
+*.nar
+*.ear
+
+# Executables and libraries
 *.exe
 *.msi
 *.pkg
 *.dll
 *.so
+*.dylib
+
+# Files from other languages
+*.o
+*.ko
+luac.out
+hs_err_pid*
+replay_pid*
+gradle-app.setting
+*.class
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+deps/deps.jl
 
 # Python temp and build files
-docs/html/
+env/
+venv/
+ENV/
 __pycache__/
 __pypackages__/
 *.py[cod]
@@ -40,23 +68,30 @@ build/
 dist/
 eggs/
 sdist/
+
+# Documentation and coverage
+docs/html/
 docs/_build
 cython_debug/
 docs/autoapi
+htmlcov
+coverage.xml
 
-# Hidden files that are definitely unwanted (redundant)
-.tox/
-.pytest_cache
-.ipynb_checkpoints
+# Translations
+*.mo
+*.pot
 
-# Files from other languages
-*.o
-hs_err_pid*
-*.class
-*.jl.cov
-*.jl.*.cov
-*.jl.mem
-deps/deps.jl
+# IPython
+profile_default/
+ipython_config.py
+
+# Django
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Celery
+celerybeat-schedule
 
 # Keep these config files
 !/.gitignore
@@ -82,3 +117,4 @@ deps/deps.jl
 !.npmignore
 !/.scrutinizer.yaml
 !/.scrutinizer.yml
+!**/.nojekyll
