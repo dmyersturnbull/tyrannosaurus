@@ -1,11 +1,11 @@
 # Tyranno
 
-[![Version status](https://img.shields.io/pypi/status/tyranno?label=Status)](https://pypi.org/project/tyrannosaurus)
-[![Version on PyPi](https://badgen.net/pypi/v/tyranno?label=PyPi)](https://pypi.org/project/tyrannosaurus)
+[![Version status](https://img.shields.io/pypi/status/tyrannosaurus?label=Status)](https://pypi.org/project/tyrannosaurus)
+[![Version on PyPi](https://badgen.net/pypi/v/tyrannosaurus?label=PyPi)](https://pypi.org/project/tyrannosaurus)
 [![Version on GitHub](https://badgen.net/github/release/dmyersturnbull/tyrannosaurus/stable?label=GitHub)](https://github.com/dmyersturnbull/tyrannosaurus/releases)
 [![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyrannosaurus?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyrannosaurus)
-[![Build (Actions)](https://img.shields.io/github/actions/workflow/status/dmyersturnbull/tyranno/push.yaml?branch=main&label=Tests)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
-[![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge)](https://tyranno.readthedocs.io/en/stable/)
+[![Build (Actions)](https://img.shields.io/github/actions/workflow/status/dmyersturnbull/tyrannosaurus/push.yaml?branch=main&label=Tests)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
+[![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge)](https://tyrannosaurus.readthedocs.io/en/stable/)
 [![Coverage (coveralls)](https://badgen.net/coveralls/c/github/dmyersturnbull/tyrannosaurus?label=Coveralls)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=main)
 [![Coverage (codecov)](https://badgen.net/codecov/c/github/dmyersturnbull/tyrannosaurus?label=CodeCov)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus)
 [![Maintainability (Code Climate)](https://badgen.net/codeclimate/maintainability/dmyersturnbull/tyrannosaurus)](https://codeclimate.com/github/dmyersturnbull/tyrannosaurus/maintainability)
