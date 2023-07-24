@@ -4,7 +4,7 @@
 [![Version on PyPi](https://badgen.net/pypi/v/tyranno?label=PyPi)](https://pypi.org/project/tyrannosaurus)
 [![Version on GitHub](https://badgen.net/github/release/dmyersturnbull/tyrannosaurus/stable?label=GitHub)](https://github.com/dmyersturnbull/tyrannosaurus/releases)
 [![Version on Docker Hub](https://img.shields.io/docker/v/dmyersturnbull/tyrannosaurus?color=green&label=Docker%20Hub)](https://hub.docker.com/repository/docker/dmyersturnbull/tyrannosaurus)
-[![Build (Actions)](https://img.shields.io/github/workflow/status/dmyersturnbull/tyrannosaurus/maintest?label=Tests)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
+[![Build (Actions)](https://img.shields.io/github/actions/workflow/status/dmyersturnbull/tyranno/push.yaml?branch=main&label=Tests)](https://github.com/dmyersturnbull/tyrannosaurus/actions)
 [![Documentation status](https://readthedocs.org/projects/tyrannosaurus/badge)](https://tyranno.readthedocs.io/en/stable/)
 [![Coverage (coveralls)](https://badgen.net/coveralls/c/github/dmyersturnbull/tyrannosaurus?label=Coveralls)](https://coveralls.io/github/dmyersturnbull/tyrannosaurus?branch=main)
 [![Coverage (codecov)](https://badgen.net/codecov/c/github/dmyersturnbull/tyrannosaurus?label=CodeCov)](https://codecov.io/gh/dmyersturnbull/tyrannosaurus)
@@ -36,6 +36,7 @@ Your responsibilities are only to write decent commit messages, especially when 
 That and to run a few commands and otherwise focus on coding.
 Everything else happens automagically through a bunch of great third-party tools.
 Don’t make 150 commits for CI/CD. This one works probably works better.
+
 [📚 See the docs](https://readthedocs.org/projects/tyranno) for details.
 
 ### 🎯 Similar templates and tools
@@ -53,20 +54,20 @@ I wanted:
 
 ### 🏁 Feature table
 
-| Tool                                                                                | Main CD | Docker CD  | Build  | Test   | Conv. Comm. | Lint   | any-OS | Bootstrap | Sync |
-| ----------------------------------------------------------------------------------- | ------- | ---------- | ------ | ------ | ----------- | ------ | ------ | --------- | ---- |
-| Tyranno                                                                             | Actions | GHCR, DH   | Hatch  | Hatch  | cz, Actions | Ruff   | y      | y         | y    |
-| [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)  | Poetry  |            | Poetry | Nox    |             | misc.  | y      |           |      |
-| ~~[python-package-template](https://github.com/TezRomacH/python-package-template)~~ | Poetry  |            | Poetry | Make   |             | Flake8 |        |           |      |
-| [pyscaffold](https://github.com/pyscaffold/pyscaffold)                              | Tox     |            | legacy | Tox    |             | Flake8 | y      |           |      |
-| [wemake-python-package](https://github.com/wemake-services/wemake-python-package)   | Poetry  |            | Poetry | Make   |             | Flake  |        |           |      |
-| [best-practices](https://github.com/sourcery-ai/python-best-practices-cookiecutter) |         | deprecated | pipenv | pipenv |             | Flake8 | y      |           |      |
-| [python-blueprint](https://github.com/johnthagen/python-blueprint)                  | Actions |            | Poetry | Tox    |             | Ruff   | y      |           |      |
-| [cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage)   |         |            | legacy | Nox    |             | Flake8 |        |           |      |
-| [cookiecutter-pylibrary](https://github.com/ionelmc/cookiecutter-pylibrary)         |         |            | legacy | Tox    |             | Ruff   | y      |           |      |
-| [cookiecutter-django](https://github.com/pydanny/cookiecutter-django)               | Actions |            | legacy | Tox    |             | Flake8 | y      |           |      |
-| [django-init](https://github.com/Fueled/django-init)                                | Poetry  |            | legacy | Make   |             | Flake8 | y      |           |      |
-| ~~[docker-science](https://github.com/docker-science/cookiecutter-docker-science)~~ |         |            | legacy | Make   |             |        |        |           |      |
+| Tool                                                                                | Main CD | Docker CD  | Build  | Test   | Conv. Comm. | Lint   | any-OS | Sync |
+| ----------------------------------------------------------------------------------- | ------- | ---------- | ------ | ------ | ----------- | ------ | ------ | ---- |
+| Tyranno                                                                             | Actions | GHCR, DH   | Hatch  | Hatch  | cz, Actions | Ruff   | y      | y    |
+| [hypermodern-python](https://github.com/cjolowicz/cookiecutter-hypermodern-python)  | Poetry  |            | Poetry | Nox    |             | misc.  | y      |      |
+| ~~[python-package-template](https://github.com/TezRomacH/python-package-template)~~ | Poetry  |            | Poetry | Make   |             | Flake8 |        |      |
+| [pyscaffold](https://github.com/pyscaffold/pyscaffold)                              | Tox     |            | legacy | Tox    |             | Flake8 | y      |      |
+| [wemake-python-package](https://github.com/wemake-services/wemake-python-package)   | Poetry  |            | Poetry | Make   |             | Flake  |        |      |
+| [best-practices](https://github.com/sourcery-ai/python-best-practices-cookiecutter) |         | deprecated | pipenv | pipenv |             | Flake8 | y      |      |
+| [python-blueprint](https://github.com/johnthagen/python-blueprint)                  | Actions |            | Poetry | Tox    |             | Ruff   | y      |      |
+| [cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage)   |         |            | legacy | Nox    |             | Flake8 |        |      |
+| [cookiecutter-pylibrary](https://github.com/ionelmc/cookiecutter-pylibrary)         |         |            | legacy | Tox    |             | Ruff   | y      |      |
+| [cookiecutter-django](https://github.com/pydanny/cookiecutter-django)               | Actions |            | legacy | Tox    |             | Flake8 | y      |      |
+| [django-init](https://github.com/Fueled/django-init)                                | Poetry  |            | legacy | Make   |             | Flake8 | y      |      |
+| ~~[docker-science](https://github.com/docker-science/cookiecutter-docker-science)~~ |         |            | legacy | Make   |             |        |        |      |
 
 ### 🍁 Contributing
 
