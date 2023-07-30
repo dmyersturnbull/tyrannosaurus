@@ -1,6 +1,7 @@
-# SPDX-License-Identifier Apache-2.0
-# Source: https://github.com/dmyersturnbull/tyranno
-name: deploy
+# SPDX-FileCopyrightText: Copyright 2020-2023, Contributors to Tyranno
+# SPDX-PackageHomePage: https://github.com/dmyersturnbull/tyranno
+# SPDX-License-Identifier: Apache-2.0
+name: publish
 
 on:
   push:
@@ -25,7 +26,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          draft: true
+          draft: false
           generate_release_notes: true
           fail_on_unmatched_files: true
           token: ${{ secrets.GITHUB_TOKEN }}

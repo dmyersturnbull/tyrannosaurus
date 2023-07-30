@@ -1,5 +1,6 @@
+# SPDX-FileCopyrightText: Copyright 2020-2023, Contributors to Tyranno
+# SPDX-PackageHomePage: https://github.com/dmyersturnbull/tyranno
 # SPDX-License-Identifier: Apache-2.0
-# Source: https://github.com/dmyersturnbull/tyranno
 """
 Sphinx config file.
 
@@ -23,13 +24,13 @@ def find(key: str, default: T | None = None, as_type: type[T] = str) -> T | None
     """
     Gets a value from pyproject.toml, or a default.
 
-    Args:
-        key: A period-delimited TOML key; e.g. `tools.poetry.name`
-        default: Default value if any node in the key is not found
-        as_type: Convert non-`None` values to this type before returning
+    **Args:**
+        - key: A period-delimited TOML key; e.g. `tools.poetry.name`
+        - default: Default value if any node in the key is not found
+        - as_type: Convert non-`None` values to this type before returning
 
-    Returns:
-        The value converted to `as_type`, or `default` if it was not found
+    **Returns:**
+        - The value converted to `as_type`, or `default` if it was not found
     """
     at = _toml
     for k in key.split("."):

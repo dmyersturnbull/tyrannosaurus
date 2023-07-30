@@ -1,0 +1,13 @@
+{
+  "breaking": "breaking",
+  "build": "type: build",
+  "chore": "type: chore",
+  "ci": "type: ci",
+  "docs": "type: docs",
+  "feat": "type: feature",
+  "fix": "type: fix",
+  "perf": "type: performance",
+  "refactor": "type: refactor",
+  "style": "type: style",
+  "test": "type: test"
+}

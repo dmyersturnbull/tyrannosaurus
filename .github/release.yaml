@@ -2,13 +2,9 @@ changelog:
   exclude:
     labels:
       - "type: style"
-      - "type: refactor"
       - "type: chore"
-      - "type: ci"
       - "type: discussion"
       - "type: question"
-      - "reverts"
-      - "reverted"
       - "exclude"
   categories:
     - title: ⚠ BREAKING CHANGES
@@ -25,3 +21,7 @@ changelog:
       labels: ["type: docs"]
     - title: 🚀 Performance
       labels: ["type: performance"]
+    - title: 📦 Refactoring
+      labels: ["type: refactor"]
+    - title: ⚙️ CI/CD
+      labels: ["type: ci"]

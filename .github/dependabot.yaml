@@ -2,27 +2,67 @@ version: 2
 # see options in https://docs.github.com/en/github/administering-a-repository/configuration-options-for-dependency-updates
 updates:
   - package-ecosystem: pip
+    dependency-type: production
     directory: /
+    commit-message:
+      prefix: "fix"
+    labels: ["type: fix"]
+    groups:
+      python-main-deps:
+        patterns: ["*"]
     schedule:
       interval: weekly
-    labels: ["kind: infrastructure"]
+  - package-ecosystem: pip
+    dependency-type: development
+    directory: /
+    commit-message:
+      prefix: "build"
+    labels: ["type: build"]
+    groups:
+      python-dev-deps:
+        patterns: ["*"]
+    schedule:
+      interval: weekly
   - package-ecosystem: github-actions
-    directory: /
+    dependency-type: all
+    directory: .github
+    commit-message:
+      prefix: "ci"
+    labels: ["type: ci"]
+    groups:
+      github-action-deps:
+        patterns: ["*"]
     schedule:
       interval: weekly
-    labels: ["kind: infrastructure"]
   - package-ecosystem: docker
     directory: /
+    commit-message:
+      prefix: "fix"
+    labels: ["type: fix"]
+    groups:
+      docker-deps:
+        patterns: ["*"]
     schedule:
       interval: weekly
-    labels: ["kind: infrastructure"]
-  - package-ecosystem: "composer"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    labels: ["kind: infrastructure"]
   - package-ecosystem: "npm"
-    directory: "/"
+    dependency-type: production
+    directory: /
+    commit-message:
+      prefix: "fix"
+    labels: ["type: fix"]
+    groups:
+      npm-main-deps:
+        patterns: ["*"]
     schedule:
-      interval: "daily"
-    labels: ["kind: infrastructure"]
+      interval: weekly
+  - package-ecosystem: "npm"
+    dependency-type: development
+    directory: /
+    commit-message:
+      prefix: "build"
+    labels: ["type: build"]
+    groups:
+      npm-dev-deps:
+        patterns: ["*"]
+    schedule:
+      interval: weekly

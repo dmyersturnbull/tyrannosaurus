@@ -1,5 +1,6 @@
-# SPDX-License-Identifier Apache-2.0
-# Source: https://github.com/dmyersturnbull/tyranno
+# SPDX-FileCopyrightText: Copyright 2020-2023, Contributors to Tyranno
+# SPDX-PackageHomePage: https://github.com/dmyersturnbull/tyranno
+# SPDX-License-Identifier: Apache-2.0
 name: Push
 
 on:
@@ -17,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        # :tyranno: python-version: ${project.requires-python|.semver_minor(@)~}
+        # :tyranno: python: ${tool.hatch.envs.all.matrix.python~[0]~}
         python: ["3.11"]
     runs-on: ${{ main_os }}
     steps:

@@ -1,5 +1,6 @@
-# SPDX-License-Identifier Apache-2.0
-# Source: https://github.com/dmyersturnbull/tyranno
+# SPDX-FileCopyrightText: Copyright 2020-2023, Contributors to Tyranno
+# SPDX-PackageHomePage: https://github.com/dmyersturnbull/tyranno
+# SPDX-License-Identifier: Apache-2.0
 name: Pull
 
 on:
@@ -7,39 +8,52 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  statuses: write
+  pull-requests: write
+
 jobs:
   check-title:
     name: Validate PR title
+    if: ${{ github.base_ref != '' || github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
+      - uses: hmarr/debug-action@v2
       - uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: marocchino/sticky-pull-request-comment@v2
+        name: Post Comment, Output on Pull Request
+        if: always() && (steps.semantic_pr_title.outputs.error_message != null)
+        with:
+          header: semantic-pull-request-error
+          message: |
+            Please edit your pull request title to follow the
+            [Conventional Commits specification](https://www.conventionalcommits.org).
 
-  triage:
-    permissions:
-      contents: read
-      pull-requests: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/labeler@v4
+            Details:
 
-  label:
-    runs-on: ubuntu-latest
-    steps:
+            ```
+            ${{ steps.semantic_pr_title.outputs.error_message }}
+            ```
+      - uses: marocchino/sticky-pull-request-comment@v2
+        name: Delete pull request lint comment
+        if: ${{ steps.semantic_pr_title.outputs.error_message == null }}
+        with:
+          header: semantic-pull-request-error
+          delete: true
+      - name: Read config file
+        id: get-types-to-labels
+        run: echo "config=$(cat .github/types-to-labels.json)" >> $GITHUB_OUTPUT
       - name: Label pull request
         uses: bcoe/conventional-release-labels@v1
         with:
-          type_labels: |
-            {
-              "feat": "type: feature",
-              "fix": "type: fix",
-              "build": "type: build",
-              "test": "type: test",
-              "perf": "type: performance",
-              "docs": "type: docs",
-              "breaking": "breaking"
-            }
+          type_labels: ${{ steps.get-types-to-labels.outputs.config }}
 
   test:
     name: Test
