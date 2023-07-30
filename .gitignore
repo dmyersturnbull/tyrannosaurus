@@ -101,6 +101,7 @@ celerybeat-schedule
 !/.travis.yaml
 !/.circleci/config.yaml
 !/.circleci/config.yml
+!/.git-blame-ignore-revs
 !/.github
 !.gitattributes
 !/.appveyor.yaml
