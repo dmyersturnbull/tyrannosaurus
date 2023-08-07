@@ -134,7 +134,7 @@ pytest                   = "^7"
 pytest-cov               = "^3"
 
 [tool.poetry.group.docs.dependencies]
-sphinx                   = "^5"
+sphinx                   = ">=5,<8"
 sphinx-autoapi           = "^1.8"
 sphinx-copybutton        = "^0.5"
 sphinx-rtd-theme         = "^1"
